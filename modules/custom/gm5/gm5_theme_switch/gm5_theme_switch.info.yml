@@ -1,0 +1,6 @@
+name: GM5 Theme Switch
+type: module
+description: 'Módulo que unifica Tema'
+package: 'GM5'
+core_compatibility: ^9
+core_version_requirement: ^8 || ^9

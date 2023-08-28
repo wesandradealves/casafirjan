@@ -1,0 +1,10 @@
+name: City Connect Import
+type: module
+description: 'City Connect - Entity Data Importer'
+package: 'City Connect'
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:system (>=9.5)
+  - webform:webform (>=6.1.0)
+  - city_connect_import_log
+php: 8.0

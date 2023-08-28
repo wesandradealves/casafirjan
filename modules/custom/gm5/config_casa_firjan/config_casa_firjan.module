@@ -1,0 +1,114 @@
+<?php
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\gm5_interface\Plugin\Util\GM5Util;
+
+function config_casa_firjan_node_insert($node){
+  
+  if($node->bundle() != 'curso' && $node->bundle() != 'agenda'){
+      $type = $node->bundle();
+      $path = '/node/add/' . str_replace('-', '_', $node->bundle());
+      drupal_flush_all_caches();
+      GM5Util::redirect($path);
+  }
+
+}
+
+function config_casa_firjan_node_update($node){
+  $uri = \Drupal::request()->getRequestUri();
+
+  if($node->bundle() != 'agenda' && $node->bundle() != 'curso' && $uri != '/agenda/remove/antigas'){
+    $path = '/node/' . $node->nid->value . '/edit';
+    drupal_flush_all_caches();
+    GM5Util::redirect($path);
+  }
+  
+}
+
+
+function config_casa_firjan_form_alter(&$form, FormStateInterface &$form_state, $form_id) {
+  
+  //kint($form['field_imagem']); die;
+  if (strpos($form_id, 'taxonomy_term_') !== false) {
+    $form['description']['#access'] = FALSE;
+  }
+
+  if($form_id == 'node_conteudo_form' || $form_id == 'node_conteudo_edit_form'){
+    $form['#validate'][] = 'config_casa_valida_midia';
+  }
+
+  if($form_id == 'node_produto_form' || $form_id == 'node_produto_edit_form'){
+    $form['#validate'][] = 'config_casa_valida_tipo_asssociacao';
+  }
+
+  if($form_id == 'node_home_form' || $form_id == 'node_home_edit_form'){
+    $form['#validate'][] = 'config_casa_forca_tres_destaques';
+  }
+}
+
+function config_casa_valida_midia(&$form, \Drupal\Core\Form\FormStateInterface $form_state){
+  $tipoMidia = $form_state->getValue('field_tipo_de_midia')[0]['value'];
+
+  $video = $form_state->getValue('field_video');
+  $imagem = $form_state->getValue('field_imagem');
+  //print_r($imagem); die;
+
+  if($tipoMidia == 'video' && (!isset($video[0]['value']) || empty($video))){
+    $form_state->setErrorByName('field_video', 'O vídeo é obrigatório.');
+  }
+
+  if($tipoMidia == 'imagem' && (!isset($imagem[0]['fids']) || empty($imagem[0]['fids']))){
+    $form_state->setErrorByName('field_imagem', 'A imagem é obrigatória.');
+  }
+}
+
+function config_casa_valida_tipo_asssociacao(&$form, \Drupal\Core\Form\FormStateInterface $form_state){
+  $tipoAssociacao = $form_state->getValue('field_tipo_de_associacao')[0]['value'];
+  $categoria = $form_state->getValue('field_categoria');
+  $link = $form_state->getValue('field_pagina');
+
+  if($tipoAssociacao == 'Programa/subprograma' && (!isset($categoria[0]['target_id']) || empty($categoria))){
+    $form_state->setErrorByName('field_categoria', 'O programa/subprograma é obrigatório.');
+  }
+
+  if($tipoAssociacao == 'Página' && (!isset($link[0]['target_id']) || empty($link))){
+    $form_state->setErrorByName('field_pagina', 'A página é obrigatória.');
+  }
+}
+
+function config_casa_forca_tres_destaques(&$form, \Drupal\Core\Form\FormStateInterface $form_state){
+  $destaques = $form_state->getValue('field_destaques');
+  $count = 0;
+  foreach($destaques as $destaque){
+    if(isset($destaque['target_id']) && !empty($destaque['target_id'])){
+      $count++;
+    }
+  }
+
+  if($count < 3){
+    $form_state->setErrorByName('field_destaque', 'É necessário preencher os 3 destaques');
+  }
+}
+
+function config_casa_firjan_toolbar_alter(&$items){
+  $user = \Drupal::currentUser();
+  $roles = $user->getRoles();
+
+  //print_r($items); die;
+
+  unset($items['administration_search']);
+  unset($items['shortcuts']);
+
+  if(!empty($roles) && !in_array('administrator', $roles)){
+    //$attach = $items['administration']['tray']['#attached'];
+    //print_r($attach); die;
+
+    unset($items['administration']);
+    //$items['toolbar_menu_adminsitrar_conteudos']['tray']['#attached'] = $attach;
+    $items['toolbar_menu_adminsitrar_conteudos']['#attached']['library'][] = 'admin_toolbar/toolbar.tree';
+  }
+}
+
+
+function config_casa_firjan_user_login($account)  {
+  GM5Util::redirect('/node/6/edit');
+}

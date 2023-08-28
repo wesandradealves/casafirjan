@@ -1,0 +1,4 @@
+administer city_connect_import configuration:
+  title: 'Administer city_connect_import configuration'
+  description: 'City Connect - Entity Data Importer'
+  restrict access: true

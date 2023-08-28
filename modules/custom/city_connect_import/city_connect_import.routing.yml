@@ -1,0 +1,63 @@
+city_connect_import.import:
+  path: '/admin/config/system/city-connect-import'
+  defaults:
+    _title: 'City Connect - Entity Data Importer'
+    _form: 'Drupal\city_connect_import\Form\ImportForm'
+  requirements:
+    _permission: 'administer city_connect_import configuration'
+
+city_connect_import.test_list_rel:
+  path: '/city-connect-import/test-list-rel'
+  defaults:
+    _title: 'Test Controller'
+    _controller: '\Drupal\city_connect_import\Controller\TestListRelController::build'
+  requirements:
+    _permission: 'access content'
+
+city_connect_import.test_del:
+  path: '/city-connect-import/test-del'
+  defaults:
+    _title: 'Test Controller'
+    _controller: '\Drupal\city_connect_import\Controller\TestServiceDelController::build'
+  requirements:
+    _permission: 'access content'
+
+city_connect_import.test_insert:
+  path: '/city-connect-import/test-insert'
+  defaults:
+    _title: 'Test Controller'
+    _controller: '\Drupal\city_connect_import\Controller\TestInsertController::build'
+  requirements:
+    _permission: 'access content'
+
+city_connect_import.test_batch_log:
+  path: '/city-connect-import/test-batch-log'
+  defaults:
+    _title: 'Test Batch Log Controller'
+    _controller: '\Drupal\city_connect_import\Controller\TestServiceLogController::build'
+  requirements:
+    _permission: 'access content'
+
+city_connect_import.alias_to_node:
+  path: '/city-connect-import/alias-to-node'
+  defaults:
+    _title: 'Alias To Node'
+    _controller: '\Drupal\city_connect_import\Controller\CityConnectImportAliasToNode::build'
+  requirements:
+    _permission: 'access content'
+
+city_connect_import.node_to_alias:
+  path: '/city-connect-import/node-to-alias'
+  defaults:
+    _title: 'Node to Alias'
+    _controller: '\Drupal\city_connect_import\Controller\CityConnectImportNodeToAlias::build'
+  requirements:
+    _permission: 'access content'
+
+city_connect_import/types_list:
+  path: '/city-connect-import/types-list'
+  defaults:
+    _title: 'Types List'
+    _controller: '\Drupal\city_connect_import\Controller\CityConnectImportListCTypes::build'
+  requirements:
+    _permission: 'access content'

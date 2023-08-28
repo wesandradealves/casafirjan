@@ -1,0 +1,117 @@
+services:
+  markup.drupalrender.city_connect_import:
+    class: Drupal\Core\Render\Markup
+    tags:
+      - {name: city_connect_import}
+  environment.drupalenvironment.city_connect_import:
+    class: Drupal\Component\Utility\Environment
+    tags:
+      - {name: city_connect_import}
+  batch.drupalbatch.city_connect_import:
+    class: Drupal\Core\Batch\BatchBuilder
+    public: false
+    tags:
+      - {name: city_connect_import}
+  date.drupaldatetime.city_connect_import:
+    class: Drupal\Core\Datetime\DrupalDateTime
+    public: false
+    tags:
+      - {name: city_connect_import}
+
+  logger.channel.city_connect_import:
+    arguments: [city_connect_import]
+    parent: logger.channel_base
+    tags:
+      - {name: city_connect_import}
+
+  city_connect_import.strings:
+    class: Drupal\city_connect_import\Service\Strings
+    arguments:
+      - '@config.factory'
+    tags:
+      - {name: city_connect_import}
+
+  city_connect_import.parser_factory:
+    class: Drupal\city_connect_import\Factory\ParserFactory
+    arguments: ['@current_user', '@string_translation', '@logger.channel.city_connect_import']
+    public: false
+  city_connect_import.parser:
+    class: Drupal\city_connect_import\Factory\ParserFactory
+    factory: 'city_connect_import.parser_factory:get'
+    tags:
+      - {name: city_connect_import}
+
+  city_connect_import.batch.validate:
+    class: Drupal\city_connect_import\Utility\Validate\Validate
+    arguments:
+      - '@current_user'
+      - '@string_translation'
+      - '@config.factory'
+      - '@logger.channel.city_connect_import'
+      - '@date.drupaldatetime.city_connect_import'
+    tags:
+      - {name: city_connect_import}
+
+  city_connect_import.batch.log:
+    class: Drupal\city_connect_import\Service\ImportLog
+    arguments:
+      - '@current_user'
+      - '@string_translation'
+      - '@entity_type.manager'
+      - '@logger.channel.city_connect_import'
+    tags:
+      - {name: city_connect_import}
+
+  city_connect_import.import:
+    class: Drupal\city_connect_import\Service\Import
+    arguments:
+      - '@current_user'
+      - '@string_translation'
+      - '@messenger'
+      - '@entity_type.manager'
+      - '@file_system'
+      - '@markup.drupalrender.city_connect_import'
+      - '@batch.drupalbatch.city_connect_import'
+      - '@logger.channel.city_connect_import'
+      - '@city_connect_import.strings'
+      - '@city_connect_import.parser'
+    tags:
+      - {name: city_connect_import}
+
+  url_generator.drupal.city_connect_import:
+    class: Drupal\Core\Url
+    arguments: [null, null, null]
+    public: false
+  city_connect_import.link_generator:
+    class: Drupal\Core\Link
+    arguments: [null, '@url_generator.drupal.city_connect_import']
+    tags:
+      - {name: city_connect_import}
+
+  city_connect_import.import_menu:
+    class: Drupal\city_connect_import\Service\ImportMenu
+    arguments:
+      - '@string_translation'
+      - '@request_stack'
+      - '@path.current'
+      - '@path_alias.manager'
+      - '@current_route_match'
+      - '@url_generator'
+      - '@title_resolver'
+      - '@entity_type.manager'
+      - '@city_connect_import.link_generator'
+      - '@logger.channel.city_connect_import'
+    tags:
+      - {name: city_connect_import}
+
+  city_connect_import.attach_thumbnail:
+    class: Drupal\city_connect_import\Service\ImportAttachThumbnail
+    arguments:
+      - '@file_system'
+      - '@entity_type.manager'
+      - '@string_translation'
+      - '@config.factory'
+      - '@date.drupaldatetime.city_connect_import'
+      - '@logger.channel.city_connect_import'
+    tags:
+      - {name: city_connect_import}

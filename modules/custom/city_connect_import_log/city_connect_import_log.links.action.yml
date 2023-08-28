@@ -1,0 +1,5 @@
+city_connect_import_log.add_form:
+  title: 'Add city connect import log'
+  route_name: entity.city_connect_import_log.add_form
+  appears_on:
+    - entity.city_connect_import_log.collection

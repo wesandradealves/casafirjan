@@ -1,0 +1,38 @@
+<?php
+
+require_once __DIR__.'/vendor/autoload.php';
+
+function gm5_appinsights_preprocess_html(&$variables, $hook) {
+  // App Insights
+  $telemetryClient = new \ApplicationInsights\Telemetry_Client();
+  $context = $telemetryClient->getContext();
+  $context->setInstrumentationKey('75c81224-c21b-4e6b-84ef-15c48f72a8e2');
+  $context->getSessionContext()->setId(session_id());
+  $context->getLocationContext()->setIp(getIPAddress());
+ 
+  // URL
+  $urlCurrent = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+  // Track
+  $telemetryClient->trackPageView('testePageView', $urlCurrent);
+
+  // Track Event
+  $telemetryClient->trackEvent('Test Track Event Homol');
+  $telemetryClient->flush();
+
+  // Log no Drupal
+  \Drupal::logger('gm5_appinsights')->notice(session_id ().' | '.getIPAddress().' | '.$urlCurrent);
+}
+
+function getIPAddress() {   
+   if(!empty($_SERVER['HTTP_CLIENT_IP'])) {  
+              $ip = $_SERVER['HTTP_CLIENT_IP'];  
+      }  
+  elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {  
+              $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];  
+   }  
+  else{  
+           $ip = $_SERVER['REMOTE_ADDR'];  
+   }  
+   return $ip;  
+}  

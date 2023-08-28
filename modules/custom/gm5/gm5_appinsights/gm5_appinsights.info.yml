@@ -1,0 +1,6 @@
+name: GM5 Azure App Insights
+type: module
+description: 'Integração com App Insights'
+package: 'GM5'
+core_compatibility: ^9
+core_version_requirement: ^8 || ^9

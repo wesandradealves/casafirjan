@@ -1,0 +1,6 @@
+name: Config Casa Firjan
+type: module
+description: 'Módulo para configurações específicas do projeto Casa Firjan.'
+package: 'GM5'
+core_compatibility: ^9
+core_version_requirement: ^8 || ^9

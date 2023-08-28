@@ -1,0 +1,3 @@
+langcode: 'en'
+default_entity: 'conteudo'
+file_allowed_extensions: ['csv','json']

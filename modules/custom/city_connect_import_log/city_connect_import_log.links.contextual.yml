@@ -1,0 +1,10 @@
+entity.city_connect_import_log.edit_form:
+  route_name: entity.city_connect_import_log.edit_form
+  group: city_connect_import_log
+  title: Edit
+
+entity.city_connect_import_log.delete_form:
+  route_name: entity.city_connect_import_log.delete_form
+  group: city_connect_import_log
+  title: Delete
+  weight: 10

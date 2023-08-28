@@ -1,0 +1,63 @@
+gm5_interface.content:
+  path: '/gm5-interface'
+  defaults:
+    _controller: '\Drupal\gm5_interface\Controller\GM5InterfaceController::content'
+    _title: 'GM5 Interface'
+  requirements:
+    _permission: 'access content'
+
+gm5_interface.webform:
+  path: /process/webform
+  defaults: { _controller: '\Drupal\gm5_interface\Controller\GM5WebformProcess::content' }
+  methods:  [POST]
+  requirements:
+    _access: 'TRUE'
+
+gm5_interface.cursos:
+  path: /process/cursos
+  defaults: { _controller: '\Drupal\gm5_interface\Controller\GM5Integracoes::updateCursos' }
+  methods:  [GET]
+  requirements:
+    _access: 'TRUE'
+    
+gm5_interface.agenda:
+  path: /agenda/remove/antigas
+  defaults: { _controller: '\Drupal\gm5_interface\Controller\GM5Integracoes::despublicaAgenda' }
+  methods:  [GET]
+  requirements:
+    _access: 'TRUE' 
+    
+gm5_interface.publica_agenda:
+  path: /agenda/publica/futuras
+  defaults: { _controller: '\Drupal\gm5_interface\Controller\GM5Integracoes::publicaAgenda' }
+  methods:  [GET]
+  requirements:
+    _access: 'TRUE' 
+    
+gm5_interface.redirects:
+  path: /agenda/transmissao-online-pensa-rio-estado-eficaz-e-eficiente
+  defaults: { _controller: '\Drupal\gm5_interface\Controller\GM5InterfaceController::redirect' }
+  methods:  [GET]
+  requirements:
+    _access: 'TRUE' 
+
+gm5_interface.clear_update_fetch_task:
+  path: /admin/clear_update_fetch_task
+  defaults: { _controller: '\Drupal\gm5_interface\Controller\GM5InterfaceController::clear_update_fetch_task' }
+  methods:  [GET]
+  requirements:
+    _role: 'administrator'
+
+gm5_interface.clear_newsletter:
+  path: /admin/clear_newsletter
+  defaults: { _controller: '\Drupal\gm5_interface\Controller\GM5InterfaceController::clear_newsletter' }
+  methods:  [GET]
+  requirements:
+    _role: 'administrator'
+
+gm5_interface.count_newsletter:
+  path: /admin/count_newsletter
+  defaults: { _controller: '\Drupal\gm5_interface\Controller\GM5InterfaceController::count_newsletter' }
+  methods:  [GET]
+  requirements:
+    _role: 'administrator'

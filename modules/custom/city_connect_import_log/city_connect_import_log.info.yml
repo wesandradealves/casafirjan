@@ -1,0 +1,5 @@
+name: City Connect Import Log
+type: module
+description: 'City Connect - Entity Data Importer Log'
+package: 'City Connect'
+core_version_requirement: ^9 || ^10
