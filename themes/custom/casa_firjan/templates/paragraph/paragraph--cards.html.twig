@@ -1,0 +1,33 @@
+{#{% block paragraph %}#}
+{#    {% set field_galeria_descricao = content.field_galeria_descricao|render|striptags|trim %}#}
+{#    {% set field_galeria_titulo = content.field_galeria_titulo|render|striptags|trim %}#}
+{#    {% set field_galeria_dia = content.field_galeria_dia|render|striptags|trim %}#}
+{#    {% set field_galeria_imagem = content.field_galeria_imagem ? file_url(content.field_galeria_imagem['#items'].entity.uri.value) : '' %}#}
+
+{#    <li{{ attributes.addClass(['gallery-item col-12 col-md-4 p-1']) }} data-id="{{ field_galeria_titulo }}" data-day="{{field_galeria_dia|split('-')|reverse.0}}">#}
+{#      <a #}
+{#        data-id="{{ field_galeria_titulo }}"#}
+{#        data-title="{{field_galeria_titulo}}"#}
+{#        href="{{field_galeria_imagem}}" #}
+{#        title="{{field_galeria_descricao}}">#}
+{#          <img width="100%" height="100%" aria-label="{{field_galeria_titulo}}" alt="{{field_galeria_descricao}}" src="{{field_galeria_imagem}}" />#}
+{#        </a>#}
+{#    </li>#}
+{#{% endblock paragraph %}#}
+
+{% set field_link = content.field_link %}
+
+{% set field_titulo = content.field_titulo|render|striptags|trim %}
+
+{% set field_texto = content.field_texto|render|striptags|trim %}
+
+{% set field_imagem = content.field_imagem ? file_url(content.field_imagem['#items'].entity.uri.value) : '' %}
+
+<div class="col-12 col-md-6 col-lg-4 ps-2 pe-2 mb-4 paragraph--cards">
+    <div class="card-inner">
+        <div class="thumbnail" style="background-image: url({{field_imagem}})"></div>
+        <h3 class="title mt-3 mb-3">{{field_titulo}}</h3>
+        <p class="text mb-3">{{field_texto}}</p>
+        {{field_link}}
+    </div>
+</div>

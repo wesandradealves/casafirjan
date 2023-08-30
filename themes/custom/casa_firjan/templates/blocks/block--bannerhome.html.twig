@@ -1,0 +1,25 @@
+<!--
+    Banner Home
+-->
+<div class="owl-carousel bannerHome">
+
+{% for banner in customPage.bannersHome %}
+    <div target="{{ banner.link.target }}" class="item owl-lazy" data-src="{{ banner.midia.src }}">
+        <div class="box  w-100 pb-5 pb-md-0">
+            <div class="container pt-5 pb-5 w-100  d-flex align-items-center justify-content-center text-center">
+                <div class="row m-auto  w-100 d-flex align-items-center justify-content-center text-center">
+                    <div class="col-12 col-lg-6 col-sm-8 m-0 p-0">
+                    {% if banner.texto is not empty %}
+                        <p class="title">{{ banner.titulo }}</p>
+                        <p class="text">{{ banner.texto }}</p>
+                        {% if banner.url %}
+                            <a {% if banner.field_link_background %} style=" border: 0; background-color: {{banner.field_link_background}}; {% if banner.field_link_background == "#FFFFFF" %} color: black; {% else %} color: white; {% endif %}" {% endif %} target="_blank" class="btn mt-5" href="{{ banner.url }}">{% if banner.label %} {{banner.label}} {% else %} Acesse Aqui {% endif %}</a>
+                        {% endif %}
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>

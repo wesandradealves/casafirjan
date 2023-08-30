@@ -1,0 +1,58 @@
+  <section class="newsletter">
+    <div class="container d-flex p-5">
+      <div class="col-3 col-lg-1 d-none d-md-block">
+        <img class="img-fluid" src="/{{directory}}/statics/img/envelope.png" />
+      </div>
+      <div class="ms-md-3 flex-fill">
+        <p class="chamada">{{title}} <small class="d-block mt-3">{{text}}</small></p>
+        <form class="formNews mt-4 col-12 row d-flex flex-wrap justify-content-between p-0 m-0"
+          action="{{customPage.newsletter.form.action}}" method="post" id="newsletter">
+          <div class="col-lg-6 pe-lg-4 p-0">
+            <input
+              {{ (customPage.newsletter.form.fields.nome.errorMessage is defined) ? ' style="border-color:red"' : '' }}
+              type="text" name="{{ customPage.newsletter.form.fields.nome.name }}" class="nome"
+              placeholder="Informe o seu nome">
+          </div>
+          <div class="col-lg-6 pe-lg-4 p-0">
+            <input
+              {{ (customPage.newsletter.form.fields.sobrenome.errorMessage is defined) ? ' style="border-color:red"' : '' }}
+              type="text" name="{{ customPage.newsletter.form.fields.sobrenome.name }}" class="nome"
+              placeholder="Informe o seu sobrenome">
+          </div>
+          <div class="col-lg-6 pe-lg-4 p-0">
+            <input
+              {{ (customPage.newsletter.form.fields.e_mail.errorMessage is defined) ? ' style="border-color:red"' : '' }}
+              type="email" name="{{ customPage.newsletter.form.fields.e_mail.name }}" class="email"
+              placeholder="Informe o seu e-mail">
+          </div>
+          <div class="col-lg-6 pe-lg-4 p-0">
+            <input
+              {{ (customPage.newsletter.form.fields.celular.errorMessage is defined) ? ' style="border-color:red"' : '' }}
+              type="phone" name="{{ customPage.newsletter.form.fields.celular.name }}" class="celular"
+              placeholder="Informe o seu celular">
+          </div>
+          <div class="col-12 mt-4 mb-3 d-flex align-items-center p-0"
+            {{ (customPage.newsletter.form.fields.aceite_termos_de_uso.errorMessage is defined) ? ' style="border:red 1px solid;"' : '' }}>
+            <div class="custom-checkbox">
+              <input type="checkbox" id="aceite_termos_de_uso" class="aceite_termos_de_uso" name="aceite_termos_de_uso"
+                value="aceito">
+              <label class="d-flex align-items-center justify-content-center" for="aceite_termos_de_uso">
+                <i class="fa-solid fa-check"></i>
+              </label>
+            </div>
+            <label for="aceite_termos_de_uso" class="ps-2 form-check-label" for="aceite_termos_de_uso">Li e concordo com os <a
+                href="/termo-de-privacidade" target="blank">termos de uso e privacidade</a>.</label>
+          </div>
+          <div class="col-12 mt-4 p-0">
+            {% for name, value in customPage.newsletter.form.hiddens %}
+            <input type="hidden" name="{{name}}" value="{{value}}">
+            {% endfor %}
+            <input type="submit" class="btn btnAzul submit" value="Enviar">
+            {% if customPage.queryString.newsletter is defined and customPage.queryString.newsletter == 'sucess' %}
+            <div class="msg success center">Cadastro efetuado com sucesso!<i class="icon-close"></i></div>
+            {% endif %}
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>

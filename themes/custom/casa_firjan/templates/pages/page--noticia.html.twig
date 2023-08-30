@@ -1,0 +1,171 @@
+<main class="detalhe" data-controller="detalhe">
+  <article>
+    <div class="container">
+      {# <div id="custom-edit-content" align="right">
+        {% if is_admin %}
+          <!-- SE PERFIL == ADMINISTRADOR -->
+          <a href="{{ customPage.conteudo.edit }}" title="Editar conteúdo"><img src="/themes/casa_firjan/statics/img/pencil-square.svg" width="28"/></a> 
+        {% endif %}                 
+      </div> #}
+      <!--
+                Topo do Conteúdo
+            -->                 
+      <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-10">
+          <div class="topContent">
+            <a href="{{ customPage.conteudo.categoria.url }}"
+               class="textCat">{{ customPage.conteudo.categoria.label }}</a>
+            <h2 class="title">{{ customPage.conteudo.titulo }}</h2>
+            <p class="text22">{{ customPage.conteudo.chamada }}</p>
+            <p class="textCreate">{{ customPage.conteudo.autor_data }}</p>
+            <div class="sharethis-inline-share-buttons"></div>
+            {#<div class="compartilhamento">#}
+            {#  <ul>#}
+            {#    <li>#}
+            {#      <a class="icon-whatsapp" href="#"></a>#}
+            {#    </li>#}
+            {#    <li>#}
+            {#      <a class="icon-facebook" href="#"></a>#}
+            {#    </li>#}
+            {#    <li>#}
+            {#      <a class="icon-twitter" href="#"></a>#}
+            {#    </li>#}
+            {#  </ul>#}
+            {#</div>#}
+
+            <div class="capa">
+              <img src="{{ customPage.conteudo.midia.src }}" alt="{{ customPage.conteudo.titulo }}">
+              {% if customPage.conteudo.midia.legenda %}
+                <span>{{ customPage.conteudo.midia.legenda }}</span>
+              {% endif %}
+            </div>
+        </div>
+      </div>
+    </div>
+    <!--
+                Corpo do conteúdo
+            -->
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-7">
+        <div class="content">
+          {{ customPage.conteudo.texto|raw }}
+
+          {#<div class="blockVideo">#}
+          {#<p class="textTitleBlock">ASSISTA:</p>#}
+          {#<p class="desc">David Baker no aquário da Casa Firjan</p>#}
+          {#<iframe width="560" height="315" src="https://www.youtube.com/embed/HjVBHOhcrdc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>#}
+          {#<a href="#">Assista mais edições do aquário da Casa Firjan</a>#}
+          {#</div>#}
+          {##}
+          {#<div class="blockDestaque">#}
+          {#<p class="title">INTERESSADO EM APRENDER MAIS SOBRE CRIATIVIDADE?</p>	#}
+          {#<p>A partir do dia 30 de abril, a Casa Firjan irá inaugurar o curso de Criatividade Aplicada, curso onde você poderá criar inspirações e referências, como as diferentes profissionais e as suas competências, e conhecer as diferentes ferramentas e ferramentas para desenvolver sua voz criativa. É sobre inspiração, mas também sobre produtividade.  :) Gostou? </p>#}
+          {#</div>#}
+        </div>
+      </div>
+    </div>
+    <!--
+                Pós conteúdo
+            -->
+    <div class="row">
+      <div class="col-md-12">
+        {% if customPage.conteudo.topicos is not empty %}
+          <div class="topicos">
+            <div class="text22 bold">Tópicos:</div>
+            <ul>
+              {% for topico in customPage.conteudo.topicos %}
+                <li>{{ topico }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+        {#<div class="comentarios">#}
+        {#<div class="text22 bold">Comentários:</div>#}
+        {#<form id="comentarios" action="#">#}
+        {#<textarea rows="5" width="100%" type="textarea" class="comentario" name="comentario" placeholder="Deixe aqui seu comentário"></textarea>#}
+        {#<input type="submit" class="btnPreto submit" value="Enviar comentário">#}
+        {#</form>#}
+        {#<div class="posts">#}
+        {#<div class="text18">Recentes:</div>#}
+        {#<div class="post">#}
+        {#<div class="user">#}
+        {#<img src="https://via.placeholder.com/80" alt="Foto">#}
+        {#<p class="name">Marina da Silva</p>#}
+        {#<p class="textCreate">há 1 semana</p>#}
+        {#</div>#}
+        {#<div class="body">#}
+        {#Eu adorei o conteúdo!#}
+        {#</div>#}
+        {#<div class="likes">#}
+        {#<a class="icon-like like" title="Curti" href="#"></a>#}
+        {#<a class="icon-like dislike" title="Não curti" href="#"></a>#}
+        {#</div>									#}
+        {#</div>#}
+        {#<div class="post">#}
+        {#<div class="user">#}
+        {#<img src="https://via.placeholder.com/80" alt="Foto">#}
+        {#<p class="name">Marina da Silva</p>#}
+        {#<p class="textCreate">há 1 semana</p>#}
+        {#</div>#}
+        {#<div class="body">#}
+        {#Eu adorei o conteúdo!#}
+        {#</div>#}
+        {#<div class="likes">#}
+        {#<a class="icon-like like" title="Curti" href="#"></a>#}
+        {#<a class="icon-like dislike" title="Não curti" href="#"></a>#}
+        {#</div>									#}
+        {#</div>#}
+        {#</div>#}
+        {#</div>#}
+      </div>
+    </div>
+    <!--
+                Bloco Veja Mais
+            -->
+    {#<section class="destaques">#}
+      {#<div class="row">#}
+        {#<div class="col-md-12">#}
+          {#<div class="textTitleBlock">Veja mais</div>#}
+        {#</div>#}
+        {#<div class="col-lg-6 col-md-12 itens1">#}
+          {#<a data-fancybox class="img video" href="https://www.youtube.com/watch?v=_sI_Ps7JSEk" title="Imagem">#}
+            {#<img src="{{ customPage.system.staticPath }}img/trash/foto1.png">#}
+          {#</a>#}
+          {#<a class="textCat" href="#">Lab de Tendências</a>#}
+          {#<a class="textTitle" href="#">Em um cenário de crise, a criatividade é um diferencial?</a>#}
+          {#<p class="text14">É possível supor que somos todos criativos?</p>#}
+          {#<p class="textCreate">28/05/2019 por João Koeler</p>#}
+        {#</div>#}
+        {#<div class="col-lg-6 col-md-12 itens2">#}
+          {#<div class="row">#}
+            {#<div class="col-sm-4">#}
+              {#<a class="img" href="#" title="Imagem">#}
+                {#<img src="{{ customPage.system.staticPath }}img/trash/foto2.png">#}
+              {#</a>#}
+            {#</div>#}
+            {#<div class="col-sm-8">#}
+              {#<a class="textCat" href="#">Lab de Tendências</a>#}
+              {#<a class="textTitle" href="#">Em um cenário de crise, a criatividade é um diferencial?</a>#}
+              {#<p class="text14">É possível supor que somos todos criativos?</p>#}
+              {#<p class="textCreate">28/05/2019 por João Koeler</p>#}
+            {#</div>#}
+          {#</div>#}
+          {#<div class="row">#}
+            {#<div class="col-sm-4">#}
+              {#<a class="img" href="#" title="Imagem">#}
+                {#<img src="{{ customPage.system.staticPath }}img/trash/foto3.png">#}
+              {#</a>#}
+            {#</div>#}
+            {#<div class="col-sm-8">#}
+              {#<a class="textCat" href="#">Lab de Tendências</a>#}
+              {#<a class="textTitle" href="#">Em um cenário de crise, a criatividade é um diferencial?</a>#}
+              {#<p class="text14">É possível supor que somos todos criativos?</p>#}
+              {#<p class="textCreate">28/05/2019 por João Koeler</p>#}
+            {#</div>#}
+          {#</div>#}
+        {#</div>#}
+      {#</div>#}
+    {#</section>#}
+    </div>
+  </article>
+</main>

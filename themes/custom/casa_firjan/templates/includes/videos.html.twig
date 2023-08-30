@@ -1,0 +1,25 @@
+{% if customPage.videosRecentes is defined and customPage.videosRecentes is not empty  %}
+  <section class="videosRecentes">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="textTitleBlock">Vídeos mais recentes</div>
+        </div>
+      </div>
+      <div class="row">
+
+        {% for video in customPage.videosRecentes %}
+          <div class="col-lg-3 col-sm-6">
+            <a data-fancybox class="img video" style="background-image:url({{ video.imagem }});" href="{{ video.videoUrl }}" title="{{ video.titulo }}">
+              <img src="{{ customPage.system.staticPath }}img/img14x9.gif">
+            </a>
+            {% if level2 != TRUE %}
+              <a class="textCat" href="{{ video.categoria.url }}">{{ video.categoria.label }}</a>
+            {% endif %}
+            <a class="text20" href="{{ video.url }}">{{ video.titulo }}</a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}

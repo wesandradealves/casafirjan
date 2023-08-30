@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a breadcrumb trail.
+ *
+ * Available variables:
+ * - breadcrumb: Breadcrumb trail items.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% block content %}
+    {% set field_background = content['#block_content'].field_background.0.target_id %}
+    {% include directory ~ '/templates/blocks/breadcrumb.html.twig' with {breadcrumb_bg: get_image_from_id(field_background)} %}
+{% endblock %}
+

@@ -1,0 +1,23 @@
+{% if customPage.destaquesMini is defined and customPage.destaquesMini is not empty %}
+<div class="maisDestaquesHome">
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h3 class="textTitleBlock">
+        {{title}}
+      </h3>
+      {{content}}
+      {# <p class="p-0">{{content}}</p> #}
+    </div>
+  </div>
+  {% for destaqueMini in customPage.destaquesMini %}
+  <div class="row">
+    <div class="col-12">
+      <a class="textCat" href="{{destaqueMini.categoria.url }}">{{destaqueMini.categoria.label }}</a>
+      <a class="textTitle" href="{{destaqueMini.url }}">{{ destaqueMini.titulo }}</a>
+      <p class="textChamada">{{destaqueMini.chamada}}</p>
+      <p class="textCreate">{{destaqueMini.autor_data|split('em').1 }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

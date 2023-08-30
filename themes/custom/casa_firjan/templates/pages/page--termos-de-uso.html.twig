@@ -1,0 +1,16 @@
+<main class="aCasaFirjan">
+  {% if customPage.imagem is defined and customPage.imagem is not empty %}
+    <div class="banner" style="background-image:url({{ customPage.imagem }});"></div>
+  {% endif %}
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-7">
+        <h3 class="textBigTitle">{{ customPage.conteudo.titulo }}</h3>
+        <div class="text20 descricao">
+          {{ customPage.conteudo.texto|raw }}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

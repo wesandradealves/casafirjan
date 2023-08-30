@@ -1,0 +1,299 @@
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8"/>
+	<title>Contato - Casa Firjan</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link href="css/style.css" rel="stylesheet"/>
+	<!--[if IE]><link rel="shortcut icon" href="img/favicon.ico"><![endif]-->
+	<link rel="icon" href="img/favicon.ico">
+</head>
+<body>
+	<header>
+		<div class="topo">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-lg-6">
+						<a href="index.html" class="logo">
+							<img src="img/logo.jpg" alt="Casa Firjan"/>
+						</a>
+						<a href="#" class="linkFirjan">
+							<h1>Casa Firjan</h1>
+						</a>						
+						<button class="btnMobile efect"><span></span></button>	
+					</div>
+					<div class="col-lg-6">
+						<div class="busca">
+							<form action="#">
+								<input type="text" placeholder="O que deseja busca?">
+								<button class="icon-search"></button>
+							</form>						
+						</div>
+						<nav>
+							<ul>
+								<li>
+									<a href="#">Notícias</a>
+								</li>
+								<li>
+									<a href="#">Imprensa</a>
+								</li>
+								<li>
+									<a href="#">Fale conosco</a>
+								</li>
+							</ul>
+						</nav>					
+					</div>	
+				</div>
+			</div>
+		</div>
+		<div class="menu">
+			<div class="container">
+				<div class="row">
+					<nav>
+						<ul>
+							<li class="active left"><a href="#">A Casa Firjan</a></li>
+							<li class="left"><a href="#">Agenda</a></li>
+							<li class="left"><a href="#">Visite</a></li>
+							<li><a>Casa Aberta</a>
+								<ul>
+									<li><a href="#">Atividades Culturais</a></li>
+									<li><a href="#">Exposição e Mostras</a></li>
+									<li><a href="#">Tá em Casa</a></li>
+								</ul>
+							</li>
+							<li><a>Pensamento</a>
+								<ul>
+									<li><a href="#">Diálogos</a></li>
+								</ul>
+							</li>
+							<li><a>Lab de Tendências</a>
+								<ul>
+									<li><a href="#">Aquário</a></li>
+								</ul>
+							</li>
+							<li><a href="#">Educação</a></li>
+							<li><a>Lab de Inovação</a>
+								<ul>
+									<li><a href="#">Fablab</a></li>
+									<li><a href="#">Projetos de Consultoria</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>		
+		
+	</header>
+	<main class="contato" data-controller="contato">	
+		<div class="container">		
+			<!--
+				Topo
+			-->
+			<div class="row">
+				<div class="col-md-12 col-lg-6">
+					<h3 class="textBigTitle">Contato</h3>	
+					<p class="text20">A Firjan disponibiliza canais para o seu contato direto conosco. <br/>
+					Preencha o formulário abaixo e envie a sua mensagem ou, caso prefira, fale com a nossa Central de Atendimento.</p>						
+				</div>
+			</div>
+				
+			<!--
+				Formulário de contato
+			-->
+			<div class="row">
+				<div class="col-lg-8">
+					<form action="#" id="contato">
+						<div class="form-row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<label for="nome">Nome completo:</label>
+									<input type="text" id="nome" class="form-control nome" name="nome" required>
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-lg-8">
+								<div class="form-group">
+									<label for="email">E-mail:</label>
+									<input type="email" id="email" class="form-control email" name="email" required>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label for="telefone">Telefone <span>(com DDD)</span>:</label>
+									<input type="tel" id="telefone" class="form-control telefone" name="telefone">
+								</div>
+							</div>
+						</div>
+						<div class="form-row tipoContatoLabel">
+							<div class="col">
+								<label>Tipo de contato:</label>
+							</div>
+						</div>
+						<div class="form-row tipoContatoRadios">
+							<div class="col-lg-12">								
+								<div class="form-check form-check-inline">
+									<input type="radio" id="tipoInformacao" value="tipoInformacao" class="form-check-input form-control-sm tipoInformacao" name="tipoContato">
+									<label class="form-check-label" for="tipoInformacao">Informação</label>		
+																	
+								</div>
+								<div class="form-check form-check-inline">
+									<input type="radio" id="tipoSugestao" value="tipoSugestao" class="form-check-input form-control-sm tipoSugestao" name="tipoContato">
+									<label class="form-check-label" for="tipoSugestao">Sugestão</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input type="radio" id="tipoReclamacao" value="tipoReclamacao" class="form-check-input form-control-sm tipoReclamacao" name="tipoContato">
+									<label class="form-check-label" for="tipoReclamacao">Reclamação</label>
+								</div>
+							</div>	
+						</div>
+						<div class="form-row assuntoLabel">
+							<div class="col">
+								<label>Assunto:</label>
+							</div>
+						</div>
+						<div class="form-row assuntoRadios">
+							<div class="col-lg-12">								
+								<div class="form-check form-check-inline">
+									<input type="radio" id="educacao" value="educacao" class="form-check-input form-control-sm educacao" name="educacao">
+									<label class="form-check-label" for="educacao">Educação</label>		
+																	
+								</div>
+								<div class="form-check form-check-inline">
+									<input type="radio" id="aquario" value="aquario" class="form-check-input form-control-sm aquario" name="aquario">
+									<label class="form-check-label" for="aquario">Aquario</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input type="radio" id="visitas" value="visitas" class="form-check-input form-control-sm visitas" name="visitas">
+									<label class="form-check-label" for="visitas">Visitas</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input type="radio" id="taEmCasa" value="taEmCasa" class="form-check-input form-control-sm taEmCasa" name="taEmCasa">
+									<label class="form-check-label" for="taEmCasa">Tá em casa</label>		
+																	
+								</div>
+								<div class="form-check form-check-inline">
+									<input type="radio" id="fablab" value="fablab" class="form-check-input form-control-sm fablab" name="fablab">
+									<label class="form-check-label" for="fablab">Fablab</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input type="radio" id="imprensa" value="imprensa" class="form-check-input form-control-sm imprensa" name="imprensa">
+									<label class="form-check-label" for="imprensa">Imprensa</label>
+								</div>
+							</div>	
+						</div>						
+						<div class="form-row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<label for="email">Mensagem</label>:</label>
+									<textarea name="mensagem" id="mensagem" class="form-control mensagem" name="mensagem" cols="30" rows="7" required></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="form-row justify-content-end">
+							<div class="col-lg-3">								
+								<div class="form-group">
+									<input type="submit" class="form-control btnAzul submit" name="submit" value="Enviar">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="offset-lg-1 col-lg-3 outrosContatos">
+					<p class="text21">Caso prefira, ligue para:</p>	 
+					<p class="text23 bold">0800 0231 231</p>	
+					<br/>
+					<p class="text21">Ligações gratuitas de telefone fixo no estado do Rio:</p>	 
+					<p class="text23 bold">4002 0231</p>	
+					<p class="text18">(Custo de ligação local)</p>	
+					<br/>
+					<p class="text21">Atendimento por Whatsapp: </p>	
+					<p class="text23 bold">(21) 97256-3572</p>	
+					<p class="text18">Veja os Termos de Uso <a href="#">aqui</a>.</p>							
+				</div>				
+			</div>
+	
+			
+	
+		</div>		
+	</main>
+	<footer>
+		<section class="newsletter">
+			<div class="container">
+				<div class="box">
+					<div class="row">					
+						<div class="col-md-6">
+							<p class="chamada">Deseja receber informese newsletters da casa firjan?</p>
+						</div>
+						<div class="col-md-6">
+							<form class="formNews" action="">
+								<div class="row">
+									<div class="col">
+										<p class="title">Cadastre o seu e-mail e/ou o seu celular e fique por dentro de todas as nossas novidades.</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-6">
+										<input type="email" name="email" class="email" placeholder="Informe o seu email">
+									</div>
+									<div class="col-lg-6">
+										<input type="phone" name="celular " class="celular" placeholder="Informe o seu celular">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										<input type="submit" class="btnAzul submit" value="Enviar">
+									</div>
+								</div>	
+							</form>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</section>
+		<section class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-sm-4">
+						<p class="title">Horários</p>
+						<p>Segunda-feira: fechado<br/>De terça à sexta, das 14h às 17 horas<br/>Sábados e domingos das 10 às 17 horas</p>
+					</div>
+					<div class="col-md-1 col-sm-1 divisao d-sm-block d-none"></div>
+					<div class="col-md-3 col-sm-3 col-lg-4">
+						<p class="title">Visite-nos</p>
+						<p>Rua Guilhermina Guinle, 211, Botafogo<br/>CEP 22270-060, Rio de Janeiro – RJ</p>
+					</div>
+					<div class="col-md-3 col-sm-4">
+						<p class="title">Confira nossas redes sociais</p>
+						<ul class="redes">
+							<li><a href="#"><i class="icon-facebook"></i><span>Participe do nosso grupo</span></a></li>
+							<li><a href="#"><i class="icon-instagram"></i><span>Siga @casafirjan</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="copy">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<p>© Casa Firjan, 2019. Todos direitos reservados.</p>
+					</div>
+					<div class="col-md-6">
+						<ul class="menuFooter">
+							<li><a href="#">Firjan</a></li>
+							<li><a href="#">Termos de uso</a></li>
+							<li><a href="#">Política de privacidade</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</footer>
+	<script src="js/base.js"></script>
+	<script src="js/controller.js"></script>
+	<script src="js/classes.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% if customPage.destaquesMini is defined and customPage.destaquesMini is not empty %}
+<div class="col-lg-4 mt-4 mt-lg-0">
+  <section class="maisDestaquesHome">
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <h3 class="textTitleBlock">
+          Últimas Publicações
+        </h3>
+        <p class="p-0">Fique por dentro dos conteúdos mais recentes.</p>
+      </div>
+    </div>
+    {% for destaqueMini in customPage.destaquesMini %}
+    <div class="row">
+      {# <div class="col-sm-4">        
+        {% if destaqueMini.midia.tipo == 'video' %}
+          <a data-fancybox class="img video" style="background-image:url({{ destaqueMini.midia.src }});" href="{{ destaqueMini.midia.url }}" title="{{ destaqueMini.titulo }}">
+            <img src="{{ customPage.system.staticPath }}img/img1x1.gif">
+          </a>
+        {% else %}
+          <a class="img" style="background-image:url({{ destaqueMini.midia.src }});" href="{{destaqueMini.url }}" title="{{ destaqueMini.titulo }}">
+            <img src="{{ customPage.system.staticPath }}img/img1x1.gif">
+          </a>
+        {% endif %}
+      </div> #}
+      <div class="col-12">
+        <a class="textCat" href="{{destaqueMini.categoria.url }}">{{destaqueMini.categoria.label }}</a>
+        <a class="textTitle" href="{{destaqueMini.url }}">{{ destaqueMini.titulo }}</a>
+        <p class="textChamada">{{destaqueMini.chamada}}</p>
+        <p class="textCreate">{{destaqueMini.autor_data|split('em').1 }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+</div>
+{% endif %}

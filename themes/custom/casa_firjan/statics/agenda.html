@@ -1,0 +1,278 @@
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8"/>
+	<title>Agenda - Casa Firjan</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link href="css/style.css" rel="stylesheet"/>
+	<!--[if IE]><link rel="shortcut icon" href="img/favicon.ico"><![endif]-->
+	<link rel="icon" href="img/favicon.ico">
+</head>
+<body>
+	<header>
+		<div class="topo">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-lg-6">
+						<a href="index.html" class="logo">
+							<img src="img/logo.jpg" alt="Casa Firjan"/>
+						</a>
+						<a href="#" class="linkFirjan">
+							<h1>Casa Firjan</h1>
+						</a>						
+						<button class="btnMobile efect"><span></span></button>	
+					</div>
+					<div class="col-lg-6">
+						<div class="busca">
+							<form action="#">
+								<input type="text" placeholder="O que você está buscando?">
+								<button class="icon-search"></button>
+							</form>						
+						</div>
+						<nav>
+							<ul>
+								<li>
+									<a href="#">Notícias</a>
+								</li>
+								<li>
+									<a href="#">Imprensa</a>
+								</li>
+								<li>
+									<a href="#">Fale conosco</a>
+								</li>
+							</ul>
+						</nav>					
+					</div>	
+				</div>
+			</div>
+		</div>
+		<div class="menu">
+			<div class="container">
+				<div class="row">
+					<nav>
+						<ul>
+							<li class="active left"><a href="#">A Casa Firjan</a></li>
+							<li class="left"><a href="#">Agenda</a></li>
+							<li class="left"><a href="#">Visite</a></li>
+							<li><a>Casa Aberta</a>
+								<ul>
+									<li><a href="#">Atividades Culturais</a></li>
+									<li><a href="#">Exposição e Mostras</a></li>
+									<li><a href="#">Tá em Casa</a></li>
+								</ul>
+							</li>
+							<li><a>Pensamento</a>
+								<ul>
+									<li><a href="#">Diálogos</a></li>
+								</ul>
+							</li>
+							<li><a>Lab de Tendências</a>
+								<ul>
+									<li><a href="#">Aquário</a></li>
+								</ul>
+							</li>
+							<li><a href="#">Educação</a></li>
+							<li><a>Lab de Inovação</a>
+								<ul>
+									<li><a href="#">Fablab</a></li>
+									<li><a href="#">Projetos de Consultoria</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>		
+		
+	</header>
+	<main class="agenda" data-controller="agenda">		
+		<div class="container">
+			<!--
+				Topo
+			-->
+			<div class="row">
+				<div class="col">
+					<h3 class="textBigTitle">Agenda</h3>
+					<p class="text20">Confira a nossa programação.</p>	
+				</div>
+			</div>
+			<div class="row">
+				<!--
+					Filtros
+				-->					
+				<div class="col-lg-4 filtros">
+					<div class="row">						
+						<div class="col">
+							<div class="title">Filtrar</div>
+						</div>
+					</div>
+					<div class="row porData">
+						<div class="col">
+								<div class="text20">Por data:</div>
+								<div id="calendario"></div>
+						</div>	
+					</div>
+					<div class="row porCategoria">
+						<div class="col">
+								<div class="text20">Por categoria:</div>
+								<input type="checkbox" name="categoria[]" value="aquario" id="aquario"><label for="aquario">Aquário</label>
+								<input type="checkbox" name="categoria[]" value="exposicoes" id="exposicoes"><label for="exposicoes">Exposições</label>
+								<input type="checkbox" name="categoria[]" value="cursos" id="cursos"><label for="cursos">Cursos</label>
+						</div>	
+					</div>
+				</div>
+
+				<!--
+					Lista de Eventos
+				-->					
+				<div class="col-lg-8">					
+					<section class="blocoAgenda">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="eventos">
+									<div class="grupo aquario">
+										<div class="dataDiv">24 de maio de 2019</div>
+										<a href="#" class="item">
+											<div class="horario">
+												<p class="cat">Aquário</p>
+												<p class="hora"><span>09h</span>00</p>
+												<p class="duracao">Duração <span>1h</span></p>
+											</div>
+											<div class="resumo">
+												<p class="textTitle">Marketing Catch-up</p>
+												<p class="text17">Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun </p>
+											</div>
+										</a>										
+										<div class="dataDiv">25 de maio de 2019</div>
+										<a href="#" class="item">
+											<div class="horario">
+												<p class="cat">Aquário</p>
+												<p class="hora"><span>09h</span>00</p>
+												<p class="duracao">Duração <span>1h</span></p>
+											</div>
+											<div class="resumo">
+												<p class="textTitle">Marketing Catch-up</p>
+												<p class="text17">Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun </p>
+											</div>
+										</a>
+									</div>
+									<div class="grupo exposicoes">
+										<div class="dataDiv">24 de maio de 2019</div>
+										<a href="#" class="item">
+											<div class="horario">
+												<p class="cat">Exposições</p>
+												<p class="hora"><span>09h</span>00</p>
+												<p class="duracao">Duração <span>1h</span></p>
+											</div>
+											<div class="resumo">
+												<p class="textTitle">Marketing Catch-up</p>
+												<p class="text17">Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun </p>
+											</div>
+										</a>	
+									</div>
+									<div class="grupo cursos">
+										<div class="dataDiv">24 de maio de 2019</div>
+										<a href="#" class="item">
+											<div class="horario">
+												<p class="cat">Cursos</p>
+												<p class="hora"><span>09h</span>00</p>
+												<p class="duracao">Duração <span>1h</span></p>
+											</div>
+											<div class="resumo">
+												<p class="textTitle">Marketing Catch-up</p>
+												<p class="text17">Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun Lorem ipisun </p>
+											</div>
+										</a>	
+									</div>
+								</div>
+							</div>
+						</div>						
+						<div class="row btnVerMais">
+							<div class="col-md-12">
+								<a href="#" class="btnAzul">Veja toda a nossa programação</a>
+							</div>
+						</div>	
+					</section>									
+				</div>
+			</div>
+		</div>		
+	</main>
+	<footer>
+		<section class="newsletter">
+			<div class="container">
+				<div class="box">
+					<div class="row">					
+						<div class="col-md-6">
+							<p class="chamada">Deseja receber informese newsletters da casa firjan?</p>
+						</div>
+						<div class="col-md-6">
+							<form class="formNews" action="">
+								<div class="row">
+									<div class="col">
+										<p class="title">Cadastre o seu e-mail e/ou o seu celular e fique por dentro de todas as nossas novidades.</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-6">
+										<input type="email" name="email" class="email" placeholder="Informe o seu email">
+									</div>
+									<div class="col-lg-6">
+										<input type="phone" name="celular " class="celular" placeholder="Informe o seu celular">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										<input type="submit" class="btnAzul submit" value="Enviar">
+									</div>
+								</div>	
+							</form>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</section>
+		<section class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-sm-4">
+						<p class="title">Horários</p>
+						<p>Segunda-feira: fechado<br/>De terça à sexta, das 14h às 17 horas<br/>Sábados e domingos das 10 às 17 horas</p>
+					</div>
+					<div class="col-md-1 col-sm-1 divisao d-sm-block d-none"></div>
+					<div class="col-md-3 col-sm-3 col-lg-4">
+						<p class="title">Visite-nos</p>
+						<p>Rua Guilhermina Guinle, 211, Botafogo<br/>CEP 22270-060, Rio de Janeiro – RJ</p>
+					</div>
+					<div class="col-md-3 col-sm-4">
+						<p class="title">Confira nossas redes sociais</p>
+						<ul class="redes">
+							<li><a href="#"><i class="icon-facebook"></i><span>Participe do nosso grupo</span></a></li>
+							<li><a href="#"><i class="icon-instagram"></i><span>Siga @casafirjan</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="copy">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<p>© Casa Firjan, 2019. Todos direitos reservados.</p>
+					</div>
+					<div class="col-md-6">
+						<ul class="menuFooter">
+							<li><a href="#">Firjan</a></li>
+							<li><a href="#">Termos de uso</a></li>
+							<li><a href="#">Política de privacidade</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</footer>
+	<script src="js/base.js"></script>
+	<script src="js/controller.js"></script>
+	<script src="js/classes.js"></script>
+</body>
+</html>

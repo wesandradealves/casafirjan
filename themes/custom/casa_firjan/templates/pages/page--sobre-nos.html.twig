@@ -1,0 +1,32 @@
+<main class="aCasaFirjan">
+  {% if customPage.imagem is defined and customPage.imagem is not empty %}
+    <div class="banner" style="background-image:url({{ customPage.imagem }});"></div>
+  {% endif %}
+  <div class="container">
+    {% include '@casa_firjan/includes/pagina-basica.html.twig' %}
+    <div class="row">
+      <div class="col">
+        <h3 class="title">Programas</h3>
+      </div>
+    </div>
+    <div class="row produtos">
+      {% for programa in customPage.programas %}
+      <div class="col-md-6 col-lg-3">
+        <a href="{{ programa.url }}" class="img" style="background-image:url({{ programa.imagem }});">
+          <img src="{{ customPage.system.staticPath }}/img/img1x1.gif" alt="Cursos">
+          {#<span><p>{{ programa.titulo }}</p></span>#}
+          <div class="text small">
+            <div class="table">
+              <div class="cell">
+                {{ programa.titulo }}
+                <div class="border"></div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</main>

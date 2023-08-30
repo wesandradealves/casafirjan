@@ -1,0 +1,207 @@
+{{ drupal_region('breadcrumb') }}
+
+<main class="agenda" data-controller="agenda">
+  <div class="container pt-5">
+
+    <!--
+        Topo
+    -->
+    {#<div class="row">#}
+    {#  <div class="col">#}
+    {#    <h3 class="textBigTitle">Agenda</h3>#}
+    {#    <p class="text20">Confira a nossa programação.</p>#}
+    {#  </div>#}
+    {#</div>#}
+    
+    
+    {# <div class="row">
+      <!--
+          Filtros
+      -->
+
+      <div class="col-lg-4 filtros">
+        <div class="title">Filtrar</div>
+        
+        <!-- Filtro por ciclo -->
+        <form id="porCiclo" action="{{ customPage.filtros.action }}" method="get" enctype="multipart/form-data">
+          <div class="row porCiclo">
+            <div class="col">
+              {% for option in customPage.filtros.ciclos.itens %}
+                <input data-color="{{ option.color }}" type="checkbox" name="ciclo[]" value="{{ option.tid }}" id="ciclo{{ option.tid }}" {{ option.checked }}><label for="ciclo{{ option.tid }}">{{ option.label }}<i class="icon-close"></i></label>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="row porCategoria">
+            <div class="col">
+              {% for option in customPage.filtros.categorias.itens %}
+                <input type="checkbox" name="categoria[]" value="{{ option.tid }}" id="{{ option.tid }}" {{ option.checked }}><label for="{{ option.tid }}">{{ option.label }}<i class="icon-close"></i></label>
+              {% endfor %}
+            </div>
+          </div>
+        </form>
+        
+        <!-- Filtro por data -->
+        <form id="porData" data-last="{{ customPage.filtros.datas|split(",")|last|trim }}" action="{{ customPage.filtros.action }}" method="get" enctype="multipart/form-data" date-set="{{ customPage.filtros.currentDay }}">
+          <div class="row">
+            <div class="col">
+              <input type="hidden" name="data_inicio" value="2019-07-19 00:00:00">
+              <input type="hidden" name="data_fim" value="2019-07-19 23:59:59">
+            </div>
+          </div>
+          <div class="row porData">
+            <div class="col">
+              <div id="calendario" data-days="['{{ customPage.filtros.datas }}']"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!--
+          Lista de Eventos
+      -->
+      <div class="col-lg-8">
+        <section class="blocoAgenda posts" data-url="{{ customPage.urlCurrent }}">
+          <div class="row filtros">
+            <div class="col-md-12">
+             
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              {% include '@casa_firjan/includes/loop-agenda.html.twig' %}
+            </div>
+          </div>
+          <div class="row btnVerMais loadMore">
+            <div class="col-md-12">
+              {% set totalPages = customPage.conteudo.eventos.paginacao.totalPages - 1 %}
+              {% if totalPages > 0 %}
+                <a href="javascript:void(0);" data-atual="0" data-total="{{ totalPages }}" class="btnAzul">Carregar mais</a>
+              {% endif %}
+            </div>
+          </div>
+        </section>
+      </div>
+    </div> #}
+
+    {% include directory ~ '/templates/includes/filter.html.twig' with {taxonomies: eventosByTax} %}
+
+    <div data-category="all" id="js-drupal-fullcalendar" class="js-drupal-fullcalendar" calendar-view-index="{{ view_index }}" calendar-view-name="{{ view_id }}" calendar-display="{{ display_id }}"></div>
+
+    {% for tax in eventosByTax|keys %}
+        <div data-category="{{slugify(tax)}}" id="js-drupal-fullcalendar-{{slugify(tax)}}" class="js-drupal-fullcalendar hidden"></div>
+    {% endfor %}    
+
+    <script src='{{ base_path ~ directory }}/templates/views/calendar/index.global.js'></script>
+    <script src='{{ base_path ~ directory }}/templates/views/calendar/locales-all.js'></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('js-drupal-fullcalendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          locale: 'pt-br',
+          headerToolbar: {
+            left: 'prev,next',
+            center: 'title',
+            right: window.innerWidth < 992 ? 'listMonth' : 'dayGridDay,dayGridMonth,timeGridWeek,listMonth'
+          },
+          views: {
+              dayGridMonth: {
+                  titleFormat: { year: 'numeric', month: 'long' } 
+              }
+          },
+          height: 'auto',  
+          initialView: window.innerWidth < 992 ? 'listMonth' : 'dayGridMonth',
+          initialDate: new Date(),
+          editable: false,
+          selectable: true,   
+          buttonText: {
+            today: 'Dia',
+            month: 'Mês',
+            week: 'Semana',
+            day: 'Dia',
+            list: 'Lista'
+          },      
+          dayMaxEvents: false, // allow "more" link when too many events
+          // businessHours: true,
+          weekends: true,
+          events: [
+            {% for evento in eventos %}
+              {
+                title: "{{evento.start_time}} | {{evento.titulo}}",
+                url: "{{evento.url}}",
+                start: "{{evento.dateTime}}"
+              },
+            {% endfor %}
+          ],      
+          eventContent: function( info ) {
+            
+            return {html: `<span onclick="window.location = '${info.event['_def'].url}'">${info.event.title.split("h")[0]}h <strong>${info.event.title.split("h")[1]}</strong></span`};
+          },
+          eventRender: function(info) {
+            info.el.querySelectorAll('.fc-title')[0].innerHTML = info.el.querySelectorAll('.fc-title')[0].innerHtml;
+          }
+        });
+
+        calendar.render();
+      });
+    </script>
+    {% for tax, eventos in eventosByTax %}
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {        
+            {% set tax = slugify(tax) %}
+
+            var calendarEl_{{tax}} = document.getElementById('js-drupal-fullcalendar-{{tax}}');
+
+            var calendar_{{tax}} = new FullCalendar.Calendar(calendarEl_{{tax}}, {
+              locale: 'pt-br',
+              headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: window.innerWidth < 992 ? 'listMonth' : 'dayGridDay,dayGridMonth,timeGridWeek,listMonth'
+              },
+              views: {
+                  dayGridMonth: {
+                      titleFormat: { year: 'numeric', month: 'long' } 
+                  }
+              },
+              height: 'auto',  
+              initialView: window.innerWidth < 992 ? 'listMonth' : 'dayGridMonth',
+              initialDate: new Date(),
+              editable: false,
+              selectable: true,   
+              buttonText: {
+                today: 'Dia',
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                list: 'Lista'
+              },      
+              dayMaxEvents: false, // allow "more" link when too many events
+              // businessHours: true,
+              weekends: true,
+              events: [
+                {% for evento in eventos %}
+                  {
+                    title: "{{evento.start_time}} | {{evento.titulo}}",
+                    url: "{{evento.url}}",
+                    start: "{{evento.dateTime}}"
+                  },
+                {% endfor %}
+              ],      
+              eventContent: function( info ) {
+                
+                return {html: `<span onclick="window.location = '${info.event['_def'].url}'">${info.event.title.split("h")[0]}h <strong>${info.event.title.split("h")[1]}</strong></span`};
+              },
+              eventRender: function(info) {
+                info.el.querySelectorAll('.fc-title')[0].innerHTML = info.el.querySelectorAll('.fc-title')[0].innerHtml;
+              }
+            });
+
+            calendar_{{tax}}.render();
+        });
+      </script>
+    {% endfor %}
+  </div>
+</main>

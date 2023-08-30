@@ -1,0 +1,408 @@
+<main class="taEmCasa" data-controller="taEmCasa">
+  {% if customPage.status == '1' %}
+  
+    {% if customPage.imagem is defined and customPage.imagem is not empty %}
+      <div class="banner" style="background-image:url({{ customPage.imagem }});"></div>
+    {% endif %}
+    <div class="container">
+
+      {% set form %}
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="titleForm" id="titleForm">FAÇA SEU PRÉ CADASTRO NO TÁ EM CASA</div>
+          <p>
+            Prezado(a), para fazer parte do Programa “Tá na Casa” é necessário que você nos forneça Gênero, Data de nascimento, Telefone com DDD, Cidade, Bairro, Empresa, Área, Cargo, Escolaridade, pois a partir dessas informações conseguimos conhecer melhor você para oferecer conteúdos mais aderentes ao seu perfil. Também precisamos que você nos informe, necessariamente, seu primeiro e último nome para que possamos identifica-lo, CPF para garantir que não haja duplicidade de cadastro e e-mail para que você possa receber toda comunicação e conteúdo proposto pelo programa.<br> 
+
+  Os dados aqui coletados ficarão armazenados conosco até que você decida se descadastrar. 
+          </p>
+          
+          <br>
+          <br>
+          
+          {% if customPage.queryString.cadastro is defined and customPage.queryString.cadastro == 'sucess' %}
+            <div class="msg success center" id="cadastro">Cadastro efetuado com sucesso!<i class="icon-close"></i></div>
+          {% endif %}
+          {% if customPage.cadastro.form.message == 'error' %}
+            <div class="msg error light">Verifique os campos abaixo marcados em vermelho.</div>
+          {% endif %}
+        </div>
+
+      </div>
+      <div class="row" id="cadastro">
+        <div class="col-lg-12">
+          <form action="{{ customPage.cadastro.form.action }}" id="formTaEmCasa" enctype="multipart/form-data" method="post">
+            <div class="form-row">
+              <div class="col">
+                <label>{{ customPage.cadastro.form.fields.perfil.label }}</label>
+              </div>
+            </div>
+            <div class="form-row perfil required radios">
+              <div class="col-lg-12" {{ (customPage.cadastro.form.fields.perfil.errorMessage is defined) ? 'style="border: 1px solid red;"' : '' }}>
+                {% for key,perfil in customPage.cadastro.form.fields.perfil.options %}
+                  <div class="form-check form-check-inline">
+                    <input {{ perfil.value in customPage.cadastro.form.fields.perfil.value or key in [0] ? 'checked' : '' }} type="radio" id="perfil{{ key }}" class="form-check-input perfil"
+                                                                                                                            name="perfil[]" value="{{ perfil.value }}">
+                    <label class="form-check-label" for="perfil{{ key }}">{{ perfil.label }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+
+            </div>
+            <div class="form-row">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label for="nome">{{ customPage.cadastro.form.fields.nome_completo.label }}</label>
+                  <input type="text" id="nome" class="form-control nome  required {{ (customPage.cadastro.form.fields.nome_completo.errorMessage is defined) ? ' is-invalid' : '' }}"
+                        name="{{ customPage.cadastro.form.fields.nome_completo.name }}"
+                        value="{{ customPage.cadastro.form.fields.nome_completo.value }}">
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="cpf">{{ customPage.cadastro.form.fields.cpf.label }}</label>
+                  <input type="text" id="cpf" class="form-control cpf  required {{ (customPage.cadastro.form.fields.cpf.errorMessage is defined) ? ' is-invalid' : '' }}"
+                        name="{{ customPage.cadastro.form.fields.cpf.name }}"
+                        value="{{ customPage.cadastro.form.fields.cpf.value }}">
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="d-block" for="nome">{{ customPage.cadastro.form.fields.genero.label }}</label>
+                  <select name="{{ customPage.cadastro.form.fields.genero.name }}" class="custom-select required {{ (customPage.cadastro.form.fields.genero.errorMessage is defined) ? ' is-invalid' : '' }}" id="genero">
+                    <option value="">Selecione</option>
+                    {% for key,genero in customPage.cadastro.form.fields.genero.options %}#}
+                      <option value="{{ genero.value }}">{{ genero.label }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="data_de_nascimento">{{ customPage.cadastro.form.fields.data_de_nascimento.label }}</label>
+                  <input type="date" id="data_de_nascimento" class="form-control data_de_nascimento required {{ (customPage.cadastro.form.fields.data_de_nascimento.errorMessage is defined) ? ' is-invalid' : '' }}"
+                        name="{{ customPage.cadastro.form.fields.data_de_nascimento.name }}"
+                        value="{{ customPage.cadastro.form.fields.data_de_nascimento.value }}">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-lg-8">
+                <div class="form-group">
+                  <label for="email">{{ customPage.cadastro.form.fields.e_mail.label }}</label>
+                  <input type="email" id="email" class="form-control email required {{ (customPage.cadastro.form.fields.e_mail.errorMessage is defined) ? ' is-invalid' : '' }}"
+                        name="{{ customPage.cadastro.form.fields.e_mail.name }}"
+                        value="{{ customPage.cadastro.form.fields.e_mail.value }}">
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="telefone">{{ customPage.cadastro.form.fields.telefone.label }}</label>
+                  <input type="tel" id="telefone" class="form-control telefone required {{ (customPage.cadastro.form.fields.telefone.errorMessage is defined) ? ' is-invalid' : '' }}"
+                        name="{{ customPage.cadastro.form.fields.telefone.name }}"
+                        value="{{ customPage.cadastro.form.fields.telefone.value }}">
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="cidade">{{ customPage.cadastro.form.fields.cidade.label }}</label>
+                    <input type="text" id="cidade" class="form-control cidade  required {{ (customPage.cadastro.form.fields.cidade.errorMessage is defined) ? ' is-invalid' : '' }}"
+                          name="{{ customPage.cadastro.form.fields.cidade.name }}"
+                          value="{{ customPage.cadastro.form.fields.cidade.value }}">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="bairro">{{ customPage.cadastro.form.fields.bairro.label }}</label>
+                    <input type="text" id="bairro" class="form-control bairro  required {{ (customPage.cadastro.form.fields.bairro.errorMessage is defined) ? ' is-invalid' : '' }}"
+                          name="{{ customPage.cadastro.form.fields.bairro.name }}"
+                          value="{{ customPage.cadastro.form.fields.bairro.value }}">
+                  </div>
+                </div>
+                
+                
+              </div>
+
+            <div class="form-row filedFilter pf1 pf2 pf5 pf6">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="empresa">{{ customPage.cadastro.form.fields.empresa.label }}</label>
+                  <input type="text" id="empresa" class="form-control profissao required {{ (customPage.cadastro.form.fields.empresa.errorMessage is defined) ? ' is-invalid' : '' }}"
+                        name="{{ customPage.cadastro.form.fields.empresa.name }}"
+                        value="{{ customPage.cadastro.form.fields.empresa.value }}">
+                </div>
+              </div>
+              <div class="col-lg-4">
+                  <div class="form-group">
+                    <label for="area">{{ customPage.cadastro.form.fields.area.label }}</label>
+                    <input type="text" id="area" class="form-control area  required {{ (customPage.cadastro.form.fields.area.errorMessage is defined) ? ' is-invalid' : '' }}"
+                          name="{{ customPage.cadastro.form.fields.area.name }}"
+                          value="{{ customPage.cadastro.form.fields.area.value }}">
+                  </div>
+                </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="cargo">{{ customPage.cadastro.form.fields.cargo.label }}</label>
+                  <input type="text" id="cargo" class="form-control cargo required {{ (customPage.cadastro.form.fields.cargo.errorMessage is defined) ? ' is-invalid' : '' }}"
+                        name="{{ customPage.cadastro.form.fields.cargo.name }}"
+                        value="{{ customPage.cadastro.form.fields.cargo.value }}">
+                </div>
+              </div>
+            </div>
+            
+            
+            <div class="form-row filedFilter pf5">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="cnpj">{{ customPage.cadastro.form.fields.cnpj.label }}</label>
+                  <input type="text" id="cnpj" class="form-control profissao required {{ (customPage.cadastro.form.fields.cnpj.errorMessage is defined) ? ' is-invalid' : '' }}"
+                        name="{{ customPage.cadastro.form.fields.cnpj.name }}"
+                        value="{{ customPage.cadastro.form.fields.cnpj.value }}">
+                        <p><small>Nos informe o CNPJ da sua empresa para que possamos confirmar seu cadastro como associado Firjan/CIRJ. Em caso de dúvidas se sua empresa é associada ou qual o CNPJ, pedimos por favor que entre em contato com o seu RH.</small></p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row filedFilter pf0">
+              <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="instituicao_de_ensino">{{ customPage.cadastro.form.fields.instituicao_de_ensino.label }}</label>
+                        <input type="text" id="instituicao_de_ensino" class="form-control instituicao_de_ensino  required {{ (customPage.cadastro.form.fields.instituicao_de_ensino.errorMessage is defined) ? ' is-invalid' : '' }}"
+                              name="{{ customPage.cadastro.form.fields.instituicao_de_ensino.name }}"
+                              value="{{ customPage.cadastro.form.fields.instituicao_de_ensino.value }}">
+                      </div>
+                    </div>
+                    
+              <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="curso">{{ customPage.cadastro.form.fields.curso.label }}</label>
+                          <input type="text" id="curso" class="form-control curso  required {{ (customPage.cadastro.form.fields.curso.errorMessage is defined) ? ' is-invalid' : '' }}"
+                                name="{{ customPage.cadastro.form.fields.curso.name }}"
+                                value="{{ customPage.cadastro.form.fields.curso.value }}">
+                        </div>
+                      </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="d-block" for="nome">{{ customPage.cadastro.form.fields.seguimento.label }}</label>
+                          <select name="{{ customPage.cadastro.form.fields.seguimento.name }}" class="custom-select required {{ (customPage.cadastro.form.fields.seguimento.errorMessage is defined) ? ' is-invalid' : '' }}" id="seguimento">
+                            <option value="">Selecione</option>
+                            {% for key,seguimento in customPage.cadastro.form.fields.seguimento.options %}#}
+                              <option value="{{ seguimento.value }}">{{ seguimento.label }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="serie">{{ customPage.cadastro.form.fields.serie.label }}</label>
+                        <input type="text" id="serie" class="form-control serie  required {{ (customPage.cadastro.form.fields.serie.errorMessage is defined) ? ' is-invalid' : '' }}"
+                              name="{{ customPage.cadastro.form.fields.serie.name }}"
+                              value="{{ customPage.cadastro.form.fields.serie.value }}">
+                      </div>
+                    </div>
+            </div>  
+
+            <div class="form-row filedFilter pf1 pf2 pf3 pf4 pf5 pf6">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="d-block" for="nome">{{ customPage.cadastro.form.fields.escolaridade.label }}</label>
+                  <select name="{{ customPage.cadastro.form.fields.escolaridade.name }}" class="custom-select required {{ (customPage.cadastro.form.fields.escolaridade.errorMessage is defined) ? ' is-invalid' : '' }}" id="escolaridade">
+                    <option value="">Selecione</option>
+                    {% for key,escolaridade in customPage.cadastro.form.fields.escolaridade.options %}#}
+                      <option value="{{ escolaridade.value }}">{{ escolaridade.label }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="filedFilter pf0">
+              <div class="form-row">
+                      <div class="col">
+                        <label>{{ customPage.cadastro.form.fields.ja_visitou.label }}</label>
+                      </div>
+                    </div>
+                    <div class="form-row ja_visitou required radios">
+                      <div class="col-lg-12" {{ (customPage.cadastro.form.fields.ja_visitou.errorMessage is defined) ? 'style="border: 1px solid red;"' : '' }}>
+                        {% for key,ja_visitou in customPage.cadastro.form.fields.ja_visitou.options %}
+                          <div class="form-check form-check-inline">
+                            <input {{ ja_visitou.value in customPage.cadastro.form.fields.ja_visitou.value ? 'checked' : '' }} type="radio" id="ja_visitou{{ key }}" class="form-check-input ja_visitou"
+                                                                                                                              name="ja_visitou[]" value="{{ ja_visitou.value }}">
+                            <label class="form-check-label" for="ja_visitou{{ key }}">{{ ja_visitou.label }}</label>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+            </div>
+            
+            <div class="form-row marque_os_temas_de_seu_interesse required radios">
+              <p>
+            Os dados pessoais aqui coletados ficarão sob responsabilidade da Firjan e suas Instituições 
+
+  e só serão usados para as finalidades que você nos autorizar. Assim, caso você deseje receber 
+
+  informações e atualizações sobre eventos na Casa Firjan, marque os temas de seu interesse: 
+          </p>
+              <div class="col">
+                <label>{{ customPage.cadastro.form.fields.marque_os_temas_de_seu_interesse.label }}</label>
+              </div>
+              <div class="col-lg-12" {{ (customPage.cadastro.form.fields.marque_os_temas_de_seu_interesse.errorMessage is defined) ? 'style="border: 1px solid red;"' : '' }}>
+                {% for key,marque in customPage.cadastro.form.fields.marque_os_temas_de_seu_interesse.options %}
+                  <div class="form-check form-check-inline">
+                    <input {{ marque.value in customPage.cadastro.form.fields.marque_os_temas_de_seu_interesse.value ? 'checked' : '' }} type="checkbox" id="marque_os_temas_de_seu_interesse{{ key }}" class="form-check-input marque_os_temas_de_seu_interesse"
+                                                                                                                      name="marque_os_temas_de_seu_interesse[]" value="{{ marque.value }}">
+                    <label class="form-check-label" for="marque_os_temas_de_seu_interesse{{ key }}">{{ marque.label }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+            
+            <div class="form-row aceite_termos_de_uso required radios">
+          
+              <div class="col-lg-12" {{ (customPage.cadastro.form.fields.aceite_termos_de_uso.errorMessage is defined) ? 'style="border: 1px solid red;"' : '' }}>
+              
+                  {% for key,aceite in customPage.cadastro.form.fields.aceite_termos_de_uso.options %}
+                  <div class="form-check form-check-inline">
+                    <input type="checkbox" id="aceite_termos_de_uso{{ key }}" class="form-check-input aceite_termos_de_uso"
+                                                                                                                      name="aceite_termos_de_uso[]" value="{{ aceite.value }}">
+                    
+                    
+                    <label class="form-check-label" for="aceite_termos_de_uso{{ key }}"><strong>Ao enviar as informações acima, declaro que li e concordo como <a href="/termo-de-privacidade" target="blank">Termo de Uso e Privacidade</a> do Portal da Casa Firjan, e com as condições acima apresentadas referente ao tratamento que será empregado aos meus dados pessoais.</strong></label>
+                    <br>
+                  </div>
+                  <p style="padding: 10px 0 0 18px;">
+                    <small>
+                      A Lei 13.709, de 14 de agosto de 2018, denominada como Lei Geral de Proteção de Dados (LGPD) exige a autorização do responsável legal do menor para o tratamento de dados pessoais, por esse motivo precisamos que você nos indique se é <strong> maior de 18 anos </strong>, pois caso não seja será necessário que o seu responsável legal nos envie <strong> Declaração de Autorização </strong> para cadastro e tratamento de dados pessoais de menor no Programa “Tá em Casa”. 
+                    </small>
+                  </p>
+                  
+                {% endfor %}
+        
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="form-row aceite_termos_de_uso required radios">
+          
+              <div class="col-lg-12" {{ (customPage.cadastro.form.fields.declaro_que_sou_maior_de_18_anos.errorMessage is defined) ? 'style="border: 1px solid red;"' : '' }}>
+              
+                  {% for key,anos in customPage.cadastro.form.fields.declaro_que_sou_maior_de_18_anos.options %}
+                  <div class="form-check form-check-inline">
+                    <input type="checkbox" id="declaro_que_sou_maior_de_18_anos{{ key }}" class="form-check-input aceite_termos_de_uso"
+                                                                                                                      name="declaro_que_sou_maior_de_18_anos[]" value="{{ anos.value }}">
+                    
+                    
+                    <label class="form-check-label" for="declaro_que_sou_maior_de_18_anos{{ key }}"><strong>Declaro que sou maior de 18 anos e que todas as informações inseridas neste formulário 
+
+  são verdadeiras e se referem apenas a minha pessoa. </strong></label>
+                    <br>
+                  </div>
+                  
+                {% endfor %}
+        
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="form-row aceite_termos_de_uso required radios">
+          
+              <div class="col-lg-12" {{ (customPage.cadastro.form.fields.comprometo_me_a_encaminhar_a_declaracao.errorMessage is defined) ? 'style="border: 1px solid red;"' : '' }}>
+              
+                  {% for key,compromete in customPage.cadastro.form.fields.comprometo_me_a_encaminhar_a_declaracao.options %}
+                  <div class="form-check form-check-inline">
+                    <input type="checkbox" id="comprometo_me_a_encaminhar_a_declaracao{{ key }}" class="form-check-input aceite_termos_de_uso"
+                                                                                                                      name="comprometo_me_a_encaminhar_a_declaracao[]" value="{{ compromete.value }}">
+                    
+                    
+                    <label class="form-check-label" for="comprometo_me_a_encaminhar_a_declaracao{{ key }}"><strong>Comprometo-me a encaminhar a Declaração de Autorização de Cadastro assinada por meu responsável legal para o tratamento dos dados aqui inseridos no prazo de 3 dias úteis para o e-mail taemcasa@firjan.com.br, uma vez que sou menor de 18 anos. </strong></label>
+                    <br>
+                  </div>
+                  <p style="padding: 10px 0 0 18px;">
+                    <small>
+                      Conforme o art. 18 da LGPD, você tem o direito de nos solicitar a qualquer tempo: (i) a 
+
+  confirmação da existência de tratamento; (ii) o acesso aos seus dados; (iii) a correção dos seus 
+
+  dados pessoais incompletos, inexatos ou desatualizados; (iv) a anonimização, bloqueio ou 
+
+  eliminação dos seus dados pessoais quando estes forem desnecessários, excessivos ou tratados 
+
+  em desconformidade com a LGPD; (v) a portabilidade dos seus dados pessoais, mediante 
+
+  requisição expressa a ser enviada a nossa Encarregada (DPO); (vi) a revogação do seu 
+
+  consentimento; (vii) informações sobre as entidades públicas e privadas com as quais realizouse 
+
+  o uso compartilhado de dados; (viii) a informação sobre a possibilidade de não fornecer 
+
+  consentimento e sobre as consequências da negativa. 
+                    </small>
+                  </p>
+                  
+                {% endfor %}
+                <p>
+                  <strong> 
+
+  Assim, caso queira exercer qualquer dos seus direitos aqui expostos basta entrar em 
+
+  contato conosco pelo e-mail: <a href="mailto:dpo@firjan.com.br">dpo@firjan.com.br</a></strong>
+                </p>
+                <p>Em caso de dúvidas sobre o programa,  entre em contato com <a href="mailto:taemcasa@firjan.com.br">taemcasa@firjan.com.br</a></p>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="form-row justify-content-end">
+              <div class="col-lg-3">
+                <div class="form-group">
+                  {% for name, value in customPage.cadastro.form.hiddens %}
+                    <input type="hidden" name="{{ name }}" value="{{ value }}">
+                  {% endfor %}
+                  <input type="submit" class="form-control btnAzul submit" name="submit" value="Enviar">
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+      {% endset %}
+
+      {% include '@casa_firjan/includes/pagina-basica.html.twig' %}
+      
+    </div>
+
+  {% else %}
+
+    <h1 style="text-align: center; margin: 150px 0;">Ops, página indisponível...</h1>
+
+  {% endif %}
+</main>

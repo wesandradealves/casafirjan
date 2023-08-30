@@ -1,0 +1,31 @@
+<div class="filter d-flex align-items-center w-100 p-3 mb-4">
+    <p class="p-0 m-0"><strong>Filtrar por:</strong></p>
+    <div class="flex-fill ps-3">
+        {% if taxonomies %}
+            <ul class="d-flex align-items-center p-0 m-0">
+                {% for cat in taxonomies|keys %}
+                    <li class="me-3 group-item d-flex align-items-center"><span class="checkbox"><input type="checkbox" id="{{slugify(cat)}}" name="categories" value="{{slugify(cat)}}" /> <span></span></span> <label class="m-0 p-0 ms-2" for="{{slugify(cat)}}">{{cat}}</label></li>
+                {% endfor %}
+            </ul>            
+        {% else %}
+            {% set categories = [] %}
+            {% for node in data %}
+                {% set term = get_term(node.categoria) %}
+                
+                {% if term and term.name not in categories %}
+                    {% set categories = categories|merge([term.name]) %}
+                {% endif %}
+                {# {% if node.categoria_curso and node.categoria_curso.name not in categories %}
+                    {% set categories = categories|merge([node.categoria_curso.name]) %}
+                {% endif %}             #}
+            {% endfor %}
+            {% if categories|length %}
+                <ul class="d-flex align-items-center p-0 m-0">
+                    {% for cat in categories %}
+                        <li class="me-3 group-item d-flex align-items-center"><span class="checkbox"><input type="checkbox" id="{{cat}}" name="categories[]" value="{{cat}}" /> <span></span></span> <label class="m-0 p-0 ms-2" for="{{cat}}">{{cat}}</label></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

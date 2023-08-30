@@ -1,0 +1,47 @@
+<main class="pesquisa lideres">
+  <div class="container">
+    <!--
+        Topo
+    -->
+    <div class="row">
+      <div class="col-md-12 col-lg-7">
+        <h3 class="textBigTitle">{{ customPage.titulo }}</h3>
+        <div class="text20">{{ customPage.texto|raw }}</div>
+      </div>
+    </div>
+
+    <!--<main id="block-conecta-inovacao" class="produto">
+      <div class="row itemProduto">
+        <div class="col-md-12 col-lg-6">
+          <a href="https://firjan-conectainovacao-lightsail18-dev.gm5.com.br/" target="_blank" style="background-image:url(/themes/casa_firjan/statics/img/ConectaInovacao.jpg);" class="img">
+            <img src="/themes/casa_firjan/statics/img/ConectaInovacao.jpg" alt="Conecta Inovação">
+            <span><p>CONECTA INOVAÇÃO</p></span>
+          </a>
+        </div>
+        <div class="col-md-12 col-lg-6">
+          <div class="resumo">
+            <p class="text20">Através de metodologias ativas, imersivas e aprendizado por competência, a programação da Casa Firjan conta com docentes dedicados a preparar pessoas para os desafios do futuro.
+              As aulas são ministradas em ambientes versáteis e laboratórios de alta tecnologia
+            </p>
+            <a href="https://firjan-conectainovacao-lightsail18-dev.gm5.com.br/" target="_blank" class="mais">Conheça mais ></a>
+          </div>
+        </div>
+      </div>
+    </main>-->
+
+    {% if customPage.produtosLista is defined and customPage.produtosLista is not empty %}
+      <div class="row {{ customPage.produtos.mainClass }}">
+        {% for produto in customPage.produtosLista %}
+          <div class="{{ customPage.produtos.grid }}">
+            <span style="background-color: {{ produto.tag.background }}; color: {{ produto.tag.fontColor }}">{{ produto.tag.titulo }}</span>
+            <a href="{{ produto.url }}" class="img" style="background-image:url({{ produto.imagem }});"
+               title="Cursos">
+              <img src="{{ customPage.system.staticPath }}img/img1x1.gif">
+              <span><p>{{ produto.titulo|raw }}</p></span>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</main>

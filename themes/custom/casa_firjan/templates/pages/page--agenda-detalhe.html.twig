@@ -1,0 +1,97 @@
+<main class="detalheEvento">
+  <article>
+    <div class="container">
+      <!--
+          Topo
+      -->
+      <div class="row topo">
+        <div class="col">
+          <a href="/agenda" class="textCat">Agenda</a>
+          <h3 class="textBigTitle">{{ customPage.conteudo.titulo }}</h3>
+          <div id="custom-edit-content" align="right">
+            {% if is_admin %}
+              <!-- SE PERFIL == ADMINISTRADOR -->
+              <a href="{{ customPage.conteudo.edit }}" title="Editar conteúdo"><img src="/themes/casa_firjan/statics/img/pencil-square.svg" width="28"/></a> 
+            {% endif %}                 
+          </div>
+        </div>
+      </div>
+      <!--
+          Corpo do conteúdo
+      -->
+
+      {% if customPage.conteudo.status == 1 %}
+
+      <div class="row conteudo">
+        <div class="col-sm-12 col-lg-8">
+          <div class="data">{{ customPage.conteudo.data }}</div>
+          {% if customPage.conteudo.imagem.src %}
+          <div class="arte">
+            <img src="{{ customPage.conteudo.imagem.src }}" alt="Arte do evento">
+              {% if customPage.conteudo.imagem.legenda %}
+                <span>{{ customPage.conteudo.imagem.legenda }}</span>
+              {% endif %}
+          </div>
+          {% endif %}
+          <div class="text20">
+            {{ customPage.conteudo.texto|raw }}
+          </div>
+        </div>
+        
+        <div class="col-lg-4">
+          <div class="informacoes">
+            <p class="text20 bold">SERVIÇO</p>
+            <p class="text20"><span>Data:</span> {{ customPage.conteudo.data }}</p>
+            {# <p class="text20"><span>Horário:</span> {{ customPage.conteudo.horario }}</p> #}
+            <p class="text20"><span>Horário:</span> {{ customPage.conteudo.start_time }}</p>
+            <p class="text20"><span>Tipo:</span> {{ customPage.conteudo.categoria }}</p>
+            <p class="text20"><span>Preço:</span> {{ customPage.conteudo.preco }}</p>
+            {% if customPage.conteudo.formUrl is defined and customPage.conteudo.formUrl is not empty%}
+              <a target="_blank" href="{{ customPage.conteudo.formUrl }}" class="btnAzul" target="_blank" {% if customPage.conteudo.codigoga is not empty %} onclick="{{ customPage.conteudo.codigoga }}" {% endif %} >{{ customPage.conteudo.textoLinkForm }}</a>
+            {% else %}
+              {% if customPage.conteudo.ingresso is defined and customPage.conteudo.ingresso is not empty%}
+                <a target="_blank" href="{{ customPage.conteudo.ingresso }}" class="btnAzul" {% if customPage.conteudo.codigoga is not empty %} onclick="{{ customPage.conteudo.codigoga }}" {% endif %} >{{ customPage.conteudo.textoLinkIngresso }}</a>
+              {% endif %}
+            {%endif%}
+            <a href="/agenda" class="verEventos">Ver todos os eventos ></a>
+          </div>
+        </div>
+      </div>
+      {% else %}
+
+        <div class="alert alert-info">Conteúdo indisponível no momento!</div>
+
+      {% endif %}
+
+      {# {% if customPage.conteudo.eventos.itens is defined and customPage.conteudo.eventos.itens is not empty %}
+      <div class="row">
+        <div class="col-lg-7">
+          <section class="blocoAgenda posts" data-url="/agenda">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="textTitleBlock">Agenda</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <a href="/agenda" class="verTudo">Veja toda a nossa programação ></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                {% include '@casa_firjan/includes/loop-agenda.html.twig' %}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <a href="/agenda" class="verTudo">Veja toda a nossa programação ></a>
+              </div>
+            </div>
+          </section>
+        </div>
+        {% endif %}
+      </div> #}
+
+    </div>
+  </article>
+</main>

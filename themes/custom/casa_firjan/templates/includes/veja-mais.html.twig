@@ -1,0 +1,58 @@
+{% if customPage.leiaMais.items is defined and customPage.leiaMais.items is not empty %}
+<section class="destaques vejaMais">
+  <div class="container posts" data-url="{{customPage.leiaMais.url}}">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="textTitleBlock">Veja mais</div>
+      </div>
+
+      
+      <div class="target row">
+        {% for leiaMais in customPage.leiaMais.items %}
+          <div class="col-lg-6 col-md-12">
+            <div class="row">
+             
+              {% if leiaMais.midia.src %}
+                <div class="col-sm-4">
+                  {% if leiaMais.midia.tipo == 'video' %}
+                    <a data-fancybox class="img video" href="{{ leiaMais.midia.urlvideo }}" style="background-image:url({{ leiaMais.midia.src }});"  title="{{ leiaMais.titulo }}">
+                      <img src="{{ customPage.system.staticPath }}img/img1x1.gif">
+                    </a>
+                  {% else %}
+                    <a class="img" style="background-image:url({{ leiaMais.midia.src }});" href="{{leiaMais.url }}" title="{{ leiaMais.titulo }}">
+                      <img src="{{ customPage.system.staticPath }}img/img1x1.gif">
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+              {% if leiaMais.midia.src %}
+                <div class="col-sm-8">
+              {% else %}
+                <div class="col-sm-12">
+              {% endif %}
+                {% if level2 != TRUE %}
+                  <a class="textCat" href="{{leiaMais.categoria.url }}">{{leiaMais.categoria.label }}</a>
+                {% endif %}
+                <a class="textTitle" href="{{leiaMais.url }}">{{ leiaMais.titulo }}</a>
+                <p class="text14">{{leiaMais.chamada }}</p>
+                <p class="textCreate">{{leiaMais.autor_data }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+      
+    </div>  
+       
+    
+     <div class="row justify-content-center btnVerMais loadMore">
+      <div class="col-2">
+        {% set totalPages = customPage.leiaMais.paginacao.totalPages - 1 %}
+        {% if totalPages > 0 %}
+          <a href="javascript:void(0);" data-atual="0" data-total="{{ totalPages }}" class="btnAzul">Ver mais</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

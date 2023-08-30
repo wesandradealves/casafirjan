@@ -1,0 +1,47 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a breadcrumb trail.
+ *
+ * Available variables:
+ * - breadcrumb: Breadcrumb trail items.
+ *
+ * @ingroup themeable
+ */
+#}
+{% set headline = '' %}
+{% block content %}
+    {% if term %}
+      <nav class="breadcrumb mb-5" role="navigation" aria-labelledby="system-breadcrumb">
+        <div class="container pt-5 pb-5">
+          <h2 id="system-breadcrumb" class="visually-hidden">{{ 'Breadcrumb'|t }}</h2>
+          <ul class="p-0 m-0 d-flex align-items-md-center flex-wrap">
+              <li class="me-3">
+                <a>{{term.titulo}}</a>
+              </li>
+          </ul>
+          {% if term.descricao %}
+            <h3 class="mt-2 headline">{{term.descricao}}</h3>
+          {% endif %}
+
+          {# {{dump(get_term(term.tid))}} #}
+        </div>
+      </nav>
+    {% elseif breadcrumb %}
+      <nav class="breadcrumb mb-5" role="navigation" aria-labelledby="system-breadcrumb" {% if breadcrumb_bg %} style="background-image: url({{breadcrumb_bg}})" {% endif %}>
+        <div class="container pt-5 pb-5">
+          <h2 id="system-breadcrumb" class="visually-hidden">{{ 'Breadcrumb'|t }}</h2>
+          <ul class="p-0 m-0 d-flex align-items-md-center flex-wrap">
+            {% for item in breadcrumb if breadcrumb %}
+              <li class="me-3">
+                <a>{{item.text}}</a>
+              </li>
+            {% endfor %}    
+          </ul>
+          {% if field_headline or breadcrumb|last['headline'] %}
+            <h3 class="mt-2 headline">{% if field_headline %} {{field_headline}} {% else %} {{breadcrumb|last['headline']}} {% endif %}</h3>
+          {% endif %}
+        </div>
+      </nav>
+    {% endif %}
+{% endblock %}

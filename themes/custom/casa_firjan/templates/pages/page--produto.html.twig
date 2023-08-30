@@ -1,0 +1,9 @@
+{{ drupal_region('breadcrumb') }}
+
+<main data-controller="{{slugify(title)|replace({'-':'_'})}}">
+{% block container %}
+  <div class="container d-flex flex-column justify-content-center overflow-hidden">
+          {{ page.content }}
+  </div>
+{% endblock %}
+</main>

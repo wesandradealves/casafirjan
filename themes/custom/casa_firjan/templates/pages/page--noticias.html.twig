@@ -1,0 +1,69 @@
+<main class="noticias" data-controller="noticias">
+  <div class="container">
+    <!--
+        Topo
+    -->
+    <div class="row">
+      <div class="col-md-12 col-lg-6">
+        <h3 class="textBigTitle">Notícias</h3>
+      </div>
+    </div>
+    <!--
+        Notícias
+    -->
+    <div class="row">
+      <div class="col-lg-7 posts" data-url="/noticias">
+        <div class="target">
+          <div class="row">
+
+            {% for noticia in customPage.conteudo.noticias.itens %}
+              <div class="col-lg-6 item">
+                {# <div id="custom-edit-content" align="right">
+                  {% if is_admin %}
+                    <!-- SE PERFIL == ADMINISTRADOR -->
+                    <a href="{{ noticia.edit }}" title="Editar conteúdo"><img src="/themes/casa_firjan/statics/img/pencil-square.svg" width="28"/></a> 
+                  {% endif %}                 
+                </div> #}
+                <a class="img" style="background-image:url({{ noticia.imagem.src }});" href="{{ noticia.url }}" title="{{ noticia.titulo }}">
+                  <img src="{{ customPage.system.staticPath }}img/img14x9.gif">
+                </a>
+                <p class="textCat">{{ noticia.data }}</p>
+                <a class="text20" href="{{ noticia.url }}">{{ noticia.titulo }}</a>
+                {#<p class="textCreate">por Bruna J. Castro</p>#}
+              </div>
+            {% endfor %}
+
+          </div>
+        </div>
+        <div class="row btnVerMais loadMore">
+          {% set totalPages = customPage.conteudo.noticias.paginacao.totalPages - 1 %}
+          {% if totalPages > 0 %}
+            <a href="javascript:void(0);" data-atual="0" data-total="{{ totalPages }}" class="btnAzul">Ver mais</a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-4 offset-lg-1 destaques">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="textTitleBlock">Em destaque</div>
+          </div>
+        </div>
+        <div class="row itens">
+          {% for destaque in customPage.conteudo.destaques.itens %}
+          <a class="item" href="{{ destaque.url }}">
+            <div class="row">
+              <div class="col-lg-3">
+                <span>{{ destaque.index }}°</span>
+              </div>
+              <div class="col-lg-9">
+                <p class="text18">{{ destaque.titulo }}</p>
+                <p class="textCreate">{{ destaque.autor_data }}</p>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

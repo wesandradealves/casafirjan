@@ -1,0 +1,33 @@
+<main class="detalhe lideres" data-controller="lideresDetalhe">
+  <article>
+    <div class="container">
+      <!--
+                  Topo do conteúdo
+              -->
+      {% include '@casa_firjan/includes/breadcrumb.html.twig' %}
+      <div class="row">
+        <div class="col">
+          <div class="topContent">
+            
+          </div>
+        </div>
+      </div>
+      <!--
+                  Corpo do conteúdo
+              -->
+      <div class="row">
+        <div class="col">
+          <div class="content">
+            {% for topico in customPage.conteudo.topicos %}
+              <div class="topicoBloco">
+                {{ topico|raw }}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </article>
+</main>

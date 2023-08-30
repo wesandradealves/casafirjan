@@ -1,0 +1,96 @@
+{% if customPage.destaques[0] is defined or customPage.destaques[1] is defined or customPage.destaques[2] is defined %}
+
+<section class="destaques">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="textTitleBlock">Em destaque</div>
+      </div>
+      {% if customPage.destaques[0] is defined %}
+        <div class="col-lg-6 col-md-12 itens1">
+          {% if customPage.destaques[0].midia.src %}
+            {% if customPage.destaques[0].midia.tipo == 'video' %}
+              <a data-fancybox class="img video"  style="background-image:url({{ customPage.destaques[0].midia.src }});" href="{{ customPage.destaques[0].midia.url }}" title="{{ customPage.destaques[0].titulo }}">
+                <img src="{{ customPage.system.staticPath }}img/img10x5.gif">
+              </a>
+            {% else %}
+              <a class="img" style="background-image:url({{ customPage.destaques[0].midia.src }});"  href="{{customPage.destaques[0].url }}" title="{{ customPage.destaques[0].titulo }}">
+                <img src="{{ customPage.system.staticPath }}img/img10x5.gif">
+              </a>
+            {% endif %}
+          {% endif %}
+          {% if level2 != TRUE %}
+            <a class="textCat" href="{{customPage.destaques[0].categoria.url }}">{{customPage.destaques[0].categoria.label }}</a>
+          {% endif %}
+          <a class="textTitle" href="{{customPage.destaques[0].url }}">{{ customPage.destaques[0].titulo }}</a>
+          <p class="text14">{{customPage.destaques[0].chamada }}</p>
+          <p class="textCreate">{{customPage.destaques[0].autor_data }}</p>
+        </div>
+      {% endif %}
+
+      {% if customPage.destaques[1] is defined or customPage.destaques[2] is defined %}
+      <div class="col-lg-6 col-md-12 itens2">
+        {% if customPage.destaques[1] is defined %}
+        <div class="row">
+          {% if customPage.destaques[1].midia.src %}
+            <div class="col-sm-4">
+              {% if customPage.destaques[1].midia.tipo == 'video' %}
+                <a data-fancybox class="img video" style="background-image:url({{ customPage.destaques[1].midia.src }});" href="{{ customPage.destaques[1].midia.url }}" title="{{ customPage.destaques[1].titulo }}">
+                  <img src="{{ customPage.system.staticPath }}img/img1x1.gif">
+                </a>
+              {% else %}
+                <a class="img" style="background-image:url({{ customPage.destaques[1].midia.src }});" href="{{customPage.destaques[1].url }}" title="{{ customPage.destaques[1].titulo }}">
+                  <img src="{{ customPage.system.staticPath }}img/img1x1.gif">
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+          {% if  customPage.destaques[1].midia.src %}
+            <div class="col-sm-8">
+          {% else %}
+            <div class="col-sm-12">
+          {% endif %}
+            {% if level2 != TRUE %}
+              <a class="textCat" href="{{customPage.destaques[1].categoria.url }}">{{customPage.destaques[1].categoria.label }}</a>
+            {% endif %}
+            <a class="textTitle" href="{{customPage.destaques[1].url }}">{{ customPage.destaques[1].titulo }}</a>
+            <p class="text14">{{customPage.destaques[1].chamada }}</p>
+            <p class="textCreate">{{customPage.destaques[1].autor_data }}</p>
+          </div>
+        </div>
+        {% endif %}
+        {% if customPage.destaques[2] is defined %}
+        <div class="row">
+          <div class="col-sm-4">
+            {% if customPage.destaques[2].midia.src %}
+              {% if customPage.destaques[2].midia.tipo == 'video' %}
+                <a data-fancybox class="img video" style="background-image:url({{ customPage.destaques[2].midia.src }});" href="{{ customPage.destaques[2].midia.url }}" title="{{ customPage.destaques[2].titulo }}">
+                  <img src="{{ customPage.system.staticPath }}img/img1x1.gif">
+                </a>
+              {% else %}
+                <a class="img" style="background-image:url({{ customPage.destaques[2].midia.src }});" href="{{customPage.destaques[2].url }}" title="{{ customPage.destaques[2].titulo }}">
+                  <img src="{{ customPage.system.staticPath }}img/img1x1.gif">
+                </a>
+              {% endif %}
+            {% endif %}
+          </div>
+          {% if  customPage.destaques[1].midia.src %}
+            <div class="col-sm-8">
+          {% else %}
+            <div class="col-sm-12">
+          {% endif %}
+            {% if level2 != TRUE %}
+              <a class="textCat" href="{{customPage.destaques[2].categoria.url }}">{{customPage.destaques[2].categoria.label }}</a>
+            {% endif %}
+            <a class="textTitle" href="{{customPage.destaques[2].url }}">{{ customPage.destaques[2].titulo }}</a>
+            <p class="text14">{{customPage.destaques[2].chamada }}</p>
+            <p class="textCreate">{{customPage.destaques[2].autor_data }}</p>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}

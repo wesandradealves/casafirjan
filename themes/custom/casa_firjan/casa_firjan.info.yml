@@ -1,0 +1,19 @@
+name: Casa Firjan
+type: theme
+description: 'Tema da Casa Firjan'
+package: Core
+base theme: false
+version: '8.7.2'
+core_compatibility: ^9
+core_version_requirement: ^8 || ^9
+project: 'drupal'
+datestamp: 1558597129
+regions:
+  breadcrumb: 'Breadcrumb'
+  content: 'Content'
+  sidebar: 'Sidebar'
+  Footer: 'Footer'
+components:
+  namespaces:
+    partials:
+      - templates

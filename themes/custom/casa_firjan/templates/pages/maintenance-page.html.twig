@@ -1,0 +1,95 @@
+{#
+/**
+ * @file
+ * Seven's theme implementation to display a single Drupal page while offline.
+ *
+ * All available variables are mirrored in page.html.twig.
+ * Some may be blank but they are provided for consistency.
+ *
+ * @see template_preprocess_maintenance_page()
+ */
+#}
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Casa Firjan</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta property="og:url" content="casafirjan.com.br" />
+    <meta property="og:description" content="Para os desafios da nova economia, um lugar como você nunca viu. Comprometido com a reflexão e a criação de propostas e soluções inovadoras.">
+    <meta property="og:image" content="http://www.firjan.org.br/news/site-casa-firjan/preview-whatsapp.png">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/themes/casa_firjan/statics/img/manutencao/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/themes/casa_firjan/statics/img/manutencao/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/themes/casa_firjan/statics/img/manutencao/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/themes/casa_firjan/statics/img/manutencao/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/themes/casa_firjan/statics/img/manutencao/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/themes/casa_firjan/statics/img/manutencao/favicon.ico">
+
+
+
+
+  <style type="text/css">
+    header {display:none;}
+    body {
+        background-image: url("/themes/casa_firjan/statics/img/manutencao/site-casa-firjan-foto.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background-attachment: fixed;
+    }
+
+    @media screen and (max-width: 992px) {
+        body {
+            background-image: url("/themes/casa_firjan/statics/img/manutencao/site-casa-firjan-foto-mobile.jpg");
+        }
+    }
+
+    .content {
+        display: flex;
+        height: 100vh;
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .content img {
+        max-width: 700px;
+        width: 100%;
+    }
+
+    @media screen and (max-width: 992px) {
+        body {
+            background-image: url("/themes/casa_firjan/statics/img/manutencao/site-casa-firjan-foto-mobile.jpg");
+        }
+
+        .content img {
+            max-width: 80%;
+            position: relative;
+            top: -15px;
+        }
+    }
+
+
+</style>
+</head>
+
+<body>
+    <div class="content">
+        <img src="/themes/casa_firjan/statics/img/manutencao/site-casa-firjan-em-breve.png" alt="Casa Firjan. Em breve voltaremos no ar.">
+    </div>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-26435808-15"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-26435808-15');
+    </script>
+</body>
+</html>

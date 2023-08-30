@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% for row in rows %}
+    {% set node = getNode(row.content['#row']._entity.nid.value) %}
+    <div class="row itemProduto">
+        <div class="col-md-12 col-lg-6">
+            <a href="{{ node.url }}" style="background-image:url({{ node.thumb ? node.thumb : node.imagem }});" class="img">
+                <img src="{{ node.thumb ? node.thumb : node.imagem }}" alt="{{ node.title }}">
+                <span><p>{{ node.title }}</p></span>
+            </a>
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <div class="resumo">
+                <p class="text20">{{ node.field_chamada }}</p>
+                <a href="{{ node.url }}" class="mais">Conheça mais ></a>
+            </div>
+        </div>
+    </div>
+{% endfor %}

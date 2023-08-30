@@ -1,0 +1,42 @@
+{% block paragraph %}
+    {% set field_subtitulo_da_sessao = content.field_subtitulo_da_sessao|render|striptags|trim %}
+    {% set field_titulo_da_sessao = content.field_titulo_da_sessao|render|striptags|trim %}
+    
+    {# {% set field_palestras_mostrar_categori = content.field_palestras_mostrar_categori['#items'].value %}
+     #}
+    <section{{ attributes.addClass(['paragraph--page_gallery']) }}>
+        <div class="container depoimentos-container programacao-container d-flex flex-column justify-content-center">
+            {% if field_subtitulo_da_sessao %}
+                <div class="col-12 d-flex justify-content-center mb-3">
+                    <h2 class="depoimentos-section-intro">{{field_subtitulo_da_sessao}}</h2>
+                </div>
+            {% endif %}
+            {% if field_titulo_da_sessao %}
+            <div class="col-12 d-flex flex-column justify-content-center mb-3 text-center">
+                <h3 class="depoimentos-section-title">{{field_titulo_da_sessao}}</h3>
+            </div>
+            {% endif %}
+            {# {{ content.field_home_programacao_palestras }}           #}
+            <ul class="m-auto mb-4 date-switch d-flex align-items-center justify-content-center p-0 m-0 overflow-hidden">
+                <li class="overflow-hidden active">
+                    <a class="sort-gallery text-center d-block" data-sortBy="day" href="javascript:void(0)">
+                        Por dia
+                    </a>
+                </li>  
+                <li class="overflow-hidden">
+                    <a class="sort-gallery text-center d-block" data-sortBy="id" href="javascript:void(0)">
+                        Por Estilo
+                    </a>
+                </li>                 
+            </ul>       
+            <select class="filter mb-5">
+                <option value="">Selecione uma opção</option>
+            </select>
+            {% if content.field_item_galeria %}
+                <ul class="gallery d-flex align-items-stretch justify-content-center flex-wrap">
+                    {{content.field_item_galeria}}  
+                </ul>
+            {% endif %}
+        </div>
+    </section>
+{% endblock paragraph %}

@@ -1,0 +1,47 @@
+<div class="eventos">
+  {% if customPage.conteudo.eventos.itens is defined and customPage.conteudo.eventos.itens is not empty %}
+  <div class="grupo aquario target">
+    {% for data,eventos in customPage.conteudo.eventos.itens %}
+    <div class="dateGroup" data-date="{{ data }}">
+    <div class="dataDiv">{{ data }}</div>
+      <div class="dateContent">
+      {% for evento in eventos %}
+
+        <div id="custom-edit-content" align="right">
+          {% if is_admin %}
+            <!-- SE PERFIL == ADMINISTRADOR -->
+            <a href="{{ evento.edit }}" title="Editar conteúdo"><img src="/themes/casa_firjan/statics/img/pencil-square.svg" width="28"/></a> 
+          {% endif %}                 
+        </div>
+
+        <a href="{{ evento.url }}" {{ evento.target }} class="item" style="margin-top:0px;">
+          <div class="horario">
+            <p class="cat">{{ evento.categoria }}</p>
+            {% if evento.cicloLabel is defined and evento.cicloLabel is not empty %}
+              <p class="ciclo" style="background:{{ evento.cicloColor }};">{{ evento.cicloLabel }}</p>
+            {% endif %}
+            {% if evento.type == 'curso' %}
+              <p class="duracao">Carga horária <span>{{ evento.carga }}h</span></p>
+            {% elseif evento.target is not empty %}
+              <p class="duracao">Carga horária <span>{{ evento.duracao }}</span></p>
+            {% else %}
+              <p class="hora"><span>{{ evento.hora }}h</span>{{ evento.minutos }}<p>
+              <p class="duracao">Duração <span>{{ evento.duracao }}</span></p>
+            {% endif %}
+          </div>
+          <div class="resumo">
+            <p class="textTitle">{{ evento.titulo }}</p>
+            <p class="text17">{{ evento.texto|raw }}</p>
+          </div>          
+        </a>
+      {% endfor %}
+      </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% else %}
+      <div class="text22">
+        <strong>OPS... Nenhum evento encontrado!</strong>
+      </div>
+  {% endif %}
+</div>

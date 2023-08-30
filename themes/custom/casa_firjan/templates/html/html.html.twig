@@ -1,0 +1,70 @@
+<html lang="pt-br">
+
+<head>
+  {% if metatags %}
+  <meta property="og:image" content="{{ metatags.image }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="628">
+  <meta property="twitter:image" content="{{ metatags.image }}">
+  <meta property="twitter:title" content="{{ metatags.title }}">
+  <meta property="og:title" content="{{ metatags.title }}">
+  <meta property="twitter:description" content="{{ metatags.description }}">
+  <meta property="og:description" content="{{ metatags.description }}">
+  <meta property="twitter:url" content="{{url('<current>')}}" />
+  <meta property="og:url" content="{{url('<current>')}}" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:type" content="article" />
+  <link rel="canonical" href="{{url('<current>')}}">
+  {% else %}
+  <head-placeholder token="{{ placeholder_token|raw }}">
+    {% endif %}
+    <meta charset="utf-8" />
+    {% if not root_path %}
+    <title>Casa Firjan</title>
+    {% else %}
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    {% endif %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="{{ fileVersion('themes/casa_firjan/statics/css/style.css') }}" rel="stylesheet" />
+    <link href="{{ fileVersion('themes/casa_firjan/statics/css/calendar-gc.min.css') }}" rel="stylesheet" />
+    <link href="{{ fileVersion('themes/casa_firjan/statics/js/simplelightbox-master/simple-lightbox.min.css') }}"
+      rel="stylesheet" />
+    <link rel="icon" href="/{{ base_path ~ directory }}/favicon.ico" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/index.global.js" integrity="sha512-i1QYxrZ2eJKNdGkTdSVfokfaXHQEpcjj5CfnWhJ6dQ0X76aG9rIaWvB77GpqFtVp83iRzE/b6e20weGSZpecjQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5PLPMRM');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PLPMRM"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  {% include '@casa_firjan/includes/header.html.twig' %}
+  {{ page }}
+  {% include '@casa_firjan/includes/footer.html.twig' %}
+  <script src="{{ fileVersion('themes/casa_firjan/statics/js/base.js') }}"></script>
+  <script src="{{ fileVersion('themes/casa_firjan/statics/js/calendar-gc.min.js') }}"></script>
+  <script src="{{ fileVersion('themes/casa_firjan/statics/js/simplelightbox-master/simple-lightbox.min.js') }}">
+  </script>
+  <script src="{{ fileVersion('themes/casa_firjan/statics/js/controller.js') }}"></script>
+  <script src="{{ fileVersion('themes/casa_firjan/statics/js/classes.js') }}"></script>
+  <script type='text/javascript'
+    src='https://platform-api.sharethis.com/js/sharethis.js#property=5d30b08e7f09b20012e4b6d7&product=inline-share-buttons'
+    async='async'></script>
+  <style>
+    pre.sf-dump,
+    pre.sf-dump .sf-dump-default {
+      z-index: 1;
+    }
+  </style>
+</body>
+
+</html>

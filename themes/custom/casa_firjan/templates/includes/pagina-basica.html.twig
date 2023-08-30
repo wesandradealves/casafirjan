@@ -1,0 +1,19 @@
+{% if customPage.conteudo.categoria is defined and customPage.conteudo.categoria is not empty %}
+  <div class="row">
+    <div class="col">
+      <a class="textCat" href="{{ customPage.conteudo.categoria.url }}">{{ customPage.conteudo.categoria.label }}</a>
+    </div>
+  </div>
+{% endif %}
+
+      
+<div class="row">
+  <div class="col-lg-9">
+    <h3 class="textBigTitle">{{ customPage.conteudo.titulo }}</h3>
+    <div class="text20 descricao">
+      {{ customPage.conteudo.texto|raw }}
+    </div>
+    {{ form }}
+  </div>
+  {% include '@casa_firjan/includes/produtos-pagina.html.twig' %}
+</div>

@@ -1,0 +1,148 @@
+{% set layout = layout ? layout : content.field_layout.0["#markup"] %}
+{% set mostrar_header = content.field_mostrar_header['#items'].value %}
+{% set mostrar_botao_conheca_mais = content.field_mostrar_botao_conheca_mais['#items'].value %}
+{% set botao_label = content.field_botao_label.0['#context'].value %}
+{% set enable_filter = content.field_enable_filter['#items'].value %}
+<section style="background-image: url({{bg}})" class="bloco-destaque {% if horizontal %} horizontal {% endif %} {{content.field_classes.0['#context'].value}}" data-layout="{{layout}}">
+    <div class="container">
+
+        <div class="d-flex flex-wrap {% if layout == 'video' %} align-items-center {% endif %}">
+            {% if mostrar_header %}
+            <div class="bloco-destaque--header {% if layout != 'video' %} mb-4 {% endif %} col-12 {% if layout == 'video' %} col-lg-3 pe-lg-4 {% endif %} ps-0 pe-0">
+                <h3 class="title d-flex align-items-center justify-content-between m-0 mb-4">
+                    <span>{% if title %} {{title}} {% else %} {{content.field_titulo.0['#context'].value}} {% endif %}</span>
+                    {% if content.field_ver_todos|render and layout != 'video' %}
+                        <a class="btn" target="_blank" href="{% if content.field_ver_todos.0['#url'] %} {{content.field_ver_todos.0['#url']}} {% else %} nodes.0.categoria.url {% endif %}" title="{{ content.field_ver_todos.0['#title'] }}">{{ content.field_ver_todos.0['#title'] }}</a>
+                    {% endif %}                    
+                </h3>
+                <h4 class="subtitle m-0 mt-2">
+                    {#{{content.field_subtitulo.0['#context'].value}}#}
+                    {{content.field_subtitle}}
+                </h4>
+                {% if content.field_ver_todos|render and layout == 'video' %}
+                    <a class="btn mt-4" target="_blank" href="{% if content.field_ver_todos.0['#url'] %} {{content.field_ver_todos.0['#url']}} {% else %} nodes.0.categoria.url {% endif %}" title="{{ content.field_ver_todos.0['#title'] }}">{{ content.field_ver_todos.0['#title'] }}</a>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if enable_filter %}
+                {% include directory ~ '/templates/includes/filter.html.twig' with {data: nodes} %}
+            {% endif %}
+
+            <div class="row flex-fill bloco-destaque--grid {% if layout == 'video' %} mt-5 mt-lg-0 {% endif %}">
+                {% if layout == 'video' %}
+                    {% for index, node in nodes if index <= 2 %}
+                    <div class="post--grid{{index}}" {% if node.media_video == '' %} onclick="window.location = '{{node.url}}'" {% endif %}>
+                        {% set vid = node.media_video ? ('.be' in node.media_video ? node.media_video|split('.be/')[1] : node.media_video|split('?v=')[1]) : '' %}
+                        {% set image = node.image ? node.image : node.media_image ? node.media_image : '//i3.ytimg.com/vi/'~ vid ~'/hqdefault.jpg' %}
+                        <div class="post-grid--inner">
+                            <a title="{{node.title}}" data-fancybox class="thumbnail" style="background-image: url({{image}}); {% if node.media_video == '' %} pointer-events: none; {% endif %}" href="{{node.media_video}}">
+                                <span class="thumbnail-inner">
+                                    {% if node.media_video != '' %}
+                                        <i class="fa-solid fa-play"></i>
+                                    {% endif %}
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    {% for index, node in nodes if nodes|length %}
+                        {% set url = null %}
+
+                        {% if node.field_link_para_compra %}
+                            {% set url = node.field_link_para_compra %}
+                        {% elseif node.field_link %}
+                            {% set url = node.field_link %}
+                        {% elseif node.field_link_externo %}
+                            {% set url = node.field_link_externo %}
+                        {% elseif node.url %}
+                            {% set url = node.url %}
+                        {% endif %}
+
+                        {% if node.categoria %}
+                            {% set term = get_term(node.categoria) %}
+                        {% endif %}  
+
+                        <div {% if node.categoria %} data-category="{{term.name}}" {% endif %} class="{% if horizontal %} mb-5 {% else %} mb-4 {% endif %}  post--grid{{index}} d-flex flex-column {% if layout == '2_columns' or layout == 'yellow_box' %} col-lg-6 {% elseif layout == '1_columns' %} col-12 {% else %} col-lg-4 {% endif %}">
+                            {% set vid = node.media_video ? ('.be' in node.media_video ? node.media_video|split('.be/')[1] : node.media_video|split('?v=')[1]) : '' %}
+                            {% set tipo_de_associacao = slugify(node.tipo_de_associacao) %}
+                            {% set image = node.image ? node.image : node.media_image ? node.media_image : '//i3.ytimg.com/vi/'~ vid ~'/hqdefault.jpg' %}
+                            
+                            <div {% if horizontal %} horizontal {% endif %} class="post-grid--inner flex-fill {% if horizontal %} d-flex flex-row flex-wrap align-items-start {% else %} flex-column {% endif %}">
+                                <a  title="{{node.title}}" {% if node.media_video %} data-fancybox href="{{node.media_video}}" {% else %} href="{{url}}" {% endif %} class="thumbnail mb-4 {% if horizontal %} mb-lg-0 col-12 col-lg-4 {% endif %}" style="background-image: url({{image}}); {% if node.media_video == '' %} cursor: pointer; {% endif %}" >
+                                    <span class="thumbnail-inner">
+                                        {% if node.media_video != '' %}
+                                            <i class="fa-solid fa-play"></i>
+                                        {% endif %}
+                                        {% if layout == 'yellow_box' %}
+                                            <span class="p-2 ps-4 pe-4 m-3">{{node.title}}</span>
+                                        {% endif %}
+                                    </span>
+                                </a>
+                                <div {# {% if url %} onclick="window.location = '{{url}}'" style="cursor: pointer" {% endif %} #} class="info {% if horizontal %} flex-fill ps-lg-5 {% endif %} {% if layout == 'yellow_box' %} p-5 pt-0 {% endif %}">
+                                    {% if node.categoria %}
+                                        <h4 class="category m-0 mb-2">
+                                            <a target="_blank" href="{{term.url}}">{{term.name}}</a>
+                                        </h4>
+                                    {% endif %}
+
+                                    {% if layout != 'yellow_box' %}
+                                        <h2 class="title m-0" >{{node.title}}</h2>
+                                    {% endif %} 
+
+                                    {# <p class="text m-0 mt-2">{{node.field_headline}}</p> #}
+
+                                    {# <p class="text m-0 mt-2" >{{node.text}}</p> #}
+                                    <p class="text m-0 mt-2" >{{node.text}}</p>
+
+
+                                    {% if mostrar_botao_conheca_mais and layout != 'yellow_box' %}
+                                        {% if node.type == 'card' and node.field_link %}
+                                            <a  class="btn mt-4 mb-2" href="{{node.field_link.uri}}" title="{{botao_label ? botao_label : node.field_link.title}}">{{botao_label ? botao_label : node.field_link.title}}</a>         
+                                        {% else %}
+                                            <a  class="btn mt-4 mb-2" href="{{node.field_link_para_compra ? node.field_link_para_compra : node.field_link ? node.field_link : node.field_link_externo ? node.field_link_externo : node.url}}" title="{% if botao_label %} {{botao_label}} {% else %} Saiba Mais {% endif %}">{% if botao_label %} {{botao_label}} {% else %} Saiba Mais {% endif %}</a>         
+                                        {% endif %}
+                                    {% endif %} 
+
+                                    {# {% if node.tag %}
+                                        {% for tag in node.tag %}
+                                            <a target="_blank" class="tag mt-2 d-block" href="{{tag.url}}">#{{tag.name}}</a>
+                                        {% endfor %}
+                                    {% endif %} #}
+                                </div>
+                            </div>                        
+                        </div>
+                    {% endfor %}     
+                    
+                    {% for index, term in taxonomies if taxonomies|length %}
+                        <div onclick="window.location = '{{term.url}}'" class="mb-5 post--grid{{index}} d-flex flex-column {% if layout == '2_columns' or layout == 'yellow_box' %} col-lg-6 {% elseif layout == '1_columns' %} col-12 {% else %} col-lg-4 {% endif %}">
+                            <div {% if horizontal %} horizontal {% endif %} class="post-grid--inner flex-fill {% if horizontal %} flex-row flex-wrap align-items-stretch {% else %} flex-column {% endif %}">
+                                <a title="{{term.name}}" href="{{term.url}}" class="thumbnail mb-4 {% if horizontal %} mb-lg-0 col-12 col-lg-4 {% endif %}" style="background-image: url({{term.field_imagem ? term.field_imagem : term.field_thumb}});">
+                                    <span class="thumbnail-inner">
+                                        {% if layout == 'yellow_box' %}
+                                            <span class="p-2 ps-4 pe-4 m-3">{{term.name}}</span>
+                                        {% endif %}
+                                    </span>
+                                </a>
+                                <div class="info {% if horizontal %} flex-fill ps-lg-5 {% endif %} {% if layout == 'yellow_box' %} p-5 pt-0 {% endif %}" onclick="window.location = '{{term.url}}'">
+                                    {% if layout == 'yellow_box' %}
+                                        {# <div class="summary d-block overflow-hidden mb-4">
+                                            {{term.field_resumo|raw}}<br/>
+
+                                            {{term.field_sub_texto}}
+                                        </div> #}
+                                        <p class="text m-0 mt-2" >{{term.field_sub_texto}}</p>
+                                    {% else %}
+                                        <h2 class="title m-0" >{{term.name}}</h2>
+                                    {% endif %}
+                                    <p class="d-block text m-0 mt-2" >{{term.field_texto ? term.field_texto : term.description}}</p>
+                                </div>
+                            </div>                        
+                        </div>
+                    {% endfor %}                                 
+                {% endif %}
+            </div>
+        </div>        
+    </div>
+</section>

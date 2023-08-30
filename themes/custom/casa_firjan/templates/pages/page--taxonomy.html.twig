@@ -1,0 +1,214 @@
+{{ drupal_region('breadcrumb') }}
+
+<main class="produto pt-0">
+  <div class="container">
+    {# {{dump(term_id)}} #}
+    {# {{dump(customPage)}}x #}
+    {# {{ drupal_view('taxonomy_term', 'page_2', term_id) }} #}
+
+    <!--
+              Topo produto
+          -->
+    {# <div class="row taxonomy-header">
+      <div class="col-md-12 col-lg-8">
+        <p class="tag_menu d-block mb-4">{{base_taxonomy}}</p>
+        <h3 class="textBigTitle">{{ customPage.term.titulo }}</h3>
+        <p class="text20">{{ customPage.term.descricao|raw }}</p>
+      </div>
+    </div> #}
+    <!--
+              Produtos
+          --> 
+
+    <section class="destaques" >
+      <div class="container">
+        <div class="d-block mb-5">
+          <div class="textTitleBlock">Em destaque</div>
+        </div>      
+
+        <div class="row align-items-stretch">
+          {% if customPage.destaques[0] is defined %}
+            <div class="col-lg-6 col-md-12 itens1">
+              {% if customPage.destaques[0].midia.src %}
+                {% if customPage.destaques[0].midia.tipo == 'video' %}
+                  <a data-fancybox class="img video"   href="{{ customPage.destaques[0].midia.url }}" title="{{ customPage.destaques[0].titulo }}">
+                    <img src="{{ customPage.destaques[0].midia.src }}">
+                  </a>
+                {% else %}
+                  <a class="img"   href="{{customPage.destaques[0].url }}" title="{{ customPage.destaques[0].titulo }}">
+                    <img src="{{ customPage.destaques[0].midia.src }}">
+                  </a>
+                {% endif %}
+              {% endif %}
+              {% if level2 != TRUE %}
+                <a class="textCat mt-2" href="{{customPage.destaques[0].categoria.url }}">{{customPage.destaques[0].categoria.label }}</a>
+              {% endif %}
+              <a class="textTitle" href="{{customPage.destaques[0].url }}">{{ customPage.destaques[0].titulo }}</a>
+              <p class="text14">{{customPage.destaques[0].chamada }}</p>
+              <p class="textCreate">{{customPage.destaques[0].autor_data }}</p>
+            </div>
+          {% endif %}
+
+          {% if customPage.destaques[1] is defined or customPage.destaques[2] is defined %}
+            <div class="col-lg-6 col-md-12 itens2">
+              {% if customPage.destaques[1] is defined %}
+              <div class="row mb-3 pb-3">
+                {% if customPage.destaques[1].midia.src %}
+                  <div class="col-sm-6 ps-0 pe-0 pe-md-2">
+                    {% if customPage.destaques[1].midia.tipo == 'video' %}
+                      <a data-fancybox class="img video"  href="{{ customPage.destaques[1].midia.url }}" title="{{ customPage.destaques[1].titulo }}">
+                        <img src="{{ customPage.destaques[1].midia.src }}">
+                      </a>
+                    {% else %}
+                      <a class="img"  href="{{customPage.destaques[1].url }}" title="{{ customPage.destaques[1].titulo }}">
+                        <img src="{{ customPage.destaques[1].midia.src }}">
+                      </a>
+                    {% endif %}
+                  </div>
+                {% endif %}
+                {% if  customPage.destaques[1].midia.src %}
+                  <div class="flex-fill ps-0 ps-sm-2 pe-0">
+                {% else %}
+                  <div class="col-sm-12">
+                {% endif %}
+                  {% if level2 != TRUE and customPage.destaques[1].categoria.url %}
+                    <a class="textCat mt-2" href="{{customPage.destaques[1].categoria.url }}">{{customPage.destaques[1].categoria.label }}</a>
+                  {% endif %}
+                  <a class="textTitle" href="{{customPage.destaques[1].url }}">{{ customPage.destaques[1].titulo }}</a>
+                  <p class="text14">{{customPage.destaques[1].chamada }}</p>
+                  <p class="textCreate">{{customPage.destaques[1].autor_data }}</p>
+                </div>
+              </div>
+              {% endif %}
+              {% if customPage.destaques[2] is defined %}
+              <div class="row">
+                {% if customPage.destaques[2].midia.src %}
+                  <div class="col-sm-6 ps-0 pe-0 pe-md-2">              
+                    {% if customPage.destaques[2].midia.tipo == 'video' %}
+                      <a data-fancybox class="img video"  href="{{ customPage.destaques[2].midia.url }}" title="{{ customPage.destaques[2].titulo }}">
+                        <img src="{{ customPage.destaques[2].midia.src }}">
+                      </a>
+                    {% else %}
+                      <a class="img"  href="{{customPage.destaques[2].url }}" title="{{ customPage.destaques[2].titulo }}">
+                        <img src="{{ customPage.destaques[2].midia.src }}">
+                      </a>
+                    {% endif %}
+                  </div>
+                {% endif %}
+                {% if  customPage.destaques[2].midia.src %}
+                  <div class="flex-fill ps-0 ps-sm-2 pe-0">
+                {% else %}
+                  <div class="col-sm-12">
+                {% endif %}
+                  {% if level2 != TRUE %}
+                    <a class="textCat mt-2" href="{{customPage.destaques[2].categoria.url }}">{{customPage.destaques[2].categoria.label }}</a>
+                  {% endif %}
+                  <a class="textTitle" href="{{customPage.destaques[2].url }}">{{ customPage.destaques[2].titulo }}</a>
+                  <p class="text14">{{customPage.destaques[2].chamada }}</p>
+                  <p class="textCreate">{{customPage.destaques[2].autor_data }}</p>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    {% if bundle != 'tags_conteudo' %}
+      <section class="videosRecentes mb-5">
+        <div class="container">
+          <div class="d-block mb-5">
+            <div class="textTitleBlock">Vídeos mais recentes</div>
+          </div>        
+          
+          <div class="row">
+
+            {% for video in customPage.videosRecentes %}
+              <div class="col-lg-3 col-sm-6 mb-4">
+                <a data-fancybox class="img video" style="background-image:url({{ video.imagem }});" href="{{ video.videoUrl }}" title="{{ video.titulo }}">
+                  <img src="{{ video.imagem }}">
+                </a>
+                {% if level2 != TRUE %}
+                  <a class="textCat mt-2" href="{{ video.categoria.url }}">{{ video.categoria.label }}</a>
+                {% endif %}
+                <a class="text20" href="{{ video.url }}">{{ video.titulo }}</a>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+    {% endif %}
+
+    <section class="vejaMais {% if bundle == 'tags_conteudo' %} mt-5 {% endif %}">
+      <div class="container posts" data-url="{{customPage.leiaMais.url}}">
+        <div class="d-block">
+          {% if bundle != 'tags_conteudo' %}
+            <div class="d-block mb-5">
+              <div class="textTitleBlock">Veja mais</div>
+            </div>
+          {% endif %}
+
+          
+          <div class="target row">
+            {% for leiaMais in customPage.leiaMais.items %}
+              <div class="col-12 col-md-6 mb-4">
+                <div class="row d-flex flex-column flex-lg-row flex-wrap">
+                
+                  {% if leiaMais.midia.src %}
+                    <div class="col-12 col-lg-6">
+                      {% if leiaMais.midia.tipo == 'video' %}
+                        <a data-fancybox class="img video" href="{{ leiaMais.midia.urlvideo }}"  title="{{ leiaMais.titulo }}">
+                          <img src="{{ leiaMais.midia.src }}">
+                        </a>
+                      {% else %}
+                        <a class="img" href="{{leiaMais.url }}" title="{{ leiaMais.titulo }}">
+                          <img src="{{ leiaMais.midia.src }}">
+                        </a>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                  {% if leiaMais.midia.src %}
+                    <div class="flex-fill">
+                  {% else %}
+                    <div class="col-sm-12">
+                  {% endif %}
+                    {% if level2 != TRUE %}
+                      <a class="textCat mt-2" href="{{leiaMais.categoria.url }}">{{leiaMais.categoria.label }}</a>
+                    {% endif %}
+                    <a class="textTitle" href="{{leiaMais.url }}">{{ leiaMais.titulo }}</a>
+                    <p class="text14">{{leiaMais.chamada }}</p>
+                    <p class="textCreate">{{leiaMais.autor_data }}</p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+            </div>
+          
+        </div>  
+          
+        
+        <div class="row justify-content-center btnVerMais loadMore">
+          <div class="col-2">
+            {% set totalPages = customPage.leiaMais.paginacao.totalPages - 1 %}
+            {% if totalPages > 0 %}
+              <a href="javascript:void(0);" data-atual="0" data-total="{{ totalPages }}" class="btnAzul">Ver mais</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>
+    .img {
+      margin: 0
+    }
+    .img img {
+      object-fit: cover;
+      opacity: 1;
+      margin: 0;
+    }
+
+  </style>
+</main>

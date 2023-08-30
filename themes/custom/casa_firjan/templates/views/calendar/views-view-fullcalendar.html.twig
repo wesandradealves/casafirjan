@@ -1,0 +1,94 @@
+{#/**
+ * Default theme implementation for Views to output a Fullcalendar View.
+ *
+ * Available variables:
+ * - options: View plugin style options:
+ *   - classes: CSS classes.
+ *   - defaultDate: Default date of the calendar
+ *   - start: Field name of start date
+ *   - end: Field name of end date
+ *   - languageSelector: Flag for the language dropdown box
+ * - view_index: View index
+ * - showAddEvent: Show add event button
+ * - entity_id: The Entity type machine name
+ *
+ * @see template_preprocess_views_view_fullcalendar()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{%
+  set classes = [
+    options.classes
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  <div class="container pt-5">
+    <div id="js-drupal-fullcalendar" class="js-drupal-fullcalendar" calendar-view-index="{{ view_index }}" calendar-view-name="{{ view_id }}" calendar-display="{{ display_id }}"></div>
+    <div class="bottom-buttons fc-button-group">
+      {% if showAddEvent %}
+      <div class="fullcalendar-bottom-btn add-event-btn">
+          <a id="calendar-add-event"  href="fullcalendar-view-event-add?entity={{ entity_id }}&bundle={{ options.bundle_type }}&start_field={{ options.start }}&end_field={{ options.end }}&destination={{ path('<current>') }}" class="use-ajax" data-dialog-type="dialog" data-dialog-renderer="off_canvas" 
+    data-dialog-options="{&quot;width&quot;:400}">{{ 'Add event'|t }}</a>
+      </div>
+      {% endif %}
+      {% if options.languageSelector == 1 %}
+      <div class="fullcalendar-bottom-btn locale-selector">
+        <label for="locale-selector">{{ 'Select Language:'|t }}</label>
+        <select id='locale-selector-{{ view_index }}' calendar-view-index="{{ view_index }}"></select>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<script src='/{{ base_path ~ directory }}/templates/views/calendar/index.global.js'></script>
+<script src='/{{ base_path ~ directory }}/templates/views/calendar/locales-all.js'></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('js-drupal-fullcalendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      locale: 'pt-br',
+      headerToolbar: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'dayGridDay,dayGridMonth,timeGridWeek,listMonth'
+      },
+      views: {
+          dayGridMonth: {
+              titleFormat: { year: 'numeric', month: 'long' } 
+          }
+      },
+      height: 'auto',  
+      initialView: 'dayGridMonth',
+      initialDate: new Date(),
+      editable: false,
+      selectable: true,   
+      buttonText: {
+        today: 'Dia',
+        month: 'Mês',
+        week: 'Semana',
+        day: 'Dia',
+        list: 'Lista'
+      },      
+      dayMaxEvents: false, // allow "more" link when too many events
+      // businessHours: true,
+      weekends: true,
+      events: [
+        {% for evento in eventos %}
+          {
+            title: "{{evento.titulo}}",
+            url: "{{evento.url}}",
+            start: "{{evento.dateTime}}"
+          },
+        {% endfor %}
+      ]
+    });
+
+    calendar.render();
+  });
+
+</script>
+
+

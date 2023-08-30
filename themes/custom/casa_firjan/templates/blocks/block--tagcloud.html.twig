@@ -1,0 +1,19 @@
+{% set field_background = content['#block_content'].field_background.0.target_id %}
+
+<section id="tagcloud" class="tagcloud mt-5" style="background: url({{get_image_from_id(field_background)}}) center center / cover no-repeat">
+    <div class="container pt-5 pb-5">
+        {% block content %}
+            <h3>{{ title }}</h3>
+            {{content}}
+            {% if taxonomies|length %}
+                <ul class="taglist p-0 mt-5 d-flex flex-wrap align-items-center justify-content-between">
+                    {% for taxonomy in taxonomies if '#' not in taxonomy.name %}
+                        <li class="pb-4 flex-fill ps-2 pe-2">
+                            <a class="p-2 ps-4 pe-4 tag d-block text-center" href="{{taxonomy.url}}" data-id="{{ taxonomy.tid }}">{{ taxonomy.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endblock %}
+    </div>
+</section>

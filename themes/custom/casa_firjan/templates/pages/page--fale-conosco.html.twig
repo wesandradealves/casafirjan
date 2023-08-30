@@ -1,0 +1,163 @@
+<main class="contato" data-controller="contato">
+  <div class="container">
+    <!--
+        Topo
+    -->
+    <div class="row">
+      <div class="col-md-12 col-lg-6">
+        <h3 class="textBigTitle">Contato</h3>
+        <div class="text20">
+          A Firjan disponibiliza canais para o seu contato direto conosco.
+          Preencha o formulário abaixo e envie a sua mensagem ou, caso prefira, fale com a nossa Central de Atendimento.
+        </div>
+      </div>
+    </div>
+
+    <!--
+        Formulário de contato
+    -->
+    <div class="row">
+      <div class="col-lg-8">
+        <form action="{{ customPage.faleConosco.form.action }}" id="fale-conosco" method="post">
+          <div class="form-row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="nome">{{ customPage.faleConosco.form.fields.nome_completo.label }}</label>
+                <input {{ (customPage.faleConosco.form.fields.nome_completo.errorMessage is defined) ? ' style="border: 1px solid red;"' : '' }} type="text" id="nome"
+                       class="form-control nome" name="{{ customPage.faleConosco.form.fields.nome_completo.name }}" value="{{ customPage.faleConosco.form.fields.nome_completo.value }}" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col-lg-8">
+              <div class="form-group">
+                <label for="email">{{ customPage.faleConosco.form.fields.e_mail.label }}</label>
+                <input {{ (customPage.faleConosco.form.fields.e_mail.errorMessage is defined) ? ' style="border: 1px solid red;"' : '' }} type="email" id="email" class="form-control email"
+                       name="{{ customPage.faleConosco.form.fields.e_mail.name }}" value="{{ customPage.faleConosco.form.fields.e_mail.value }}" required>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="telefone">{{ customPage.faleConosco.form.fields.telefone.label }}</label>
+                <input {{ (customPage.faleConosco.form.fields.telefone.errorMessage is defined) ? ' style="border: 1px solid red;"' : '' }} type="tel" id="telefone" class="form-control telefone"
+                       name="{{ customPage.faleConosco.form.fields.telefone.name }}" value="{{ customPage.faleConosco.form.fields.telefone.value }}">
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-row tipoContatoLabel">
+            <div class="col">
+              <label>{{ customPage.faleConosco.form.fields.associado.label }}</label>
+            </div>
+          </div>
+          <div class="form-row tipoContatoRadios" {{ (customPage.faleConosco.form.fields.associado.errorMessage is defined) ? ' style="border: 1px solid red;"' : '' }}>
+            <div class="col-lg-12">
+              {% for key,tipoContato in customPage.faleConosco.form.fields.associado.options %}
+                <div class="form-check form-check-inline">
+                  <input {{ customPage.faleConosco.form.fields.associado.value == tipoContato.value ? ' checked ' : '' }} type="radio" id="tipoContato{{ key }}" value="{{ tipoContato.value }}"
+                         class="form-check-input form-control-sm tipoInformacao"
+                         name="{{ customPage.faleConosco.form.fields.associado.name }}">
+                  <label class="form-check-label" for="tipoContato{{ key }}">{{ tipoContato.label }}</label>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+
+          <div class="form-row mt-2 d-none">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="nome">{{ customPage.faleConosco.form.fields.empresa.label }}</label>
+                <input {{ (customPage.faleConosco.form.fields.empresa.errorMessage is defined) ? ' style="border: 1px solid red;"' : '' }} type="text" id="nome"
+                       class="form-control nome" name="{{ customPage.faleConosco.form.fields.empresa.name }}" value="{{ customPage.faleConosco.form.fields.empresa.value }}" required>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-row tipoContatoLabel">
+            <div class="col">
+              <label>{{ customPage.faleConosco.form.fields.tipo_de_contato.label }}</label>
+            </div>
+          </div>
+          <div class="form-row tipoContatoRadios" {{ (customPage.faleConosco.form.fields.tipo_de_contato.errorMessage is defined) ? ' style="border: 1px solid red;"' : '' }}>
+            <div class="col-lg-12">
+              {% for key,tipoContato in customPage.faleConosco.form.fields.tipo_de_contato.options %}
+                <div class="form-check form-check-inline">
+                  <input {{ customPage.faleConosco.form.fields.tipo_de_contato.value == tipoContato.value ? ' checked ' : '' }} type="radio" id="tipoContato{{ key }}" value="{{ tipoContato.value }}"
+                         class="form-check-input form-control-sm tipoInformacao"
+                         name="{{ customPage.faleConosco.form.fields.tipo_de_contato.name }}">
+                  <label class="form-check-label" for="tipoContato{{ key }}">{{ tipoContato.label }}</label>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="form-row assuntoLabel">
+            <div class="col">
+              <label>{{ customPage.faleConosco.form.fields.assunto.label }}</label>
+            </div>
+          </div>
+          <div class="form-row assuntoRadios" {{ (customPage.faleConosco.form.fields.assunto.errorMessage is defined) ? ' style="border: 1px solid red;"' : '' }}>
+            <div class="col-lg-12">
+              {% for key,assunto in customPage.faleConosco.form.fields.assunto.options %}
+                <div class="form-check form-check-inline">
+                    {% set _key = slugify(assunto.value)|replace({'-': ''}) %}
+                    
+                    {% set _assunto = slugify(customPage.faleConosco.params.assunto)|replace({'-': ''}) %}
+                    
+                  <input
+                    {% if _assunto != 'na' %}
+                        {# able #}
+                    {% else %}
+                        {% if _key == _assunto %}
+                             checked 
+                        {% endif %}
+                    {% endif %}
+                    
+                    {{ customPage.faleConosco.form.fields.assunto.value == assunto.value ? ' checked ' : '' }} type="radio" id="assunto{{ key }}" value="{{ assunto.value }}"
+                         class="form-check-input form-control-sm educacao"
+                         name="{{ customPage.faleConosco.form.fields.assunto.name }}">
+                  <label class="form-check-label" for="assunto{{ key }}">{{ assunto.label }}</label>
+
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="email">{{ customPage.faleConosco.form.fields.mensagem.label }}</label>
+                <textarea {{ (customPage.faleConosco.form.fields.mensagem.errorMessage is defined) ? ' style="border: 1px solid red;"' : '' }} name="mensagem" id="mensagem" class="form-control mensagem"
+                          name="{{ customPage.faleConosco.form.fields.mensagem.name }}" cols="30" rows="7"
+                          required>{{ customPage.faleConosco.form.fields.mensagem.value }}</textarea>
+              </div>
+            </div>
+          </div>
+          <div class="form-row justify-content-end">
+            <div class="col-lg-3">
+              <div class="form-group">
+                {% for name, value in customPage.faleConosco.form.hiddens %}
+                  <input type="hidden" name="{{ name }}" value="{{ value }}">
+                {% endfor %}
+                <input type="submit" class="form-control btnAzul submit" name="submit" value="Enviar">
+                <p class="d-block text-end mt-2">* Campos obrigatórios</p>
+              </div>
+            </div>
+          </div>
+
+          {% if customPage.queryString.contato is defined and customPage.queryString.contato == 'sucess' %}
+          <div class="msg success center">Contato enviado com sucesso!<i class="icon-close"></i></div>
+          {% endif %}
+
+        </form>
+      </div>
+      <div class="offset-lg-1 col-lg-3 outrosContatos">
+        <div class="text21">
+          {{ customPage.conteudo.texto|raw }}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

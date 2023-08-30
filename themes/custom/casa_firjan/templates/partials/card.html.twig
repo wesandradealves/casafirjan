@@ -1,0 +1,31 @@
+{% if nid %}
+    {% set node = getNode(nid) %}
+    <div data-category="{{node.field_categoria.0.name}}"
+        class="mb-4 col-12 col-md-6 post-grid-item">
+        <div class="post-grid--inner flex-fill">
+            <a title="{{node.title}}"
+                href="{{node.url}}"
+                class="thumbnail mb-4"
+                style="background-image: url({{node.field_imagem ? node.field_imagem : (node.field_thumb ? node.field_thumb : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgtVkxVwrxxHvw9vqCa3olS0XHIdeVKFPwOQ&usqp=CAU')}});  cursor: pointer; ">
+                <span class="thumbnail-inner">
+                </span>
+            </a>
+            <div class="info">
+                <h4 class="category m-0 mb-2">{{node.field_categoria.0.name}}</h4>
+                <h2 class="title m-0"
+                    onclick="window.location = '{{node.url}}'">
+                    {{node.title}}</h2>
+
+                <p class="text m-0 mt-2"
+                    onclick="window.location = '{{node.url}}'">
+                    {{node.field_chamada}}</p>
+
+                {% if node.field_tags %}
+                    {% for tag in node.field_tags %}
+                        <a class="tag mt-2 d-block" href="{{tag.url}}">#{{tag.name}}</a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>    
+{% endif %}

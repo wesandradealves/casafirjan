@@ -1,0 +1,57 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a block.
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - in_preview: Whether the plugin is being rendered in preview mode.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * @see template_preprocess_block()
+ *
+ * @ingroup themeable
+ */
+#}
+<section{{ attributes.addClass(['tabs d-flex flex-column']) }}>
+    <div class="container">
+        {% block content %}
+            {%if content.field_tab['#items'] %}
+                <nav class="tabs-nav col-8 m-auto mb-5 d-flex align-items-center justify-content-lg-center">
+                    {% for index, item in content.field_tab['#items'] %}
+                        <a href="javascript:void(0)" data-id="{{slugify(item.entity.get('field_titulo').0.value|raw)}}" class="list-group-item flex-fill text-center p-2 {% if index == 0 %} active {% endif %}">
+                            <span>{{item.entity.get('field_titulo').0.value|raw}}</span>
+                        </a>
+                    {% endfor %}
+                </nav>    
+                <ul class="col-12 d-block tabs-panels p-0 m-0">
+                    {% for index, item in content.field_tab['#items'] %}
+                        <li data-id="{{slugify(item.entity.get('field_titulo').0.value|raw)}}" class="list-group-item p-0 m-0 align-items-stretch flex-wrap flex-column flex-md-row {% if index == 0 %} d-flex {% else %} d-none {% endif %}">
+                            <div class="mb-3 mb-md-0 col-12 col-md-5 p-0 pe-md-4">
+                                <img class="img-fluid" src="{{get_image_from_id(item.entity.get('field_imagem').value.0.target_id)}}" width="100%">
+                            </div>
+                            <div class="flex-fill p-0">
+                                {{item.entity.get('field_texto').0.value|raw}}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {%endif%} 
+        {% endblock %}
+    </div>
+</section>

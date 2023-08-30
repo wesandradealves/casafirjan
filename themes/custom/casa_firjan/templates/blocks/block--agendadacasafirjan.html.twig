@@ -1,0 +1,86 @@
+{% if customPage.conteudo.eventos is defined and customPage.conteudo.eventos is not empty %}
+<div class="agenda">
+    <div class="container pt-5 pb-5">
+        <div class="d-flex flex-wrap align-items-stretch">
+            <!--
+                Agenda
+            -->
+            <div class="col-lg-8 ps-0">
+                <section class="blocoAgenda" >
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <h3 class="textTitleBlock">
+                                {{title}}
+                            </h3>
+                            {{content}}
+                            {# <p>Fique por dentro dos próximos eventos da Casa Firjan. Para ver a agenda completa, <a href=""><strong>acesse aqui</strong></a>.</p> #}
+                        </div>
+                    </div>
+                    {# <div class="row">
+                        <div class="col-md-12">
+                        <a href="/agenda" class="verTudo">Veja toda a nossa programação ></a>
+                        </div>
+                    </div> #}
+                    {# <div class="row">
+                        <div class="col-md-12">
+                        <ul class="filtro">
+                            {% for key,grupo in customPage.conteudo.eventos.grupos %}
+                            <li class="{{ key }}">{{ grupo }}</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                    </div> #}
+                    {# <div class="row">
+                        <div class="col-md-12"> #}
+                    {# <div class="eventos"> #}
+
+                    {# {% for data, eventos in new_group %}
+                        {{dump(eventos)}}
+                    {% endfor %}                     #}
+                    {# {{dump(new_group|slice(1, 5))}} #}
+                    {% for data, eventos in new_group|slice(1, 5) %}
+                        <div class="eventos" data-date="{{data}}">
+                            {% for evento in eventos %}
+                                <div class="d-block evento" onclick="window.location = '{{evento.url}}'">
+                                    <h3 class="evento--header p-4 pt-3 pb-3 d-flex align-items-center justify-content-between">
+                                        <span>{{evento.Data}}</span>    
+                                        <span>{{evento.Dia}}</span>    
+                                    </h3>
+                                    <div class="evento--info d-block p-2 p-md-4 pt-3 pb-3">
+                                        <span class="d-flex align-items-center">
+                                            <span class="title title p-2 ps-3 pe-3" title="{{evento.titulo}}">Saiba mais</span>
+                                            <span class="info ps-2 ps-md-4">
+                                                <strong>Horário:</strong> {{evento.hora}}h{{evento.minutos}} 
+                                                | <strong>Duração:</strong> {{evento.duracao}}
+                                            </span>
+                                        </span>       
+                                        <h2 class="mb-2 mt-2 evento--title">{{evento.titulo}}</h2>
+                                        <p class="description d-block mt-2 pb-0">
+                                            {{ evento.texto|raw }}
+                                        </p>       
+                                    </div>                      
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    {# </div> #}
+                        {# </div>
+                    </div> #}
+                    {# <div class="row">
+                        <div class="col-md-12">
+                        <a href="/agenda" class="verTudo">Veja toda a nossa programação ></a>
+                        </div>
+                    </div> #}
+                </section>
+            </div>
+            <!--
+                Mais destaques
+            -->
+            <div class="col-lg-4 mt-4 mt-lg-0">
+                {{ drupal_region('sidebar') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}  

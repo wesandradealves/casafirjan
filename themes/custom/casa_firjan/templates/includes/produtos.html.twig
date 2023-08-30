@@ -1,0 +1,13 @@
+{% if customPage.produtosLista is defined and customPage.produtosLista is not empty %}
+  <div class="row {{ customPage.produtos.mainClass }}">
+    {% for produto in customPage.produtosLista %}
+      <div class="{{ customPage.produtos.grid }}">
+        <a target="{{ produto.link.target }}" href="{{ produto.link.url }}" class="img" style="background-image:url({{ produto.imagem }});"
+           title="Cursos">
+          <img src="{{ customPage.system.staticPath }}img/img1x1.gif">
+          <span><p>{{ produto.titulo|raw }}</p></span>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

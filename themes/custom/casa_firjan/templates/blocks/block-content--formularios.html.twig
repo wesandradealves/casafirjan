@@ -1,0 +1,17 @@
+<section class="bloco-destaque --formulario pt-5 pb-5">
+    <div class="container">
+        <div class="d-flex flex-wrap">
+            <div class="bloco-destaque--header mb-4 col-12 ps-0 pe-0">
+                <h3 class="title d-flex align-items-center justify-content-between m-0 mb-4">
+                    <span>
+                        {% if title %} {{title}} {% else %} {{content.field_titulo.0['#context'].value}} 
+                        {% endif %}
+                    </span>
+                </h3>
+                <h4 class="subtitle m-0 mt-2">{{content.field_subtitulo.0['#context'].value}}</h4>
+            </div>
+            {% if tid %}
+                {{ drupal_entity('webform', tid) }}
+            {% endif %}
+    </div>
+</section>
