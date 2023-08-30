@@ -76,31 +76,12 @@ class ApplyPrefix extends AbstractExtension {
 
     public function _slugify($text, string $divider = '-'){
         $slugify = new Slugify();
-        return $slugify->slugify($text, "_");
-        // $text = replaceAccents($text);
-        // // replace non letter or digits by divider
-        // $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
-      
-        // // transliterate
-        // $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-      
-        // // remove unwanted characters
-        // $text = preg_replace('~[^-\w]+~', '', $text);
-      
-        // // trim
-        // $text = trim($text, $divider);
-      
-        // // remove duplicate divider
-        // $text = preg_replace('~-+~', $divider, $text);
-      
-        // // lowercase
-        // $text = strtolower($text);
-      
-        // if (empty($text)) {
-        //   return 'n-a';
-        // }
-      
-        // return $text;
+
+        if($text) {
+            return $slugify->slugify($text, "_");
+        }
+
+        return false;
     }  
 
     public function _getTermAlias($str) {
