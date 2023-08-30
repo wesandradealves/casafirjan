@@ -534,7 +534,7 @@ if ($settings['hash_salt']) {
  * See https://www.drupal.org/documentation/modules/file for more information
  * about securing private files.
  */
-$settings['file_private_path'] = '/var/www/privateCasaFirjan';
+#$settings['file_private_path'] = '/var/www/privateCasaFirjan';
 
 /**
  * Session write interval:
@@ -790,9 +790,9 @@ $settings['entity_update_backup'] = TRUE;
 //     ),
 // );
 $databases['default']['default'] = array (
-  'database' => 'casafirjancityco_casafirjan',
-  'username' => 'casafirjancityco_casafirjan',
-  'password' => 'casafirjancityco_casafirjan',
+  'database' => 'casafirjancityco_casafirjanprod',
+  'username' => 'root',
+  'password' => '',
   'prefix' => '',
   'host' => 'localhost',
   'port' => '3306',
