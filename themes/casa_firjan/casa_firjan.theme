@@ -1613,8 +1613,7 @@ function casa_firjan_preprocess_block_content(&$variables)
 
                 $variables['nodes'][] = ['title' => $node
                     ->title->value, 
-                    'youtubeId' => $node->get("field_video")
-                    ->getValue() ? GM5Util::getYoutubeId($node->get("field_video")
+                    'youtubeId' => $node->hasField("field_video") ? GM5Util::getYoutubeId($node->get("field_video")
                     ->getValue()[0]['value']) : null,
                     'text' => strip_tags($field_tipo_de_associacao == 'programa-subprograma' ? $node
                     ->field_descricao->value : $node
@@ -1746,8 +1745,7 @@ function casa_firjan_preprocess_block_content(&$variables)
                 }
 
                 $variables['nodes'][] = ['title' => $node
-                    ->title->value,                     'youtubeId' => $node->get("field_video")
-                    ->getValue() ? GM5Util::getYoutubeId($node->get("field_video")
+                    ->title->value,                     'youtubeId' => $node->hasField("field_video") ? GM5Util::getYoutubeId($node->get("field_video")
                     ->getValue()[0]['value']) : null, 'text' => strip_tags($field_tipo_de_associacao == 'programa-subprograma' ? $node
                     ->field_descricao->value : ($node->field_chamada_html ? $node->get('field_chamada_html')->processed : $node
                     ->field_chamada
