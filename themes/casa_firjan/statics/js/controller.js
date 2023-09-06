@@ -61,6 +61,15 @@ var Controller = {
       }
     })
 
+    let links = document.getElementsByTagName('a');
+
+    for (let index = 0; index < links.length; index++) {
+      const element = links[index];
+      if(element.attributes.href.value.includes('https://casafirjan.com.brhttps://casafirjan.com.br')) {
+        element.attributes.href.value = element.attributes.href.value.replace('https://casafirjan.com.brhttps://casafirjan.com.br','')
+      }
+    }  
+
     // 
 
     console.log($(".menu--menu-principal a"));
