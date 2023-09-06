@@ -1978,7 +1978,7 @@ function casa_firjan_preprocess_block(&$variables)
             $bannerItem['field_link_background'] = $nd['field_link_background'][0]['color'];
             $bannerItem['titulo'] = $nd['title'][0]['value'];
             $bannerItem['texto'] = isset($nd['field_chamada'][0]['value']) && !empty($nd['field_chamada'][0]['value']) ? $nd['field_chamada'][0]['value'] : '';
-            $bannerItem['url'] = GM5Util::getAlias('/node/' . explode("entity:node/", $nd['field_link'][0]['uri'])[1], 'relative');
+            $bannerItem['url'] = str_contains($nd['field_link'][0]['uri'], 'internal') ? GM5Util::getAlias('/node/' . explode("entity:node/", $nd['field_link'][0]['uri'])[1], 'relative') : $nd['field_link'][0]['uri'];
             $bannerItem['midia']['src'] = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
             /*$bannerItem['link'] = $nd['field_link'] && $nd['field_link'][0]['uri'] ? GM5Util::uriToUrl($nd['field_link'][0]['uri']) : '';
             $bannerItem['link']['label'] = $nd['field_link'][0]['title'];

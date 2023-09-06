@@ -34,7 +34,7 @@
                     {% for index, node in nodes if index <= 2 %}
                     <div class="post--grid{{index}}" {% if node.media_video == '' %} onclick="window.location = '{{node.url}}'" {% endif %}>
                         {% set vid = node.media_video ? ('.be' in node.media_video ? node.media_video|split('.be/')[1] : node.media_video|split('?v=')[1]) : '' %}
-                        {% set image = node.image ? node.image : node.media_image ? node.media_image : '//i3.ytimg.com/vi/'~ vid ~'/hqdefault.jpg' %}
+                        {% set image = node.image ? node.image : node.media_image ? node.media_image : '//i3.ytimg.com/vi/'~ node.youtubeId ~'/hqdefault.jpg' %}
                         <div class="post-grid--inner">
                             <a title="{{node.title}}" data-fancybox class="thumbnail" style="background-image: url({{image}}); {% if node.media_video == '' %} pointer-events: none; {% endif %}" href="{{node.media_video}}">
                                 <span class="thumbnail-inner">
@@ -67,7 +67,7 @@
                         <div {% if node.categoria %} data-category="{{term.name}}" {% endif %} class="{% if horizontal %} mb-5 {% else %} mb-4 {% endif %}  post--grid{{index}} d-flex flex-column {% if layout == '2_columns' or layout == 'yellow_box' %} col-lg-6 {% elseif layout == '1_columns' %} col-12 {% else %} col-lg-4 {% endif %}">
                             {% set vid = node.media_video ? ('.be' in node.media_video ? node.media_video|split('.be/')[1] : node.media_video|split('?v=')[1]) : '' %}
                             {% set tipo_de_associacao = slugify(node.tipo_de_associacao) %}
-                            {% set image = node.image ? node.image : node.media_image ? node.media_image : '//i3.ytimg.com/vi/'~ vid ~'/hqdefault.jpg' %}
+                            {% set image = node.image ? node.image : node.media_image ? node.media_image : '//i3.ytimg.com/vi/'~ node.youtubeId ~'/hqdefault.jpg' %}
                             
                             <div {% if horizontal %} horizontal {% endif %} class="post-grid--inner flex-fill {% if horizontal %} d-flex flex-row flex-wrap align-items-start {% else %} flex-column {% endif %}">
                                 <a  title="{{node.title}}" {% if node.media_video %} data-fancybox href="{{node.media_video}}" {% else %} href="{{url}}" {% endif %} class="thumbnail mb-4 {% if horizontal %} mb-lg-0 col-12 col-lg-4 {% endif %}" style="background-image: url({{image}}); {% if node.media_video == '' %} cursor: pointer; {% endif %}" >
@@ -140,7 +140,7 @@
                                 </div>
                             </div>                        
                         </div>
-                    {% endfor %}                                 
+                    {% endfor %}   
                 {% endif %}
             </div>
         </div>        
