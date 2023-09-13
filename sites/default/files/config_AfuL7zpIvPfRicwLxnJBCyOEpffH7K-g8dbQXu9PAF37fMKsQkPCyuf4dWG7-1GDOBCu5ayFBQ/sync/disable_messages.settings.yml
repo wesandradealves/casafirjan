@@ -12,5 +12,4 @@ disable_messages_enable_permissions: '0'
 disable_messages_ignore_exclude: '0'
 disable_messages_ignore_case: '1'
 disable_messages_strip_html_tags: '1'
-disable_messages_ignore_regex:
-  - /^$/i
+disable_messages_ignore_regex: '0'
