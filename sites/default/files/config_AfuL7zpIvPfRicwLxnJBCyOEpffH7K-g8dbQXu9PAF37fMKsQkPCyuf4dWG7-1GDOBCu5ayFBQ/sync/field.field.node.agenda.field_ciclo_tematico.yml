@@ -1,0 +1,29 @@
+uuid: f02ab1b5-bf59-428d-8aa8-a0c2b13a7926
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ciclo_tematico
+    - node.type.agenda
+    - taxonomy.vocabulary.ciclo_tematico
+id: node.agenda.field_ciclo_tematico
+field_name: field_ciclo_tematico
+entity_type: node
+bundle: agenda
+label: 'Ciclo temático'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      ciclo_tematico: ciclo_tematico
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

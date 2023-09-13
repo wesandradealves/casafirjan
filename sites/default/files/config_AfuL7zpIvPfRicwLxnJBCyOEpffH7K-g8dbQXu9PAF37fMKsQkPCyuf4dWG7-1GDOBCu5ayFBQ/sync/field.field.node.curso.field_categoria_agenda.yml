@@ -1,0 +1,29 @@
+uuid: 457d903c-f21b-4df2-bc0c-3910ba764a93
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_categoria_agenda
+    - node.type.curso
+    - taxonomy.vocabulary.categorias_de_agenda
+id: node.curso.field_categoria_agenda
+field_name: field_categoria_agenda
+entity_type: node
+bundle: curso
+label: 'Categoria (Agenda)'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      categorias_de_agenda: categorias_de_agenda
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: categorias_de_cursos
+field_type: entity_reference

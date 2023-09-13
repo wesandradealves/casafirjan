@@ -1,0 +1,21 @@
+uuid: 664835d7-1551-4c57-b39b-8ece015b66a1
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_label_3
+field_name: field_label_3
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

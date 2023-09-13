@@ -1,0 +1,23 @@
+uuid: 1bc46213-46f8-4cbf-a7d3-083132cc9401
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.storage.block_content.field_layout
+  module:
+    - options
+id: block_content.bloco_destaque.field_layout
+field_name: field_layout
+entity_type: block_content
+bundle: bloco_destaque
+label: Layout
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 2_columns
+default_value_callback: ''
+settings: {  }
+field_type: list_string

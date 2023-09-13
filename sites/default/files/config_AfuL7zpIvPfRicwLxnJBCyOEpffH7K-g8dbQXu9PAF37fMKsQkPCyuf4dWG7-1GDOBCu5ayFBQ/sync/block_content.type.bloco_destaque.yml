@@ -1,0 +1,8 @@
+uuid: a32d9713-792d-4fee-a23a-e4855ea47849
+langcode: pt-br
+status: true
+dependencies: {  }
+id: bloco_destaque
+label: 'Bloco Destaque'
+revision: 0
+description: ''

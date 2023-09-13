@@ -1,0 +1,21 @@
+uuid: 34cbcf9c-3691-46da-96c5-20009d31a756
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_galeria_descricao
+    - paragraphs.paragraphs_type.galeria
+  module:
+    - text
+id: paragraph.galeria.field_galeria_descricao
+field_name: field_galeria_descricao
+entity_type: paragraph
+bundle: galeria
+label: Descrição
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

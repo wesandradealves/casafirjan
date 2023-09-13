@@ -1,0 +1,64 @@
+uuid: 07f85a8d-163d-4741-9652-6fd65ef24d32
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.agenda.field_campanha_ga
+    - field.field.node.agenda.field_categoria
+    - field.field.node.agenda.field_categoria_agenda
+    - field.field.node.agenda.field_chamada
+    - field.field.node.agenda.field_ciclo_tematico
+    - field.field.node.agenda.field_comprar_ingresso
+    - field.field.node.agenda.field_descricao
+    - field.field.node.agenda.field_duracao
+    - field.field.node.agenda.field_exibir_no_portal_da_firjan
+    - field.field.node.agenda.field_hora_de_inicio
+    - field.field.node.agenda.field_horario_livre
+    - field.field.node.agenda.field_id_lumis
+    - field.field.node.agenda.field_imagem
+    - field.field.node.agenda.field_link_do_formulario
+    - field.field.node.agenda.field_link_externo
+    - field.field.node.agenda.field_preco_livre
+    - field.field.node.agenda.field_status
+    - field.field.node.agenda.field_tags
+    - field.field.node.agenda.field_texto_do_link
+    - field.field.node.agenda.field_texto_do_link_2
+    - field.field.node.agenda.field_thumb
+    - node.type.agenda
+  module:
+    - user
+id: node.agenda.teaser
+targetEntityType: node
+bundle: agenda
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_campanha_ga: true
+  field_categoria: true
+  field_categoria_agenda: true
+  field_chamada: true
+  field_ciclo_tematico: true
+  field_comprar_ingresso: true
+  field_descricao: true
+  field_duracao: true
+  field_exibir_no_portal_da_firjan: true
+  field_hora_de_inicio: true
+  field_horario_livre: true
+  field_id_lumis: true
+  field_imagem: true
+  field_link_do_formulario: true
+  field_link_externo: true
+  field_preco_livre: true
+  field_status: true
+  field_tags: true
+  field_texto_do_link: true
+  field_texto_do_link_2: true
+  field_thumb: true
+  langcode: true
+  search_api_excerpt: true

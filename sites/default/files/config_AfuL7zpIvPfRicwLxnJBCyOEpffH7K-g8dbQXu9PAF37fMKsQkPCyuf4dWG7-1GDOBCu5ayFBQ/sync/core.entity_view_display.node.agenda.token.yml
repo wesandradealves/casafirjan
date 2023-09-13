@@ -1,0 +1,148 @@
+uuid: 25419e21-14c4-4db5-b7ca-63a2a6565f5d
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.agenda.field_campanha_ga
+    - field.field.node.agenda.field_categoria
+    - field.field.node.agenda.field_categoria_agenda
+    - field.field.node.agenda.field_chamada
+    - field.field.node.agenda.field_ciclo_tematico
+    - field.field.node.agenda.field_comprar_ingresso
+    - field.field.node.agenda.field_descricao
+    - field.field.node.agenda.field_duracao
+    - field.field.node.agenda.field_exibir_no_portal_da_firjan
+    - field.field.node.agenda.field_hora_de_inicio
+    - field.field.node.agenda.field_horario_livre
+    - field.field.node.agenda.field_id_lumis
+    - field.field.node.agenda.field_imagem
+    - field.field.node.agenda.field_link_do_formulario
+    - field.field.node.agenda.field_link_externo
+    - field.field.node.agenda.field_preco_livre
+    - field.field.node.agenda.field_status
+    - field.field.node.agenda.field_tags
+    - field.field.node.agenda.field_texto_do_link
+    - field.field.node.agenda.field_texto_do_link_2
+    - field.field.node.agenda.field_thumb
+    - node.type.agenda
+  module:
+    - datetime
+    - image
+    - text
+    - user
+id: node.agenda.token
+targetEntityType: node
+bundle: agenda
+mode: token
+content:
+  field_categoria:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 115
+    region: content
+  field_categoria_agenda:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_chamada:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 110
+    region: content
+  field_comprar_ingresso:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 111
+    region: content
+  field_descricao:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_duracao:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 113
+    region: content
+  field_exibir_no_portal_da_firjan:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 116
+    region: content
+  field_hora_de_inicio:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 114
+    region: content
+  field_horario_livre:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 112
+    region: content
+  field_imagem:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 108
+    region: content
+  field_preco_livre:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 109
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_campanha_ga: true
+  field_ciclo_tematico: true
+  field_id_lumis: true
+  field_link_do_formulario: true
+  field_link_externo: true
+  field_status: true
+  field_tags: true
+  field_texto_do_link: true
+  field_texto_do_link_2: true
+  field_thumb: true
+  langcode: true
+  search_api_excerpt: true

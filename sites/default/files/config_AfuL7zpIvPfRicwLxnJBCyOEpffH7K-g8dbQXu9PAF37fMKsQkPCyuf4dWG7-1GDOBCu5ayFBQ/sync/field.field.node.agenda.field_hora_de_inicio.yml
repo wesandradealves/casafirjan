@@ -1,0 +1,21 @@
+uuid: c1218cfc-3332-4ddc-a60b-be8ced479e77
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hora_de_inicio
+    - node.type.agenda
+  module:
+    - datetime
+id: node.agenda.field_hora_de_inicio
+field_name: field_hora_de_inicio
+entity_type: node
+bundle: agenda
+label: 'Data e hora de início'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

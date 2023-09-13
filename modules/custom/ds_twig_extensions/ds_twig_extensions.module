@@ -24,4 +24,10 @@ use Cocur\Slugify\Slugify;
 
 function ds_twig_extensions_preprocess_page(&$variables) {
     $variables['#attached']['library'][] = 'ds_twig_extensions/admin';
- }
+}
+
+function ds_twig_extensions_form_alter(&$form, $form_state, $form_id) {
+    if(str_contains($form_id, 'agenda')) {
+        // dump($form);
+    }
+}

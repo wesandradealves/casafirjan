@@ -1,0 +1,27 @@
+uuid: 5703c15d-5f1a-4040-9f06-056ceeb43d7c
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_tipo_de_midia
+field_name: field_tipo_de_midia
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: imagem
+      label: Imagem
+    -
+      value: video
+      label: Vídeo
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

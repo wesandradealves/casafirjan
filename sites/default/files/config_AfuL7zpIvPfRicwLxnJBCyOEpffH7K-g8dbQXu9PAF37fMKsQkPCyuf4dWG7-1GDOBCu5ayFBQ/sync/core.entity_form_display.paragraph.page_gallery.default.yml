@@ -1,0 +1,47 @@
+uuid: 371018a1-5758-4a46-8b6b-80eb61598b94
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.page_gallery.field_item_galeria
+    - field.field.paragraph.page_gallery.field_subtitulo_da_sessao
+    - field.field.paragraph.page_gallery.field_titulo_da_sessao
+    - paragraphs.paragraphs_type.page_gallery
+  module:
+    - paragraphs
+id: paragraph.page_gallery.default
+targetEntityType: paragraph
+bundle: page_gallery
+mode: default
+content:
+  field_item_galeria:
+    type: entity_reference_paragraphs
+    weight: 2
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed
+      add_mode: select
+      form_display_mode: default
+      default_paragraph_type: galeria
+    third_party_settings: {  }
+  field_subtitulo_da_sessao:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_titulo_da_sessao:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

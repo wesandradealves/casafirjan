@@ -1,0 +1,21 @@
+uuid: 0da5c7b9-1524-4639-b792-06c9bc593709
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_texto_agende_visita
+    - node.type.visite
+  module:
+    - text
+id: node.visite.field_texto_agende_visita
+field_name: field_texto_agende_visita
+entity_type: node
+bundle: visite
+label: 'Texto 1º coluna'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

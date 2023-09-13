@@ -1,0 +1,19 @@
+uuid: c8586811-3466-4725-af02-56fc664b5183
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_duracao
+    - node.type.agenda
+id: node.agenda.field_duracao
+field_name: field_duracao
+entity_type: node
+bundle: agenda
+label: Duração
+description: 'Número de horas'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,23 @@
+uuid: 338e52a0-30f0-456e-8089-b981311fefd0
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_target
+    - node.type.banner_home
+  module:
+    - options
+id: node.banner_home.field_target
+field_name: field_target
+entity_type: node
+bundle: banner_home
+label: Target
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: top
+default_value_callback: ''
+settings: {  }
+field_type: list_string

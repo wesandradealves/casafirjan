@@ -1,0 +1,29 @@
+uuid: 762c025d-fbb2-4057-978d-0efe4a8a3a91
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.storage.block_content.field_taxonomies
+    - taxonomy.vocabulary.categorias
+id: block_content.bloco_destaque.field_taxonomies
+field_name: field_taxonomies
+entity_type: block_content
+bundle: bloco_destaque
+label: Taxonomies
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      categorias: categorias
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: categorias_de_cursos
+field_type: entity_reference

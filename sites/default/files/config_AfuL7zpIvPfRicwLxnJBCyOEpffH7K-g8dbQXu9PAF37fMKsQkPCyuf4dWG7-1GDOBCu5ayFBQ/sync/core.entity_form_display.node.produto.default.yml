@@ -1,0 +1,209 @@
+uuid: 385c13f6-97df-49dd-a073-dc25af884eec
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.node.produto.field_categoria
+    - field.field.node.produto.field_descricao
+    - field.field.node.produto.field_imagem
+    - field.field.node.produto.field_link
+    - field.field.node.produto.field_pagina
+    - field.field.node.produto.field_tags
+    - field.field.node.produto.field_thumb
+    - field.field.node.produto.field_tipo_de_associacao
+    - image.style.thumbnail
+    - node.type.produto
+  module:
+    - conditional_fields
+    - image
+    - link
+    - path
+    - scheduler
+    - shs
+    - text
+id: node.produto.default
+targetEntityType: node
+bundle: produto
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_categoria:
+    type: options_shs
+    weight: 3
+    region: content
+    settings:
+      display_node_count: false
+      create_new_items: false
+      create_new_levels: false
+      force_deepest: false
+    third_party_settings:
+      conditional_fields:
+        446a855e-266a-453a-a8e2-d2126ea459b4:
+          entity_type: node
+          bundle: produto
+          dependee: field_tipo_de_associacao
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: Programa/subprograma
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_descricao:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_imagem:
+    type: image_image
+    weight: 13
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_link:
+    type: link_default
+    weight: 5
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings:
+      conditional_fields: {  }
+  field_pagina:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      conditional_fields:
+        32beb0ec-df3b-4a47-a960-e142b4df9ae2:
+          entity_type: node
+          bundle: produto
+          dependee: field_tipo_de_associacao
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: Página
+            effect: show
+            effect_options: {  }
+            selector: ''
+  field_tags:
+    type: entity_reference_autocomplete
+    weight: 26
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_thumb:
+    type: image_image
+    weight: 15
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_tipo_de_associacao:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 6
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 9
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 52
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  scheduler_settings:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 12
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 10
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 7
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 54
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

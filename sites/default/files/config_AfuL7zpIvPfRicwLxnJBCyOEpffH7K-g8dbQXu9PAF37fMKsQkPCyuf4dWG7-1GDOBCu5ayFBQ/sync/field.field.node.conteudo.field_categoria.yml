@@ -1,0 +1,29 @@
+uuid: 8d3b6f8a-512a-40cc-99d9-b7fb64cac021
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_categoria
+    - node.type.conteudo
+    - taxonomy.vocabulary.categorias
+id: node.conteudo.field_categoria
+field_name: field_categoria
+entity_type: node
+bundle: conteudo
+label: Categoria
+description: 'Associar o conteúdo a uma categoria'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      categorias: categorias
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

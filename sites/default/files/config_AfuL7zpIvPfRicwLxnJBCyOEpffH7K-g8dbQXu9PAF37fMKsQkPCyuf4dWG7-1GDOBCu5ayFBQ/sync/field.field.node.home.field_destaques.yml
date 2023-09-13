@@ -1,0 +1,36 @@
+uuid: 66ccf409-bbc3-41f2-8197-e8a45d4b3a77
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_destaques
+    - node.type.agenda
+    - node.type.conteudo
+    - node.type.curso
+    - node.type.home
+    - node.type.noticia
+    - node.type.page
+id: node.home.field_destaques
+field_name: field_destaques
+entity_type: node
+bundle: home
+label: Destaques
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      agenda: agenda
+      conteudo: conteudo
+      curso: curso
+      noticia: noticia
+      page: page
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: agenda
+field_type: entity_reference

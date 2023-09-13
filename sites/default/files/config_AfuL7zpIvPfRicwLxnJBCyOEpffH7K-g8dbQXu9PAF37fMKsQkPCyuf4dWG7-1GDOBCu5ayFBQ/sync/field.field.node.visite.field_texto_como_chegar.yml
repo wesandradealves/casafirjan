@@ -1,0 +1,21 @@
+uuid: 1ab9b013-16d1-4243-b244-cad462c1618a
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_texto_como_chegar
+    - node.type.visite
+  module:
+    - text
+id: node.visite.field_texto_como_chegar
+field_name: field_texto_como_chegar
+entity_type: node
+bundle: visite
+label: Texto
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

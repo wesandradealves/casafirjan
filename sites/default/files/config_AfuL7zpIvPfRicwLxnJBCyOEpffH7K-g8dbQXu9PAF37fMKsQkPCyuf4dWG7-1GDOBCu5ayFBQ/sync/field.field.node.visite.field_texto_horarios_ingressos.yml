@@ -1,0 +1,21 @@
+uuid: 3ee1ba61-3a43-455f-b9ef-a53435c73c84
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_texto_horarios_ingressos
+    - node.type.visite
+  module:
+    - text
+id: node.visite.field_texto_horarios_ingressos
+field_name: field_texto_horarios_ingressos
+entity_type: node
+bundle: visite
+label: Texto
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

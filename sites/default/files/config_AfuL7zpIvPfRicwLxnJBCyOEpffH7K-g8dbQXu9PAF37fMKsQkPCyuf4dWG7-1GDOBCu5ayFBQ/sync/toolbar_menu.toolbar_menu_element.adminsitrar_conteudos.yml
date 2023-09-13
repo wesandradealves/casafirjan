@@ -1,0 +1,9 @@
+uuid: e72a45ce-e4f6-469f-9bc4-5c95926edb53
+langcode: pt-br
+status: true
+dependencies: {  }
+id: adminsitrar_conteudos
+label: Adminsitrar
+weight: null
+menu: admin-conteudos
+rewrite_label: false

@@ -1,0 +1,30 @@
+uuid: f7f9a6df-feb5-48cf-9823-dfd54d91b948
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:533a2a6c-6c31-4ee9-a51d-3ea5261efdd2'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: aulasabertas
+theme: casa_firjan
+region: content
+weight: -10
+provider: null
+plugin: 'block_content:533a2a6c-6c31-4ee9-a51d-3ea5261efdd2'
+settings:
+  id: 'block_content:533a2a6c-6c31-4ee9-a51d-3ea5261efdd2'
+  label: 'Aulas Abertas'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/*/aulas-abertas'

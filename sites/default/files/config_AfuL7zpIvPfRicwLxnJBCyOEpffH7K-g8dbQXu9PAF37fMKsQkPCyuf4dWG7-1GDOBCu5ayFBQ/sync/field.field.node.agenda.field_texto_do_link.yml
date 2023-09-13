@@ -1,0 +1,19 @@
+uuid: eedd9cd3-a0cd-4e9c-bc72-40b908c771c6
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_texto_do_link
+    - node.type.agenda
+id: node.agenda.field_texto_do_link
+field_name: field_texto_do_link
+entity_type: node
+bundle: agenda
+label: 'Texto do link'
+description: 'O Texto "Comprar Ingresso" será assumido caso nenhum valor seja fornecido. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

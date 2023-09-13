@@ -1,0 +1,22 @@
+uuid: 2b22ab2c-3cce-4f98-ad4a-fb2a6ae13e6f
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - casa_firjan
+_core:
+  default_config_hash: 9EoWV2Lot6FVSr50t4hoKgiz1LIXYWNG-IIPYsWxBqo
+id: casa_firjan_content
+theme: casa_firjan
+region: content
+weight: -22
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Conteúdo da página principal'
+  label_display: '0'
+  provider: system
+visibility: {  }

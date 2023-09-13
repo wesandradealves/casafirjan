@@ -1,0 +1,22 @@
+uuid: be0221b2-d018-475f-8270-d5525f89db40
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_link_background
+    - node.type.banner_home
+  module:
+    - color_field
+id: node.banner_home.field_link_background
+field_name: field_link_background
+entity_type: node
+bundle: banner_home
+label: 'Link Background'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  opacity: 0
+field_type: color_field_type

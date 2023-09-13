@@ -65,8 +65,10 @@ var Controller = {
 
     for (let index = 0; index < links.length; index++) {
       const element = links[index];
-      if(element.attributes.href.value.includes('https://casafirjan.com.brhttps://casafirjan.com.br')) {
-        element.attributes.href.value = element.attributes.href.value.replace('https://casafirjan.com.brhttps://casafirjan.com.br','')
+      if(element && element.attributes.href) {
+        if(element.attributes.href.value.includes('https://casafirjan.com.brhttps://casafirjan.com.br')) {
+          element.attributes.href.value = element.attributes.href.value.replace('https://casafirjan.com.brhttps://casafirjan.com.br','')
+        }
       }
     }  
 
@@ -875,18 +877,26 @@ var Controller = {
     });
   },
   contato: function () {
-    $('#cpf').mask('000.000.000-00');
-    $('#nascimento').mask('00/00/0000', {placeholder: "__/__/____"});
-    $('#telefone').mask('(00) #0000-0000');
-    $('#celular').mask('(00) 00000-0000');
-    $('#cep').mask('00000-000');
+    $('[name*="cpf"]').mask('000.000.000-00');
+    $('[name*="nascimento"]').mask('00/00/0000', {placeholder: "__/__/____"});
+    
+    var options =  {
+      onKeyPress: function(telefone, e, field, options) {
+        var masks = ['(00) 0000-0000', '(00) 00000-0000'];
+        var mask = (telefone.length < 14 ) ? masks[0] : masks[1];
+        $('[name*="telefone"], [name*="celular"]').mask(mask, options);
+    }};
+    
+    $('[name*="telefone"], [name*="celular"]').mask('00000-000', options);
+
+    $('[name*="cep"]').mask('00000-000');
 
     $('form#fale-conosco').submit(function( event ) {
       $(this).find('input.submit').attr('disabled', 'disabled');
     })
 
     $('[name="associado"]').on('change', function () {
-      let row = $(this).closest(".form-row").next();
+      let row = $(this).closest(".radios--wrapper").next();
 
       if($(this).val() === 'Sim') {
         $(row).addClass('d-block'),

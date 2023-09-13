@@ -1,0 +1,30 @@
+uuid: f6f6717f-1738-49f1-b6fe-9c0a665eb0b9
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:tabs:97084eda-d4fc-4a55-8b87-c93128719a06'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: visite
+theme: casa_firjan
+region: content
+weight: -12
+provider: null
+plugin: 'block_content:97084eda-d4fc-4a55-8b87-c93128719a06'
+settings:
+  id: 'block_content:97084eda-d4fc-4a55-8b87-c93128719a06'
+  label: Visite
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /visite

@@ -1,0 +1,21 @@
+uuid: f3351f30-5b84-4199-b625-6a7bd08addb4
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_texto
+    - node.type.curso
+  module:
+    - text
+id: node.curso.field_texto
+field_name: field_texto
+entity_type: node
+bundle: curso
+label: Texto
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

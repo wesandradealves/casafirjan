@@ -1,0 +1,30 @@
+uuid: b907dcff-26ac-4842-bd8d-5c63cbf6fa12
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:e84facc4-f2aa-44a5-b265-5a7f388ec0a9'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: destaquesdacasafirjan
+theme: casa_firjan
+region: content
+weight: -19
+provider: null
+plugin: 'block_content:e84facc4-f2aa-44a5-b265-5a7f388ec0a9'
+settings:
+  id: 'block_content:e84facc4-f2aa-44a5-b265-5a7f388ec0a9'
+  label: 'Destaques da Casa Firjan'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

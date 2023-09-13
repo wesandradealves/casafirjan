@@ -1,0 +1,23 @@
+uuid: 812f61b9-578f-40d8-9eea-658917cdda5f
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_habilitar_servicos
+    - node.type.visite
+id: node.visite.field_habilitar_servicos
+field_name: field_habilitar_servicos
+entity_type: node
+bundle: visite
+label: Habilitar
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

@@ -1,0 +1,21 @@
+uuid: c47f678d-a132-4c88-960f-4ada4647f9bb
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_opcoes_de_agendamento
+    - node.type.visite
+  module:
+    - text
+id: node.visite.field_opcoes_de_agendamento
+field_name: field_opcoes_de_agendamento
+entity_type: node
+bundle: visite
+label: 'Opções de Agendamento'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

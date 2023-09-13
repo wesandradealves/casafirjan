@@ -1,0 +1,19 @@
+uuid: 129ce889-5471-4b31-92be-65e9daa290c2
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_id_lumis
+    - node.type.agenda
+id: node.agenda.field_id_lumis
+field_name: field_id_lumis
+entity_type: node
+bundle: agenda
+label: 'ID Lumis'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

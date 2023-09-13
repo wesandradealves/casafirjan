@@ -1,0 +1,66 @@
+uuid: cacd45b0-ced3-47aa-83e5-93830ee657d7
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.node.page.field_cards
+    - field.field.node.page.field_cards_layout
+    - field.field.node.page.field_categoria
+    - field.field.node.page.field_chamada_html
+    - field.field.node.page.field_headline
+    - field.field.node.page.field_imagem
+    - field.field.node.page.field_page_galeria
+    - field.field.node.page.field_tags
+    - field.field.node.page.field_texto
+    - field.field.node.page.field_thumb
+    - node.type.page
+  module:
+    - entity_reference_revisions
+    - image
+    - text
+    - user
+_core:
+  default_config_hash: g1S3_GLaxq4l3I9RIca5Mlz02MxI2KmOquZpHw59akM
+id: node.page.default
+targetEntityType: node
+bundle: page
+mode: default
+content:
+  field_cards:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_imagem:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_texto:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_cards_layout: true
+  field_categoria: true
+  field_chamada_html: true
+  field_headline: true
+  field_page_galeria: true
+  field_tags: true
+  field_thumb: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

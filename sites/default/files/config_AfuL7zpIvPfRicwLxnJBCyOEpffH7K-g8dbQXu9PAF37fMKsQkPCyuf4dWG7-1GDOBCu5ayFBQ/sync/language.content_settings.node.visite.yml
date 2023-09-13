@@ -1,0 +1,11 @@
+uuid: 77e038f7-88e0-4bdb-892a-e69be60988ce
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - node.type.visite
+id: node.visite
+target_entity_type_id: node
+target_bundle: visite
+default_langcode: site_default
+language_alterable: false

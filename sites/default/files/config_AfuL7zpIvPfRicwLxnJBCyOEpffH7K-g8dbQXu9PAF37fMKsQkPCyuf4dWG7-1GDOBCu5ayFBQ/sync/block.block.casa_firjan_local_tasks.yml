@@ -1,0 +1,28 @@
+uuid: 9728a7bc-2ef4-4099-99b9-28897295154b
+langcode: pt-br
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - casa_firjan
+_core:
+  default_config_hash: X9I1OB0W3WlWtrK-CNcg6hNWwa8wficanpH8pYnDZDE
+id: casa_firjan_local_tasks
+theme: casa_firjan
+region: sidebar
+weight: -9
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Abas
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: /linhas-de-imaginacao

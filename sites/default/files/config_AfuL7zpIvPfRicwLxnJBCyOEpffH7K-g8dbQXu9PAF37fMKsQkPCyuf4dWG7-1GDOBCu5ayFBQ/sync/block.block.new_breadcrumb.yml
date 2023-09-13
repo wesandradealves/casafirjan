@@ -1,0 +1,40 @@
+uuid: f546f5f9-3f3c-45f9-9f99-88bf2f1ca50d
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:301efd29-e1b3-4fc8-a999-e3511269da1f'
+  module:
+    - blocache
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+third_party_settings:
+  blocache:
+    overridden: true
+    metadata:
+      max-age: 1
+      contexts:
+        - 'languages:language_interface'
+      tags:
+        - 'config:block.block.new_breadcrumb'
+id: new_breadcrumb
+theme: casa_firjan
+region: breadcrumb
+weight: -14
+provider: null
+plugin: 'block_content:301efd29-e1b3-4fc8-a999-e3511269da1f'
+settings:
+  id: 'block_content:301efd29-e1b3-4fc8-a999-e3511269da1f'
+  label: Breadcrumb
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: '<front>'

@@ -1,0 +1,8 @@
+uuid: 61c53ed8-52d3-40a4-8a58-533d2aa25526
+langcode: pt-br
+status: true
+dependencies: {  }
+id: bloco_texto
+label: 'Bloco Texto'
+revision: 0
+description: ''

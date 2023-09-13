@@ -1,0 +1,19 @@
+uuid: cdc7b01e-55b2-4429-92b7-7eb8dc0c5fd7
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_chamada
+    - node.type.agenda
+id: node.agenda.field_chamada
+field_name: field_chamada
+entity_type: node
+bundle: agenda
+label: Chamada
+description: 'Exibido nas listas.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

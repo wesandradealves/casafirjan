@@ -1,0 +1,30 @@
+uuid: 7ed85b09-366f-42a8-9105-1d297a63030d
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:d878fa84-24c8-4fde-ab07-80a24cd8caf0'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: galeriainstagram
+theme: casa_firjan
+region: content
+weight: -14
+provider: null
+plugin: 'block_content:d878fa84-24c8-4fde-ab07-80a24cd8caf0'
+settings:
+  id: 'block_content:d878fa84-24c8-4fde-ab07-80a24cd8caf0'
+  label: 'INSTAGRAM @CASAFIRJAN'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

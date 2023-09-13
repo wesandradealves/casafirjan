@@ -1,0 +1,37 @@
+uuid: a7cfbaf2-fe67-4f73-a90a-2bc5fc1d6fdd
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_paragraph_node_content
+    - node.type.conteudo
+    - node.type.curso
+    - node.type.noticia
+    - node.type.page
+    - node.type.produto
+    - paragraphs.paragraphs_type.paragraph_node
+id: paragraph.paragraph_node.field_paragraph_node_content
+field_name: field_paragraph_node_content
+entity_type: paragraph
+bundle: paragraph_node
+label: Content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      conteudo: conteudo
+      curso: curso
+      noticia: noticia
+      produto: produto
+      page: page
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: conteudo
+field_type: entity_reference

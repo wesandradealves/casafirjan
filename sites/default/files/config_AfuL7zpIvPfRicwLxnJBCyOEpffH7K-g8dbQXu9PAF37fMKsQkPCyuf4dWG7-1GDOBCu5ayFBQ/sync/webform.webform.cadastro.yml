@@ -1,0 +1,447 @@
+uuid: f9b27be9-d693-4b83-97f1-de1dd20f1761
+langcode: pt-br
+status: open
+dependencies: {  }
+weight: 0
+open: null
+close: null
+uid: 1
+template: false
+archive: false
+id: cadastro
+title: Cadastro
+description: ''
+category: ''
+elements: |-
+  perfil:
+    '#type': checkboxes
+    '#title': 'Selecione o seu perfil'
+    '#options':
+      Estudante: Estudante
+      Empreendedor: Empreendedor
+      CLT: CLT
+      Autônomo: Autônomo
+      Desempregado: Desempregado
+      'Associado Firjan/CIRJ': 'Associado Firjan/CIRJ'
+      'Servidor Público': 'Servidor Público'
+    '#required': true
+  nome_completo:
+    '#type': textfield
+    '#title': 'Nome completo*'
+    '#required': true
+  cpf:
+    '#type': textfield
+    '#title': 'CPF*'
+    '#required': true
+  genero:
+    '#type': select
+    '#title': 'Gênero*'
+    '#options':
+      Masculino: Masculino
+      Feminino: Feminino
+      Outro: Outro
+      'Prefiro não responder': 'Prefiro não responder'
+    '#required': true
+  e_mail:
+    '#type': email
+    '#title': 'E-Mail*'
+    '#required': true
+  telefone:
+    '#type': textfield
+    '#title': 'Telefone com DDD*'
+    '#required': true
+  data_de_nascimento:
+    '#type': date
+    '#title': 'Data de nascimento*'
+    '#required': true
+  cidade:
+    '#type': textfield
+    '#title': 'Cidade*'
+    '#required': true
+  bairro:
+    '#type': textfield
+    '#title': 'Bairro*'
+    '#required': true
+  empresa:
+    '#type': textfield
+    '#title': 'Empresa*'
+    '#states':
+      required:
+        - ':input[name="perfil[Associado Firjan/CIRJ]"]':
+            checked: true
+        - xor
+        - ':input[name="perfil[Servidor Público]"]':
+            checked: true
+        - xor
+        - ':input[name="perfil[CLT]"]':
+            checked: true
+        - xor
+        - ':input[name="perfil[Empreendedor]"]':
+            checked: true
+  cnpj:
+    '#type': textfield
+    '#title': 'CNPJ*'
+    '#states':
+      required:
+        ':input[name="perfil[Associado Firjan/CIRJ]"]':
+          checked: true
+  area:
+    '#type': textarea
+    '#title': Área
+    '#states':
+      required:
+        - ':input[name="perfil[Empreendedor]"]':
+            checked: true
+        - xor
+        - ':input[name="perfil[CLT]"]':
+            checked: true
+  cargo:
+    '#type': textfield
+    '#title': 'Cargo*'
+    '#states':
+      required:
+        - ':input[name="perfil[Associado Firjan/CIRJ]"]':
+            checked: true
+        - xor
+        - ':input[name="perfil[Servidor Público]"]':
+            checked: true
+        - xor
+        - ':input[name="perfil[Empreendedor]"]':
+            checked: true
+        - xor
+        - ':input[name="perfil[CLT]"]':
+            checked: true
+  instituicao_de_ensino:
+    '#type': textfield
+    '#title': 'Instituição de Ensino*'
+    '#states':
+      required:
+        ':input[name="perfil[Estudante]"]':
+          checked: true
+  curso:
+    '#type': textfield
+    '#title': 'Curso*'
+    '#states':
+      required:
+        ':input[name="perfil[Estudante]"]':
+          checked: true
+  serie:
+    '#type': textfield
+    '#title': 'Série*'
+    '#states':
+      required:
+        ':input[name="perfil[Estudante]"]':
+          checked: true
+  seguimento:
+    '#type': select
+    '#title': 'Seguimento*'
+    '#options':
+      'Ensino fundamental': 'Ensino fundamental'
+      'Ensino Médio': 'Ensino Médio'
+      'Ensino Superior': 'Ensino Superior'
+    '#states':
+      required:
+        ':input[name="perfil[Estudante]"]':
+          checked: true
+  ja_visitou:
+    '#type': checkboxes
+    '#title': 'Já visitou a Casa Firjan com a sua escola/universidade? *'
+    '#options':
+      Sim: Sim
+      Não: Não
+    '#states':
+      required:
+        ':input[name="perfil[Estudante]"]':
+          checked: true
+  escolaridade:
+    '#type': select
+    '#title': Escolaridade
+    '#options':
+      'Ensino Fundamental Incompleto': 'Ensino Fundamental Incompleto'
+      'Ensino Fundamental Completo': 'Ensino Fundamental Completo'
+      'Ensino Médio Incompleto': 'Ensino Médio Incompleto'
+      'Ensino Médio Completo': 'Ensino Médio Completo'
+      'Ensino Superior Incompleto': 'Ensino Superior Incompleto'
+      'Ensino Superior Completo': 'Ensino Superior Completo'
+      'Pós graduação no nível especialização': 'Pós graduação no nível especialização'
+      'Pós graduação no nível mestrado': 'Pós graduação no nível mestrado'
+      'Pós graduação no nível Doutorado': 'Pós graduação no nível Doutorado'
+    '#states':
+      required:
+        - ':input[name="perfil[Associado Firjan/CIRJ]"]':
+            checked: true
+        - xor
+        - ':input[name="perfil[Servidor Público]"]':
+            checked: true
+        - xor
+        - ':input[name="perfil[Empreendedor]"]':
+            checked: true
+        - xor
+        - ':input[name="perfil[CLT]"]':
+            checked: true
+        - xor
+        - ':input[name="perfil[Autônomo]"]':
+            checked: true
+        - xor
+        - ':input[name="perfil[Desempregado]"]':
+            checked: true
+  marque_os_temas_de_seu_interesse:
+    '#type': checkboxes
+    '#title': 'Marque os temas de seu interesse'
+    '#options':
+      'Agentes Políticos e Econômicos': 'Agentes Políticos e Econômicos'
+      'Cidades / Geografia Territorial': 'Cidades / Geografia Territorial'
+      'Comportamento Social': 'Comportamento Social'
+      'Cultura maker': 'Cultura maker'
+      Economia: Economia
+      'Educação/ Capacitação': 'Educação/ Capacitação'
+      Empreendedorismo: Empreendedorismo
+      Futurismo: Futurismo
+      'Indústria Cultural': 'Indústria Cultural'
+      Inovação: Inovação
+      Liderança: Liderança
+      Marketing: Marketing
+      'Orientação para mercado': 'Orientação para mercado'
+      Psicologia: Psicologia
+      'Saúde/ Bem estar': 'Saúde/ Bem estar'
+      'Saúde/Bem Estar': 'Saúde/Bem Estar'
+      Sustentabilidade: Sustentabilidade
+      Tecnologia: Tecnologia
+    '#required': true
+  aceite_termos_de_uso:
+    '#type': checkboxes
+    '#title': 'Aceite Termos de Uso'
+    '#description': '<p paraeid="{91e8d732-dc90-4115-8b95-ebd0c9ac3f3f}{55}" paraid="1150469698">A Lei 13.709, de 14 de agosto de 2018, denominada como Lei Geral de Prote&ccedil;&atilde;o de Dados (LGPD) exige a autoriza&ccedil;&atilde;o do respons&aacute;vel legal do menor para o tratamento de dados pessoais, por esse motivo precisamos que voc&ecirc; nos indique se &eacute;&nbsp;<strong>maior de 18 anos</strong>, pois caso n&atilde;o seja ser&aacute; necess&aacute;rio que o seu respons&aacute;vel legal&nbsp;nos envie&nbsp;<strong>Declara&ccedil;&atilde;o de Autoriza&ccedil;&atilde;o</strong>&nbsp;para cadastro e tratamento de dados pessoais de menor no Programa&nbsp;&ldquo;T&aacute;&nbsp;em Casa&rdquo;.&nbsp;</p>'
+    '#options':
+      aceito: aceito
+    '#required': true
+  declaro_que_sou_maior_de_18_anos:
+    '#type': checkboxes
+    '#title': 'Declaro que sou maior de 18 anos'
+    '#options':
+      aceito: aceito
+  comprometo_me_a_encaminhar_a_declaracao:
+    '#type': checkboxes
+    '#title': 'Comprometo-me a encaminhar a Declaração'
+    '#options':
+      aceito: aceito
+css: ''
+javascript: ''
+settings:
+  ajax: false
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: both
+  form_submit_once: false
+  form_open_message: ''
+  form_close_message: ''
+  form_exception_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_disable_remote_addr: false
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_reset: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  form_attributes: {  }
+  form_method: ''
+  form_action: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_log: false
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_auto_forward: true
+  wizard_auto_forward_hide_next_button: false
+  wizard_keyboard: true
+  wizard_track: ''
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: false
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: page
+  confirmation_url: ''
+  confirmation_title: ''
+  confirmation_message: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+  token_delete: false
+  serial_disabled: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  e_mail:
+    id: email
+    handler_id: e_mail
+    label: 'Confirmação de cadastro'
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:values:e_mail:raw]'
+      to_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: 'Casa Firjan'
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      subject: 'Cadastro realizado com sucesso!'
+      body: "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" height=\"701\" id=\"Table_01\" width=\"601\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"7\"><a href=\"https://www.casafirjan.com.br\" target=\"_blank\"><img alt=\"\" height=\"113\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/email_01.jpg\" width=\"600\" /></a></td>\r\n\t\t\t<td><img alt=\"\" height=\"113\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"7\"><img alt=\"\" height=\"34\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/email_02.jpg\" width=\"600\" /></td>\r\n\t\t\t<td><img alt=\"\" height=\"34\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"56\">&nbsp;</td>\r\n\t\t\t<td colspan=\"5\" height=\"398\" width=\"488\">\r\n\t\t\t<div style=\"font-family:sans-serif;font-size:18px;color: #333333;line-height: 140%;\">\r\n\t\t\t<p><strong>Ol&aacute; [webform_submission:values:nome_completo],</strong></p>\r\n\r\n\t\t\t<p>&nbsp;</p>\r\n\t\t\tSeja bem-vindo ao <strong style=\"color:#e2a60a\">T&aacute; em Casa!</strong> Estamos muito felizes com a sua participa&ccedil;&atilde;o.\r\n\r\n\t\t\t<p>&nbsp;</p>\r\n\r\n\t\t\t<p>Como membro do programa <strong>voc&ecirc; ter&aacute; desconto em cursos, acesso a eventos exclusivos, al&eacute;m receber conte&uacute;dos feitos especialmente para voc&ecirc;</strong> e materiais produzidos pela Casa Firjan, antes mesmo de serem divulgados em nossa plataforma.</p>\r\n\r\n\t\t\t<p>Fique atento ao seu e-mail para acompanhar as novidades.</p>\r\n\r\n\t\t\t<p>Abra&ccedil;os, Equipe Casa Firjan</p>\r\n\t\t\t</div>\r\n\t\t\t</td>\r\n\t\t\t<td width=\"56\">&nbsp;</td>\r\n\t\t\t<td><img alt=\"\" height=\"398\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"818181\" colspan=\"3\" rowspan=\"2\"><img alt=\"\" height=\"44\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/email_06.jpg\" width=\"307\" /></td>\r\n\t\t\t<td bgcolor=\"818181\" colspan=\"4\" height=\"17\" width=\"293\">&nbsp;</td>\r\n\t\t\t<td><img alt=\"\" height=\"17\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"818181\" height=\"138\" rowspan=\"9\" width=\"42\">&nbsp;</td>\r\n\t\t\t<td bgcolor=\"818181\"><a href=\"https://www.firjan.com.br/firjan/\" target=\"_blank\"><img alt=\"\" height=\"27\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/email_09.jpg\" width=\"91\" /></a></td>\r\n\t\t\t<td bgcolor=\"818181\" colspan=\"2\" height=\"138\" rowspan=\"9\" width=\"160\">&nbsp;</td>\r\n\t\t\t<td><img alt=\"\" height=\"27\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"818181\" colspan=\"2\" height=\"111\" rowspan=\"8\" width=\"149\">&nbsp;</td>\r\n\t\t\t<td bgcolor=\"818181\" rowspan=\"2\"><a href=\"https://www.instagram.com/casafirjan/\" target=\"_blank\"><img alt=\"\" height=\"24\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/email_12.jpg\" width=\"158\" /></a></td>\r\n\t\t\t<td bgcolor=\"818181\"><a href=\"https://www.firjan.com.br/senai/\" target=\"_blank\"><img alt=\"\" height=\"22\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/email_13.jpg\" width=\"91\" /> </a></td>\r\n\t\t\t<td><img alt=\"\" height=\"22\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"818181\" rowspan=\"2\"><a href=\"https://www.firjan.com.br/sesi/\" target=\"_blank\"><img alt=\"\" height=\"24\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/email_14.jpg\" width=\"91\" /></a></td>\r\n\t\t\t<td><img alt=\"\" height=\"2\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"818181\" rowspan=\"2\"><a href=\"https://www.facebook.com/groups/casafirjan/\" target=\"_blank\"><img alt=\"\" height=\"26\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/email_15.jpg\" width=\"158\" /></a></td>\r\n\t\t\t<td><img alt=\"\" height=\"22\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"818181\" rowspan=\"2\"><a href=\"https://www.firjan.com.br/iel/\" target=\"_blank\"><img alt=\"\" height=\"26\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/email_16.jpg\" width=\"91\" /></a></td>\r\n\t\t\t<td><img alt=\"\" height=\"4\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"818181\" rowspan=\"2\"><a href=\"https://www.linkedin.com/company/firjan/\" target=\"_blank\"><img alt=\"\" height=\"26\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/email_17.jpg\" width=\"158\" /></a></td>\r\n\t\t\t<td><img alt=\"\" height=\"22\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"818181\" rowspan=\"2\"><a href=\"https://www.firjan.com.br/firjancirj/\" target=\"_blank\"><img alt=\"\" height=\"23\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/email_18.jpg\" width=\"91\" /></a></td>\r\n\t\t\t<td><img alt=\"\" height=\"4\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"818181\" height=\"35\" rowspan=\"2\" width=\"158\">&nbsp;</td>\r\n\t\t\t<td><img alt=\"\" height=\"19\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"818181\" height=\"16\" width=\"91\">&nbsp;</td>\r\n\t\t\t<td><img alt=\"\" height=\"16\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"1\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td><img alt=\"\" height=\"1\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"56\" /></td>\r\n\t\t\t<td><img alt=\"\" height=\"1\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"93\" /></td>\r\n\t\t\t<td><img alt=\"\" height=\"1\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"158\" /></td>\r\n\t\t\t<td><img alt=\"\" height=\"1\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"42\" /></td>\r\n\t\t\t<td><img alt=\"\" height=\"1\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"91\" /></td>\r\n\t\t\t<td><img alt=\"\" height=\"1\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"104\" /></td>\r\n\t\t\t<td><img alt=\"\" height=\"1\" src=\"https://dev-casa-firjan.gm5.com.br/email/images/spacer.gif\" width=\"56\" /></td>\r\n\t\t\t<td>&nbsp;</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>"
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      parameters: {  }
+      debug: false
+variants: {  }

@@ -1,0 +1,8 @@
+uuid: a48b58d6-410f-4395-985c-a276936c7cfa
+langcode: pt-br
+status: true
+dependencies: {  }
+name: Tags
+vid: tags_conteudo
+description: ''
+weight: 0

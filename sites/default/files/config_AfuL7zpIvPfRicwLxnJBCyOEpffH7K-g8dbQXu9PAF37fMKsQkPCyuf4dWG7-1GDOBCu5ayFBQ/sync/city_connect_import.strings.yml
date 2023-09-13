@@ -1,0 +1,9 @@
+_core:
+  default_config_hash: p4G9t-0OlJ_LrXrkExnqTmcnxpzJxH7KDpg5IsRvjVA
+langcode: pt-br
+file_ext_not_allowed: 'File extension not allowed'
+file_not_found: 'File not found'
+file_empty: 'File cannot be empty'
+file_remove: 'An error occurred while trying to remove the uploaded file'
+import_success: 'The file has been imported successfully'
+import_fail: 'The import has failed'

@@ -1,0 +1,11 @@
+uuid: 33aaffcd-4dc9-435f-a7f6-8cff16d82e47
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.tagcloud
+id: block_content.tagcloud
+target_entity_type_id: block_content
+target_bundle: tagcloud
+default_langcode: site_default
+language_alterable: false

@@ -13,7 +13,7 @@
                         <p class="title">{{ banner.titulo }}</p>
                         <p class="text">{{ banner.texto }}</p>
                         {% if banner.url %}
-                            <a {% if banner.field_link_background %} style=" border: 0; background-color: {{banner.field_link_background}}; {% if banner.field_link_background == "#FFFFFF" %} color: black; {% else %} color: white; {% endif %}" {% endif %} target="_blank" class="btn mt-5" href="{{ banner.url }}">{% if banner.label %} {{banner.label}} {% else %} Acesse Aqui {% endif %}</a>
+                            <a {% if banner.field_link_background %} style=" border: 0; background-color: {{banner.field_link_background}}; {% if banner.field_link_background == "#FFFFFF" %} color: black; {% else %} color: white; {% endif %}" {% endif %} target="{{ banner.target ? '_' ~ banner.target : '_top' }}" class="btn mt-5" href="{{ banner.url }}">{% if banner.label %} {{banner.label}} {% else %} Acesse Aqui {% endif %}</a>
                         {% endif %}
                     {% endif %}
                     </div>

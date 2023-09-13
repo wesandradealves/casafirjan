@@ -1,0 +1,30 @@
+uuid: 00880207-787f-48a4-a1a1-0fd5fe3c0085
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:84af130a-80e5-469f-ab94-ee9e3cb940f6'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: ultimaspublicacoes
+theme: casa_firjan
+region: sidebar
+weight: 0
+provider: null
+plugin: 'block_content:84af130a-80e5-469f-ab94-ee9e3cb940f6'
+settings:
+  id: 'block_content:84af130a-80e5-469f-ab94-ee9e3cb940f6'
+  label: 'Mais recentes'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

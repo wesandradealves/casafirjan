@@ -1,0 +1,15 @@
+uuid: 20d4a1a8-32cf-4f14-aeb2-32acc0ca6022
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 1920x400
+label: 1920x400
+effects:
+  d2ff6b0f-5517-4020-b1c1-b88f0f34cd8e:
+    uuid: d2ff6b0f-5517-4020-b1c1-b88f0f34cd8e
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 1920
+      height: 400
+      anchor: center-center

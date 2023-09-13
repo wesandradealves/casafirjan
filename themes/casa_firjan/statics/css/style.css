@@ -5800,13 +5800,13 @@ main.contato form .form-row.assuntoRadios {
 
 .bloco-destaque form textarea,
 
-main.contato form .form-row .form-group .form-control[type="text"],
+.webform-submission-fale-conosco-form [type="text"],
 
-main.contato form .form-row .form-group .form-control[type="email"],
+.webform-submission-fale-conosco-form [type="email"],
 
-main.contato form .form-row .form-group .form-control[type="tel"],
+.webform-submission-fale-conosco-form [type="tel"],
 
-main.contato form .form-row .form-group .form-control.mensagem {
+.webform-submission-fale-conosco-form  textarea {
 
   border-radius: 0;
 
@@ -5816,9 +5816,13 @@ main.contato form .form-row .form-group .form-control.mensagem {
 
 }
 
+.webform-submission-fale-conosco-form textarea {
+  min-height: calc(1.5em + 0.75rem + 2px);
+}
+
 .bloco-destaque form input[type="submit"],
 
-main.contato form .form-row .form-group .form-control.submit {
+.webform-submission-fale-conosco-form [type="submit"] {
 
   border-radius: 0;
 
@@ -5828,9 +5832,7 @@ main.contato form .form-row .form-group .form-control.submit {
 
 }
 
-.bloco-destaque form input[type="submit"]:hover,
-
-main.contato form .form-row .form-group .form-control.submit:hover {
+.bloco-destaque form input[type="submit"]:hover {
 
   border: 1px solid #003BD1;
 
@@ -5838,7 +5840,7 @@ main.contato form .form-row .form-group .form-control.submit:hover {
 
 .bloco-destaque form input.is-invalid,
 
-main.contato form .form-row .form-group .form-control.is-invalid {
+.webform-submission-fale-conosco-form .is-invalid {
 
   border: 1px solid red;
 
@@ -7651,6 +7653,8 @@ footer .copy .menuFooter li a {
   font-size: 0.625rem;
 
 }
+
+.webform-submission-fale-conosco-form [type="submit"],
 
 .btn,
 
@@ -11000,6 +11004,7 @@ header .topo .redes li a,
 
 }
 
+.webform-submission-fale-conosco-form [type="submit"]:hover,
 .btnAzul:hover {
 
   color: var(--yellow);
@@ -11008,8 +11013,12 @@ header .topo .redes li a,
 
 }
 
+.webform-submission-fale-conosco-form [type="submit"]:hover {
+  background-color: white;
+}
+
 .bloco-destaque form input[type="submit"]:hover,
-main.contato form .form-row .form-group .form-control.submit:hover {
+.webform-submission-fale-conosco-form [type="submit"]:hover {
 
   border-color: var(--yellow);
 
@@ -11027,4 +11036,102 @@ header .topo nav ul li a:visited {
 
   background-color: var(--yellow) !important;
 
+} 
+
+legend {
+  font-size: 1rem;
+}
+
+.webform-submission-fale-conosco-form {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 10px;
+}
+
+.webform-submission-fale-conosco-form .form-item,
+.webform-submission-fale-conosco-form .form-item-nome-completo {
+  width: 100%;
+}
+
+.webform-submission-fale-conosco-form .form-item.js-form-type-email {
+  width: 66.666667%
+}
+
+.webform-submission-fale-conosco-form .form-item.js-form-type-email + * {
+  flex: 1;
+}
+
+.webform-submission-fale-conosco-form .form-text {
+  margin: 0;
+}
+
+.webform-submission-fale-conosco-form textarea {
+  width: 100%;
+  height: 182px !important;
+}
+
+.webform-submission-fale-conosco-form [type="submit"] {
+  margin-left: auto;
+}
+
+.webform-submission-fale-conosco-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.webform-submission-fale-conosco-form .contextual {
+  display: none !important;
+}
+
+.js-webform-radios {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: .5rem 1.5rem;
+  flex-wrap: wrap;
+}
+
+.webform-submission-fale-conosco-form .form-item.js-form-type-radio {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;  
+  width: auto;
+  gap: 5px;
+}
+
+.webform-submission-fale-conosco-form .form-item.js-form-type-radio label {
+  margin-bottom: 0;
+  color: #858585;
+  font-weight: bold;  
+}
+
+.webform-submission-fale-conosco-form .js-form-item-empresa {
+  display: none;
+}
+
+.webform-submission-fale-conosco-form [type="radio"] {
+  width: 20px;
+  height: 20px;
+  /* margin-top: 0.25em; */
+  vertical-align: middle;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: 1px solid rgba(0,0,0,.25);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
+  print-color-adjust: exact;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.webform-submission-fale-conosco-form [type="radio"]:checked {
+  background-color: white;
+  border-color: var(--yellow);
+  border-width: 6px;
 }

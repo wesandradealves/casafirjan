@@ -1,0 +1,19 @@
+uuid: c619ed34-182a-4a5b-a212-3cf3aff921ee
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_destaques
+field_name: field_destaques
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: 3
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

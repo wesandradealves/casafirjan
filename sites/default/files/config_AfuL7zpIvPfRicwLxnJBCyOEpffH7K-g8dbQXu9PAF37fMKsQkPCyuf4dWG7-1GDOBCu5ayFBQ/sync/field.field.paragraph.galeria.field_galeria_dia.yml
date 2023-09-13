@@ -1,0 +1,21 @@
+uuid: 639c3b28-cf4a-453d-aaf6-265a3c070070
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_galeria_dia
+    - paragraphs.paragraphs_type.galeria
+  module:
+    - datetime
+id: paragraph.galeria.field_galeria_dia
+field_name: field_galeria_dia
+entity_type: paragraph
+bundle: galeria
+label: Dia
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

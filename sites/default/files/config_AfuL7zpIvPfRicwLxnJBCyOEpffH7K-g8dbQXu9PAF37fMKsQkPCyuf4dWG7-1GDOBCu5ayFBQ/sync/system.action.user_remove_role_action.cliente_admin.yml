@@ -1,0 +1,14 @@
+uuid: 398de4dc-1c7d-4829-a87b-f88187829f8d
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - user.role.cliente_admin
+  module:
+    - user
+id: user_remove_role_action.cliente_admin
+label: 'Remove the Cliente Admin role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: cliente_admin

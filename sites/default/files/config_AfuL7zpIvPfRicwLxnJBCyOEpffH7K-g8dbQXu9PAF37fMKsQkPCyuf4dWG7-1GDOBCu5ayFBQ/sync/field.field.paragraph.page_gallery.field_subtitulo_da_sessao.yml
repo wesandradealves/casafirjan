@@ -1,0 +1,19 @@
+uuid: faef8650-4d5f-44e9-8f3f-a85d4b7bbc5a
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_subtitulo_da_sessao
+    - paragraphs.paragraphs_type.page_gallery
+id: paragraph.page_gallery.field_subtitulo_da_sessao
+field_name: field_subtitulo_da_sessao
+entity_type: paragraph
+bundle: page_gallery
+label: 'Subtitulo da Sessão'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

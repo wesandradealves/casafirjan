@@ -1,0 +1,19 @@
+uuid: 082b8f0e-479c-43b1-aec1-92c8a34be55d
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_chamada
+    - node.type.curso
+id: node.curso.field_chamada
+field_name: field_chamada
+entity_type: node
+bundle: curso
+label: Chamada
+description: 'Campo utilizado na agenda'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

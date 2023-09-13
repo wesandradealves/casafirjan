@@ -1,0 +1,30 @@
+uuid: 3a2109c6-cc37-4205-a25b-14a2946cc4d6
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:c0a75809-32eb-4a4e-8e90-134f239c6aee'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: podcasts
+theme: casa_firjan
+region: content
+weight: 4
+provider: null
+plugin: 'block_content:c0a75809-32eb-4a4e-8e90-134f239c6aee'
+settings:
+  id: 'block_content:c0a75809-32eb-4a4e-8e90-134f239c6aee'
+  label: Podcasts
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /palestras-debates-entrevistas/podcasts

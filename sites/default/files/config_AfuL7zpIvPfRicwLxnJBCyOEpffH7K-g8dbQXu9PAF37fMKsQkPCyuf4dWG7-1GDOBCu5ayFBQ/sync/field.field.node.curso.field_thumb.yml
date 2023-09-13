@@ -1,0 +1,38 @@
+uuid: 88b880b0-5baf-4884-bedf-0bc563fd7421
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_thumb
+    - node.type.curso
+  module:
+    - image
+id: node.curso.field_thumb
+field_name: field_thumb
+entity_type: node
+bundle: curso
+label: Thumb
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: false
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: 62ac4b9a-5bcd-41dc-a6c2-73a09e7789a6
+    alt: ''
+    title: ''
+    width: 644
+    height: 400
+field_type: image

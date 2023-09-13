@@ -1,0 +1,19 @@
+uuid: 0a8138e2-a457-424d-a5da-4a1041c5942e
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_link_para_compra
+    - node.type.curso
+id: node.curso.field_link_para_compra
+field_name: field_link_para_compra
+entity_type: node
+bundle: curso
+label: 'Link para compra'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

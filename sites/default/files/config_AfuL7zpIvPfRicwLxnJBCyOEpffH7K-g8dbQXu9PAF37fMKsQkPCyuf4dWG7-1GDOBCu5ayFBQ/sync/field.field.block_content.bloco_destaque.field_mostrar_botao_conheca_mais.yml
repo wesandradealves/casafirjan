@@ -1,0 +1,23 @@
+uuid: cfd9596f-03ee-4abf-a6d4-f89046bd1e0d
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.storage.block_content.field_mostrar_botao_conheca_mais
+id: block_content.bloco_destaque.field_mostrar_botao_conheca_mais
+field_name: field_mostrar_botao_conheca_mais
+entity_type: block_content
+bundle: bloco_destaque
+label: 'Mostrar Botão '
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

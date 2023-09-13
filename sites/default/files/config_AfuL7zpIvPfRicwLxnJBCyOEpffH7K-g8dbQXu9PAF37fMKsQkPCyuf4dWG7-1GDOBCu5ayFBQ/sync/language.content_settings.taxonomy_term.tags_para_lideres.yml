@@ -1,0 +1,11 @@
+uuid: eb35e933-e677-4efb-9f93-3ae5821e95d1
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.tags_para_lideres
+id: taxonomy_term.tags_para_lideres
+target_entity_type_id: taxonomy_term
+target_bundle: tags_para_lideres
+default_langcode: site_default
+language_alterable: false

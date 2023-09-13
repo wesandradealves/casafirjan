@@ -1,0 +1,11 @@
+_core:
+  default_config_hash: ae8AQLsAFXvfcLPmE4YUBcxThAqf7psqRTHzhccslls
+langcode: pt-br
+site_key: 6LeebdsmAAAAAODNsTfAh3JLTvKLdunFQ4ZXpaHE
+secret_key: 6LeebdsmAAAAANiFCgJ_1Z_3cQ8xkH8ETibTC
+hide_badge: false
+verify_hostname: true
+default_challenge: recaptcha/reCAPTCHA
+error_message: 'Falha na verificação do Antibot.'
+cacheable: false
+library_use_recaptcha_net: false

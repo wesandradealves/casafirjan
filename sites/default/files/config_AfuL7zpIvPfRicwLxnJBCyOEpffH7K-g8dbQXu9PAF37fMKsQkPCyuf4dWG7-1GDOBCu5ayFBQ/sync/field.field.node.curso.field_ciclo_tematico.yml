@@ -1,0 +1,29 @@
+uuid: b3e25600-450f-482c-b56f-1747b1431baf
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ciclo_tematico
+    - node.type.curso
+    - taxonomy.vocabulary.ciclo_tematico
+id: node.curso.field_ciclo_tematico
+field_name: field_ciclo_tematico
+entity_type: node
+bundle: curso
+label: 'Ciclo temático'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      ciclo_tematico: ciclo_tematico
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

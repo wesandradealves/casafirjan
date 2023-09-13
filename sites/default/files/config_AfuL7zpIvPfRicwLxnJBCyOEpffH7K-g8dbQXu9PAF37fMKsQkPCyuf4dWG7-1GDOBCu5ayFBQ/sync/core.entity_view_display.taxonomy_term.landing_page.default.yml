@@ -1,0 +1,30 @@
+uuid: 3fef8400-9098-4492-b03b-90f2b5dc694d
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.landing_page.field_texto
+    - taxonomy.vocabulary.landing_page
+  module:
+    - text
+id: taxonomy_term.landing_page.default
+targetEntityType: taxonomy_term
+bundle: landing_page
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_texto:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true

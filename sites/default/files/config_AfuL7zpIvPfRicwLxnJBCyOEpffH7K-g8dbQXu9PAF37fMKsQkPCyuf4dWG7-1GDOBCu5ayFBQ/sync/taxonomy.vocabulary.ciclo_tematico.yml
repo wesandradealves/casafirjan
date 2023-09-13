@@ -1,0 +1,8 @@
+uuid: 259260d4-a78a-4091-b39f-82cf193cfb1c
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 'Ciclo temático'
+vid: ciclo_tematico
+description: ''
+weight: 0

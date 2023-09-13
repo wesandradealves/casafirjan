@@ -1,0 +1,14 @@
+features:
+  node_user_picture: 1
+  comment_user_picture: 1
+  comment_user_verification: 1
+  favicon: 1
+logo:
+  use_default: 1
+  path: themes/casa_firjan/favicon.ico
+favicon:
+  use_default: 0
+  path: themes/casa_firjan/favicon.ico
+  mimetype: image/vnd.microsoft.icon
+breadcrumb_bg:
+  - '2136'

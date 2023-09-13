@@ -1,0 +1,19 @@
+uuid: 02ad80c9-665c-4658-a616-ae67e7e2c794
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - text
+id: taxonomy_term.field_resumo
+field_name: field_resumo
+entity_type: taxonomy_term
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

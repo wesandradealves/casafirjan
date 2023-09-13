@@ -1,0 +1,14 @@
+uuid: 253b7b40-6523-4c51-a0f3-142b451d01aa
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - user.role.cliente_admin
+  module:
+    - user
+id: user_add_role_action.cliente_admin
+label: 'Add the Cliente Admin role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: cliente_admin

@@ -1,0 +1,30 @@
+uuid: b8e1b472-4207-43ff-943d-1638ad5e59a6
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:eab09c49-0328-4a5d-8eda-414f63bf6e64'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: fablab
+theme: casa_firjan
+region: content
+weight: -6
+provider: null
+plugin: 'block_content:eab09c49-0328-4a5d-8eda-414f63bf6e64'
+settings:
+  id: 'block_content:eab09c49-0328-4a5d-8eda-414f63bf6e64'
+  label: 'Fab Lab'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /fab-lab

@@ -1,0 +1,21 @@
+uuid: 4373dfd1-1e27-47f7-9588-9a286506c11c
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tipo_de_midia
+    - node.type.conteudo
+  module:
+    - options
+id: node.conteudo.field_tipo_de_midia
+field_name: field_tipo_de_midia
+entity_type: node
+bundle: conteudo
+label: "Tipo de mídia\t"
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

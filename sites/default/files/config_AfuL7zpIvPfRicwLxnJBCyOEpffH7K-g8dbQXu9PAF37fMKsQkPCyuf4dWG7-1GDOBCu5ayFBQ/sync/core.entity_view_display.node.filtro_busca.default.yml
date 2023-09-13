@@ -1,0 +1,46 @@
+uuid: e755aa43-1044-4503-899b-f97ab81de0cb
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.node.filtro_busca.field_programa_subprograma
+    - field.field.node.filtro_busca.field_tipo_de_conteudo
+    - field.field.node.filtro_busca.field_tipo_de_filtro
+    - node.type.filtro_busca
+  module:
+    - options
+    - user
+id: node.filtro_busca.default
+targetEntityType: node
+bundle: filtro_busca
+mode: default
+content:
+  field_programa_subprograma:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_tipo_de_conteudo:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_tipo_de_filtro:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

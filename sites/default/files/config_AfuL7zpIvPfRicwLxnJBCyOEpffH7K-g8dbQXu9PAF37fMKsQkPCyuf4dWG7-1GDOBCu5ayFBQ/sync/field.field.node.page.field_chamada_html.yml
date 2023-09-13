@@ -1,0 +1,21 @@
+uuid: 4ef3efb8-353a-4acf-b7c6-97508462783a
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_chamada_html
+    - node.type.page
+  module:
+    - text
+id: node.page.field_chamada_html
+field_name: field_chamada_html
+entity_type: node
+bundle: page
+label: Chamada
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

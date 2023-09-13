@@ -1,0 +1,9 @@
+uuid: 99f2ef07-06ef-4886-8b6c-326f728f1f6a
+langcode: pt-br
+status: true
+dependencies: {  }
+id: sistema
+label: Sistema
+weight: null
+menu: sistema
+rewrite_label: false

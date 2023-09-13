@@ -1,0 +1,11 @@
+uuid: ff8d981c-abe6-4f5c-8f91-281e769d0a7a
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.ciclo_tematico
+id: taxonomy_term.ciclo_tematico
+target_entity_type_id: taxonomy_term
+target_bundle: ciclo_tematico
+default_langcode: site_default
+language_alterable: false

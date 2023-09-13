@@ -1,0 +1,30 @@
+uuid: 22b2487b-ca94-45cc-8db0-5e5a42407c3a
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:tabs:0acbcca5-c540-4ae2-8a3b-52fe52271a86'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: quemsomos
+theme: casa_firjan
+region: content
+weight: -13
+provider: null
+plugin: 'block_content:0acbcca5-c540-4ae2-8a3b-52fe52271a86'
+settings:
+  id: 'block_content:0acbcca5-c540-4ae2-8a3b-52fe52271a86'
+  label: 'Quem Somos'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/*/quem-somos'

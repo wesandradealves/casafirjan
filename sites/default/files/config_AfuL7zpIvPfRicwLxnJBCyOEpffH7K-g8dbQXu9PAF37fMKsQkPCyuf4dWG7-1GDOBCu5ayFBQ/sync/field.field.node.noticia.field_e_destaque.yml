@@ -1,0 +1,23 @@
+uuid: 1fb7173e-7f36-4321-aa2b-33c23a835993
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_e_destaque
+    - node.type.noticia
+id: node.noticia.field_e_destaque
+field_name: field_e_destaque
+entity_type: node
+bundle: noticia
+label: 'É destaque'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

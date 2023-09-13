@@ -1,0 +1,45 @@
+uuid: 61c4b6c3-9788-412d-a668-5241f363c4fc
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.tab.field_imagem
+    - field.field.paragraph.tab.field_texto
+    - field.field.paragraph.tab.field_titulo
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.tab
+  module:
+    - image
+    - text
+id: paragraph.tab.default
+targetEntityType: paragraph
+bundle: tab
+mode: default
+content:
+  field_imagem:
+    type: image_image
+    weight: 2
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_texto:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_titulo:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

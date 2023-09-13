@@ -1,0 +1,64 @@
+uuid: cd6eb0ad-ccf6-4713-9112-dba953a953c6
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.visite.field_embed_do_maps
+    - field.field.node.visite.field_habilitar_acessibilidade
+    - field.field.node.visite.field_habilitar_agende_visita
+    - field.field.node.visite.field_habilitar_como_chegar
+    - field.field.node.visite.field_habilitar_horarios_ingress
+    - field.field.node.visite.field_habilitar_politica_visitac
+    - field.field.node.visite.field_habilitar_servicos
+    - field.field.node.visite.field_label_1
+    - field.field.node.visite.field_label_2
+    - field.field.node.visite.field_label_3
+    - field.field.node.visite.field_label_4
+    - field.field.node.visite.field_label_5
+    - field.field.node.visite.field_label_6
+    - field.field.node.visite.field_opcoes_de_agendamento
+    - field.field.node.visite.field_texto_acessibilidade
+    - field.field.node.visite.field_texto_agende_visita
+    - field.field.node.visite.field_texto_agende_visita_2
+    - field.field.node.visite.field_texto_como_chegar
+    - field.field.node.visite.field_texto_horarios_ingressos
+    - field.field.node.visite.field_texto_politica_visitacao
+    - field.field.node.visite.field_texto_servicos
+    - node.type.visite
+  module:
+    - user
+id: node.visite.teaser
+targetEntityType: node
+bundle: visite
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_embed_do_maps: true
+  field_habilitar_acessibilidade: true
+  field_habilitar_agende_visita: true
+  field_habilitar_como_chegar: true
+  field_habilitar_horarios_ingress: true
+  field_habilitar_politica_visitac: true
+  field_habilitar_servicos: true
+  field_label_1: true
+  field_label_2: true
+  field_label_3: true
+  field_label_4: true
+  field_label_5: true
+  field_label_6: true
+  field_opcoes_de_agendamento: true
+  field_texto_acessibilidade: true
+  field_texto_agende_visita: true
+  field_texto_agende_visita_2: true
+  field_texto_como_chegar: true
+  field_texto_horarios_ingressos: true
+  field_texto_politica_visitacao: true
+  field_texto_servicos: true
+  langcode: true
+  search_api_excerpt: true

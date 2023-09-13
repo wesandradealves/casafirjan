@@ -1,0 +1,8 @@
+uuid: db12a511-e935-462d-b317-bb29254949d6
+langcode: pt-br
+status: true
+dependencies: {  }
+id: menu-principal-esquerda
+label: 'Menu principal esquerda'
+description: ''
+locked: false

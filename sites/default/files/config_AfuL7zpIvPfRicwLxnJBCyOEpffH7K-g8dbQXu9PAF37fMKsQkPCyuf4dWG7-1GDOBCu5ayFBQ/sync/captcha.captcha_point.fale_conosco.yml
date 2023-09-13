@@ -1,0 +1,7 @@
+uuid: c4eb4998-0854-472c-91e5-58925dd24475
+langcode: pt-br
+status: true
+dependencies: {  }
+formId: fale_conosco
+captchaType: recaptcha_v3/contato
+label: fale_conosco

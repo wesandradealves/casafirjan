@@ -1,0 +1,53 @@
+uuid: 7f6b8e8f-613a-4503-8c8a-fab455d7e600
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.galeria.field_galeria_descricao
+    - field.field.paragraph.galeria.field_galeria_dia
+    - field.field.paragraph.galeria.field_galeria_imagem
+    - field.field.paragraph.galeria.field_galeria_titulo
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.galeria
+  module:
+    - datetime
+    - image
+    - text
+id: paragraph.galeria.default
+targetEntityType: paragraph
+bundle: galeria
+mode: default
+content:
+  field_galeria_descricao:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_galeria_dia:
+    type: datetime_default
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_galeria_imagem:
+    type: image_image
+    weight: 2
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_galeria_titulo:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

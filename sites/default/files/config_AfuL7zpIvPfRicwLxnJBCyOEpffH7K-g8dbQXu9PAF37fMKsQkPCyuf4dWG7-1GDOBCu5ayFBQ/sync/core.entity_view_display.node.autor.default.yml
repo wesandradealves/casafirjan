@@ -1,0 +1,29 @@
+uuid: c13f08d7-6c76-438a-ac69-eee3483d13d4
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.node.autor.body
+    - node.type.autor
+  module:
+    - text
+    - user
+id: node.autor.default
+targetEntityType: node
+bundle: autor
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

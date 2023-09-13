@@ -1,0 +1,82 @@
+uuid: f752fecc-f950-495c-8261-219f04958cea
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.tags_conteudo.field_descricao
+    - field.field.taxonomy_term.tags_conteudo.field_destaques
+    - field.field.taxonomy_term.tags_conteudo.field_resumo
+    - taxonomy.vocabulary.tags_conteudo
+  module:
+    - path
+    - text
+id: taxonomy_term.tags_conteudo.default
+targetEntityType: taxonomy_term
+bundle: tags_conteudo
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_descricao:
+    type: string_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_destaques:
+    type: entity_reference_autocomplete
+    weight: 6
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_resumo:
+    type: text_textarea
+    weight: 7
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 3
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 5
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  publish_on: true
+  unpublish_on: true

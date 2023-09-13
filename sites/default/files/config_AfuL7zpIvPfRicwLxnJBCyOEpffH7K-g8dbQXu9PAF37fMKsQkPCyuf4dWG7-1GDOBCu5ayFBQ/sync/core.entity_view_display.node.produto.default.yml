@@ -1,0 +1,68 @@
+uuid: aa57f4b1-6b9a-4eb5-be50-dfbc7348c144
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.node.produto.field_categoria
+    - field.field.node.produto.field_descricao
+    - field.field.node.produto.field_imagem
+    - field.field.node.produto.field_link
+    - field.field.node.produto.field_pagina
+    - field.field.node.produto.field_tags
+    - field.field.node.produto.field_thumb
+    - field.field.node.produto.field_tipo_de_associacao
+    - node.type.produto
+  module:
+    - image
+    - text
+    - user
+id: node.produto.default
+targetEntityType: node
+bundle: produto
+mode: default
+content:
+  field_descricao:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_imagem:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_pagina:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_thumb:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  field_categoria: true
+  field_link: true
+  field_tags: true
+  field_tipo_de_associacao: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

@@ -1,0 +1,34 @@
+uuid: 45a7a2a1-7a5d-4a8e-80f3-c1369539c6a2
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.ciclo_tematico.field_cor_do_ciclo
+    - taxonomy.vocabulary.ciclo_tematico
+  module:
+    - color_field
+    - text
+id: taxonomy_term.ciclo_tematico.default
+targetEntityType: taxonomy_term
+bundle: ciclo_tematico
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_cor_do_ciclo:
+    type: color_field_formatter_text
+    label: above
+    settings:
+      format: hex
+      opacity: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

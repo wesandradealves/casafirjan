@@ -1,0 +1,30 @@
+uuid: 8b830405-2542-4cde-889d-9756dac04bb1
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:formularios:b37801ab-e401-4b61-b50f-5344fb532cf5'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: contato
+theme: casa_firjan
+region: content
+weight: -3
+provider: null
+plugin: 'block_content:b37801ab-e401-4b61-b50f-5344fb532cf5'
+settings:
+  id: 'block_content:b37801ab-e401-4b61-b50f-5344fb532cf5'
+  label: 'Bloco Contato'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /fab-lab/o-que-e-fab-lab

@@ -1,0 +1,11 @@
+uuid: 4e22c26c-e0c3-41d8-9f0b-4630ed761676
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.formularios
+id: block_content.formularios
+target_entity_type_id: block_content
+target_bundle: formularios
+default_langcode: site_default
+language_alterable: false

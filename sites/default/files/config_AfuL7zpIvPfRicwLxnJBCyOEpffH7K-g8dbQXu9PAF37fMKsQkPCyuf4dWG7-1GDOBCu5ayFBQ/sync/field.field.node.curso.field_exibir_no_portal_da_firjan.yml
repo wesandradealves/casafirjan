@@ -1,0 +1,23 @@
+uuid: b722ecf0-1564-4c92-9196-1686d6767a92
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_exibir_no_portal_da_firjan
+    - node.type.curso
+id: node.curso.field_exibir_no_portal_da_firjan
+field_name: field_exibir_no_portal_da_firjan
+entity_type: node
+bundle: curso
+label: 'Exibir no portal da Firjan'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

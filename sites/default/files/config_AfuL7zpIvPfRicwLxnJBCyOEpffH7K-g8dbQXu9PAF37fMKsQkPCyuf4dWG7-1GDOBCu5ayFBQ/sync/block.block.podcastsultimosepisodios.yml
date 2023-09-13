@@ -1,0 +1,30 @@
+uuid: e31435a3-21d7-4cac-bfee-f41c54d7ef25
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:62342b3b-beb9-4978-bc56-5a65f26787ab'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: podcastsultimosepisodios
+theme: casa_firjan
+region: content
+weight: -20
+provider: null
+plugin: 'block_content:62342b3b-beb9-4978-bc56-5a65f26787ab'
+settings:
+  id: 'block_content:62342b3b-beb9-4978-bc56-5a65f26787ab'
+  label: 'PODCASTS: ÚLTIMOS EPISÓDIOS'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

@@ -1,0 +1,30 @@
+uuid: 605a9c70-729b-4ecf-9f70-45e3cb05599f
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:9a747334-447f-4113-b5c5-b93fce8a2a39'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: publicacoes
+theme: casa_firjan
+region: content
+weight: 5
+provider: null
+plugin: 'block_content:9a747334-447f-4113-b5c5-b93fce8a2a39'
+settings:
+  id: 'block_content:9a747334-447f-4113-b5c5-b93fce8a2a39'
+  label: Publicações
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /publicacoes

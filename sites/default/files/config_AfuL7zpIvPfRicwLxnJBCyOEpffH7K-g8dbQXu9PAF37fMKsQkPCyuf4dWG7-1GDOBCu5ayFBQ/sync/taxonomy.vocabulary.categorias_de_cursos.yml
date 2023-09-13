@@ -1,0 +1,8 @@
+uuid: 6eb24961-b226-4f3a-867a-444d54046598
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 'Categorias de cursos'
+vid: categorias_de_cursos
+description: ''
+weight: 0

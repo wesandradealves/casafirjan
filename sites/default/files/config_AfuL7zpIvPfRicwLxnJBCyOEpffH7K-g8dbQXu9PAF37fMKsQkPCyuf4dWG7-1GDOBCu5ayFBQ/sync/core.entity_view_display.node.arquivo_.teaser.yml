@@ -1,0 +1,24 @@
+uuid: bb318c44-9e7f-420e-9793-c9bf4e2ba7d1
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.arquivo_.field_arquivo
+    - node.type.arquivo_
+  module:
+    - user
+id: node.arquivo_.teaser
+targetEntityType: node
+bundle: arquivo_
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_arquivo: true
+  langcode: true
+  search_api_excerpt: true

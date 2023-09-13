@@ -1,0 +1,100 @@
+uuid: 2e7e6f3d-7eb0-404d-afc7-f1a7aa9c4b71
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_page_galeria
+    - node.type.page
+    - paragraphs.paragraphs_type.page_gallery
+  module:
+    - entity_reference_revisions
+id: node.page.field_page_galeria
+field_name: field_page_galeria
+entity_type: node
+bundle: page
+label: Galeria
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      page_gallery: page_gallery
+    negate: 0
+    target_bundles_drag_drop:
+      banner_principal:
+        weight: 26
+        enabled: false
+      chamada_card_:
+        weight: 27
+        enabled: false
+      chamada_festival:
+        weight: 28
+        enabled: false
+      chamada_video:
+        weight: 29
+        enabled: false
+      cp_test_text:
+        weight: 30
+        enabled: false
+      depoimentos:
+        weight: 31
+        enabled: false
+      depoimentos_groups:
+        weight: 32
+        enabled: false
+      experiencia_imersiva:
+        weight: 33
+        enabled: false
+      faq:
+        weight: 34
+        enabled: false
+      foto:
+        weight: 35
+        enabled: false
+      from_library:
+        weight: 36
+        enabled: false
+      galeria:
+        weight: 37
+        enabled: false
+      home_cta:
+        weight: 38
+        enabled: false
+      home_faq:
+        weight: 39
+        enabled: false
+      home_oficinas:
+        weight: 40
+        enabled: false
+      home_palestrantes:
+        weight: 41
+        enabled: false
+      home_programacao:
+        weight: 42
+        enabled: false
+      home_programacao_palestras:
+        weight: 43
+        enabled: false
+      icone_e_texto:
+        weight: 44
+        enabled: false
+      oficina:
+        weight: 45
+        enabled: false
+      page_gallery:
+        weight: 25
+        enabled: true
+      palestrantes:
+        weight: 46
+        enabled: false
+      programacao:
+        weight: 47
+        enabled: false
+      sobre_o_evento:
+        weight: 48
+        enabled: false
+field_type: entity_reference_revisions

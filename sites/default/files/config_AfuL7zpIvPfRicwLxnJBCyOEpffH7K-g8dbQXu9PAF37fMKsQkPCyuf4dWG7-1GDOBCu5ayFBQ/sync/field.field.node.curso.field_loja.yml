@@ -1,0 +1,21 @@
+uuid: 1bfca3c5-e491-499a-8fae-286a7909fd8c
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_loja
+    - node.type.curso
+  module:
+    - options
+id: node.curso.field_loja
+field_name: field_loja
+entity_type: node
+bundle: curso
+label: Loja
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

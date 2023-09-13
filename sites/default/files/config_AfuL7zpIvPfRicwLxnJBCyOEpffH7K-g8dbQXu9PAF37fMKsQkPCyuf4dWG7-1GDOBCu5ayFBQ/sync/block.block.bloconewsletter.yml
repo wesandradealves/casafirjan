@@ -1,0 +1,25 @@
+uuid: dc6e71c0-0e80-4984-9c08-e118520e1115
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:f58e2db9-9dce-4fdf-a15d-0c91f3253fe1'
+  module:
+    - block_content
+  theme:
+    - casa_firjan
+id: bloconewsletter
+theme: casa_firjan
+region: Footer
+weight: 0
+provider: null
+plugin: 'block_content:f58e2db9-9dce-4fdf-a15d-0c91f3253fe1'
+settings:
+  id: 'block_content:f58e2db9-9dce-4fdf-a15d-0c91f3253fe1'
+  label: 'Bloco Newsletter'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

@@ -1,0 +1,8 @@
+uuid: a1b41f02-2ba9-4dc4-832b-be6450241ff5
+langcode: pt-br
+status: true
+dependencies: {  }
+id: tagcloud
+label: Tagcloud
+revision: 0
+description: ''

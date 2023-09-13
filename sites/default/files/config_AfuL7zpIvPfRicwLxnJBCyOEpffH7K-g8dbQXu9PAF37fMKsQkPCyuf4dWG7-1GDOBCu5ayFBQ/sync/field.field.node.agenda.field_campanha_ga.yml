@@ -1,0 +1,19 @@
+uuid: b57027df-5d8a-492e-87c0-4da90050ff4c
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_campanha_ga
+    - node.type.agenda
+id: node.agenda.field_campanha_ga
+field_name: field_campanha_ga
+entity_type: node
+bundle: agenda
+label: 'Código para campanha do GA'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

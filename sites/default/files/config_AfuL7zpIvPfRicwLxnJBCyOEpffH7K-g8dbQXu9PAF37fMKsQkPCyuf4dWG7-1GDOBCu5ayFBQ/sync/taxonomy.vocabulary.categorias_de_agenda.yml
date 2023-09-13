@@ -1,0 +1,8 @@
+uuid: 1451ab6a-fb84-4a93-970b-2d2a22e3a5ec
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 'Tipo de evento'
+vid: categorias_de_agenda
+description: ''
+weight: 0

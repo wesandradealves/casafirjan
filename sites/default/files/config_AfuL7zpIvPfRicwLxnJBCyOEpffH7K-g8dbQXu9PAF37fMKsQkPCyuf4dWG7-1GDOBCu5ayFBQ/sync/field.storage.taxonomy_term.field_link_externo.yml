@@ -1,0 +1,19 @@
+uuid: 41402eaa-bd11-44d4-92b6-0b9aed8d4a3a
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - link
+    - taxonomy
+id: taxonomy_term.field_link_externo
+field_name: field_link_externo
+entity_type: taxonomy_term
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,10 @@
+uuid: 3045d4e7-9a70-436d-aaf0-dcb6fae883c2
+langcode: pt-br
+status: true
+dependencies: {  }
+id: galeria
+label: Galeria
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

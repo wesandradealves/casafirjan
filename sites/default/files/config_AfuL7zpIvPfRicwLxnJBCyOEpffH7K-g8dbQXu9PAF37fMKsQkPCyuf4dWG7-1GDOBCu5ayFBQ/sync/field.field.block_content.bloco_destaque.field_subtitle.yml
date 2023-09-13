@@ -1,0 +1,21 @@
+uuid: 170fbaa1-8728-44c9-9fb3-9370e63695dd
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.storage.block_content.field_subtitle
+  module:
+    - text
+id: block_content.bloco_destaque.field_subtitle
+field_name: field_subtitle
+entity_type: block_content
+bundle: bloco_destaque
+label: Subtitulo
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

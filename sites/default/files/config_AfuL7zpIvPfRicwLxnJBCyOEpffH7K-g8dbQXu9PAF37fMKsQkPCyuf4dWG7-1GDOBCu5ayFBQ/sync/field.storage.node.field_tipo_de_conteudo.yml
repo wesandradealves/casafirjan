@@ -1,0 +1,36 @@
+uuid: aa35fac8-180d-439e-b9fb-8707c4d5ab7c
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_tipo_de_conteudo
+field_name: field_tipo_de_conteudo
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: agenda
+      label: Agenda
+    -
+      value: curso
+      label: Curso
+    -
+      value: noticia
+      label: Notícia
+    -
+      value: page
+      label: Página
+    -
+      value: para_lideres
+      label: 'Para Líderes'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

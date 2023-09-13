@@ -1,0 +1,19 @@
+uuid: 9725f4fa-909f-48f9-b57a-b84caaed7677
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_id_shopify
+    - node.type.curso
+id: node.curso.field_id_shopify
+field_name: field_id_shopify
+entity_type: node
+bundle: curso
+label: 'ID Shopify'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

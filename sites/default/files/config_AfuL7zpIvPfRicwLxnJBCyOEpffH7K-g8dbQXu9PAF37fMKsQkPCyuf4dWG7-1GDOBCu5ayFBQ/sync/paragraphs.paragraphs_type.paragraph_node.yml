@@ -1,0 +1,10 @@
+uuid: 3e8b91b0-d642-4ec6-b91a-804caff9f2c4
+langcode: pt-br
+status: true
+dependencies: {  }
+id: paragraph_node
+label: Node
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

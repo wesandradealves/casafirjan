@@ -1,0 +1,37 @@
+uuid: 3592d2f1-d2f4-4eb7-9199-a0256a9d5e18
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.storage.block_content.field_node
+    - paragraphs.paragraphs_type.paragraph_node
+  module:
+    - entity_reference_revisions
+id: block_content.bloco_destaque.field_node
+field_name: field_node
+entity_type: block_content
+bundle: bloco_destaque
+label: Posts
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      paragraph_node: paragraph_node
+    negate: 0
+    target_bundles_drag_drop:
+      galeria:
+        weight: 5
+        enabled: false
+      page_gallery:
+        weight: 6
+        enabled: false
+      paragraph_node:
+        weight: 4
+        enabled: true
+field_type: entity_reference_revisions

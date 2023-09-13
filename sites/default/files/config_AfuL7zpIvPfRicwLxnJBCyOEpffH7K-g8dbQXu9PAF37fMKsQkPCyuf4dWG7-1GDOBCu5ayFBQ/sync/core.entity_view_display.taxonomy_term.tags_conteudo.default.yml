@@ -1,0 +1,48 @@
+uuid: 02359374-e0fb-4a0c-b537-34ee2d8c5d89
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.tags_conteudo.field_descricao
+    - field.field.taxonomy_term.tags_conteudo.field_destaques
+    - field.field.taxonomy_term.tags_conteudo.field_resumo
+    - taxonomy.vocabulary.tags_conteudo
+  module:
+    - text
+id: taxonomy_term.tags_conteudo.default
+targetEntityType: taxonomy_term
+bundle: tags_conteudo
+mode: default
+content:
+  description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_descricao:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_destaques:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_resumo:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

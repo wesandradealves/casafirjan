@@ -1,0 +1,20 @@
+uuid: 2e2659a5-4f5c-44b0-89fd-99a98bd3213a
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - color_field
+    - taxonomy
+id: taxonomy_term.field_cor_do_ciclo
+field_name: field_cor_do_ciclo
+entity_type: taxonomy_term
+type: color_field_type
+settings:
+  format: '#HEXHEX'
+module: color_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

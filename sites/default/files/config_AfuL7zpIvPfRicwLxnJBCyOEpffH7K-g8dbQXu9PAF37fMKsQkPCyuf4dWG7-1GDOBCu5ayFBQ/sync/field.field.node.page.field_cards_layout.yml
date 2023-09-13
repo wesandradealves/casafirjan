@@ -1,0 +1,21 @@
+uuid: 100538e8-1e3e-434c-b0fc-c95d87a7923a
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cards_layout
+    - node.type.page
+  module:
+    - options
+id: node.page.field_cards_layout
+field_name: field_cards_layout
+entity_type: node
+bundle: page
+label: 'Layout Cards'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

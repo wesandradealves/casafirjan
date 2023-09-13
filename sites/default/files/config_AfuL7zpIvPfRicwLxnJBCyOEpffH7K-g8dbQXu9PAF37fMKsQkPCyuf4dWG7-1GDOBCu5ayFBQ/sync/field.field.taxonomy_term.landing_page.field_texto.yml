@@ -1,0 +1,19 @@
+uuid: 8d524ee6-168e-49f0-a394-216c09831dd5
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_texto
+    - taxonomy.vocabulary.landing_page
+id: taxonomy_term.landing_page.field_texto
+field_name: field_texto
+entity_type: taxonomy_term
+bundle: landing_page
+label: Texto
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

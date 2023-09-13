@@ -1,0 +1,19 @@
+uuid: ecaa879f-1d3a-43fc-8852-7ee56e30b0dd
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_topico
+field_name: field_topico
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

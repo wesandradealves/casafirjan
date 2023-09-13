@@ -1,0 +1,23 @@
+uuid: a0947adc-0916-48c0-a793-9b19accf05f6
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.storage.block_content.field_enable_filter
+id: block_content.bloco_destaque.field_enable_filter
+field_name: field_enable_filter
+entity_type: block_content
+bundle: bloco_destaque
+label: 'Habilitar Filtro'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

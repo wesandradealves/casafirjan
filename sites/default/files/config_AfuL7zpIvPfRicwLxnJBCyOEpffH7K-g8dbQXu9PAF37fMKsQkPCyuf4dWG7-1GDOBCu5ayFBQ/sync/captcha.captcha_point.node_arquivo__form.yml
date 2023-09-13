@@ -1,0 +1,7 @@
+uuid: a5cdeea3-d961-4a82-80b1-d4653ee46b0c
+langcode: pt-br
+status: false
+dependencies: {  }
+formId: node_arquivo__form
+captchaType: default
+label: node_arquivo__form

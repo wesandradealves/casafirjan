@@ -1,0 +1,32 @@
+uuid: 78b8e986-8d2c-41b2-994e-929ef6ba54be
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.tags_de_menu.field_destaques
+    - taxonomy.vocabulary.tags_de_menu
+  module:
+    - text
+id: taxonomy_term.tags_de_menu.default
+targetEntityType: taxonomy_term
+bundle: tags_de_menu
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_destaques:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

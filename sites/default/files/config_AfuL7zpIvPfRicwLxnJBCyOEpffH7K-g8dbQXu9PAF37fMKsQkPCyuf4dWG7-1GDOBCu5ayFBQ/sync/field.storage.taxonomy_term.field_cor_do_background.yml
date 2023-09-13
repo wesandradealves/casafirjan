@@ -1,0 +1,20 @@
+uuid: 27403120-9d24-48e3-ad9e-49becb36254e
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - color_field
+    - taxonomy
+id: taxonomy_term.field_cor_do_background
+field_name: field_cor_do_background
+entity_type: taxonomy_term
+type: color_field_type
+settings:
+  format: '#HEXHEX'
+module: color_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

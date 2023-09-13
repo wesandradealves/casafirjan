@@ -1,0 +1,76 @@
+uuid: fe0a8c15-fc0d-4b41-a03c-cdf6c3cf31d8
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.page.field_cards
+    - field.field.node.page.field_cards_layout
+    - field.field.node.page.field_categoria
+    - field.field.node.page.field_chamada_html
+    - field.field.node.page.field_headline
+    - field.field.node.page.field_imagem
+    - field.field.node.page.field_page_galeria
+    - field.field.node.page.field_tags
+    - field.field.node.page.field_texto
+    - field.field.node.page.field_thumb
+    - node.type.page
+  module:
+    - image
+    - text
+    - user
+_core:
+  default_config_hash: g1S3_GLaxq4l3I9RIca5Mlz02MxI2KmOquZpHw59akM
+id: node.page.token
+targetEntityType: node
+bundle: page
+mode: token
+content:
+  field_categoria:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_imagem:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_texto:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+hidden:
+  field_cards: true
+  field_cards_layout: true
+  field_chamada_html: true
+  field_headline: true
+  field_page_galeria: true
+  field_thumb: true
+  langcode: true
+  search_api_excerpt: true

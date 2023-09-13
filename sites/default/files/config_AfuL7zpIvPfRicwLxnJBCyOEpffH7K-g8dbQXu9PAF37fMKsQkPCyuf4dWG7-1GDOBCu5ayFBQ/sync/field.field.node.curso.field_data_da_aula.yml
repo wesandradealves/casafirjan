@@ -1,0 +1,21 @@
+uuid: b93b051d-9e85-4743-b69b-d6d583fc0980
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_data_da_aula
+    - node.type.curso
+  module:
+    - datetime
+id: node.curso.field_data_da_aula
+field_name: field_data_da_aula
+entity_type: node
+bundle: curso
+label: 'Data da aula'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,43 @@
+uuid: d1fa5c7a-7714-4ea9-a0d1-c76120c2128d
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.storage.block_content.field_cards
+    - paragraphs.paragraphs_type.cards
+  module:
+    - entity_reference_revisions
+id: block_content.bloco_destaque.field_cards
+field_name: field_cards
+entity_type: block_content
+bundle: bloco_destaque
+label: Cards
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      cards: cards
+    negate: 0
+    target_bundles_drag_drop:
+      cards:
+        weight: 6
+        enabled: true
+      galeria:
+        weight: 7
+        enabled: false
+      page_gallery:
+        weight: 8
+        enabled: false
+      paragraph_node:
+        weight: 9
+        enabled: false
+      tab:
+        weight: 10
+        enabled: false
+field_type: entity_reference_revisions

@@ -1,0 +1,393 @@
+uuid: 6081b1fa-baef-456d-aec2-fffde135f935
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.node.visite.field_embed_do_maps
+    - field.field.node.visite.field_habilitar_acessibilidade
+    - field.field.node.visite.field_habilitar_agende_visita
+    - field.field.node.visite.field_habilitar_como_chegar
+    - field.field.node.visite.field_habilitar_horarios_ingress
+    - field.field.node.visite.field_habilitar_politica_visitac
+    - field.field.node.visite.field_habilitar_servicos
+    - field.field.node.visite.field_label_1
+    - field.field.node.visite.field_label_2
+    - field.field.node.visite.field_label_3
+    - field.field.node.visite.field_label_4
+    - field.field.node.visite.field_label_5
+    - field.field.node.visite.field_label_6
+    - field.field.node.visite.field_opcoes_de_agendamento
+    - field.field.node.visite.field_texto_acessibilidade
+    - field.field.node.visite.field_texto_agende_visita
+    - field.field.node.visite.field_texto_agende_visita_2
+    - field.field.node.visite.field_texto_como_chegar
+    - field.field.node.visite.field_texto_horarios_ingressos
+    - field.field.node.visite.field_texto_politica_visitacao
+    - field.field.node.visite.field_texto_servicos
+    - node.type.visite
+  module:
+    - field_group
+    - path
+    - scheduler
+    - text
+third_party_settings:
+  field_group:
+    group_visite:
+      children:
+        - group_como_chegar
+        - group_agende_uma_visita
+        - group_horarios_e_ingressos
+        - group_politica_de_visitacao
+        - group_servicos
+        - group_acessibilidade
+      label: Visite
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: tabs
+      format_settings:
+        classes: ''
+        id: ''
+        direction: vertical
+    group_como_chegar:
+      children:
+        - field_habilitar_como_chegar
+        - field_label_1
+        - field_embed_do_maps
+        - field_texto_como_chegar
+      label: 'ABA 1'
+      region: content
+      parent_name: group_visite
+      weight: 10
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: open
+        description: ''
+        required_fields: true
+    group_horarios_e_ingressos:
+      children:
+        - field_habilitar_horarios_ingress
+        - field_label_3
+        - field_texto_horarios_ingressos
+      label: 'ABA 3'
+      region: content
+      parent_name: group_visite
+      weight: 12
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_politica_de_visitacao:
+      children:
+        - field_habilitar_politica_visitac
+        - field_label_4
+        - field_texto_politica_visitacao
+      label: 'ABA 4'
+      region: content
+      parent_name: group_visite
+      weight: 13
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_agende_uma_visita:
+      children:
+        - field_habilitar_agende_visita
+        - field_label_2
+        - field_texto_agende_visita
+        - field_texto_agende_visita_2
+        - field_opcoes_de_agendamento
+      label: 'ABA 2'
+      region: content
+      parent_name: group_visite
+      weight: 11
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_servicos:
+      children:
+        - field_habilitar_servicos
+        - field_label_5
+        - field_texto_servicos
+      label: 'ABA 5'
+      region: content
+      parent_name: group_visite
+      weight: 14
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_acessibilidade:
+      children:
+        - field_habilitar_acessibilidade
+        - field_label_6
+        - field_texto_acessibilidade
+      label: 'ABA 6'
+      region: content
+      parent_name: group_visite
+      weight: 15
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+id: node.visite.default
+targetEntityType: node
+bundle: visite
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_embed_do_maps:
+    type: string_textarea
+    weight: 46
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_habilitar_acessibilidade:
+    type: boolean_checkbox
+    weight: 31
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_habilitar_agende_visita:
+    type: boolean_checkbox
+    weight: 32
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_habilitar_como_chegar:
+    type: boolean_checkbox
+    weight: 44
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_habilitar_horarios_ingress:
+    type: boolean_checkbox
+    weight: 34
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_habilitar_politica_visitac:
+    type: boolean_checkbox
+    weight: 35
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_habilitar_servicos:
+    type: boolean_checkbox
+    weight: 36
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_label_1:
+    type: string_textfield
+    weight: 45
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_label_2:
+    type: string_textfield
+    weight: 33
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_label_3:
+    type: string_textfield
+    weight: 35
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_label_4:
+    type: string_textfield
+    weight: 36
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_label_5:
+    type: string_textfield
+    weight: 37
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_label_6:
+    type: string_textfield
+    weight: 32
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_opcoes_de_agendamento:
+    type: text_textarea
+    weight: 36
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_texto_acessibilidade:
+    type: text_textarea
+    weight: 33
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_texto_agende_visita:
+    type: text_textarea
+    weight: 34
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_texto_agende_visita_2:
+    type: text_textarea
+    weight: 35
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_texto_como_chegar:
+    type: text_textarea
+    weight: 47
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_texto_horarios_ingressos:
+    type: text_textarea
+    weight: 36
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_texto_politica_visitacao:
+    type: text_textarea
+    weight: 37
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_texto_servicos:
+    type: text_textarea
+    weight: 38
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 5
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 52
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  scheduler_settings:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 9
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 54
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

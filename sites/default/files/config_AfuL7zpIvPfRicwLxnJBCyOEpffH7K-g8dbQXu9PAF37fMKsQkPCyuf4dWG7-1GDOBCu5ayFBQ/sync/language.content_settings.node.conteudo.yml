@@ -1,0 +1,11 @@
+uuid: c7edb91d-d98c-49ab-a48d-148f1bda41e2
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - node.type.conteudo
+id: node.conteudo
+target_entity_type_id: node
+target_bundle: conteudo
+default_langcode: site_default
+language_alterable: false
