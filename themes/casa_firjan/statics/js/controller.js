@@ -880,14 +880,39 @@ var Controller = {
     $('[name*="cpf"]').mask('000.000.000-00');
     $('[name*="nascimento"]').mask('00/00/0000', {placeholder: "__/__/____"});
     
-    var options =  {
-      onKeyPress: function(telefone, e, field, options) {
-        var masks = ['(00) 0000-0000', '(00) 00000-0000'];
-        var mask = (telefone.length < 14 ) ? masks[0] : masks[1];
-        $('[name*="telefone"], [name*="celular"]').mask(mask, options);
-    }};
+    // var options =  {
+    //   onKeyPress: function(telefone, e, field, options) {
+    //     var masks = ['(00) 0000-0000', '(00) 00000-0000'];
+    //     var mask = (telefone.length < 14 ) ? masks[0] : masks[1];
+    //     $('[name*="telefone"], [name*="celular"]').mask(mask, options);
+    // }};
     
-    $('[name*="telefone"], [name*="celular"]').mask('00000-000', options);
+    // $('[name*="telefone"], [name*="celular"]').mask('00000-000', options);
+
+    function MTel(v){
+      v=v.replace(/\D/g,"");   	         			//Remove tudo o que não é dígito
+      v=v.replace(/(\d{2})(\d)/,"($1) $2")       	//Coloca parênteses em volta dos dois primeiros dígitos
+      v=v.replace(/(\d{3})(\d{1,4})$/,"$1-$2")   	//Coloca hífen entre o quarto e o quinto dígitos
+      return v;
+    }
+
+    function execmascara(){
+      v_obj.value=v_fun(v_obj.value)
+    }
+    
+    function Mascara(o,f){
+      v_obj=o
+      v_fun=f
+      setTimeout(execmascara, 1)
+  	}
+
+    let events = ['keydown', 'keypress', 'keyup'];
+
+    events.forEach(event => {
+      $('[name*="telefone"], [name*="celular"]').on(event, function () {
+        Mascara(this, MTel);
+      });	  
+    });
 
     $('[name*="cep"]').mask('00000-000');
 
