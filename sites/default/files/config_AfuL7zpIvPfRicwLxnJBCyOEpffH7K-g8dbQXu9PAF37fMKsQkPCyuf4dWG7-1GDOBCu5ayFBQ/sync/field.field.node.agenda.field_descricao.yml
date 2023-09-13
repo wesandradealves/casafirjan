@@ -1,0 +1,21 @@
+uuid: 57bc0fd1-19ec-4529-9b03-8c2fb81eb3f4
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_descricao
+    - node.type.agenda
+  module:
+    - text
+id: node.agenda.field_descricao
+field_name: field_descricao
+entity_type: node
+bundle: agenda
+label: Descrição
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

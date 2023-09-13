@@ -1,0 +1,19 @@
+uuid: e8ce5931-d4b3-404c-8f5b-a3427fdf34ad
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_texto_politica_visitacao
+field_name: field_texto_politica_visitacao
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

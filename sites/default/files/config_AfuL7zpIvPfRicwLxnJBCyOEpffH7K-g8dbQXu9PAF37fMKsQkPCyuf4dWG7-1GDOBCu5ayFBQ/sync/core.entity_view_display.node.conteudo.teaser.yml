@@ -1,0 +1,46 @@
+uuid: d4d8a0c6-1cbf-49d9-9404-252f5c54fce4
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.conteudo.field_autor
+    - field.field.node.conteudo.field_categoria
+    - field.field.node.conteudo.field_chamada
+    - field.field.node.conteudo.field_e_destaque
+    - field.field.node.conteudo.field_imagem
+    - field.field.node.conteudo.field_tags
+    - field.field.node.conteudo.field_tags_de_menu
+    - field.field.node.conteudo.field_texto
+    - field.field.node.conteudo.field_thumb
+    - field.field.node.conteudo.field_tipo_de_midia
+    - field.field.node.conteudo.field_topicos
+    - field.field.node.conteudo.field_video
+    - node.type.conteudo
+  module:
+    - user
+id: node.conteudo.teaser
+targetEntityType: node
+bundle: conteudo
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_autor: true
+  field_categoria: true
+  field_chamada: true
+  field_e_destaque: true
+  field_imagem: true
+  field_tags: true
+  field_tags_de_menu: true
+  field_texto: true
+  field_thumb: true
+  field_tipo_de_midia: true
+  field_topicos: true
+  field_video: true
+  langcode: true
+  search_api_excerpt: true

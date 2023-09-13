@@ -1,0 +1,8 @@
+uuid: a89cbc2f-6bfe-4431-88d0-a3a14f636414
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 'Tags de Menu'
+vid: tags_de_menu
+description: 'Nome que vai acima do título destaque'
+weight: 0

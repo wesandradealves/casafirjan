@@ -1,0 +1,22 @@
+uuid: a56f0ce9-60ed-4bd3-9440-79651f9a55cd
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - node.type.banner_home
+id: node.banner_home.status
+field_name: status
+entity_type: node
+bundle: banner_home
+label: Publicado
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

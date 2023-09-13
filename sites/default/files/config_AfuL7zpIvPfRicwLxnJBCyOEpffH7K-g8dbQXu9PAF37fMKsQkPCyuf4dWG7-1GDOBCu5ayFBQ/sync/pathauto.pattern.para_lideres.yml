@@ -1,0 +1,22 @@
+uuid: 3472f014-de7b-47fe-bed4-81236af4f8dd
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+id: para_lideres
+label: 'Para líderes'
+type: 'canonical_entities:node'
+pattern: '/para-lideres/[node:title]'
+selection_criteria:
+  93ef3b88-543c-4878-a936-bc5aca6a8dc1:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 93ef3b88-543c-4878-a936-bc5aca6a8dc1
+    context_mapping:
+      node: node
+    bundles:
+      para_lideres: para_lideres
+selection_logic: and
+weight: -5
+relationships: {  }

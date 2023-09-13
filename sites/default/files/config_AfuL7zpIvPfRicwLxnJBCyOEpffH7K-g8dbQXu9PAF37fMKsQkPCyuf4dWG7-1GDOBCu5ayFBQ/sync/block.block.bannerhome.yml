@@ -1,0 +1,30 @@
+uuid: 041119ac-2733-4f5d-8bdb-c9e71e17405b
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:19765baf-d981-4d19-a180-cfa0ec3a939a'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: bannerhome
+theme: casa_firjan
+region: content
+weight: -21
+provider: null
+plugin: 'block_content:19765baf-d981-4d19-a180-cfa0ec3a939a'
+settings:
+  id: 'block_content:19765baf-d981-4d19-a180-cfa0ec3a939a'
+  label: 'Banner Home'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

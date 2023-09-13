@@ -1,0 +1,21 @@
+uuid: a492e2d1-732b-4558-865f-c3c25b3c4607
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - block_content
+id: block_content.field_botao_label
+field_name: field_botao_label
+entity_type: block_content
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

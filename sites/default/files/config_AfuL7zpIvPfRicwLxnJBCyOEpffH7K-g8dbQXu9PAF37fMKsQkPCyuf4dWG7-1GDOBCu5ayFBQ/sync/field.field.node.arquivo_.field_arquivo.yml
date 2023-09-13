@@ -1,0 +1,27 @@
+uuid: 139d040d-27bd-40a1-9e9f-70469edf20c4
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_arquivo
+    - node.type.arquivo_
+  module:
+    - file
+id: node.arquivo_.field_arquivo
+field_name: field_arquivo
+entity_type: node
+bundle: arquivo_
+label: Arquivo
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png jpg jpeg txt xls xlsx doc docx pdf'
+  max_filesize: '50 MB'
+  description_field: false
+field_type: file

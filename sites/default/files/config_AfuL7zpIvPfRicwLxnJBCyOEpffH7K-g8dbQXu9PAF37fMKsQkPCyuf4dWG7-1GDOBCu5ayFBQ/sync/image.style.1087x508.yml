@@ -1,0 +1,15 @@
+uuid: f0341fe0-2721-4fae-a8d5-2332d28c0152
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 1087x508
+label: 1087x508
+effects:
+  140b4ce4-b19a-4947-b9b0-ae2258de7119:
+    uuid: 140b4ce4-b19a-4947-b9b0-ae2258de7119
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 1087
+      height: 508
+      anchor: center-center

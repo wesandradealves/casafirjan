@@ -1,0 +1,29 @@
+uuid: 10423644-4e8e-46a9-8308-265ae127e6ea
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_destaques
+    - node.type.conteudo
+    - taxonomy.vocabulary.tags_de_menu
+id: taxonomy_term.tags_de_menu.field_destaques
+field_name: field_destaques
+entity_type: taxonomy_term
+bundle: tags_de_menu
+label: Destaques
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      conteudo: conteudo
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: conteudo
+field_type: entity_reference

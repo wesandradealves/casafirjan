@@ -1,0 +1,21 @@
+uuid: b3410827-a59b-4fd8-84d6-2ef5327f2183
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_topico
+    - node.type.para_lideres
+  module:
+    - text
+id: node.para_lideres.field_topico
+field_name: field_topico
+entity_type: node
+bundle: para_lideres
+label: Tópico
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

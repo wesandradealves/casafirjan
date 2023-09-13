@@ -1,0 +1,30 @@
+uuid: cff01b9a-924b-46be-8dcb-0e7e942b5fe8
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:1fbf0ca7-d502-4968-ab64-1736bb2f1bda'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: cursoseoficinas
+theme: casa_firjan
+region: content
+weight: -8
+provider: null
+plugin: 'block_content:1fbf0ca7-d502-4968-ab64-1736bb2f1bda'
+settings:
+  id: 'block_content:1fbf0ca7-d502-4968-ab64-1736bb2f1bda'
+  label: 'Cursos e Oficinas'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /cursos-e-oficinas

@@ -1,0 +1,22 @@
+uuid: 2db1148a-a506-47f9-ba2a-e8c7d7541adf
+langcode: pt-br
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - casa_firjan
+_core:
+  default_config_hash: jQQUUWN2Uxr5qZtc9zcJKBCxpKY8orN1u2HPqYYRQDI
+id: casa_firjan_powered
+theme: casa_firjan
+region: sidebar
+weight: 2
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Desenvolvido com Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

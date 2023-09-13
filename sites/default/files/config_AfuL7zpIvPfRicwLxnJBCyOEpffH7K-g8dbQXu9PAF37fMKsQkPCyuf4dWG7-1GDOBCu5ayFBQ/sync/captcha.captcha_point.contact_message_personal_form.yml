@@ -1,0 +1,9 @@
+uuid: 6e8769f5-a490-4506-bab8-a76b98e14ab5
+langcode: pt-br
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 7zUmOK1ti1l0bc78ieysHa3_57MOin7IgHpHhwbSugs
+formId: contact_message_personal_form
+captchaType: recaptcha_v3/contato
+label: contact_message_personal_form

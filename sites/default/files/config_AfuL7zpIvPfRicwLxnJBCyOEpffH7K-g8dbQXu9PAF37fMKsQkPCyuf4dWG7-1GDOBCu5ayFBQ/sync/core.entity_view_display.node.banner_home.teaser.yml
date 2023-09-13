@@ -1,0 +1,32 @@
+uuid: fd517544-a16b-4cfc-9284-e0be64919c91
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.banner_home.field_chamada
+    - field.field.node.banner_home.field_imagem
+    - field.field.node.banner_home.field_link
+    - field.field.node.banner_home.field_link_background
+    - field.field.node.banner_home.field_target
+    - node.type.banner_home
+  module:
+    - user
+id: node.banner_home.teaser
+targetEntityType: node
+bundle: banner_home
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_chamada: true
+  field_imagem: true
+  field_link: true
+  field_link_background: true
+  field_target: true
+  langcode: true
+  search_api_excerpt: true

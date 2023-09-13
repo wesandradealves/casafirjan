@@ -1,0 +1,98 @@
+uuid: b0e0cfa3-b9fc-4565-87bb-af1b68102f18
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.categorias.field_destaques
+    - field.field.taxonomy_term.categorias.field_imagem
+    - field.field.taxonomy_term.categorias.field_link_externo
+    - field.field.taxonomy_term.categorias.field_resumo
+    - field.field.taxonomy_term.categorias.field_subtexto
+    - field.field.taxonomy_term.categorias.field_template
+    - field.field.taxonomy_term.categorias.field_texto
+    - field.field.taxonomy_term.categorias.field_thumb
+    - taxonomy.vocabulary.categorias
+  module:
+    - image
+    - link
+    - options
+    - text
+id: taxonomy_term.categorias.default
+targetEntityType: taxonomy_term
+bundle: categorias
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_destaques:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_imagem:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_link_externo:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_resumo:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_template:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_texto:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_thumb:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 6
+    region: content
+hidden:
+  field_subtexto: true
+  langcode: true
+  search_api_excerpt: true

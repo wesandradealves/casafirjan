@@ -1,0 +1,23 @@
+uuid: 993b3d1f-9eb4-4d33-b759-5c7df78e36e2
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_texto
+    - field.storage.block_content.field_tema
+  module:
+    - options
+id: block_content.bloco_texto.field_tema
+field_name: field_tema
+entity_type: block_content
+bundle: bloco_texto
+label: Tema
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: light
+default_value_callback: ''
+settings: {  }
+field_type: list_string

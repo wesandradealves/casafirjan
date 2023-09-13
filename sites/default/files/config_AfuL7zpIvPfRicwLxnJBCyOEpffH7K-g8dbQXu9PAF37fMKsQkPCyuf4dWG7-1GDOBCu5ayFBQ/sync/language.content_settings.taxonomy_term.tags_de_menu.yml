@@ -1,0 +1,11 @@
+uuid: d9245516-e00d-4537-a8e3-0c7d856ce9bf
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.tags_de_menu
+id: taxonomy_term.tags_de_menu
+target_entity_type_id: taxonomy_term
+target_bundle: tags_de_menu
+default_langcode: site_default
+language_alterable: false

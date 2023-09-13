@@ -1,0 +1,19 @@
+uuid: 633015bb-d74f-4906-86e4-fd09dcc061b1
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_preco_livre
+    - node.type.agenda
+id: node.agenda.field_preco_livre
+field_name: field_preco_livre
+entity_type: node
+bundle: agenda
+label: Preço
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,23 @@
+uuid: b92ba97d-2c4b-4919-ae7b-2df88ee7277d
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_status
+    - node.type.curso
+id: node.curso.field_status
+field_name: field_status
+entity_type: node
+bundle: curso
+label: 'Curso Aberto'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

@@ -1,0 +1,8 @@
+uuid: d67ec07b-ccbe-41e8-ac92-8831df968ca5
+langcode: pt-br
+status: true
+dependencies: {  }
+id: menu-principal-direita
+label: 'Menu principal direita'
+description: ''
+locked: false

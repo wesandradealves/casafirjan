@@ -1,0 +1,22 @@
+uuid: b2fcdc0b-6bb8-409c-9ab6-c3e8f8dec380
+langcode: pt-br
+status: false
+dependencies:
+  module:
+    - help
+  theme:
+    - casa_firjan
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: casa_firjan_help
+theme: casa_firjan
+region: sidebar
+weight: -7
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Ajuda
+  label_display: '0'
+  provider: help
+visibility: {  }

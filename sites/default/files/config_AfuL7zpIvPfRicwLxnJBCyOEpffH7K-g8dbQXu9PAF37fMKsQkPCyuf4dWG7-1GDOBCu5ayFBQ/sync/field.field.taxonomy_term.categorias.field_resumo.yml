@@ -1,0 +1,21 @@
+uuid: baaf3444-62df-4d23-92c9-d6f5605918ec
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_resumo
+    - taxonomy.vocabulary.categorias
+  module:
+    - text
+id: taxonomy_term.categorias.field_resumo
+field_name: field_resumo
+entity_type: taxonomy_term
+bundle: categorias
+label: Resumo
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

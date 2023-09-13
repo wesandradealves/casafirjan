@@ -1,0 +1,22 @@
+uuid: 35c42671-6739-451c-a752-14758c886c36
+langcode: pt-br
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - casa_firjan
+_core:
+  default_config_hash: oXUb3JZR2WW5VOdw4HrhRicCsq51mCgLfRyvheG68ck
+id: casa_firjan_breadcrumbs
+theme: casa_firjan
+region: sidebar
+weight: -6
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

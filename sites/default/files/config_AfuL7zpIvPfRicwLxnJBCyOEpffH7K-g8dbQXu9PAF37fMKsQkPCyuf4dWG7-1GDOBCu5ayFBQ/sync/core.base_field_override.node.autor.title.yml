@@ -1,0 +1,18 @@
+uuid: ae1cb186-b1e4-4250-bd4c-73adf873ccbf
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - node.type.autor
+id: node.autor.title
+field_name: title
+entity_type: node
+bundle: autor
+label: Nome
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

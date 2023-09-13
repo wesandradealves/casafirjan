@@ -1,0 +1,18 @@
+uuid: da49eeaa-9857-4135-8a9d-a68695d958e0
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Autor
+type: autor
+description: ''
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: true

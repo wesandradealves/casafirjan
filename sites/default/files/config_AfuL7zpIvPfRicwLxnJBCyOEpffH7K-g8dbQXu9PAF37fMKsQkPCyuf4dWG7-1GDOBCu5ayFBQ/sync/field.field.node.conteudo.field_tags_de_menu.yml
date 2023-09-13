@@ -1,0 +1,29 @@
+uuid: e93a15d3-e5b5-4af5-b269-f7661f9bedc1
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tags_de_menu
+    - node.type.conteudo
+    - taxonomy.vocabulary.tags_de_menu
+id: node.conteudo.field_tags_de_menu
+field_name: field_tags_de_menu
+entity_type: node
+bundle: conteudo
+label: 'Tags de Menu'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags_de_menu: tags_de_menu
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

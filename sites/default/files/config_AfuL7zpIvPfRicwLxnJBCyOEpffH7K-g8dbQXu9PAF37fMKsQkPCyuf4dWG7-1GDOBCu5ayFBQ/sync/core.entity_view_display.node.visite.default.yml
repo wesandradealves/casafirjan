@@ -1,0 +1,214 @@
+uuid: f584345b-1abc-421b-b9b9-5eeb08dce830
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.node.visite.field_embed_do_maps
+    - field.field.node.visite.field_habilitar_acessibilidade
+    - field.field.node.visite.field_habilitar_agende_visita
+    - field.field.node.visite.field_habilitar_como_chegar
+    - field.field.node.visite.field_habilitar_horarios_ingress
+    - field.field.node.visite.field_habilitar_politica_visitac
+    - field.field.node.visite.field_habilitar_servicos
+    - field.field.node.visite.field_label_1
+    - field.field.node.visite.field_label_2
+    - field.field.node.visite.field_label_3
+    - field.field.node.visite.field_label_4
+    - field.field.node.visite.field_label_5
+    - field.field.node.visite.field_label_6
+    - field.field.node.visite.field_opcoes_de_agendamento
+    - field.field.node.visite.field_texto_acessibilidade
+    - field.field.node.visite.field_texto_agende_visita
+    - field.field.node.visite.field_texto_agende_visita_2
+    - field.field.node.visite.field_texto_como_chegar
+    - field.field.node.visite.field_texto_horarios_ingressos
+    - field.field.node.visite.field_texto_politica_visitacao
+    - field.field.node.visite.field_texto_servicos
+    - node.type.visite
+  module:
+    - text
+    - user
+id: node.visite.default
+targetEntityType: node
+bundle: visite
+mode: default
+content:
+  field_embed_do_maps:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_habilitar_acessibilidade:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 108
+    region: content
+  field_habilitar_agende_visita:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 109
+    region: content
+  field_habilitar_como_chegar:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 110
+    region: content
+  field_habilitar_horarios_ingress:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 111
+    region: content
+  field_habilitar_politica_visitac:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 112
+    region: content
+  field_habilitar_servicos:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 113
+    region: content
+  field_label_1:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 121
+    region: content
+  field_label_2:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 116
+    region: content
+  field_label_3:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 117
+    region: content
+  field_label_4:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 120
+    region: content
+  field_label_5:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 118
+    region: content
+  field_label_6:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 119
+    region: content
+  field_opcoes_de_agendamento:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 114
+    region: content
+  field_texto_acessibilidade:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  field_texto_agende_visita:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_texto_agende_visita_2:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 115
+    region: content
+  field_texto_como_chegar:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_texto_horarios_ingressos:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_texto_politica_visitacao:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_texto_servicos:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

@@ -1,0 +1,199 @@
+uuid: 2baf7d9c-0286-4419-b7aa-0cfe8c1ab420
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.node.curso.field_carga_horaria
+    - field.field.node.curso.field_categoria
+    - field.field.node.curso.field_categoria_agenda
+    - field.field.node.curso.field_categoria_curso
+    - field.field.node.curso.field_chamada
+    - field.field.node.curso.field_ciclo_tematico
+    - field.field.node.curso.field_data_da_aula
+    - field.field.node.curso.field_exibir_no_portal_da_firjan
+    - field.field.node.curso.field_hora_de_inicio
+    - field.field.node.curso.field_id_shopify
+    - field.field.node.curso.field_link_para_compra
+    - field.field.node.curso.field_loja
+    - field.field.node.curso.field_preco
+    - field.field.node.curso.field_programa_subprograma
+    - field.field.node.curso.field_status
+    - field.field.node.curso.field_tags
+    - field.field.node.curso.field_texto
+    - field.field.node.curso.field_thumb
+    - field.field.node.curso.field_turno
+    - node.type.curso
+  module:
+    - datetime
+    - image
+    - options
+    - text
+    - user
+id: node.curso.default
+targetEntityType: node
+bundle: curso
+mode: default
+content:
+  field_carga_horaria:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_categoria:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 18
+    region: content
+  field_categoria_agenda:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_categoria_curso:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_chamada:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_ciclo_tematico:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_data_da_aula:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_exibir_no_portal_da_firjan:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_hora_de_inicio:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_id_shopify:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_link_para_compra:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_loja:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_preco:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_status:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_texto:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_thumb:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_turno:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_programa_subprograma: true
+  langcode: true
+  search_api_excerpt: true

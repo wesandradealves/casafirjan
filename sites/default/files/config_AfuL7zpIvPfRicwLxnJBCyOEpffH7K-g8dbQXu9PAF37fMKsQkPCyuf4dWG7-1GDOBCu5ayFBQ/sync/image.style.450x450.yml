@@ -1,0 +1,15 @@
+uuid: e015db5f-7a65-4591-bcf3-a2013d9513e3
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 450x450
+label: 450x450
+effects:
+  ae942419-d9b4-4df3-919c-4afb4fe4b841:
+    uuid: ae942419-d9b4-4df3-919c-4afb4fe4b841
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 450
+      height: 450
+      anchor: center-center

@@ -1,0 +1,23 @@
+uuid: 678f7c45-4878-435d-b0fe-807702563483
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_habilitar_politica_visitac
+    - node.type.visite
+id: node.visite.field_habilitar_politica_visitac
+field_name: field_habilitar_politica_visitac
+entity_type: node
+bundle: visite
+label: Habilitar
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

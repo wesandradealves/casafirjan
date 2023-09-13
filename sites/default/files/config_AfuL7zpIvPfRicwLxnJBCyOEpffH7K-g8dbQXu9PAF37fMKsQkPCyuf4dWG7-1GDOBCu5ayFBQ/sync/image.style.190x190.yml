@@ -1,0 +1,15 @@
+uuid: 39fde9fd-a44b-4acf-bd21-dee6f5165e6c
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 190x190
+label: 190x190
+effects:
+  d1571554-f9e8-4d05-ad2b-3767ed89584f:
+    uuid: d1571554-f9e8-4d05-ad2b-3767ed89584f
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 190
+      height: 190
+      anchor: center-center

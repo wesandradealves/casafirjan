@@ -1,0 +1,15 @@
+uuid: 710d7f22-6f74-499b-a79a-6a9906ee9efd
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 1200x628
+label: 1200x628
+effects:
+  a5670b8f-493d-4e59-ac12-2c0180aedf05:
+    uuid: a5670b8f-493d-4e59-ac12-2c0180aedf05
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 1200
+      height: 628
+      anchor: center-center

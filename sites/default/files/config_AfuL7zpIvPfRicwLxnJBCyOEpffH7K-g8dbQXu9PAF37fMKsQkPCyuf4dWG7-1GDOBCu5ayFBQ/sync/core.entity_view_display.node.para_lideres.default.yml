@@ -1,0 +1,52 @@
+uuid: d10a7099-97a2-4c95-a1d3-ce8fffe4b79a
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.node.para_lideres.field_tag
+    - field.field.node.para_lideres.field_thumb
+    - field.field.node.para_lideres.field_topico
+    - node.type.para_lideres
+  module:
+    - image
+    - text
+    - user
+id: node.para_lideres.default
+targetEntityType: node
+bundle: para_lideres
+mode: default
+content:
+  field_tag:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_thumb:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_topico:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

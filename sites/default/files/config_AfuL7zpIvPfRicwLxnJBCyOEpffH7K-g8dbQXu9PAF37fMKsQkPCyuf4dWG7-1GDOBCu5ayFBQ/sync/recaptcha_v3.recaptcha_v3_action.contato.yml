@@ -1,0 +1,8 @@
+uuid: 883ae8a2-c24a-445b-be72-65edbe346fa4
+langcode: pt-br
+status: true
+dependencies: {  }
+id: contato
+label: Contato
+threshold: 0.5
+challenge: recaptcha/reCAPTCHA

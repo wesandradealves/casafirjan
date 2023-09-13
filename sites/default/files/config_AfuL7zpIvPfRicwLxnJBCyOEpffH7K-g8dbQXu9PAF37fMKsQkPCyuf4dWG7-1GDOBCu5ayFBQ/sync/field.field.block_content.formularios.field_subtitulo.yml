@@ -1,0 +1,19 @@
+uuid: 43a18990-6b1f-4af3-9a6e-353a89b08f46
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.formularios
+    - field.storage.block_content.field_subtitulo
+id: block_content.formularios.field_subtitulo
+field_name: field_subtitulo
+entity_type: block_content
+bundle: formularios
+label: Subtitulo
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

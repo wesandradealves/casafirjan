@@ -1,0 +1,11 @@
+uuid: f766db16-7c7e-4a29-8607-4b1469038da1
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.turnos_dos_cursos
+id: taxonomy_term.turnos_dos_cursos
+target_entity_type_id: taxonomy_term
+target_bundle: turnos_dos_cursos
+default_langcode: site_default
+language_alterable: false

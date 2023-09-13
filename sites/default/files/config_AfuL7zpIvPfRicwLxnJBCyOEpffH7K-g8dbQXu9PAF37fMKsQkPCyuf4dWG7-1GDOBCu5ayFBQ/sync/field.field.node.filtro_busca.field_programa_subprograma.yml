@@ -1,0 +1,29 @@
+uuid: 5f8be400-467a-4c08-a028-626807552cbd
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_programa_subprograma
+    - node.type.filtro_busca
+    - taxonomy.vocabulary.categorias
+id: node.filtro_busca.field_programa_subprograma
+field_name: field_programa_subprograma
+entity_type: node
+bundle: filtro_busca
+label: Programa/Subprograma
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      categorias: categorias
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

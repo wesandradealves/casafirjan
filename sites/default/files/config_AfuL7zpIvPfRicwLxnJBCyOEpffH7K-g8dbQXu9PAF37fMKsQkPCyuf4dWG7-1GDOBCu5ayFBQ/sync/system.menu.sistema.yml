@@ -1,0 +1,8 @@
+uuid: 66646c76-3a56-492f-abb7-0f8672f99ea5
+langcode: pt-br
+status: true
+dependencies: {  }
+id: sistema
+label: Sistema
+description: ''
+locked: false

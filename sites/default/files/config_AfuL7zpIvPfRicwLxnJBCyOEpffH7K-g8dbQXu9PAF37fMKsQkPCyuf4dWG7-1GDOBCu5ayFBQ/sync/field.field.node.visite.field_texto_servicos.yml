@@ -1,0 +1,21 @@
+uuid: af219e1a-0be6-4e5e-8f2a-60ef5437c4c5
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_texto_servicos
+    - node.type.visite
+  module:
+    - text
+id: node.visite.field_texto_servicos
+field_name: field_texto_servicos
+entity_type: node
+bundle: visite
+label: Texto
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

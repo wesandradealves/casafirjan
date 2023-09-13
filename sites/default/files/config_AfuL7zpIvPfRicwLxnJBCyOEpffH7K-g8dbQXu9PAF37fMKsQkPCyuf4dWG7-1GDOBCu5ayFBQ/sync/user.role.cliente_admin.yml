@@ -1,0 +1,50 @@
+uuid: c63469d1-f439-4d32-a3ca-8efe9dce84c1
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.full_html
+    - filter.format.restricted_html
+  module:
+    - contextual
+    - filter
+    - node
+    - path
+    - quickedit
+    - system
+    - taxonomy
+    - toolbar
+    - toolbar_menu
+    - tour
+    - webform
+id: cliente_admin
+label: 'Cliente Admin'
+weight: 3
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access in-place editing'
+  - 'access own webform configuration'
+  - 'access toolbar'
+  - 'access tour'
+  - 'administer menu'
+  - 'administer nodes'
+  - 'administer taxonomy'
+  - 'administer themes'
+  - 'administer toolbar menu'
+  - 'administer url aliases'
+  - 'administer users'
+  - 'administer webform'
+  - 'administer webform submission'
+  - 'bypass node access'
+  - 'change own username'
+  - 'link to any page'
+  - 'use text format basic_html'
+  - 'use text format full_html'
+  - 'use text format restricted_html'
+  - 'view adminsitrar_conteudos in toolbar'
+  - 'view sistema in toolbar'
+  - 'view the administration theme'

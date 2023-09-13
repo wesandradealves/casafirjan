@@ -1,0 +1,11 @@
+uuid: 2be65339-7a60-4314-8440-6f11f3b76800
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.categorias_de_agenda
+id: taxonomy_term.categorias_de_agenda
+target_entity_type_id: taxonomy_term
+target_bundle: categorias_de_agenda
+default_langcode: site_default
+language_alterable: false

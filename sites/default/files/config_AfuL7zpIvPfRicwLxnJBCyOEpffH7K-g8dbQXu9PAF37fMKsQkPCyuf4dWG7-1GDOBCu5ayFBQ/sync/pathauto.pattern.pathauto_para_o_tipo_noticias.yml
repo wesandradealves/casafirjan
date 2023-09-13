@@ -1,0 +1,22 @@
+uuid: 462f5633-6ff7-4c77-ab10-3bf7880c66a5
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+id: pathauto_para_o_tipo_noticias
+label: 'Pathauto para o tipo notícias'
+type: 'canonical_entities:node'
+pattern: '/[node:title]'
+selection_criteria:
+  05f9e086-9638-46c3-818e-297604b55f35:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 05f9e086-9638-46c3-818e-297604b55f35
+    context_mapping:
+      node: node
+    bundles:
+      conteudo: conteudo
+selection_logic: and
+weight: -5
+relationships: {  }

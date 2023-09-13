@@ -1,0 +1,28 @@
+uuid: e93aa843-303b-4b65-9bf3-f34f9db5a700
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_destaques
+    - node.type.conteudo
+    - taxonomy.vocabulary.categorias
+id: taxonomy_term.categorias.field_destaques
+field_name: field_destaques
+entity_type: taxonomy_term
+bundle: categorias
+label: Destaques
+description: 'Esses destaques serão as notícias do bloco de destaque disponível no Template 1'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      conteudo: conteudo
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

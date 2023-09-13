@@ -1,0 +1,21 @@
+uuid: 63d55cc7-03de-42ed-b969-439bd66f8308
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_texto
+    - node.type.conteudo
+  module:
+    - text
+id: node.conteudo.field_texto
+field_name: field_texto
+entity_type: node
+bundle: conteudo
+label: Texto
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

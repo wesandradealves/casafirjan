@@ -1,0 +1,48 @@
+node:
+  agenda:
+    checkbox: 0
+    value: ''
+  arquivo-:
+    checkbox: 0
+    value: ''
+  autor:
+    checkbox: 0
+    value: ''
+  banner-home:
+    checkbox: 0
+    value: ''
+  conteudo:
+    checkbox: 0
+    value: ''
+  curso:
+    checkbox: 0
+    value: ''
+  filtro-busca:
+    checkbox: 0
+    value: ''
+  home:
+    checkbox: 0
+    value: ''
+  noticia:
+    checkbox: 0
+    value: ''
+  page:
+    checkbox: 1
+    value: '[current-page:title]'
+  para-lideres:
+    checkbox: 0
+    value: ''
+  produto:
+    checkbox: 0
+    value: ''
+  visite:
+    checkbox: 0
+    value: ''
+user:
+  user:
+    checkbox: 0
+    value: ''
+menu_link_content:
+  menu-link-content:
+    checkbox: 0
+    value: ''

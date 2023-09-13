@@ -1,0 +1,43 @@
+uuid: edc2eb1f-c296-4693-bcd9-dee1078807fb
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.tags_para_lideres.field_cor_do_background
+    - field.field.taxonomy_term.tags_para_lideres.field_cor_do_texto
+    - taxonomy.vocabulary.tags_para_lideres
+  module:
+    - color_field
+    - text
+id: taxonomy_term.tags_para_lideres.default
+targetEntityType: taxonomy_term
+bundle: tags_para_lideres
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_cor_do_background:
+    type: color_field_formatter_text
+    label: above
+    settings:
+      format: hex
+      opacity: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_cor_do_texto:
+    type: color_field_formatter_text
+    label: above
+    settings:
+      format: hex
+      opacity: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  langcode: true

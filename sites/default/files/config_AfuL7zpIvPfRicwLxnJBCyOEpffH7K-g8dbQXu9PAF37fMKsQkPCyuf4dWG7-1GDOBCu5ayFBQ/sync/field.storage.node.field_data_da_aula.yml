@@ -1,0 +1,20 @@
+uuid: 9d205100-b1f0-436d-bae4-81fc2ea3b0e2
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+id: node.field_data_da_aula
+field_name: field_data_da_aula
+entity_type: node
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

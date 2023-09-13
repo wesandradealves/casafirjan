@@ -1,0 +1,23 @@
+uuid: e05ffd84-e5f2-4433-9dae-3d0f79fe21ef
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.storage.block_content.field_mostrar_header
+id: block_content.bloco_destaque.field_mostrar_header
+field_name: field_mostrar_header
+entity_type: block_content
+bundle: bloco_destaque
+label: 'Mostrar Header'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

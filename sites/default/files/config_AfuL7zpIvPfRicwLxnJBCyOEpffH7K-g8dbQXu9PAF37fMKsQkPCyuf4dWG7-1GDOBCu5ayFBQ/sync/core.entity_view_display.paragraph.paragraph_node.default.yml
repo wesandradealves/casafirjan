@@ -1,0 +1,22 @@
+uuid: 69631dc9-2793-4627-a859-d87081c0fb76
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.paragraph_node.field_paragraph_node_content
+    - paragraphs.paragraphs_type.paragraph_node
+id: paragraph.paragraph_node.default
+targetEntityType: paragraph
+bundle: paragraph_node
+mode: default
+content:
+  field_paragraph_node_content:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

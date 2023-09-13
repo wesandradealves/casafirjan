@@ -1,0 +1,8 @@
+uuid: e965f854-3276-4bd5-9d35-ead649e65ca5
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 'Ambiente de Inovação, Indústria, Saúde & Bem-estar, Tecnologia'
+vid: ambiente_de_inova_o_ind_stria_sa_de_bem_estar_tecnologia
+description: null
+weight: 0

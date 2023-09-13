@@ -1,0 +1,30 @@
+uuid: 210e847f-5a78-4bee-a63d-779bdb9c4b6c
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:81bcaef9-1d36-4398-ab7a-029a74ae88ab'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: exposicoeseatividades
+theme: casa_firjan
+region: content
+weight: -7
+provider: null
+plugin: 'block_content:81bcaef9-1d36-4398-ab7a-029a74ae88ab'
+settings:
+  id: 'block_content:81bcaef9-1d36-4398-ab7a-029a74ae88ab'
+  label: 'Exposições e Atividades'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /a-casa-firjan/exposicoes-e-atividades

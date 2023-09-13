@@ -1,0 +1,18 @@
+uuid: f4441852-8a62-4325-a98b-da5a5be0b3ae
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - block_content
+id: block_content.field_conteudo_automatico
+field_name: field_conteudo_automatico
+entity_type: block_content
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

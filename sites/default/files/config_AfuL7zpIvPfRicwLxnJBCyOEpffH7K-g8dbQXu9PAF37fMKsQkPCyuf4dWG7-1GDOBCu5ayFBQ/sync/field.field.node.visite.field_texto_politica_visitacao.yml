@@ -1,0 +1,21 @@
+uuid: 2c376dfb-adf6-43a2-90af-3524411213cd
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_texto_politica_visitacao
+    - node.type.visite
+  module:
+    - text
+id: node.visite.field_texto_politica_visitacao
+field_name: field_texto_politica_visitacao
+entity_type: node
+bundle: visite
+label: Texto
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,19 @@
+uuid: c0367f90-32fa-4f9c-90c4-b305ea8f45e2
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.storage.block_content.field_botao_label
+id: block_content.bloco_destaque.field_botao_label
+field_name: field_botao_label
+entity_type: block_content
+bundle: bloco_destaque
+label: 'Botão Label'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

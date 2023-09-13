@@ -1,0 +1,21 @@
+uuid: 4c532a9f-5ff0-4621-8bf3-c90a39437265
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_template
+    - taxonomy.vocabulary.categorias
+  module:
+    - options
+id: taxonomy_term.categorias.field_template
+field_name: field_template
+entity_type: taxonomy_term
+bundle: categorias
+label: Template
+description: 'OBS: Só tem efeito sobre os templates do segundo nível da árvore.|OBS: Só tem efeito sobre os templates do segundo nível da árvore.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

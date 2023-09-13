@@ -1,0 +1,29 @@
+uuid: 3f13e293-3b41-44a7-996c-01a110764823
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_topicos
+    - node.type.conteudo
+    - taxonomy.vocabulary.tags
+id: node.conteudo.field_topicos
+field_name: field_topicos
+entity_type: node
+bundle: conteudo
+label: Tópicos
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags: tags
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,38 @@
+uuid: 4e601214-4696-448f-96f1-d3bf97b2784d
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.produto.field_categoria
+    - field.field.node.produto.field_descricao
+    - field.field.node.produto.field_imagem
+    - field.field.node.produto.field_link
+    - field.field.node.produto.field_pagina
+    - field.field.node.produto.field_tags
+    - field.field.node.produto.field_thumb
+    - field.field.node.produto.field_tipo_de_associacao
+    - node.type.produto
+  module:
+    - user
+id: node.produto.teaser
+targetEntityType: node
+bundle: produto
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_categoria: true
+  field_descricao: true
+  field_imagem: true
+  field_link: true
+  field_pagina: true
+  field_tags: true
+  field_thumb: true
+  field_tipo_de_associacao: true
+  langcode: true
+  search_api_excerpt: true

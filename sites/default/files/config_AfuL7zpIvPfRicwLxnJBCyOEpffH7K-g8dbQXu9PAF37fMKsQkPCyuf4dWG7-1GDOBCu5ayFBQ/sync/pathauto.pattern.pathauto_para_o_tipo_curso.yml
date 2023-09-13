@@ -1,0 +1,22 @@
+uuid: 41ce5f21-2002-4816-baba-bed976654077
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+id: pathauto_para_o_tipo_curso
+label: 'Pathauto para o tipo curso'
+type: 'canonical_entities:node'
+pattern: '/lab-de-educacao/educacao/[node:field_categoria_curso:entity:parents:join-path]/[node:field_categoria_curso:entity:name]/[node:title]'
+selection_criteria:
+  404015b0-4391-4852-82cd-5fe7e28d7358:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 404015b0-4391-4852-82cd-5fe7e28d7358
+    context_mapping:
+      node: node
+    bundles:
+      curso: curso
+selection_logic: and
+weight: -5
+relationships: {  }

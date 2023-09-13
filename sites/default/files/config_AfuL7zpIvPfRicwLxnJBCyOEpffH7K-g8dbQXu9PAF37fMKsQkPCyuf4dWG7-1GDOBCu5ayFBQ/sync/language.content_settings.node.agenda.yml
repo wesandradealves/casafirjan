@@ -1,0 +1,11 @@
+uuid: 90343233-92de-45e3-84ba-e387045187ce
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - node.type.agenda
+id: node.agenda
+target_entity_type_id: node
+target_bundle: agenda
+default_langcode: site_default
+language_alterable: false

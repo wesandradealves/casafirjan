@@ -1,0 +1,23 @@
+uuid: 8d45f3d5-d65e-4e52-8bd8-b0f8f1d35296
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_preco
+    - node.type.curso
+id: node.curso.field_preco
+field_name: field_preco
+entity_type: node
+bundle: curso
+label: Preço
+description: 'Preço com valor 0  será exibido como "Gratuito".'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: 'R$ '
+  suffix: ''
+field_type: decimal

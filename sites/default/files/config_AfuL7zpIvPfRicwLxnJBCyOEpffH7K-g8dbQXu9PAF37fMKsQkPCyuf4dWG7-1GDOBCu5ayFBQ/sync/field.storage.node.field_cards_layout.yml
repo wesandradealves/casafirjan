@@ -1,0 +1,27 @@
+uuid: 89fe7a7d-befc-4526-a259-0974488d0f71
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_cards_layout
+field_name: field_cards_layout
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '2 Colunas'
+      label: '2 Colunas'
+    -
+      value: '3 Colunas'
+      label: '3 Colunas'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

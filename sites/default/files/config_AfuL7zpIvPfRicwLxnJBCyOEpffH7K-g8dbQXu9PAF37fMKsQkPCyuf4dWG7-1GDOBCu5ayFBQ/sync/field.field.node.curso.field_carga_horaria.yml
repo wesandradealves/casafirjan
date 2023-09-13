@@ -1,0 +1,23 @@
+uuid: 53f1ce10-2a06-451f-a104-d779c973c67b
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_carga_horaria
+    - node.type.curso
+id: node.curso.field_carga_horaria
+field_name: field_carga_horaria
+entity_type: node
+bundle: curso
+label: 'Carga horária'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

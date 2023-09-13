@@ -1,0 +1,23 @@
+uuid: cfaaa0d2-3b37-4f5d-961a-fee3ec6f1fb7
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 380x220
+label: 380x220
+effects:
+  01ca05b6-8a40-454b-a1d4-0244a62b4902:
+    uuid: 01ca05b6-8a40-454b-a1d4-0244a62b4902
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 380
+      height: 220
+      anchor: center-center
+  2dff0e1c-ba23-4cf5-b116-14157271f224:
+    uuid: 2dff0e1c-ba23-4cf5-b116-14157271f224
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 380
+      height: 220
+      anchor: center-center

@@ -1,0 +1,22 @@
+uuid: 10022f14-57ce-4a56-89a0-2ec1c970d537
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+id: pathauto_para_o_tipo_agenda
+label: 'Pathauto para o tipo agenda'
+type: 'canonical_entities:node'
+pattern: '/agenda/[node:title]'
+selection_criteria:
+  fc5cabdb-5b44-45e4-b911-dec510cc0dff:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: fc5cabdb-5b44-45e4-b911-dec510cc0dff
+    context_mapping:
+      node: node
+    bundles:
+      agenda: agenda
+selection_logic: and
+weight: -5
+relationships: {  }

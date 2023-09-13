@@ -1,0 +1,23 @@
+uuid: db1c02f3-7e45-4ada-b9d9-55c5936da727
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_habilitar_como_chegar
+    - node.type.visite
+id: node.visite.field_habilitar_como_chegar
+field_name: field_habilitar_como_chegar
+entity_type: node
+bundle: visite
+label: Habilitar
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

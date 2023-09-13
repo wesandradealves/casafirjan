@@ -1,0 +1,21 @@
+uuid: 2e5fd15b-358d-49e1-b8fb-d11896269aea
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tipo_de_conteudo
+    - node.type.filtro_busca
+  module:
+    - options
+id: node.filtro_busca.field_tipo_de_conteudo
+field_name: field_tipo_de_conteudo
+entity_type: node
+bundle: filtro_busca
+label: 'Tipo de conteúdo'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

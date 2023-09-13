@@ -1,0 +1,27 @@
+uuid: da3a6a60-2f52-496e-a6b5-123be726178c
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_tipo_de_associacao
+field_name: field_tipo_de_associacao
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: Programa/subprograma
+      label: Programa/subprograma
+    -
+      value: Página
+      label: Página
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

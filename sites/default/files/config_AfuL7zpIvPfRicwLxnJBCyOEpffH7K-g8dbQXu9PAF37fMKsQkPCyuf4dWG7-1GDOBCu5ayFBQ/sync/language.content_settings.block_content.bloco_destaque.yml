@@ -1,0 +1,11 @@
+uuid: 7a77ad96-ad33-42bc-9c1a-bf987eaf28d4
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+id: block_content.bloco_destaque
+target_entity_type_id: block_content
+target_bundle: bloco_destaque
+default_langcode: site_default
+language_alterable: false

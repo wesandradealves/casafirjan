@@ -1,0 +1,60 @@
+uuid: c2c4d13d-2eb3-4969-a949-ef2b0a991c8b
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.curso.field_carga_horaria
+    - field.field.node.curso.field_categoria
+    - field.field.node.curso.field_categoria_agenda
+    - field.field.node.curso.field_categoria_curso
+    - field.field.node.curso.field_chamada
+    - field.field.node.curso.field_ciclo_tematico
+    - field.field.node.curso.field_data_da_aula
+    - field.field.node.curso.field_exibir_no_portal_da_firjan
+    - field.field.node.curso.field_hora_de_inicio
+    - field.field.node.curso.field_id_shopify
+    - field.field.node.curso.field_link_para_compra
+    - field.field.node.curso.field_loja
+    - field.field.node.curso.field_preco
+    - field.field.node.curso.field_programa_subprograma
+    - field.field.node.curso.field_status
+    - field.field.node.curso.field_tags
+    - field.field.node.curso.field_texto
+    - field.field.node.curso.field_thumb
+    - field.field.node.curso.field_turno
+    - node.type.curso
+  module:
+    - user
+id: node.curso.teaser
+targetEntityType: node
+bundle: curso
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_carga_horaria: true
+  field_categoria: true
+  field_categoria_agenda: true
+  field_categoria_curso: true
+  field_chamada: true
+  field_ciclo_tematico: true
+  field_data_da_aula: true
+  field_exibir_no_portal_da_firjan: true
+  field_hora_de_inicio: true
+  field_id_shopify: true
+  field_link_para_compra: true
+  field_loja: true
+  field_preco: true
+  field_programa_subprograma: true
+  field_status: true
+  field_tags: true
+  field_texto: true
+  field_thumb: true
+  field_turno: true
+  langcode: true
+  search_api_excerpt: true

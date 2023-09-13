@@ -1,0 +1,19 @@
+uuid: 1dd9b291-bd05-4258-8d09-ed573606ad67
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_comprar_ingresso
+    - node.type.agenda
+id: node.agenda.field_comprar_ingresso
+field_name: field_comprar_ingresso
+entity_type: node
+bundle: agenda
+label: 'Comprar ingresso'
+description: 'Link externo para compra do ingresso. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

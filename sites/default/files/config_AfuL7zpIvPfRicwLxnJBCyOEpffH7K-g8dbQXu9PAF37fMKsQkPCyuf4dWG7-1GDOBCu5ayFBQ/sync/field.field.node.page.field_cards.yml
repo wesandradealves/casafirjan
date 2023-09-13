@@ -1,0 +1,43 @@
+uuid: 4e0d70ee-52bb-445a-85b7-fce05eb018a2
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cards
+    - node.type.page
+    - paragraphs.paragraphs_type.cards
+  module:
+    - entity_reference_revisions
+id: node.page.field_cards
+field_name: field_cards
+entity_type: node
+bundle: page
+label: Cards
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      cards: cards
+    negate: 0
+    target_bundles_drag_drop:
+      cards:
+        weight: 6
+        enabled: true
+      galeria:
+        weight: 7
+        enabled: false
+      page_gallery:
+        weight: 8
+        enabled: false
+      paragraph_node:
+        weight: 9
+        enabled: false
+      tab:
+        weight: 10
+        enabled: false
+field_type: entity_reference_revisions

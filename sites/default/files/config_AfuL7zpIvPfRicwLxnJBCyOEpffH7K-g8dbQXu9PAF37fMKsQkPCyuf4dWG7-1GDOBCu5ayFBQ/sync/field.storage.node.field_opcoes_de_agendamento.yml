@@ -1,0 +1,19 @@
+uuid: 2c189d29-b9e8-4bb3-b6b9-a4828a2676a7
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_opcoes_de_agendamento
+field_name: field_opcoes_de_agendamento
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,11 @@
+uuid: fb5e0fb4-f6f0-450f-99be-3a6e07eff1b4
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.tags_conteudo
+id: taxonomy_term.tags_conteudo
+target_entity_type_id: taxonomy_term
+target_bundle: tags_conteudo
+default_langcode: site_default
+language_alterable: false

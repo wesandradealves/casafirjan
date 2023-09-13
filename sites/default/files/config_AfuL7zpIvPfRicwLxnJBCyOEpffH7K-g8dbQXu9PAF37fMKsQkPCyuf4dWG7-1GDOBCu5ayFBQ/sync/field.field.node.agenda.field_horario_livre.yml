@@ -1,0 +1,19 @@
+uuid: 4b5239e7-c6f2-4f0b-bd8c-73de74d824c1
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_horario_livre
+    - node.type.agenda
+id: node.agenda.field_horario_livre
+field_name: field_horario_livre
+entity_type: node
+bundle: agenda
+label: Horário
+description: 'Texto livre para descrever a janela de horário. '
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

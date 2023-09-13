@@ -1,0 +1,30 @@
+uuid: 8b3c5ec7-d8eb-43ea-82ae-685d7030850c
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:51dbe6d5-7def-42af-bb86-ebf69b5570fc'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: aquariocasafirjan
+theme: casa_firjan
+region: content
+weight: -17
+provider: null
+plugin: 'block_content:51dbe6d5-7def-42af-bb86-ebf69b5570fc'
+settings:
+  id: 'block_content:51dbe6d5-7def-42af-bb86-ebf69b5570fc'
+  label: 'Aquário Casa Firjan'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

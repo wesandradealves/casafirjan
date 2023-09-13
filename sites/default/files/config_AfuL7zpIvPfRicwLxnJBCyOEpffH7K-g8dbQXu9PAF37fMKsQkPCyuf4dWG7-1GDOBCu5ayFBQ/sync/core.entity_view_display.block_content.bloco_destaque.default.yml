@@ -1,0 +1,183 @@
+uuid: f0a21339-452a-4e9f-855a-6c526651a1dd
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.field.block_content.bloco_destaque.body
+    - field.field.block_content.bloco_destaque.field_background
+    - field.field.block_content.bloco_destaque.field_botao_label
+    - field.field.block_content.bloco_destaque.field_cards
+    - field.field.block_content.bloco_destaque.field_classes
+    - field.field.block_content.bloco_destaque.field_conteudo_automatico
+    - field.field.block_content.bloco_destaque.field_da_categoria
+    - field.field.block_content.bloco_destaque.field_enable_filter
+    - field.field.block_content.bloco_destaque.field_horizontal
+    - field.field.block_content.bloco_destaque.field_layout
+    - field.field.block_content.bloco_destaque.field_mostrar_botao_conheca_mais
+    - field.field.block_content.bloco_destaque.field_mostrar_header
+    - field.field.block_content.bloco_destaque.field_node
+    - field.field.block_content.bloco_destaque.field_subtitle
+    - field.field.block_content.bloco_destaque.field_taxonomies
+    - field.field.block_content.bloco_destaque.field_titulo
+    - field.field.block_content.bloco_destaque.field_ver_todos
+  module:
+    - cshs
+    - entity_reference_revisions
+    - image
+    - link
+    - options
+    - text
+id: block_content.bloco_destaque.default
+targetEntityType: block_content
+bundle: bloco_destaque
+mode: default
+content:
+  field_background:
+    type: image_url
+    label: hidden
+    settings:
+      image_style: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_botao_label:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_cards:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_classes:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_conteudo_automatico:
+    type: boolean
+    label: hidden
+    settings:
+      format: boolean
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_da_categoria:
+    type: cshs_full_hierarchy
+    label: hidden
+    settings:
+      separator: '|'
+      linked: 0
+      reverse: 0
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_enable_filter:
+    type: boolean
+    label: hidden
+    settings:
+      format: boolean
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_horizontal:
+    type: boolean
+    label: hidden
+    settings:
+      format: boolean
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_layout:
+    type: list_key
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_mostrar_botao_conheca_mais:
+    type: boolean
+    label: hidden
+    settings:
+      format: boolean
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_mostrar_header:
+    type: boolean
+    label: hidden
+    settings:
+      format: boolean
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_node:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_taxonomies:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_titulo:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_ver_todos:
+    type: link_separate
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  body: true
+  langcode: true
+  search_api_excerpt: true

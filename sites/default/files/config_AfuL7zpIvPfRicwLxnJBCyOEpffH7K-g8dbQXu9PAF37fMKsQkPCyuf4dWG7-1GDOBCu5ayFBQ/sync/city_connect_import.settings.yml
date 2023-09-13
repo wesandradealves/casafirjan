@@ -1,0 +1,7 @@
+_core:
+  default_config_hash: VSx1pow1r8-ShiwQzmxmHBZh5nv7en_2OixdodE-6_I
+langcode: pt-br
+default_entity: conteudo
+file_allowed_extensions:
+  - csv
+  - json

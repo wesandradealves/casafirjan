@@ -1,0 +1,21 @@
+uuid: b546fb25-97c6-4a25-81ec-e30c7620027b
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hora_de_inicio
+    - node.type.curso
+  module:
+    - datetime
+id: node.curso.field_hora_de_inicio
+field_name: field_hora_de_inicio
+entity_type: node
+bundle: curso
+label: 'Data e hora de início (Agenda)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,30 @@
+uuid: 6987c939-8697-4190-805b-de949f44bfd4
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:e35e5a21-a9b0-49ca-a192-ed3c276e37ad'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: acasafirjan
+theme: casa_firjan
+region: content
+weight: -9
+provider: null
+plugin: 'block_content:e35e5a21-a9b0-49ca-a192-ed3c276e37ad'
+settings:
+  id: 'block_content:e35e5a21-a9b0-49ca-a192-ed3c276e37ad'
+  label: 'A Casa Firjan'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /a-casa-firjan

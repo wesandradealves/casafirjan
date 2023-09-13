@@ -1,0 +1,31 @@
+uuid: 69aa7095-8f87-4209-a5e1-b9ad4f24a7b1
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tags
+    - node.type.agenda
+    - taxonomy.vocabulary.landing_page
+    - taxonomy.vocabulary.tags_conteudo
+id: node.agenda.field_tags
+field_name: field_tags
+entity_type: node
+bundle: agenda
+label: 'Tags (Landingpage)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      landing_page: landing_page
+      tags_conteudo: tags_conteudo
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: landing_page
+field_type: entity_reference

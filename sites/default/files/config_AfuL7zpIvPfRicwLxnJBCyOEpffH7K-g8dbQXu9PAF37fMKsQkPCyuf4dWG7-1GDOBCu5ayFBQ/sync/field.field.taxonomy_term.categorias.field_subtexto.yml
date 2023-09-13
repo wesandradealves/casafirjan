@@ -1,0 +1,21 @@
+uuid: 5dc4d46b-7bd1-45ad-9641-a83ed0582b38
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_subtexto
+    - taxonomy.vocabulary.categorias
+  module:
+    - text
+id: taxonomy_term.categorias.field_subtexto
+field_name: field_subtexto
+entity_type: taxonomy_term
+bundle: categorias
+label: Subtexto
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

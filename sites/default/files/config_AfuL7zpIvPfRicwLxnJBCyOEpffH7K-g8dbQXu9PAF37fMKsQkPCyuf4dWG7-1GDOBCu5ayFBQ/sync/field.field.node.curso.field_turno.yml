@@ -1,0 +1,29 @@
+uuid: 2b4f28b5-3342-4d20-a095-4d935d17dc22
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_turno
+    - node.type.curso
+    - taxonomy.vocabulary.turnos_dos_cursos
+id: node.curso.field_turno
+field_name: field_turno
+entity_type: node
+bundle: curso
+label: Turno
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      turnos_dos_cursos: turnos_dos_cursos
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

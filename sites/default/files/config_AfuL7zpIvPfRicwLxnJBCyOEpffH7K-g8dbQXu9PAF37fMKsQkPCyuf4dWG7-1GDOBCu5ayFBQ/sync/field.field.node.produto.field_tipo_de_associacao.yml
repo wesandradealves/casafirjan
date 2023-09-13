@@ -1,0 +1,21 @@
+uuid: 36beb765-c34b-4dc7-8f5c-9d25c2e01fc9
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tipo_de_associacao
+    - node.type.produto
+  module:
+    - options
+id: node.produto.field_tipo_de_associacao
+field_name: field_tipo_de_associacao
+entity_type: node
+bundle: produto
+label: 'Tipo de associação'
+description: 'Define onde o produto será exibido. OBS: Associar um produto à uma página ou programa que não tenha exibição de produtos previsto no template, ele não aparecerá. '
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

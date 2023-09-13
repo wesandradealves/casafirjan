@@ -1,0 +1,70 @@
+uuid: 7d989c99-012c-459f-ac8f-1565eff3a67f
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.tags_para_lideres.field_cor_do_background
+    - field.field.taxonomy_term.tags_para_lideres.field_cor_do_texto
+    - taxonomy.vocabulary.tags_para_lideres
+  module:
+    - color_field
+    - path
+    - text
+id: taxonomy_term.tags_para_lideres.default
+targetEntityType: taxonomy_term
+bundle: tags_para_lideres
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_cor_do_background:
+    type: color_field_widget_box
+    weight: 2
+    region: content
+    settings:
+      default_colors: '#FFFFFF,#424242,#AC725E,#D06B64,#F83A22,#FA573C,#FF7537,#FFAD46,#42D692,#16A765,#7BD148,#B3DC6C,#FBE983,#92E1C0,#9FE1E7,#9FC6E7,#4986E7,#9A9CFF,#B99AFF,#C2C2C2,#CABDBF,#CCA6AC,#F691B2,#CD74E6,#A47AE2'
+    third_party_settings: {  }
+  field_cor_do_texto:
+    type: color_field_widget_box
+    weight: 1
+    region: content
+    settings:
+      default_colors: '#FFFFFF,#000000,#424242,#AC725E,#D06B64,#F83A22,#FA573C,#FF7537,#FFAD46,#42D692,#16A765,#7BD148,#B3DC6C,#FBE983,#92E1C0,#9FE1E7,#9FC6E7,#4986E7,#9A9CFF,#B99AFF,#C2C2C2,#CABDBF,#CCA6AC,#F691B2,#CD74E6,#A47AE2'
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 4
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  publish_on: true
+  unpublish_on: true

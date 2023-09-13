@@ -1,0 +1,20 @@
+uuid: 9d8d1587-c50b-4f35-9e53-80de9d368fcb
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - comment
+    - contact
+    - search
+    - system
+_core:
+  default_config_hash: pq_mEIu_B4widZN7Ap81iCJSjShFFdcL0jEiCi8VrDk
+id: anonymous
+label: 'Usuário anônimo'
+weight: 0
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access site-wide contact form'
+  - 'search content'

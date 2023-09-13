@@ -1,0 +1,20 @@
+uuid: b2da2cf6-b8f5-4be1-925a-94c02a002048
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - block_content
+    - taxonomy
+id: block_content.field_da_categoria
+field_name: field_da_categoria
+entity_type: block_content
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

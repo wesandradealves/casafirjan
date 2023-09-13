@@ -1,0 +1,28 @@
+uuid: 4559d5a9-f8e3-4461-a866-ec96804a2e34
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pagina
+    - node.type.page
+    - node.type.produto
+id: node.produto.field_pagina
+field_name: field_pagina
+entity_type: node
+bundle: produto
+label: Página
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      page: page
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: page
+field_type: entity_reference

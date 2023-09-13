@@ -1,0 +1,23 @@
+uuid: aa18d408-2c45-4330-a9a4-78196ef39f40
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.storage.block_content.field_horizontal
+id: block_content.bloco_destaque.field_horizontal
+field_name: field_horizontal
+entity_type: block_content
+bundle: bloco_destaque
+label: Horizontal
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

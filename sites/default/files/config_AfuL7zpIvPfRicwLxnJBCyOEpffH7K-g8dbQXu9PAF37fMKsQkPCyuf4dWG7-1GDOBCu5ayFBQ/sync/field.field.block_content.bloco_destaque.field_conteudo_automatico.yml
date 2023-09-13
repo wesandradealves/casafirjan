@@ -1,0 +1,23 @@
+uuid: a1d28316-3a80-46f7-99ff-5d5ca612a076
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.storage.block_content.field_conteudo_automatico
+id: block_content.bloco_destaque.field_conteudo_automatico
+field_name: field_conteudo_automatico
+entity_type: block_content
+bundle: bloco_destaque
+label: 'Conteúdo Automático'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

@@ -1,0 +1,19 @@
+uuid: 41ba66c2-0fce-4b35-99a0-75414f9ad47a
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_texto_horarios_ingressos
+field_name: field_texto_horarios_ingressos
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

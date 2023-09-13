@@ -1,0 +1,16 @@
+uuid: e6077c58-7889-4a0e-8946-8218054c3c2b
+langcode: pt-br
+status: true
+dependencies:
+  enforced:
+    module:
+      - webform
+_core:
+  default_config_hash: W88NYg31DbaVNQx1Uir_dwwXHVtF09QOq4VBGsH1Snk
+id: yes_no
+label: Sim/Não
+category: General
+likert: false
+options: |
+  Yes: Yes
+  No: No

@@ -1,0 +1,18 @@
+uuid: dd10557f-cc21-40d5-ba62-556421c90fa8
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - node.type.arquivo_
+id: node.arquivo_.title
+field_name: title
+entity_type: node
+bundle: arquivo_
+label: Título
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

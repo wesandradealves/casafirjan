@@ -1,0 +1,8 @@
+uuid: e35e1bf1-a86c-42e2-85f8-db253808bc1f
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 'Landing Page'
+vid: landing_page
+description: ''
+weight: 0

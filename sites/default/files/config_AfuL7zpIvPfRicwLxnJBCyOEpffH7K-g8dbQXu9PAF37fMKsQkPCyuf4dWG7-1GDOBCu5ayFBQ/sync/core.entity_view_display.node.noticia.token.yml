@@ -1,0 +1,94 @@
+uuid: c0c7b4a8-20d6-4fcc-850c-eba3feacaa04
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.noticia.field_autor
+    - field.field.node.noticia.field_chamada
+    - field.field.node.noticia.field_descricao
+    - field.field.node.noticia.field_e_destaque
+    - field.field.node.noticia.field_exibir_no_portal_da_firjan
+    - field.field.node.noticia.field_imagem
+    - field.field.node.noticia.field_tags
+    - field.field.node.noticia.field_thumb
+    - node.type.noticia
+  module:
+    - image
+    - text
+    - user
+id: node.noticia.token
+targetEntityType: node
+bundle: noticia
+mode: token
+content:
+  field_autor:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_chamada:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_descricao:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_e_destaque:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_exibir_no_portal_da_firjan:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  field_imagem:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_thumb: true
+  langcode: true
+  search_api_excerpt: true

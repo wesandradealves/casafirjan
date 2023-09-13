@@ -1,0 +1,38 @@
+uuid: 23843174-a896-47b1-ac7e-c4213cbb242e
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_thumb
+    - node.type.noticia
+  module:
+    - image
+id: node.noticia.field_thumb
+field_name: field_thumb
+entity_type: node
+bundle: noticia
+label: Thumb
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: false
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: 0596ac07-04c0-4ca3-8a7a-4842a0ff657a
+    alt: ''
+    title: ''
+    width: 644
+    height: 400
+field_type: image

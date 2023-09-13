@@ -1,0 +1,22 @@
+uuid: 7c1dbeae-0537-4b95-a11a-114b361135c0
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_cor_do_ciclo
+    - taxonomy.vocabulary.ciclo_tematico
+  module:
+    - color_field
+id: taxonomy_term.ciclo_tematico.field_cor_do_ciclo
+field_name: field_cor_do_ciclo
+entity_type: taxonomy_term
+bundle: ciclo_tematico
+label: Cor
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  opacity: 0
+field_type: color_field_type

@@ -1,0 +1,20 @@
+uuid: 62eef00d-2dc0-487c-a0ab-b65f7d91e901
+langcode: pt-br
+status: false
+dependencies:
+  theme:
+    - casa_firjan
+_core:
+  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
+id: casa_firjan_local_actions
+theme: casa_firjan
+region: sidebar
+weight: 1
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

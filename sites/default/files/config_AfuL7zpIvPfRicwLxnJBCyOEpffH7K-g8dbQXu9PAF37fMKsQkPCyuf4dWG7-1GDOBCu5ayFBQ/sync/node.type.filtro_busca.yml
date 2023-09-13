@@ -1,0 +1,17 @@
+uuid: e03686eb-f010-4a6c-af9f-59ac190002e6
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Filtro busca'
+type: filtro_busca
+description: ''
+help: 'Não será exibido no portal.'
+new_revision: false
+preview_mode: 0
+display_submitted: true

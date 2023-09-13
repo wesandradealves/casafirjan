@@ -1,0 +1,38 @@
+uuid: 1d350777-697d-48f6-9a5e-f1e3e652b473
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_thumb
+    - node.type.conteudo
+  module:
+    - image
+id: node.conteudo.field_thumb
+field_name: field_thumb
+entity_type: node
+bundle: conteudo
+label: Thumb
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: 5a5f42c7-44e1-4d01-851a-0522e81c7377
+    alt: ''
+    title: ''
+    width: 644
+    height: 400
+field_type: image

@@ -1,0 +1,21 @@
+uuid: 5cb2e787-2735-4e7a-a987-28ccc05819ad
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.menu_link_content.field_target
+    - system.menu.menu-principal
+  module:
+    - options
+id: menu_link_content.menu-principal.field_target
+field_name: field_target
+entity_type: menu_link_content
+bundle: menu-principal
+label: 'Abrir em'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

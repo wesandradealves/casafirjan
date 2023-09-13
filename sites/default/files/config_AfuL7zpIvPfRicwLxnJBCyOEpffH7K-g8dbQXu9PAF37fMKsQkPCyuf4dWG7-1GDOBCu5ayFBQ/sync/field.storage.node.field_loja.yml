@@ -1,0 +1,27 @@
+uuid: 13783b45-f89b-4d8a-83d0-1bb7f4d591a2
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_loja
+field_name: field_loja
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: iel
+      label: IEL
+    -
+      value: senai
+      label: Senai
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,25 @@
+uuid: 2570285c-b3e0-4c78-9c33-0a87e125a04e
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.formularios
+    - field.storage.block_content.field_formulario
+  module:
+    - webform
+id: block_content.formularios.field_formulario
+field_name: field_formulario
+entity_type: block_content
+bundle: formularios
+label: Formulário
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: webform

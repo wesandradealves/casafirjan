@@ -1,0 +1,105 @@
+uuid: bafcd164-99c5-4a52-a306-8ad94fdf29ae
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.conteudo.field_autor
+    - field.field.node.conteudo.field_categoria
+    - field.field.node.conteudo.field_chamada
+    - field.field.node.conteudo.field_e_destaque
+    - field.field.node.conteudo.field_imagem
+    - field.field.node.conteudo.field_tags
+    - field.field.node.conteudo.field_tags_de_menu
+    - field.field.node.conteudo.field_texto
+    - field.field.node.conteudo.field_thumb
+    - field.field.node.conteudo.field_tipo_de_midia
+    - field.field.node.conteudo.field_topicos
+    - field.field.node.conteudo.field_video
+    - node.type.conteudo
+  module:
+    - image
+    - text
+    - user
+id: node.conteudo.token
+targetEntityType: node
+bundle: conteudo
+mode: token
+content:
+  field_autor:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_categoria:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  field_chamada:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 109
+    region: content
+  field_imagem:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 110
+    region: content
+  field_texto:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_topicos:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_video:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 108
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_e_destaque: true
+  field_tags_de_menu: true
+  field_thumb: true
+  field_tipo_de_midia: true
+  langcode: true
+  search_api_excerpt: true

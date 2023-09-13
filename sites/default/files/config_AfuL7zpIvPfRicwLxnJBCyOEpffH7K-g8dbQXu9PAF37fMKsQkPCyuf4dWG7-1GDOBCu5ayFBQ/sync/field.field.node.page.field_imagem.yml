@@ -1,0 +1,38 @@
+uuid: 9e62fd62-5994-462a-884f-9323b440edec
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_imagem
+    - node.type.page
+  module:
+    - image
+id: node.page.field_imagem
+field_name: field_imagem
+entity_type: node
+bundle: page
+label: Imagem
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: 1920x384
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+field_type: image

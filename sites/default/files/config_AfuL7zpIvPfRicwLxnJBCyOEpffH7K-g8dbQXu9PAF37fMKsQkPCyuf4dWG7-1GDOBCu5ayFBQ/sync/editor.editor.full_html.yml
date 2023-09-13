@@ -1,0 +1,66 @@
+uuid: c84c0e22-768f-4d20-9c31-dc8f57ee0846
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+  module:
+    - ckeditor
+format: full_html
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Formatação
+          items:
+            - Bold
+            - Italic
+            - Strike
+            - RemoveFormat
+        -
+          name: Alinhamento
+          items:
+            - JustifyLeft
+            - JustifyCenter
+            - JustifyRight
+            - JustifyBlock
+        -
+          name: Links
+          items:
+            - DrupalLink
+            - DrupalUnlink
+        -
+          name: Listas
+          items:
+            - BulletedList
+            - NumberedList
+        -
+          name: Mídia
+          items:
+            - Blockquote
+            - DrupalImage
+            - Table
+            - HorizontalRule
+        -
+          name: Estilos
+          items:
+            - Styles
+            - Format
+        -
+          name: Ferramentas
+          items:
+            - ShowBlocks
+            - Source
+  plugins:
+    stylescombo:
+      styles: "a.btnAzul|Botão Azul\r\na.btnPreto|Botão Preto\r\na.btnCinza|Botão Cinza"
+image_upload:
+  status: true
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

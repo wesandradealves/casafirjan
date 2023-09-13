@@ -1,0 +1,30 @@
+uuid: 4c4d37ef-0fc4-439e-acfc-74de459c1e9a
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:749983f1-36f1-4d92-9321-bdbeeeb98248'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: emcartaz_2
+theme: casa_firjan
+region: content
+weight: 0
+provider: null
+plugin: 'block_content:749983f1-36f1-4d92-9321-bdbeeeb98248'
+settings:
+  id: 'block_content:749983f1-36f1-4d92-9321-bdbeeeb98248'
+  label: 'Em Cartaz'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /a-casa-firjan/exposicoes-e-atividades/exposicoes

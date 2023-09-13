@@ -1,0 +1,30 @@
+uuid: 300e207b-8d22-4eab-8aff-145833638cdb
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:5e41079c-7c3d-4b53-9d90-5fd98cef9ae6'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: exposicoesanteriores
+theme: casa_firjan
+region: content
+weight: 1
+provider: null
+plugin: 'block_content:5e41079c-7c3d-4b53-9d90-5fd98cef9ae6'
+settings:
+  id: 'block_content:5e41079c-7c3d-4b53-9d90-5fd98cef9ae6'
+  label: 'Exposições anteriores'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /a-casa-firjan/exposicoes-e-atividades/exposicoes

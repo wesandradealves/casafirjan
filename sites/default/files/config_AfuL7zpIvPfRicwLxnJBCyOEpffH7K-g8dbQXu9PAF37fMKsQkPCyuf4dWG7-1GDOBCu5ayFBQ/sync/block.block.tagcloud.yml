@@ -1,0 +1,30 @@
+uuid: da7dcd2e-40d8-4f8e-89f9-46a8470b6e5f
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:tagcloud:83b92a1e-8fe9-4fd2-9b22-80f7d11795d0'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: tagcloud
+theme: casa_firjan
+region: content
+weight: -18
+provider: null
+plugin: 'block_content:83b92a1e-8fe9-4fd2-9b22-80f7d11795d0'
+settings:
+  id: 'block_content:83b92a1e-8fe9-4fd2-9b22-80f7d11795d0'
+  label: 'Sobre qual assunto você quer saber mais?'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

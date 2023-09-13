@@ -1,0 +1,33 @@
+uuid: c3c3ff6e-521c-4407-9e89-99c1134b38a6
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.formularios
+    - field.field.block_content.formularios.field_formulario
+    - field.field.block_content.formularios.field_subtitulo
+  module:
+    - webform
+id: block_content.formularios.default
+targetEntityType: block_content
+bundle: formularios
+mode: default
+content:
+  field_formulario:
+    type: webform_entity_reference_entity_view
+    label: above
+    settings:
+      source_entity: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_subtitulo:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

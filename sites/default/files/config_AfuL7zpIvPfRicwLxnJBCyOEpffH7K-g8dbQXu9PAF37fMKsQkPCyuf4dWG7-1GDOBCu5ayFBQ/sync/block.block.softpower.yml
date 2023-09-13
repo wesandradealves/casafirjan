@@ -1,0 +1,30 @@
+uuid: f38c317c-c39d-4042-bd3f-fb3b28b913bd
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:06c50fe7-564b-4917-ac65-b09e47f84d54'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: softpower
+theme: casa_firjan
+region: content
+weight: -16
+provider: null
+plugin: 'block_content:06c50fe7-564b-4917-ac65-b09e47f84d54'
+settings:
+  id: 'block_content:06c50fe7-564b-4917-ac65-b09e47f84d54'
+  label: 'SOFT POWER'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

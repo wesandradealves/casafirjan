@@ -1,0 +1,29 @@
+uuid: 8c23691a-5990-4cac-95f1-2e84b0b8806a
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_categoria
+    - node.type.agenda
+    - taxonomy.vocabulary.categorias
+id: node.agenda.field_categoria
+field_name: field_categoria
+entity_type: node
+bundle: agenda
+label: Programa/Subprograma
+description: 'Associar o conteúdo a um programa ou subprograma.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      categorias: categorias
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

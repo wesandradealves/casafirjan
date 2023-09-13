@@ -1,0 +1,27 @@
+uuid: 6862a6b9-6f3b-4f7c-a660-3a9f3b842dc5
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.para_lideres.field_tag
+    - field.field.node.para_lideres.field_thumb
+    - field.field.node.para_lideres.field_topico
+    - node.type.para_lideres
+  module:
+    - user
+id: node.para_lideres.teaser
+targetEntityType: node
+bundle: para_lideres
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_tag: true
+  field_thumb: true
+  field_topico: true
+  langcode: true

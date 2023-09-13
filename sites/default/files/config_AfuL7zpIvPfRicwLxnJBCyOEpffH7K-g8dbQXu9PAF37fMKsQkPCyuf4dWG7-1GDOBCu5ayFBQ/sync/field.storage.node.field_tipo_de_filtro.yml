@@ -1,0 +1,27 @@
+uuid: 1f61b573-4826-4dd0-adc1-03854fbd0cba
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_tipo_de_filtro
+field_name: field_tipo_de_filtro
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: taxo
+      label: Programa/Subprograma
+    -
+      value: type
+      label: 'Tipo de conteúdo'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

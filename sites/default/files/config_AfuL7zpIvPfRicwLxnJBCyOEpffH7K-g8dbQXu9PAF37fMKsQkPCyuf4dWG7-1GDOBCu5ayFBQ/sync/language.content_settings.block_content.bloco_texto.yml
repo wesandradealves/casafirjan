@@ -1,0 +1,11 @@
+uuid: 4e252d77-0588-4e30-b763-ffeba7c27d76
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_texto
+id: block_content.bloco_texto
+target_entity_type_id: block_content
+target_bundle: bloco_texto
+default_langcode: site_default
+language_alterable: false

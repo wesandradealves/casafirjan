@@ -1,0 +1,8 @@
+uuid: d7d97f05-225d-49d2-9475-74def75c7fa8
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 'Turnos dos Cursos'
+vid: turnos_dos_cursos
+description: ''
+weight: 0

@@ -1,0 +1,15 @@
+uuid: cd41fc6c-4d32-4533-a57c-de9a3b4d80e6
+langcode: pt-br
+status: true
+dependencies: {  }
+name: 651x333
+label: 651x333
+effects:
+  715a3e6c-9253-4ad8-96b0-95a6ff913976:
+    uuid: 715a3e6c-9253-4ad8-96b0-95a6ff913976
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 651
+      height: 333
+      anchor: center-center

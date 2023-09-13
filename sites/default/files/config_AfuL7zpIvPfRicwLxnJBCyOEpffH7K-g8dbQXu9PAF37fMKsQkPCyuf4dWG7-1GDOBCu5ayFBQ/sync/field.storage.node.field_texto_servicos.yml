@@ -1,0 +1,19 @@
+uuid: 76be244f-d840-4399-a0a9-13fb5be7534b
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_texto_servicos
+field_name: field_texto_servicos
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

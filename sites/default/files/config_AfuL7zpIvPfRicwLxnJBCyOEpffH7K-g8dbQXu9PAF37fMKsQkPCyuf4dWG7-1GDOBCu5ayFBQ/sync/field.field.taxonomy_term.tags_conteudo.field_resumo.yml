@@ -1,0 +1,21 @@
+uuid: b8c2fc3f-862f-4e2f-afd5-6696a440e054
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_resumo
+    - taxonomy.vocabulary.tags_conteudo
+  module:
+    - text
+id: taxonomy_term.tags_conteudo.field_resumo
+field_name: field_resumo
+entity_type: taxonomy_term
+bundle: tags_conteudo
+label: Resumo
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

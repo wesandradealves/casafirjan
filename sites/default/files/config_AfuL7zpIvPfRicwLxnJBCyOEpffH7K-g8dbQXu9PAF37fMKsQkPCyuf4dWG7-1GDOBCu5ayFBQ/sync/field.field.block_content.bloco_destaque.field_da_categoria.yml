@@ -1,0 +1,31 @@
+uuid: e97ab594-f85d-4598-8d20-cd2f1077034b
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.bloco_destaque
+    - field.storage.block_content.field_da_categoria
+    - taxonomy.vocabulary.categorias
+    - taxonomy.vocabulary.tags_de_menu
+id: block_content.bloco_destaque.field_da_categoria
+field_name: field_da_categoria
+entity_type: block_content
+bundle: bloco_destaque
+label: 'Da Categoria'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      categorias: categorias
+      tags_de_menu: tags_de_menu
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: categorias
+field_type: entity_reference

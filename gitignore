@@ -1,0 +1,44 @@
+
+# Sample of .git/info/exclude
+# Documentation: https://git-scm.com/docs/gitignore
+
+# Exclude .gitignore file.
+  # If an initial .gitignore file has been added to the repo,
+  # you might have to delete it first and sync the change.
+  # Then create a new one which will be excluded according to this rule.
+.gitignore
+
+# Exclude all of, but keep these directories synced:
+  # /wp-content/themes/harpiaconsultoria
+
+# Exclude everything in root…
+/*
+
+# … except.
+!/themes
+!/modules
+!/sites
+!composer.*
+!/*.md
+
+# Now exclude everything in …
+/themes/*
+/modules/*
+/sites/*
+
+# … and except 
+!/themes
+!/modules/custom
+!/sites/default
+
+# Now exclude everything in  …
+/themes/*
+/sites/default/files/*
+/sites/default/*
+
+# … except child 
+!/themes/casa_firjan
+!/sites/default/files/
+!/sites/default/files/config_AfuL7zpIvPfRicwLxnJBCyOEpffH7K-g8dbQXu9PAF37fMKsQkPCyuf4dWG7-1GDOBCu5ayFBQ
+#!/sites/default/services.*
+#!/sites/default/settings.php

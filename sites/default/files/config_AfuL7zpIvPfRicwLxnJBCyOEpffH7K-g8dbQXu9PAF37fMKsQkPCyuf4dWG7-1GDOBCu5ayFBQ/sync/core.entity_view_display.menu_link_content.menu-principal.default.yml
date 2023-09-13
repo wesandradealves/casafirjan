@@ -1,0 +1,21 @@
+uuid: 6182decf-e4ec-4554-8d20-9f3824d4d0ee
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.menu_link_content.menu-principal.field_target
+    - system.menu.menu-principal
+id: menu_link_content.menu-principal.default
+targetEntityType: menu_link_content
+bundle: menu-principal
+mode: default
+content:
+  children:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_target: true
+  langcode: true
+  search_api_excerpt: true

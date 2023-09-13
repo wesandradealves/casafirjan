@@ -1,0 +1,22 @@
+uuid: d88476d1-9465-4283-997a-eec44d528706
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - node.type.para_lideres
+id: node.para_lideres.promote
+field_name: promote
+entity_type: node
+bundle: para_lideres
+label: 'Promovido para a página inicial'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desliga
+field_type: boolean

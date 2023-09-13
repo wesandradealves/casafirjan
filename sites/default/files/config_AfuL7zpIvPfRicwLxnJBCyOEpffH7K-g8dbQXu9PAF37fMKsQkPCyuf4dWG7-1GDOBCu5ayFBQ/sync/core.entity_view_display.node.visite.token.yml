@@ -1,0 +1,107 @@
+uuid: 1fcffac3-701c-4c18-b272-073dcd508475
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.visite.field_embed_do_maps
+    - field.field.node.visite.field_habilitar_acessibilidade
+    - field.field.node.visite.field_habilitar_agende_visita
+    - field.field.node.visite.field_habilitar_como_chegar
+    - field.field.node.visite.field_habilitar_horarios_ingress
+    - field.field.node.visite.field_habilitar_politica_visitac
+    - field.field.node.visite.field_habilitar_servicos
+    - field.field.node.visite.field_label_1
+    - field.field.node.visite.field_label_2
+    - field.field.node.visite.field_label_3
+    - field.field.node.visite.field_label_4
+    - field.field.node.visite.field_label_5
+    - field.field.node.visite.field_label_6
+    - field.field.node.visite.field_opcoes_de_agendamento
+    - field.field.node.visite.field_texto_acessibilidade
+    - field.field.node.visite.field_texto_agende_visita
+    - field.field.node.visite.field_texto_agende_visita_2
+    - field.field.node.visite.field_texto_como_chegar
+    - field.field.node.visite.field_texto_horarios_ingressos
+    - field.field.node.visite.field_texto_politica_visitacao
+    - field.field.node.visite.field_texto_servicos
+    - node.type.visite
+  module:
+    - text
+    - user
+id: node.visite.token
+targetEntityType: node
+bundle: visite
+mode: token
+content:
+  field_embed_do_maps:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_texto_acessibilidade:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  field_texto_agende_visita:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_texto_como_chegar:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_texto_horarios_ingressos:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_texto_politica_visitacao:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_texto_servicos:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_habilitar_acessibilidade: true
+  field_habilitar_agende_visita: true
+  field_habilitar_como_chegar: true
+  field_habilitar_horarios_ingress: true
+  field_habilitar_politica_visitac: true
+  field_habilitar_servicos: true
+  field_label_1: true
+  field_label_2: true
+  field_label_3: true
+  field_label_4: true
+  field_label_5: true
+  field_label_6: true
+  field_opcoes_de_agendamento: true
+  field_texto_agende_visita_2: true
+  langcode: true
+  search_api_excerpt: true

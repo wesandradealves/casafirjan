@@ -1,0 +1,22 @@
+uuid: bc5b7a8e-a703-4b22-8f01-f37e60a0fc54
+langcode: pt-br
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - casa_firjan
+_core:
+  default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
+id: casa_firjan_messages
+theme: casa_firjan
+region: sidebar
+weight: -4
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Mensagens de status'
+  label_display: '0'
+  provider: system
+visibility: {  }

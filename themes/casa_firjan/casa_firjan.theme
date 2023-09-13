@@ -1981,6 +1981,7 @@ function casa_firjan_preprocess_block(&$variables)
             $bannerItem['label'] = $nd['field_link'][0]['title'];
             $bannerItem['field_link_background'] = $nd['field_link_background'][0]['color'];
             $bannerItem['titulo'] = $nd['title'][0]['value'];
+            $bannerItem['target'] = $nd['field_target'][0]['value'];
             $bannerItem['texto'] = isset($nd['field_chamada'][0]['value']) && !empty($nd['field_chamada'][0]['value']) ? $nd['field_chamada'][0]['value'] : '';
             if(str_contains($nd['field_link'][0]['uri'], 'internal')) {
                 $url = str_replace('internal:/', '', $nd['field_link'][0]['uri']);

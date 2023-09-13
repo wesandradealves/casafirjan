@@ -1,0 +1,26 @@
+uuid: 4078745c-c0f0-4868-a21f-6c1a61d425df
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - block_content.type.tagcloud
+    - field.field.block_content.tagcloud.body
+    - field.field.block_content.tagcloud.field_background
+  module:
+    - text
+id: block_content.tagcloud.default
+targetEntityType: block_content
+bundle: tagcloud
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_background: true
+  langcode: true
+  search_api_excerpt: true

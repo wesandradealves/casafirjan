@@ -1,0 +1,30 @@
+uuid: 36a4cd4e-de61-4cc2-a989-29c0c56c28ef
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:5b2e04d1-8533-4769-baa3-39a65ab91f71'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: atividadesanteriores
+theme: casa_firjan
+region: content
+weight: -1
+provider: null
+plugin: 'block_content:5b2e04d1-8533-4769-baa3-39a65ab91f71'
+settings:
+  id: 'block_content:5b2e04d1-8533-4769-baa3-39a65ab91f71'
+  label: 'Atividades anteriores'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /a-casa-firjan/exposicoes-e-atividades/atividades

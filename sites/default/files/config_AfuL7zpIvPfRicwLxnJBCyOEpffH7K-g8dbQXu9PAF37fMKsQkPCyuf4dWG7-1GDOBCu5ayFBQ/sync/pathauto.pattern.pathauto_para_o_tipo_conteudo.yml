@@ -1,0 +1,23 @@
+uuid: 93220b28-6ec3-4773-b2e8-e77797770324
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+id: pathauto_para_o_tipo_conteudo
+label: 'Pathauto para o tipo conteúdo'
+type: 'canonical_entities:node'
+pattern: '/[node:field_categoria:entity:parents:join-path]/[node:field_categoria:entity:name]/[node:title]'
+selection_criteria:
+  cebf3192-8870-49f0-8142-0bfdaf156ef3:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: cebf3192-8870-49f0-8142-0bfdaf156ef3
+    context_mapping:
+      node: node
+    bundles:
+      conteudo: conteudo
+      page: page
+selection_logic: and
+weight: -5
+relationships: {  }

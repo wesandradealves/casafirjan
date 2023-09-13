@@ -1,0 +1,17 @@
+uuid: d8fd58dd-9363-49c3-b91d-232193c31fce
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - search_api_db
+id: dbserver
+name: DBServer
+description: ''
+backend: search_api_db
+backend_config:
+  database: 'default:default'
+  min_chars: 3
+  matching: partial
+  autocomplete:
+    suggest_suffix: true
+    suggest_words: true

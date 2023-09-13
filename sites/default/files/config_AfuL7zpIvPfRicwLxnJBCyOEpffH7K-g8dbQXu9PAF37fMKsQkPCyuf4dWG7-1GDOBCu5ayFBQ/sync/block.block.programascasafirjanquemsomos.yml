@@ -1,0 +1,30 @@
+uuid: 252c5792-cc5b-4778-9e3a-fd0ea7958fec
+langcode: pt-br
+status: true
+dependencies:
+  content:
+    - 'block_content:bloco_destaque:40cdf65e-552e-422b-be93-4e6cee513a6f'
+  module:
+    - block_content
+    - system
+  theme:
+    - casa_firjan
+id: programascasafirjanquemsomos
+theme: casa_firjan
+region: content
+weight: -4
+provider: null
+plugin: 'block_content:40cdf65e-552e-422b-be93-4e6cee513a6f'
+settings:
+  id: 'block_content:40cdf65e-552e-422b-be93-4e6cee513a6f'
+  label: 'PROGRAMAS CASA FIRJAN - QUEM SOMOS'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /a-casa-firjan/quem-somos

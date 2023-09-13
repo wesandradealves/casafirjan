@@ -1,0 +1,26 @@
+uuid: ea768d96-49ab-41a8-accf-24cb4600e741
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.home.field_destaques
+    - field.field.node.home.field_thumb
+    - node.type.home
+  module:
+    - user
+id: node.home.teaser
+targetEntityType: node
+bundle: home
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_destaques: true
+  field_thumb: true
+  langcode: true
+  search_api_excerpt: true
