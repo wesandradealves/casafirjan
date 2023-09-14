@@ -1,4 +1,4 @@
-uuid: 63eeba2c-dac7-4954-857d-ea18784dd8b7
+uuid: bbf0f3d5-0560-4b31-a18b-c9b3cfcf17ec
 langcode: pt-br
 status: true
 dependencies:
@@ -7,7 +7,8 @@ dependencies:
     - taxonomy.vocabulary.categorias
   module:
     - search_api
-id: busca
+    - views_infinite_scroll
+id: search
 label: Busca
 module: views
 description: ''
@@ -147,17 +148,15 @@ display:
             multi_type: separator
             multi_separator: ', '
       pager:
-        type: full
+        type: infinite_scroll
         options:
           offset: 0
           items_per_page: 10
           total_pages: null
           id: 0
           tags:
-            next: ››
-            previous: ‹‹
-            first: '« First'
-            last: 'Last »'
+            next: 'Avançar ›'
+            previous: '‹ Voltar'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -166,7 +165,10 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          quantity: 9
+          views_infinite_scroll:
+            button_text: 'Carregar mais'
+            automatically_load_content: false
+            initially_load_all_pages: true
       exposed_form:
         type: basic
         options:
@@ -227,7 +229,7 @@ display:
           exposed: true
           expose:
             operator_id: search_api_fulltext_op
-            label: 'Fulltext search'
+            label: 'RESULTADO DA BUSCA'
             description: ''
             use_operator: false
             operator: search_api_fulltext_op
@@ -244,7 +246,7 @@ display:
               cliente_admin: '0'
             expose_fields: false
             placeholder: ''
-            searched_fields_id: ''
+            searched_fields_id: search_api_fulltext_searched_fields
           is_grouped: false
           group_info:
             label: ''
@@ -312,7 +314,7 @@ display:
           reduce_duplicates: false
           vid: categorias
           type: select
-          hierarchy: false
+          hierarchy: true
           limit: true
           error_message: true
         type:
@@ -324,9 +326,10 @@ display:
           admin_label: ''
           plugin_id: search_api_options
           operator: or
-          value: {  }
+          value:
+            conteudo: conteudo
           group: 1
-          exposed: true
+          exposed: false
           expose:
             operator_id: type_op
             label: 'Tipo de conteúdo'
@@ -358,6 +361,10 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: default
       row:
@@ -393,8 +400,10 @@ display:
     position: 1
     display_options:
       display_extenders:
-        metatag_display_extender: {  }
-      path: busca
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
+      path: search
     cache_metadata:
       max-age: -1
       contexts:

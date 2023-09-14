@@ -1266,6 +1266,7 @@ function casa_firjan_preprocess_page__busca(&$vars)
     $params = \Drupal::request()
         ->query
         ->get('search_api_fulltext');
+
     $paramsAll = \Drupal::request()
         ->query
         ->all();
@@ -1278,6 +1279,7 @@ function casa_firjan_preprocess_page__busca(&$vars)
     $options->pager = array(
         'autoPager' => true
     );
+
     $searchView = GM5Views::getViewArg('busca', 'page_1', $options);
 
     $results = [];
@@ -1288,6 +1290,7 @@ function casa_firjan_preprocess_page__busca(&$vars)
             $obj = $searchObj
                 ->_object
                 ->getValue();
+
             $objItem = $searchObj
                 ->_object
                 ->getValue()
@@ -1354,6 +1357,7 @@ function casa_firjan_preprocess_page__busca(&$vars)
                         ->type
                         ->entity
                         ->label();
+
                     $secao['url'] = $otherTypes[$objItem['type'][0]['target_id']];
                 }
 
@@ -2612,4 +2616,20 @@ function casa_firjan_preprocess_views_view_fullcalendar(&$variables)
             $variables['eventos'][] = $eventoItem;
         }
     }
+}
+function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) {
+    unset($variables['form']['field_categoria']['#title']);
+    unset($variables['form']['actions']['submit']);
+    unset($variables['form']['sort_by']);
+    $variables['form']['sort_order']['#title'] = "Ordenar por:";
+    $variables['form']['sort_order']['#options'][''] = 'Em qualquer data';
+
+    unset($variables['form']['sort_order']['#options']['']);
+    array_unshift($variables['form']['sort_order']['#options'], 'Em qualquer data');
+
+    $variables['form']['sort_order']['#value'] =  $variables['form']['sort_order']['#default_value'] = '';
+    $variables['form']['sort_order']['#options']['ASC'] = 'Os mais antigos primeiro';
+    $variables['form']['sort_order']['#options']['DESC'] = 'Os mais recentes primeiro';
+
+    $variables['form']['search_api_fulltext']['#attributes'] = array('placeholder' => array(t('O que você está buscando?')));
 }
