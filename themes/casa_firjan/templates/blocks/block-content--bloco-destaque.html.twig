@@ -12,7 +12,7 @@
                 <h3 class="title d-flex align-items-center justify-content-between m-0 mb-4">
                     <span>{% if title %} {{title}} {% else %} {{content.field_titulo.0['#context'].value}} {% endif %}</span>
                     {% if content.field_ver_todos|render and layout != 'video' %}
-                        <a class="btn" target="_blank" href="{% if content.field_ver_todos.0['#url'] %} {{content.field_ver_todos.0['#url']}} {% else %} nodes.0.categoria.url {% endif %}" title="{{ content.field_ver_todos.0['#title'] }}">{{ content.field_ver_todos.0['#title'] }}</a>
+                        <a class="btn" href="{% if content.field_ver_todos.0['#url'] %} {{content.field_ver_todos.0['#url']}} {% else %} nodes.0.categoria.url {% endif %}" title="{{ content.field_ver_todos.0['#title'] }}">{{ content.field_ver_todos.0['#title'] }}</a>
                     {% endif %}                    
                 </h3>
                 <h4 class="subtitle m-0 mt-2">
@@ -20,7 +20,7 @@
                     {{content.field_subtitle}}
                 </h4>
                 {% if content.field_ver_todos|render and layout == 'video' %}
-                    <a class="btn mt-4" target="_blank" href="{% if content.field_ver_todos.0['#url'] %} {{content.field_ver_todos.0['#url']}} {% else %} nodes.0.categoria.url {% endif %}" title="{{ content.field_ver_todos.0['#title'] }}">{{ content.field_ver_todos.0['#title'] }}</a>
+                    <a class="btn mt-4" href="{% if content.field_ver_todos.0['#url'] %} {{content.field_ver_todos.0['#url']}} {% else %} nodes.0.categoria.url {% endif %}" title="{{ content.field_ver_todos.0['#title'] }}">{{ content.field_ver_todos.0['#title'] }}</a>
                 {% endif %}
             </div>
             {% endif %}
@@ -83,12 +83,12 @@
                                 <div {# {% if url %} onclick="window.location = '{{url}}'" style="cursor: pointer" {% endif %} #} class="info {% if horizontal %} flex-fill ps-lg-5 {% endif %} {% if layout == 'yellow_box' %} p-5 pt-0 {% endif %}">
                                     {% if node.categoria %}
                                         <h4 class="category m-0 mb-2">
-                                            <a target="_blank" href="{{term.url}}">{{term.name}}</a>
+                                            <a href="{{term.url}}">{{term.name}}</a>
                                         </h4>
                                     {% endif %}
 
                                     {% if layout != 'yellow_box' %}
-                                        <h2 class="title m-0" ><a target="_blank" href="{{url}}">{{node.title}}</a></h2>
+                                        <h2 class="title m-0" ><a href="{{url}}">{{node.title}}</a></h2>
                                     {% endif %} 
 
                                     {# <p class="text m-0 mt-2">{{node.field_headline}}</p> #}
@@ -107,7 +107,7 @@
 
                                     {# {% if node.tag %}
                                         {% for tag in node.tag %}
-                                            <a target="_blank" class="tag mt-2 d-block" href="{{tag.url}}">#{{tag.name}}</a>
+                                            <a class="tag mt-2 d-block" href="{{tag.url}}">#{{tag.name}}</a>
                                         {% endfor %}
                                     {% endif %} #}
                                 </div>
