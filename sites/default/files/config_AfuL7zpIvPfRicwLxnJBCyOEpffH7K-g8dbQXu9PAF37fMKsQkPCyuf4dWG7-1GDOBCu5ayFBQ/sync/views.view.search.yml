@@ -579,7 +579,7 @@ display:
         metatag_display_extender:
           metatags: {  }
           tokenize: false
-      path: search
+      path: busca
     cache_metadata:
       max-age: -1
       contexts:
