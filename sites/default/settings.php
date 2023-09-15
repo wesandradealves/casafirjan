@@ -799,8 +799,8 @@ $databases['default']['default'] = array (
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql'
 );
-$config_directories['sync'] = 'sites/default/files/config_AfuL7zpIvPfRicwLxnJBCyOEpffH7K-g8dbQXu9PAF37fMKsQkPCyuf4dWG7-1GDOBCu5ayFBQ/sync';
-$settings['config_sync_directory'] = 'sites/default/files/config_AfuL7zpIvPfRicwLxnJBCyOEpffH7K-g8dbQXu9PAF37fMKsQkPCyuf4dWG7-1GDOBCu5ayFBQ/sync';
+$config_directories['sync'] = 'sync';
+$settings['config_sync_directory'] = 'sync';
 
 // $settings['trusted_host_patterns'] = [
 //     '^casa-firjan\.cityconnect\.com\.br$',
