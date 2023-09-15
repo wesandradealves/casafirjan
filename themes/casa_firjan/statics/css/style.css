@@ -11398,10 +11398,10 @@ label[for="edit-search-api-fulltext"] {
 }
 
 @media only screen and (min-width: 992px) {
-  #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper ~ ul.js-pager__items.pager,
+  /* #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper ~ ul.js-pager__items.pager,
   #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper {
     width: 65%;
-  }
+  } */
   #views-exposed-form-search-page-1 .form-actions {
     position: absolute;
     bottom: 48px;
