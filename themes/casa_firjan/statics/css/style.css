@@ -11149,6 +11149,7 @@ legend {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 0;
+  position: relative;
   padding-top: 45px;
 }
 
@@ -11158,10 +11159,38 @@ legend {
   max-width: 350px;
 }
 
+#views-exposed-form-search-page-1 .js-form-item-search-api-fulltext input {
+  border: 1px solid #393230;
+  position: relative;
+  padding: 5px 10px;
+  border-radius: 0;
+}
+
 #views-exposed-form-search-page-1 .js-form-item-search-api-fulltext,
 #views-exposed-form-search-page-1 .js-form-item-sort-order {
   flex: 0 0 auto;
   width: 70%;
+}
+
+#views-exposed-form-search-page-1 .js-form-item-sort-order {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;  
+}
+
+#views-exposed-form-search-page-1 .js-form-item-sort-order select {
+  border: 0;
+  border-bottom: 1px solid #818181;
+  outline: none;
+  border-radius: 0;
+  padding-left: 0;
+  padding-bottom: 1px;
+  font-weight: 300;
+}
+
+#views-exposed-form-search-page-1 .js-form-item-sort-order label {
+  margin: 0;
+  flex: 0 0 auto;
 }
 
 #views-exposed-form-search-page-1 .js-form-item-search-api-fulltext {
@@ -11173,6 +11202,8 @@ legend {
   flex: 0 0 30%;
   max-width: 30%;  
   margin-left: auto;
+  position: absolute;
+  right: 0;
 }
 
 #views-exposed-form-search-page-1 .js-form-item-field-categoria label {
@@ -11256,35 +11287,39 @@ label[for="edit-search-api-fulltext"] {
   font-weight: 500;  
 }
 
-.views-infinite-scroll-content-wrapper ~ ul.js-pager__items.pager {
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper {
+  margin-top: 30px;
+}
+
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper ~ ul.js-pager__items.pager {
   list-style: none;
   margin-top: 30px;
 }
 
-.views-infinite-scroll-content-wrapper ~ ul.js-pager__items.pager a[title="Load more items"] {
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper ~ ul.js-pager__items.pager a[title="Load more items"] {
   margin: 0 auto;
 }
 
-.views-infinite-scroll-content-wrapper .date,
-.views-infinite-scroll-content-wrapper ~ ul.js-pager__items.pager li.pager__item {
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper .date,
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper ~ ul.js-pager__items.pager li.pager__item {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.views-infinite-scroll-content-wrapper .date {
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper .date {
   justify-content: flex-start;
   margin: 0;
 }
 
-.views-infinite-scroll-content-wrapper .date::before {
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper .date::before {
   content: 'Publicado em ';
   font-size: 0.875rem;
   margin-right: 5px;
 }
 
-.views-infinite-scroll-content-wrapper .views-field-field-categoria,
-.views-infinite-scroll-content-wrapper .views-field-field-categoria a {
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper .views-field-field-categoria,
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper .views-field-field-categoria a {
   font-size: .8rem;
   color: #BFBFBF;
   text-transform: uppercase;
@@ -11294,11 +11329,11 @@ label[for="edit-search-api-fulltext"] {
   display: inline-block;  
 }
 
-.views-infinite-scroll-content-wrapper .views-field-field-categoria {
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper .views-field-field-categoria {
   margin: 5px 0 2px;
 }
 
-.views-infinite-scroll-content-wrapper .views-field-title {
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper .views-field-title {
   color: #393230;
   font-size: 1rem !important;
   font-weight: 600 !important;
@@ -11306,8 +11341,20 @@ label[for="edit-search-api-fulltext"] {
   padding: 0;
 }
 
-.views-infinite-scroll-content-wrapper > div {
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper > div {
   padding-bottom: 20px;
   margin-bottom: 30px;
   border-bottom: 1px solid #BEBEBE;  
+}
+
+@media only screen and (max-width: 992px) {
+  #views-exposed-form-search-page-1 .js-form-item-field-categoria {
+    display: none
+  }
+  #views-exposed-form-search-page-1 .js-form-item-search-api-fulltext, #views-exposed-form-search-page-1 .js-form-item-sort-order {
+    width: 100%;
+  }
+  #views-exposed-form-search-page-1 .js-form-item-search-api-fulltext input, #views-exposed-form-search-page-1 .js-form-item-sort-order select {
+    max-width: 100%;
+  }
 }
