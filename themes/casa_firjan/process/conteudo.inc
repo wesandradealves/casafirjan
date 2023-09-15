@@ -162,17 +162,19 @@ function casa_firjan_preprocess_page__conteudo(&$variables)
 
         $term = Term::load($tid['target_id']);
 
-        $term = $term->toArray();
+        if($term) {
+          $term = $term->toArray();
 
 
 
-        $tags[] = array(
-
-          'name' => $term['name'][0]['value'],
-
-          'path' => $term['path'][0]['alias']
-
-        );
+          $tags[] = array(
+  
+            'name' => $term['name'][0]['value'],
+  
+            'path' => $term['path'][0]['alias']
+  
+          );
+        }
 
       }
 
