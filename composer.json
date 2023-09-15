@@ -71,6 +71,7 @@
         "drupal/views_base_url": "^2.0@beta",
         "drupal/views_contextual_filters_or": "1.4",
         "drupal/views_data_export": "^1.0",
+        "drupal/views_infinite_scroll": "2.0",
         "drupal/webform": "^6.1",
         "drush/drush": "^11.6",
         "phpmailer/phpmailer": "^6.2",

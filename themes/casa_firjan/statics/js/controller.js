@@ -32,6 +32,14 @@ var Controller = {
     //
     Util.buscaHeader();
 
+    // Nova busca
+
+    $('#views-exposed-form-search-page-1').on('change','input:not([type="text"]), select', function(e) {
+      const timeoutId = setTimeout(function(){
+        $('#views-exposed-form-search-page-1').submit();
+      }, 1000)
+    });        
+
     //
     // Fecha Mensagem
     //
@@ -73,8 +81,6 @@ var Controller = {
     }  
 
     // 
-
-    console.log($(".menu--menu-principal a"));
 
     $('.menu--menu-principal a').on('click', function(e){
       $(this).attr('target', $(this).parent().attr('data-target'));
@@ -935,6 +941,8 @@ var Controller = {
     }); 
   },
   busca: function() {
+
+    // views-exposed-form-search-page-1
   
     var btnFilter = $('.btnFilterMobile'),
     lateral = $('.lateral'),
