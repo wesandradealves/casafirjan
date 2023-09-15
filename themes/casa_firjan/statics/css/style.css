@@ -11355,7 +11355,10 @@ label[for="edit-search-api-fulltext"] {
 
 @media only screen and (max-width: 992px) {
   #views-exposed-form-search-page-1 .js-form-item-field-categoria {
-    display: none
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    flex: 1;
   }
   #views-exposed-form-search-page-1 .js-form-item-search-api-fulltext, #views-exposed-form-search-page-1 .js-form-item-sort-order {
     width: 100%;
@@ -11365,9 +11368,46 @@ label[for="edit-search-api-fulltext"] {
   }
 }
 
+#views-exposed-form-search-page-1 .form-actions {
+  position: absolute;
+  bottom: initial;
+  top: 102px;
+  right: 2px;
+  z-index: 10;
+  width: 30px;
+  overflow: hidden;
+  border: 0;
+  background-color: transparent;
+}
+
+#views-exposed-form-search-page-1 .form-actions [type="submit"] {
+  width: 25px;
+  height: 25px;
+  background: url(https://www.svgrepo.com/show/7109/search.svg) center center / contain no-repeat transparent;
+  border: 0;
+  overflow: hidden;
+  text-indent: 300px;
+  opacity: .5;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 568px) {
+  #views-exposed-form-search-page-1 .form-actions {
+    top: 94px;
+  }
+}
+
 @media only screen and (min-width: 992px) {
   #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper ~ ul.js-pager__items.pager,
   #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper {
     width: 65%;
+  }
+  #views-exposed-form-search-page-1 .form-actions {
+    position: absolute;
+    bottom: 48px;
+    top: initial;
+    right: initial;
+    left: 320px;
+    z-index: 10;
   }
 }
