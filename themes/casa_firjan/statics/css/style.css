@@ -11187,13 +11187,12 @@ legend {
 }
 
 #views-exposed-form-search-page-1 .js-form-item-field-categoria select {
-  height: 900px;
   padding: 15px;
   border: 2px #393230 solid;
   box-shadow: none;
   outline: none;
   border-radius: 0;
-  overflow: hidden;
+  overflow: auto;
 }
 
 #views-exposed-form-search-page-1 .js-form-item-field-categoria select option:focus {
