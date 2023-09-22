@@ -256,196 +256,196 @@ var Controller = {
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-report-2022-2023',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/report-macrotendencias-2022-2023'
+            'url': '/report-macrotendencias/report-macrotendencias-2022-2023'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-70',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/70o-dossie-tendencias-da-blockchain'
+            'url': '/dossies/70o-dossie-tendencias-da-blockchain'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-71',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/71o-dossie-destaques-e-tendencias-nrf-2022'
+            'url': '/dossies/71o-dossie-destaques-e-tendencias-nrf-2022'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-reportsinais-01',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/1o-report-sinais-de-mudanca'
+            'url': '/outras-publicacoes/1o-report-sinais-de-mudanca-da-moda'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-72',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/72o-dossie-tendencias-esg-para-2022'
+            'url': '/dossies/72o-dossie-tendencias-esg-para-2022'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-73',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/73o-dossie-marketing-de-influencia-e-avatares'
+            'url': '/dossies/73o-dossie-marketing-de-influencia-e-avatares-digitais'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-74',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/74o-dossie-mercado-de-carbono-e-meta-net-zero'
+            'url': '/dossies/74o-dossie-mercado-de-carbono-e-meta-net-zero'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-75',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/75o-dossie-fundamentos-da-experiencia-do-usuario'
+            'url': '/dossies/75o-dossie-fundamentos-da-experiencia-do-usuario'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-76',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/76o-dossie-nft-nas-empresas'
+            'url': '/dossies/76o-dossie-nft-nas-empresas'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-77',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/77o-dossie-esg-e-capitalismo-de-stakeholders'
+            'url': '/dossies/77o-dossie-esg-e-o-capitalismo-de-stakeholders'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-mapeamento_IC_2022',
-            'url': '/pensamento/ambientes-de-inovacao/mapeamento-da-industria-criativa-2022'
+            'url': '/mapeamento-da-industria-criativa/mapeamento-da-industria-criativa-2022'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'oficina_CCD_link_interno_56_dossie',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/56o-dossie-empresas-nas-midias-sociais?utm_source=instagram&utm_medium=stories&utm_id=casa_firjan'
+            'url': '/dossies/56o-dossie-empresas-nas-midias-sociais'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie_saude_talks_1',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/dossie-especial-saude-integrada-talks'
+            'url': '/dossies/dossie-especial-saude-integrada-talks'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-78',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/78o-dossie-esg-para-lideres-do-futuro'
+            'url': '/dossies/78o-dossie-esg-para-lideres-do-futuro'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-tendencias-sxsw2022',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/dossie-tendencias-sxsw-2022'
+            'url': '/dossies/dossie-tendencias-sxsw-2022'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-79',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/79o-dossie-seguranca-psicologica-nas-empresas'
+            'url': '/dossies/79o-dossie-seguranca-psicologica-nas-empresas'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-80',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/80o-dossie-realidade-estendida-e-metaverso'
+            'url': '/dossies/80o-dossie-realidade-estendida-e-metaverso'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-81',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/81o-dossie-web-3-e-industrias'
+            'url': '/dossies/81o-dossie-web3-e-industrias'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-reportsinaismoda-01',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/1o-report-sinais-de-mudanca-da-moda'
+            'url': '/outras-publicacoes/1o-report-sinais-de-mudanca-da-moda'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-82',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/82o-dossie-diversidade-e-inclusao-na-pratica'
+            'url': '/dossies/82o-dossie-diversidade-e-inclusao-na-pratica'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-83',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/83o-dossie-design-thinking-e-aprendizagem'
+            'url': '/dossies/83o-dossie-design-thinking-e-aprendizagem'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-84',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/84o-dossie-economia-da-influencia-nas-empresas'
+            'url': '/dossies/84o-dossie-economia-da-influencia-nas-empresas'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-85',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/85o-dossie-tendencias-para-area-de-rh'
+            'url': '/dossies/85o-dossie-tendencias-para-area-de-rh'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-86',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/86o-dossie-estrategias-de-influencia-no-linkedin'
+            'url': '/dossies/86o-dossie-estrategias-de-influencia-no-linkedin'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-87',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/87o-dossie-lideranca-e-engajamento'
+            'url': '/dossies/87o-dossie-lideranca-e-engajamento'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-regional-competitividade-pmes',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/dossie-aquario-regional-competitividade-nas-pmes'
+            'url': '/dossies/dossie-aquario-regional-competitividade-nas-pmes'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'report_macrotendencias_2023_2024',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/report-macrotendencias-2023-2024'
+            'url': '/report-macrotendencias/report-macrotendencias-2023-2024'
         },
         {
             'event': 'custom_event',
             'event_action': 'clique',
             'event_category': 'download',
             'event_label': 'btn-dossie-88',
-            'url': '/lab-de-tendencias/artigos-estudos-e-pesquisas/88deg-dossie-blockchain-e-tokenizacao-de-ativos-nos'
+            'url': '/dossies/88deg-dossie-blockchain-e-tokenizacao-de-ativos-nos-negocios'
         }
     ];
     
@@ -454,13 +454,6 @@ var Controller = {
             // e.preventDefault(); 
             
             let event = events.find(item => window.location.pathname === item.url);
-            
-            console.log({
-                'event': event.event,
-                'event_action': event.event_action,
-                'event_category': event.event_category,
-                'event_label': event.event_label,
-            });
             
             window.dataLayer.push({
                 'event': event.event,
