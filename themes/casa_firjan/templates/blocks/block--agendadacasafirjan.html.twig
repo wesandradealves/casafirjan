@@ -38,7 +38,7 @@
                         {{dump(eventos)}}
                     {% endfor %}                     #}
                     {# {{dump(new_group|slice(1, 5))}} #}
-                    {% for data, eventos in new_group|slice(1, 5) %}
+                    {% for data, eventos in new_group|slice(0, 5) %}
                         <div class="eventos" data-date="{{data}}">
                             {% for evento in eventos %}
                                 <div class="d-block evento" onclick="window.location = '{{evento.url}}'">
