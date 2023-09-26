@@ -1,0 +1,34 @@
+name: casa-firjan
+recipe: drupal9
+
+config:
+  composer_version: '2'
+  php: '8.2'
+  via: 'nginx'
+  drush: ^11
+  webroot: .
+
+  xdebug: false
+  index: false
+  edge: false
+  cache: false
+
+env_file:
+  - .lando/.env
+
+services:
+  database:
+    portforward: 32770
+
+tooling:
+  dcg:
+    service: appserver
+    cmd: /app/vendor/bin/dcg
+  phpcs:
+    service: appserver
+    cmd: "/app/vendor/bin/phpcs --standard=Drupal,DrupalPractice"
+  dr:
+    service: appserver
+    cmd: drush
+    env:
+      DRUSH_OPTIONS_URI: "http://casa-firjan.lndo.site"

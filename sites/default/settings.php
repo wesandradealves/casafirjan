@@ -1,5 +1,9 @@
 <?php
 
+use Symfony\Component\Dotenv\Dotenv;
+
+(new Dotenv())->bootEnv(DRUPAL_ROOT . '/.env');
+
 // @codingStandardsIgnoreFile
 
 /**
@@ -789,7 +793,7 @@ $settings['entity_update_backup'] = TRUE;
 //     \PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
 //     ),
 // );
-$databases['default']['default'] = array (
+$databases['default']['default'] = [
   'database' => 'casafirjancityco_casafirjanprod',
   'username' => 'root',
   'password' => '',
@@ -798,7 +802,7 @@ $databases['default']['default'] = array (
   'port' => '3306',
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql'
-);
+];
 $config_directories['sync'] = 'sync';
 $settings['config_sync_directory'] = 'sync';
 
@@ -821,5 +825,4 @@ if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings.local.php';
 }
 
-$db_cert  =  $app_root . '/' . $site_path . '/DigiCertGlobalRootG2.crt.pem';
-
+$db_cert = $app_root . '/' . $site_path . '/DigiCertGlobalRootG2.crt.pem';
