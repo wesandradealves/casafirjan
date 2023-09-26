@@ -50,7 +50,7 @@
                                         <span class="d-flex align-items-center">
                                             <span class="title title p-2 ps-3 pe-3" title="{{evento.titulo}}">Saiba mais</span>
                                             <span class="info ps-2 ps-md-4">
-                                                <strong>Horário:</strong> {{evento.hora}}h{{evento.minutos}} 
+                                                <strong>Horário:</strong> {{evento.field_hora_de_inicio|split(':')|join('h')}} 
                                                 | <strong>Duração:</strong> {{evento.duracao}}
                                             </span>
                                         </span>       

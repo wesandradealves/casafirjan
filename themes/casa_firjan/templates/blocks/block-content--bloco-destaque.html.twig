@@ -83,7 +83,7 @@
                                 <div {# {% if url %} onclick="window.location = '{{url}}'" style="cursor: pointer" {% endif %} #} class="info {% if horizontal %} flex-fill ps-lg-5 {% endif %} {% if layout == 'yellow_box' %} p-5 pt-0 {% endif %}">
                                     {% if node.categoria %}
                                         <h4 class="category m-0 mb-2">
-                                            <a href="{{term.url}}">{{term.name}}</a>
+                                            {{term.name}}
                                         </h4>
                                     {% endif %}
 
