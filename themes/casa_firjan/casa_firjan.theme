@@ -7,6 +7,7 @@ use Drupal\gm5_interface\Plugin\Views\GM5Views;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\file\Entity\File;
+use Drupal\views\ViewExecutable;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\views\Views;
 use Drupal\node\Entity\Node;
@@ -2459,6 +2460,23 @@ function casa_firjan_preprocess_views_view_fullcalendar(&$variables)
         }
     }
 }
+
+
+function casa_firjan_views_pre_render(ViewExecutable $view) {
+    if($view->id() == 'search') {
+        $results = $view->result;
+        $searchFilter = array();
+        foreach ($results as $node) {
+            $tid = $node->_entity->get('field_categoria')[0]->target_id;
+
+            if(!array_key_exists($tid, $searchFilter)) {
+                $searchFilter[] = Term::load($tid);
+            }
+        }
+        $_SESSION['searchFilter'] = $searchFilter;
+    }
+}
+
 function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) {
     // unset($variables['form']['actions']['submit']);
     // unset($variables['form']['sort_by']['#options']['search_api_relevance']);
@@ -2473,6 +2491,14 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
     // $variables['form']['sort_order']['#value'] = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'DESC';
 
     $variables['form']['search_api_fulltext']['#attributes'] = array('placeholder' => array(t('O que você está buscando?')));
+
+    $variables['form']['field_categoria']['#options'] = [];
+
+    if($_SESSION['searchFilter']) {
+        foreach ($_SESSION['searchFilter'] as $term) {
+            $variables['form']['field_categoria']['#options'][$term->id()] = $term->name->value;
+        }
+    }
 
     foreach ($variables['form']['field_categoria']['#options'] as $key => $value) {
         $query = \Drupal::entityQuery('node')
