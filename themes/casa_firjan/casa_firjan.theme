@@ -2124,6 +2124,13 @@ function casa_firjan_preprocess_block(&$variables)
                 $eventoItem['hora'] = $data->format('H');
                 $eventoItem['minutos'] = $data->format('i');
 
+
+                $date = new DateTime($evento['field_hora_de_inicio'][0]['value']);
+
+                // dump(date('Y-m-d H:i:s', strtotime($evento['field_hora_de_inicio'][0]['value']. ' - 3 hours')));
+
+                $eventoItem['field_hora_de_inicio'] = date('H:i', strtotime($evento['field_hora_de_inicio'][0]['value']. ' - 3 hours'));
+
                 ksort($variables['new_group']);
 
                 if ($today <= $data)
