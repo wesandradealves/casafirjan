@@ -34,11 +34,11 @@ var Controller = {
 
     // Nova busca
 
-    $('#views-exposed-form-search-page-1').on('change','input:not([type="text"]), select', function(e) {
-      const timeoutId = setTimeout(function(){
-        $('#views-exposed-form-search-page-1').submit();
-      }, 1000)
-    });        
+    // $('#views-exposed-form-search-page-1').on('change','input:not([type="text"]), select', function(e) {
+    //   const timeoutId = setTimeout(function(){
+    //     $('#views-exposed-form-search-page-1').submit();
+    //   }, 1000)
+    // });        
 
     //
     // Fecha Mensagem

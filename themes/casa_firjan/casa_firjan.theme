@@ -2482,6 +2482,8 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
     // unset($variables['form']['sort_by']['#options']['search_api_relevance']);
     $variables['form']['sort_order']['#title'] = "Ordenar por:";
 
+    $variables['form']['search_api_fulltext']['#title'] = isset($_GET['search_api_fulltext']) && $_GET['search_api_fulltext'] !== '' ? '<b>Termo buscado:</b> '.$_GET['search_api_fulltext'] : 'Busca';
+
     $variables['form']['sort_by']['#attributes']['class'] = array('d-none');
     unset($variables['form']['sort_by']['#title']);
 
@@ -2492,11 +2494,13 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
 
     $variables['form']['search_api_fulltext']['#attributes'] = array('placeholder' => array(t('O que você está buscando?')));
 
-    $variables['form']['field_categoria']['#options'] = [];
-
     if($_SESSION['searchFilter']) {
+        $variables['form']['field_categoria']['#options'] = [];
+
         foreach ($_SESSION['searchFilter'] as $term) {
-            $variables['form']['field_categoria']['#options'][$term->id()] = $term->name->value;
+            if($term) {
+                $variables['form']['field_categoria']['#options'][$term->id()] = $term->name->value;
+            }
         }
     }
 
@@ -2504,14 +2508,19 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
         $query = \Drupal::entityQuery('node')
             ->sort('created' , 'DESC')
             ->condition('type', 'conteudo')
-            ->condition('field_categoria', array($key), 'IN')->condition('status', 1);
+            ->condition('field_categoria', array($key), 'IN')
+            ->condition('status', 1);
+
+        // if(isset($_GET['search_api_fulltext'])) {
+        //     $query->condition('title', $_GET['search_api_fulltext'], 'CONTAINS');
+        // }
 
         $result = $query->execute();
         $storage = \Drupal::entityTypeManager()->getStorage('node');
         $nodes = $storage->loadMultiple($result);
 
         if(count($nodes)) {
-            $variables['form']['field_categoria']['#options'][$key] = $value.' ('.count($nodes).')';
+            // $variables['form']['field_categoria']['#options'][$key] = $value.' ('.count($nodes).')';
         } else {
             unset($variables['form']['field_categoria']['#options'][$key]);
         }
