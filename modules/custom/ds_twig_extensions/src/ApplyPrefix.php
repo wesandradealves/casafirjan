@@ -60,6 +60,7 @@ function slugify($text, string $divider = '-')
 class ApplyPrefix extends AbstractExtension {
     public function getFunctions() {
         return [
+          new TwigFunction('getSearchResultsHeading', [$this, '_getSearchResultsHeading']),
           new TwigFunction('slugify', [$this, '_slugify']),
           new TwigFunction('get_term', [$this, '_get_term']),
           new TwigFunction('get_image_from_id', [$this, '_get_image_from_id']),
@@ -73,6 +74,23 @@ class ApplyPrefix extends AbstractExtension {
           new TwigFunction('getTermAlias', [$this, '_getTermAlias']),
         ];
     }
+
+    public function _getSearchResultsHeading() {
+        if(\Drupal::routeMatch()->getRouteName()==='view.search.page_1') {
+            $view = explode('.', \Drupal::routeMatch()->getRouteName());
+
+            $view = \Drupal::entityTypeManager()
+            ->getStorage('view')
+            ->load($view[1])
+            ->getExecutable();
+
+            $view->initDisplay();
+            $view->execute();
+            $result = $view->result; 
+            
+            print "<p class='search-results mt-3 mb-3 d-none d-lg-block'>Foram encontrados ".count($result)." resultados".(isset($_GET['search_api_fulltext']) && $_GET['search_api_fulltext'] !== '' ? ' para o termo "<b>'.$_GET['search_api_fulltext'].'</b>".' : '.')."<br/><br/><b>Confira:</b></p>";
+        }
+    }    
 
     public function _slugify($text, string $divider = '-'){
         $slugify = new Slugify();
