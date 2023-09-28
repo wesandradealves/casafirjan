@@ -322,7 +322,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           link_to_item: false
-          use_highlighting: true
+          use_highlighting: false
           multi_type: separator
           multi_separator: ', '
       pager:
@@ -427,12 +427,6 @@ display:
           parse_mode: terms
           min_length: null
           fields:
-            - field_autor
-            - field_descricao
-            - field_texto
-            - field_texto_1
-            - field_topico
-            - field_topicos
             - title
         type:
           id: type
@@ -492,7 +486,7 @@ display:
           exposed: true
           expose:
             operator_id: field_categoria_op
-            label: Programa/Subprograma
+            label: 'Filtrar por:'
             description: ''
             use_operator: false
             operator: field_categoria_op

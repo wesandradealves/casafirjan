@@ -11154,44 +11154,46 @@ legend {
 #views-exposed-form-search-page-1 {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px 0;
   position: relative;
-  padding-top: 45px;
+  margin-top: 45px;
+  /* width: 410px; */
 }
 
-#views-exposed-form-search-page-1 .js-form-item-search-api-fulltext input,
+
+/* #views-exposed-form-search-page-1 .js-form-item-search-api-fulltext input,
 #views-exposed-form-search-page-1 .js-form-item-sort-order select {
   width: 100%;
-  max-width: 350px;
-}
+} */
 
 #views-exposed-form-search-page-1 .js-form-item-search-api-fulltext input {
-  border: 1px solid #393230;
+  border: 1px solid var(--yellow);
   position: relative;
-  padding: 5px 10px;
+  padding: 5px 15px;
   border-radius: 0;
+  border-radius: 999px;
 }
 
 #views-exposed-form-search-page-1 .js-form-item-search-api-fulltext,
 #views-exposed-form-search-page-1 .js-form-item-sort-order {
   flex: 0 0 auto;
-  width: 70%;
+  /* width: 70%; */
 }
 
 #views-exposed-form-search-page-1 .js-form-item-sort-order {
   display: flex;
-  align-items: flex-end;
-  gap: 10px;  
+  flex-direction: column;
+  gap: 5px;  
 }
 
 #views-exposed-form-search-page-1 .js-form-item-sort-order select {
-  border: 0;
-  border-bottom: 1px solid #818181;
+  border-radius: 999px;
+  border: 1px var(--yellow) solid;
   outline: none;
-  border-radius: 0;
-  padding-left: 0;
-  padding-bottom: 1px;
-  font-weight: 300;
+  padding: 10px 20px;
+  font-style: italic;
+  margin-top: 10px;
 }
 
 #views-exposed-form-search-page-1 .js-form-item-sort-order label {
@@ -11205,31 +11207,31 @@ legend {
 
 #views-exposed-form-search-page-1 .js-form-item-field-categoria {
   order: 3;
-  flex: 0 0 30%;
+  /* flex: 0 0 30%;
   max-width: 30%;  
   margin-left: auto;
   position: absolute;
-  right: 0;
+  right: 0; */
 }
 
 #views-exposed-form-search-page-1 .js-form-item-field-categoria label {
-  background: #393230;
+  /* background: #393230;
   padding: 15px;
   margin: 0;
   text-transform: uppercase;
   color: white;
   font-size: 1.25rem;
   display: block;
-  width: 100%;
+  width: 100%; */
 }
 
 #views-exposed-form-search-page-1 .js-form-item-field-categoria select {
-  padding: 15px;
-  border: 2px #393230 solid;
+  border: 0;
+  padding: 0;
   box-shadow: none;
   outline: none;
   border-radius: 0;
-  overflow: auto;
+  overflow: auto; 
 }
 
 #views-exposed-form-search-page-1 .js-form-item-field-categoria select option:focus {
@@ -11269,6 +11271,7 @@ legend {
   top: 1px;
   display: inline-block;
   flex: 0 0 auto;
+  border-radius: 999px;
 }
 
 #views-exposed-form-search-page-1 .js-form-item-field-categoria select option:checked {
@@ -11283,13 +11286,11 @@ legend {
 
 #views-exposed-form-search-page-1 .js-form-item-sort-order {
   order: 2;
-  width: 75%;
 }
 
 label[for="edit-search-api-fulltext"] {
   font-size: 1.625rem;
   color: #393230;
-  text-transform: uppercase;
   font-weight: 500;  
 }
 
@@ -11339,6 +11340,7 @@ label[for="edit-search-api-fulltext"] {
   margin: 5px 0 2px;
 }
 
+#views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper .views-field-title *,
 #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper .views-field-title {
   color: #393230;
   font-size: 1rem !important;
@@ -11354,30 +11356,20 @@ label[for="edit-search-api-fulltext"] {
 }
 
 @media only screen and (max-width: 992px) {
-  #views-exposed-form-search-page-1 .js-form-item-field-categoria {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    flex: 1;
-  }
-  #views-exposed-form-search-page-1 .js-form-item-search-api-fulltext, #views-exposed-form-search-page-1 .js-form-item-sort-order {
-    width: 100%;
-  }
-  #views-exposed-form-search-page-1 .js-form-item-search-api-fulltext input, #views-exposed-form-search-page-1 .js-form-item-sort-order select {
-    max-width: 100%;
+  #views-exposed-form-search-page-1 .js-form-item-field-categoria select {
+    height: 105px;
   }
 }
 
 #views-exposed-form-search-page-1 .form-actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  top: 67px;
+  z-index: 2;
   position: absolute;
-  bottom: initial;
-  top: 102px;
-  right: 2px;
-  z-index: 10;
-  width: 30px;
-  overflow: hidden;
-  border: 0;
-  background-color: transparent;
+  height: 0;
+  padding: 0 15px;
 }
 
 #views-exposed-form-search-page-1 .form-actions [type="submit"] {
@@ -11391,23 +11383,47 @@ label[for="edit-search-api-fulltext"] {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 568px) {
-  #views-exposed-form-search-page-1 .form-actions {
-    top: 94px;
-  }
+#views-exposed-form-search-page-1 .js-form-item-sort-order,
+#views-exposed-form-search-page-1 .js-form-item-field-categoria {
+  margin-top: 20px;
+}
+
+#views-exposed-form-search-page-1 .js-form-item-sort-order label,
+#views-exposed-form-search-page-1 .js-form-item-field-categoria label {
+  font-weight: bold;
+}
+
+p.search-results b {
+  font-weight: bold;
 }
 
 @media only screen and (min-width: 992px) {
+  #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper,
   #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper ~ ul.js-pager__items.pager,
-  #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper {
-    width: 65%;
+  #views-exposed-form-search-page-1 .form-actions,
+  #views-exposed-form-search-page-1 .js-form-item-search-api-fulltext {
+    width: 50%;
   }
-  #views-exposed-form-search-page-1 .form-actions {
-    position: absolute;
-    bottom: 48px;
-    top: initial;
-    right: initial;
-    left: 320px;
-    z-index: 10;
+  #views-exposed-form-search-page-1 .js-form-item-sort-order {
+    margin-top: -158px;
+  }
+  #views-exposed-form-search-page-1 {
+    margin-bottom: -390px;
+  }
+  #views-exposed-form-search-page-1 .js-form-item-field-categoria select {
+    height: 400px;
+  }
+  #views-exposed-form-search-page-1 .js-form-item-sort-order,
+  #views-exposed-form-search-page-1 .js-form-item-field-categoria {
+    margin-left: auto;
+    width: 410px;
+  }
+  #views-exposed-form-search-page-1 .js-form-item-sort-order label,
+  #views-exposed-form-search-page-1 .js-form-item-field-categoria label {
+    text-align: right;
+    display: block;
+  }
+  #views-exposed-form-search-page-1 .js-form-item-field-categoria select option {
+    flex-flow: row-reverse;
   }
 }
