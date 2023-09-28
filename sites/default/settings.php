@@ -1,8 +1,8 @@
 <?php
 
-use Symfony\Component\Dotenv\Dotenv;
+// use Symfony\Component\Dotenv\Dotenv;
 
-(new Dotenv())->bootEnv(DRUPAL_ROOT . '/.env');
+// (new Dotenv())->bootEnv(DRUPAL_ROOT . '/.env');
 
 // @codingStandardsIgnoreFile
 
