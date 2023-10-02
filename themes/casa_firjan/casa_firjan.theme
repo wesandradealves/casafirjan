@@ -1791,7 +1791,7 @@ function casa_firjan_preprocess_block(&$variables)
     }
     elseif ($machine_name == 'bloconewsletter')
     {   
-        
+
     }    
     elseif ($machine_name == 'bannerhome')
     {

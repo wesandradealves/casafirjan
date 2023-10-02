@@ -55,6 +55,9 @@
         </form> #}
         {{ drupal_entity('webform', 'newsletter') }}
 
+        {% if customPage.queryString.sucesso is defined %}
+          <div class="msg success center">Cadastro efetuado com sucesso!<i class="icon-close"></i></div>
+        {% endif %}
       </div>
     </div>
   </section>
