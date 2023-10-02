@@ -406,7 +406,7 @@ display:
           expose:
             operator_id: search_api_fulltext_op
             label: 'RESULTADO DA BUSCA'
-            description: ''
+            description: 'O que você está buscando?'
             use_operator: false
             operator: search_api_fulltext_op
             operator_limit_selection: false
