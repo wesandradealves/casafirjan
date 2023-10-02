@@ -11378,6 +11378,8 @@ label[for="edit-search-api-fulltext"] {
 
 #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper {
   margin-top: 30px;
+  position: relative;
+  z-index: 50;
 }
 
 #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper ~ ul.js-pager__items.pager {
@@ -11514,7 +11516,9 @@ p.search-results b {
     width: 100%;
   }
   section.search {
-    padding-top: 140px;
+    padding-top: 215px;
+    position: relative;
+    z-index: 50;
   }
   .search .no-results {
     margin-bottom: 138px;

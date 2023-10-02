@@ -2491,8 +2491,20 @@ function casa_firjan_views_pre_render(ViewExecutable $view) {
 }
 
 function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) {
-    // unset($variables['form']['actions']['submit']);
-    // unset($variables['form']['sort_by']['#options']['search_api_relevance']);
+
+    $view = explode('.', \Drupal::routeMatch()->getRouteName());
+
+    $view = \Drupal::entityTypeManager()
+    ->getStorage('view')
+    ->load($view[1])
+    ->getExecutable();
+
+    $view->initDisplay();
+    $view->execute();
+    $result = $view->result;     
+
+    $variables['form']['search_api_fulltext']['#description'] = "<p class='search-results mt-3 mb-3 d-none d-lg-block'>Foram encontrados ".count($result)." resultados".(isset($_GET['search_api_fulltext']) && $_GET['search_api_fulltext'] !== '' ? ' para o termo "<b>'.$_GET['search_api_fulltext'].'</b>".' : '.')."<br/><br/><b>Confira:</b></p>";
+   
     $variables['form']['sort_order']['#title'] = "Ordenar por:";
 
     $variables['form']['search_api_fulltext']['#title'] = isset($_GET['search_api_fulltext']) && $_GET['search_api_fulltext'] !== '' ? '<b>Termo buscado:</b> '.$_GET['search_api_fulltext'] : 'Busca';
@@ -2502,8 +2514,6 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
 
     $variables['form']['sort_order']['#options']['ASC'] = 'Os mais antigos primeiro';
     $variables['form']['sort_order']['#options']['DESC'] = 'Os mais recentes primeiro';
-
-    // $variables['form']['sort_order']['#value'] = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'DESC';
 
     $variables['form']['search_api_fulltext']['#attributes'] = array('placeholder' => array(t('O que você está buscando?')));
 
