@@ -32,6 +32,29 @@ var Controller = {
     //
     Util.buscaHeader();
 
+    function MTel(v){
+      v=v.replace(/\D/g,"");   	         			//Remove tudo o que não é dígito
+      v=v.replace(/(\d{2})(\d)/,"($1) $2")       	//Coloca parênteses em volta dos dois primeiros dígitos
+      v=v.replace(/(\d{3})(\d{1,4})$/,"$1-$2")   	//Coloca hífen entre o quarto e o quinto dígitos
+      return v;
+    }
+
+    function execmascara(){
+      v_obj.value=v_fun(v_obj.value)
+    }
+    
+    function Mascara(o,f){
+      v_obj=o
+      v_fun=f
+      setTimeout(execmascara, 1)
+  	}
+
+    ['keydown', 'keypress', 'keyup'].forEach(event => {
+      $('[name*="telefone"], [name*="celular"], #edit-celular--2').on(event, function () {
+        Mascara(this, MTel);
+      });	  
+    });
+
     // Nova busca
 
     // $('#views-exposed-form-search-page-1').on('change','input:not([type="text"]), select', function(e) {
@@ -888,30 +911,30 @@ var Controller = {
     
     // $('[name*="telefone"], [name*="celular"]').mask('00000-000', options);
 
-    function MTel(v){
-      v=v.replace(/\D/g,"");   	         			//Remove tudo o que não é dígito
-      v=v.replace(/(\d{2})(\d)/,"($1) $2")       	//Coloca parênteses em volta dos dois primeiros dígitos
-      v=v.replace(/(\d{3})(\d{1,4})$/,"$1-$2")   	//Coloca hífen entre o quarto e o quinto dígitos
-      return v;
-    }
+    // function MTel(v){
+    //   v=v.replace(/\D/g,"");   	         			//Remove tudo o que não é dígito
+    //   v=v.replace(/(\d{2})(\d)/,"($1) $2")       	//Coloca parênteses em volta dos dois primeiros dígitos
+    //   v=v.replace(/(\d{3})(\d{1,4})$/,"$1-$2")   	//Coloca hífen entre o quarto e o quinto dígitos
+    //   return v;
+    // }
 
-    function execmascara(){
-      v_obj.value=v_fun(v_obj.value)
-    }
+    // function execmascara(){
+    //   v_obj.value=v_fun(v_obj.value)
+    // }
     
-    function Mascara(o,f){
-      v_obj=o
-      v_fun=f
-      setTimeout(execmascara, 1)
-  	}
+    // function Mascara(o,f){
+    //   v_obj=o
+    //   v_fun=f
+    //   setTimeout(execmascara, 1)
+  	// }
 
-    let events = ['keydown', 'keypress', 'keyup'];
+    // let events = ['keydown', 'keypress', 'keyup'];
 
-    events.forEach(event => {
-      $('[name*="telefone"], [name*="celular"]').on(event, function () {
-        Mascara(this, MTel);
-      });	  
-    });
+    // events.forEach(event => {
+    //   $('[name*="telefone"], [name*="celular"]').on(event, function () {
+    //     Mascara(this, MTel);
+    //   });	  
+    // });
 
     $('[name*="cep"]').mask('00000-000');
 
