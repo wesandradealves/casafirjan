@@ -1,16 +1,26 @@
 uuid: dc6e71c0-0e80-4984-9c08-e118520e1115
 langcode: pt-br
-status: true
+status: false
 dependencies:
   content:
     - 'block_content:basic:f58e2db9-9dce-4fdf-a15d-0c91f3253fe1'
   module:
+    - blocache
     - block_content
   theme:
     - casa_firjan
+third_party_settings:
+  blocache:
+    overridden: true
+    metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+      tags:
+        - 'config:block.block.bloconewsletter'
 id: bloconewsletter
 theme: casa_firjan
-region: Footer
+region: breadcrumb
 weight: 0
 provider: null
 plugin: 'block_content:f58e2db9-9dce-4fdf-a15d-0c91f3253fe1'
