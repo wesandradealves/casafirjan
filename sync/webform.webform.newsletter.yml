@@ -160,8 +160,8 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: page
-  confirmation_url: ''
+  confirmation_type: inline
+  confirmation_url: '/?sucesso=true'
   confirmation_title: ''
   confirmation_message: ''
   confirmation_attributes: {  }
