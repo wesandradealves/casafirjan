@@ -16,25 +16,46 @@ elements: |-
   nome:
     '#type': textfield
     '#title': 'Seu nome'
+    '#title_display': none
+    '#description_display': invisible
+    '#placeholder': 'Informe o seu nome'
     '#required': true
   sobrenome:
     '#type': textfield
     '#title': Sobrenome
+    '#title_display': none
+    '#description_display': invisible
+    '#placeholder': 'Informe o seu sobrenome'
+    '#autocomplete': 'off'
     '#required': true
   celular:
     '#type': textfield
     '#title': Celular
+    '#title_display': none
+    '#description_display': invisible
+    '#placeholder': 'Informe o seu celular'
   e_mail:
     '#type': email
     '#title': E-Mail
+    '#title_display': none
+    '#description_display': invisible
+    '#placeholder': 'Informe o seu e-mail'
     '#required': true
     '#unique': true
   aceite_termos_de_uso:
     '#type': checkboxes
-    '#title': 'Aceite Termos de Uso'
+    '#title': 'Li e concordo com os termos de uso e privacidade.'
+    '#title_display': inline
+    '#description_display': invisible
     '#options':
       aceito: aceito
     '#required': true
+    '#wrapper_type': form_element
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#submit__label': Enviar
+    '#update_hide': true
 css: ''
 javascript: ''
 settings:
@@ -43,16 +64,16 @@ settings:
   ajax_progress_type: ''
   ajax_effect: ''
   ajax_speed: null
-  page: true
+  page: false
   page_submit_path: ''
   page_confirm_path: ''
   page_theme_name: ''
-  form_title: both
+  form_title: source_entity_webform
   form_submit_once: false
   form_open_message: ''
   form_close_message: ''
   form_exception_message: ''
-  form_previous_submissions: true
+  form_previous_submissions: false
   form_confidential: false
   form_confidential_message: ''
   form_disable_remote_addr: false
@@ -87,7 +108,7 @@ settings:
   submission_label: ''
   submission_exception_message: ''
   submission_locked_message: ''
-  submission_log: false
+  submission_log: true
   submission_excluded_elements: {  }
   submission_exclude_empty: false
   submission_exclude_empty_checkbox: false
@@ -122,6 +143,8 @@ settings:
   wizard_toggle: false
   wizard_toggle_show_label: ''
   wizard_toggle_hide_label: ''
+  wizard_page_type: container
+  wizard_page_title_tag: h2
   preview: 0
   preview_label: ''
   preview_title: ''
