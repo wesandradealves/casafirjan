@@ -57,11 +57,13 @@ var Controller = {
 
     // Nova busca
 
-    // $('#views-exposed-form-search-page-1').on('change','input:not([type="text"]), select', function(e) {
-    //   const timeoutId = setTimeout(function(){
-    //     $('#views-exposed-form-search-page-1').submit();
-    //   }, 1000)
-    // });        
+    $('.search').on('change','[name*="categoria"]', function(e) {
+      document.getElementById("edit-search-api-fulltext").value = "";
+    });  
+    
+    $('.search').on('change','[name*="fulltext"]', function(e) {
+      document.getElementById("edit-field-categoria").value = "";
+    });      
 
     //
     // Fecha Mensagem
