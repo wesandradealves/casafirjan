@@ -1789,6 +1789,10 @@ function casa_firjan_preprocess_block(&$variables)
                 ->name->value];
         }
     }
+    elseif ($machine_name == 'bloconewsletter')
+    {   
+
+    }    
     elseif ($machine_name == 'bannerhome')
     {
         $nidsParaFiltrar = array();
@@ -2524,5 +2528,11 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
         } else {
             unset($variables['form']['field_categoria']['#options'][$key]);
         }
+    }
+}
+
+function casa_firjan_form_alter(&$form, $form_state, $form_id) {
+    if($form_id == 'webform_submission_newsletter_node_6_add_form') {
+        // dump($form['elements']['aceite_termos_de_uso']);
     }
 }

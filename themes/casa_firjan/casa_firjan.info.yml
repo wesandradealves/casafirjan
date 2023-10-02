@@ -12,7 +12,6 @@ regions:
   breadcrumb: 'Breadcrumb'
   content: 'Content'
   sidebar: 'Sidebar'
-  Footer: 'Footer'
 components:
   namespaces:
     partials:

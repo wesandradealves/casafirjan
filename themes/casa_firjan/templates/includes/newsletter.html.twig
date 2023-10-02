@@ -5,7 +5,7 @@
       </div>
       <div class="ms-md-3 flex-fill">
         <p class="chamada">{{title}} <small class="d-block mt-3">{{text}}</small></p>
-        <form class="formNews mt-4 col-12 row d-flex flex-wrap justify-content-between p-0 m-0"
+        {# <form class="formNews mt-4 col-12 row d-flex flex-wrap justify-content-between p-0 m-0"
           action="{{customPage.newsletter.form.action}}" method="post" id="newsletter">
           <div class="col-lg-6 pe-lg-4 p-0">
             <input
@@ -52,7 +52,12 @@
             <div class="msg success center">Cadastro efetuado com sucesso!<i class="icon-close"></i></div>
             {% endif %}
           </div>
-        </form>
+        </form> #}
+        {{ drupal_entity('webform', 'newsletter') }}
+
+        {% if customPage.queryString.sucesso is defined %}
+          <div class="msg success center">Cadastro efetuado com sucesso!<i class="icon-close"></i></div>
+        {% endif %}
       </div>
     </div>
   </section>
