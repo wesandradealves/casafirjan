@@ -1666,7 +1666,7 @@ function casa_firjan_preprocess_block(&$variables)
                 ->field_headline->value;
         }
 
-        $variables['breadcrumb'] = [];
+        $variables['is_search'] = \Drupal::routeMatch()->getRouteName() == 'view.search.page_1' ? 1 : 0;
 
         if ($node instanceof \Drupal\node\NodeInterface)
         {
@@ -1768,6 +1768,11 @@ function casa_firjan_preprocess_block(&$variables)
                 $variables['breadcrumb'][] = ["text" => $term_name, "url" => '', "headline" => $term_obj->hasField('field_resumo') ? htmlspecialchars_decode(strip_tags($term_obj->get('field_resumo')
                     ->value)) : null];
             }
+        }
+        elseif ($variables['is_search']) {
+            $block = Block::load($variables['elements']['#id']);
+            $block = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $block->getPlugin()->getDerivativeId());
+            $variables['breadcrumb'][] = ["text" => "Resultados de Busca", "url" => "", "headline" => $block ? strip_tags($block->body->value) : ''];
         }
     }
     elseif ($machine_name == 'tagcloud')
@@ -2212,7 +2217,11 @@ function casa_firjan_preprocess_breadcrumb(&$variables)
 
 function casa_firjan_form_system_theme_settings_alter(&$form, FormStateInterface $form_state)
 {
-
+    // $form['Busca'] = array(
+    //     '#type' => 'textarea',
+    //     '#title' => t('Search Breadcrumb Headline'),
+    //     '#default_value' => theme_get_setting('search_headline')
+    // ); 
 }
 
 function casa_firjan_preprocess(&$variables)
@@ -2528,7 +2537,7 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
         } else {
             unset($variables['form']['field_categoria']['#options'][$key]);
         }
-    }
+    } 
 }
 
 function casa_firjan_form_alter(&$form, $form_state, $form_id) {

@@ -10,6 +10,7 @@
  */
 #}
 {% set headline = '' %}
+
 {% block content %}
     {% if term %}
       <nav class="breadcrumb mb-5" role="navigation" aria-labelledby="system-breadcrumb">
@@ -43,5 +44,7 @@
           {% endif %}
         </div>
       </nav>
+    {% elseif is_search %}
+        Busca aqui
     {% endif %}
 {% endblock %}
