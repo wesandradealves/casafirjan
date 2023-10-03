@@ -2541,16 +2541,16 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
             ->condition('field_categoria', array($key), 'IN')
             ->condition('status', 1);
 
-        // if(isset($_GET['search_api_fulltext'])) {
-        //     $query->condition('title', $_GET['search_api_fulltext'], 'CONTAINS');
-        // }
+        if(isset($_GET['search_api_fulltext'])) {
+            $query->condition('title', $_GET['search_api_fulltext'], 'CONTAINS');
+        }
 
         $result = $query->execute();
         $storage = \Drupal::entityTypeManager()->getStorage('node');
         $nodes = $storage->loadMultiple($result);
 
         if(count($nodes)) {
-            // $variables['form']['field_categoria']['#options'][$key] = $value.' ('.count($nodes).')';
+            $variables['form']['field_categoria']['#options'][$key] = $value.' ('.count($nodes).')';
         } else {
             unset($variables['form']['field_categoria']['#options'][$key]);
         }

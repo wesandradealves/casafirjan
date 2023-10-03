@@ -58,7 +58,7 @@ var Controller = {
     // Nova busca
 
     $('.search').on('change','[name*="categoria"]', function(e) {
-      document.getElementById("edit-search-api-fulltext").value = "";
+      // document.getElementById("edit-search-api-fulltext").value = "";
       $(this).closest('form').submit()
     });  
     
