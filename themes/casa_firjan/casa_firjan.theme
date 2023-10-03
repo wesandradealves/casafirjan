@@ -2549,10 +2549,12 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
         $storage = \Drupal::entityTypeManager()->getStorage('node');
         $nodes = $storage->loadMultiple($result);
 
-        if(count($nodes)) {
-            $variables['form']['field_categoria']['#options'][$key] = $value.' ('.count($nodes).')';
-        } else {
-            unset($variables['form']['field_categoria']['#options'][$key]);
+        if(count($result)) {
+            if(count($nodes)) {
+                $variables['form']['field_categoria']['#options'][$key] = $value.' ('.count($nodes).')';
+            } else {
+                unset($variables['form']['field_categoria']['#options'][$key]);
+            }
         }
     } 
 }
