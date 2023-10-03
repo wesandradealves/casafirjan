@@ -2478,7 +2478,9 @@ function casa_firjan_preprocess_views_view_fullcalendar(&$variables)
 function casa_firjan_views_pre_render(ViewExecutable $view) {
     if($view->id() == 'search') {
         $results = $view->result;
+
         $searchFilter = array();
+
         foreach ($results as $node) {
             $tid = $node->_entity->get('field_categoria')[0]->target_id;
 
@@ -2486,7 +2488,12 @@ function casa_firjan_views_pre_render(ViewExecutable $view) {
                 $searchFilter[] = Term::load($tid);
             }
         }
+
         $_SESSION['searchFilter'] = $searchFilter;
+
+        if(empty($results)) {
+            $view->display_handler->setOption('css_class', 'no-results');
+        }
     }
 }
 

@@ -11495,7 +11495,8 @@ p.search-results b {
     margin-bottom: -390px;
   } */
   #views-exposed-form-search-page-1 .js-form-item-field-categoria select {
-    height: 138px;
+    height: -webkit-fill-available;
+    overflow: initial;
   }
   #views-exposed-form-search-page-1 .js-form-item-sort-order,
   #views-exposed-form-search-page-1 .js-form-item-field-categoria {
@@ -11520,6 +11521,9 @@ p.search-results b {
     position: relative;
     z-index: 50;
   }
+  section.search.no-results {
+    min-height: 1280px;
+  }
   .search .no-results {
     margin-bottom: 138px;
   }
@@ -11537,4 +11541,9 @@ footer .newsletter .webform-submission-form .form-submit:hover {
 
 .views-element-container {
   position: relative
+}
+
+select[multiple]:focus option:checked {
+  background: white linear-gradient(0deg, white 0%, white 100%);
+  -webkit-text-fill-color: black; 
 }

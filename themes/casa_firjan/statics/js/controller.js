@@ -59,11 +59,14 @@ var Controller = {
 
     $('.search').on('change','[name*="categoria"]', function(e) {
       document.getElementById("edit-search-api-fulltext").value = "";
+      $(this).closest('form').submit()
     });  
     
-    $('.search').on('change','[name*="fulltext"]', function(e) {
-      document.getElementById("edit-field-categoria").value = "";
-    });      
+    ['chamge', 'keydown', 'keypress', 'keyup'].forEach(event => {
+      $('.search').on(event,'[name*="fulltext"]', function(e) {
+        document.getElementById("edit-field-categoria").value = "";
+      });      
+    });    
 
     //
     // Fecha Mensagem
