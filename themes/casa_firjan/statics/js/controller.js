@@ -61,6 +61,14 @@ var Controller = {
       // document.getElementById("edit-search-api-fulltext").value = "";
       $(this).closest('form').submit()
     });  
+
+    ['change', 'click', 'focus'].forEach(event => {
+      $('.search').on(event,'[name*="categoria"]', function(e) {
+        if(window.location.href.indexOf("field_categoria") > -1 && !$(".search").hasClass("no-results")) {
+          window.location.href = window.location.search.split("&").filter(str => !!str.indexOf('field_categoria')).join("&");
+        }
+      });  
+    });
     
     ['chamge', 'keydown', 'keypress', 'keyup'].forEach(event => {
       $('.search').on(event,'[name*="fulltext"]', function(e) {
