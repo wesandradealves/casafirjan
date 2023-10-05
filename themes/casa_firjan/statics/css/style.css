@@ -1423,7 +1423,7 @@ border-bottom: 1px white solid
 
   }
 
-  footer .newsletter .formNews .btn {
+  footer .newsletter .webform-submission-form .btn {
 
     width: 100%;
 
@@ -7036,6 +7036,8 @@ footer .newsletter .box {
 
 footer .newsletter .chamada {
 
+  margin-bottom: 25px;
+
   font-size: 1.5rem;
 
   color: #6D6C6C;
@@ -7066,21 +7068,21 @@ footer .newsletter .title {
 
 }
 
-footer .newsletter .formNews .col-lg-12 {
+footer .newsletter .webform-submission-form .col-lg-12 {
 
   margin-bottom: 10px;
 
 }
 
-footer .newsletter .formNews input.email,
+footer .newsletter .webform-submission-form input.email,
 
-footer .newsletter .formNews input.sobrenome,
+footer .newsletter .webform-submission-form input.sobrenome,
 
-footer .newsletter .formNews input.celular,
+footer .newsletter .webform-submission-form input.celular,
 
-footer .newsletter .formNews input.nome,
+footer .newsletter .webform-submission-form input.nome,
 
-footer .newsletter .formNews input.aceite_termos_de_uso {
+footer .newsletter .webform-submission-form input.aceite_termos_de_uso {
 
   padding: 5px 15px;
 
@@ -7090,24 +7092,78 @@ footer .newsletter .formNews input.aceite_termos_de_uso {
 
 }
 
-footer .newsletter .formNews input.aceite_termos_de_uso {
+footer .newsletter .webform-submission-form input.aceite_termos_de_uso {
 
   width: 20px;
 
 }
 
-footer .newsletter .formNews input:not([type="submit"]):not([type="checkbox"]) {
+footer .newsletter .webform-submission-form input:not([type="submit"]):not([type="checkbox"]) {
 
   border-radius: 999px;
 
   border: 1px #DADADA solid;
 
-  padding: 10px 25px;
+  padding: 25px;
 
   text-align: center;
 
   font-style: italic;
 
+}
+
+footer .newsletter .webform-submission-form input {
+  font-weight: initial;
+}
+
+footer .newsletter .webform-submission-form {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 20px 30px;
+}
+
+footer .newsletter .webform-submission-form .form-item legend {
+  width: auto;
+  flex: 1;
+}
+
+footer .newsletter .webform-submission-form .form-item.form-item-aceite-termos-de-uso label {
+  margin: 0;
+  font-weight: bold;
+  color: #858585;
+}
+
+.form-item-aceite-termos-de-uso-aceito input:checked+label::after {
+  content: '✓';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  color: white;
+  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  text-indent: initial;
+}
+
+footer .newsletter .webform-submission-form .form-item.form-item-aceite-termos-de-uso {
+  width: 100%;
+  gap: 10px;
+  font-weight: bold;
+  max-width: initial;
+  flex: 0 0 auto;
+  display: flex;
+  flex-flow: row-reverse wrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#edit-aceite-termos-de-uso--2 {
+  width: 30px;
+  max-width: initial;
 }
 
 @media only screen and (min-width: 992px) {
@@ -7124,6 +7180,11 @@ footer .newsletter .formNews input:not([type="submit"]):not([type="checkbox"]) {
 
     top: -2px;
 
+  }
+
+  footer .newsletter .webform-submission-form .form-item {
+    flex: 0 0 48%;
+    max-width: 50%;
   }
 
 }
@@ -7146,7 +7207,7 @@ footer .newsletter .formNews input:not([type="submit"]):not([type="checkbox"]) {
 
 }
 
-footer .newsletter .formNews .btn {
+footer .newsletter .webform-submission-form .btn {
 
   border-radius: 10px;
 
@@ -7478,15 +7539,15 @@ footer .copy .menuFooter li a {
 
   }
 
-  footer .newsletter .box .formNews input.email,
+  footer .newsletter .box .webform-submission-form input.email,
 
-  footer .newsletter .box .formNews input.celular {
+  footer .newsletter .box .webform-submission-form input.celular {
 
     margin: 5px 0 20px;
 
   }
 
-  footer .newsletter .box .formNews input.submit {
+  footer .newsletter .box .webform-submission-form input.submit {
 
     display: block;
 
@@ -7654,6 +7715,7 @@ footer .copy .menuFooter li a {
 
 }
 
+footer .newsletter .webform-submission-form .form-submit,
 a[title="Load more items"],
 
 .webform-submission-fale-conosco-form [type="submit"],
@@ -8864,9 +8926,12 @@ img[data-align="right"] {
 
 }
 
+.form-item-aceite-termos-de-uso-aceito,
 .custom-checkbox {
 
   width: 30px;
+
+  max-width: initial !important;
 
   height: 30px;
 
@@ -8876,6 +8941,8 @@ img[data-align="right"] {
 
 }
 
+.form-item-aceite-termos-de-uso-aceito input,
+.form-item-aceite-termos-de-uso-aceito label,
 .custom-checkbox input,
 
 .custom-checkbox label {
@@ -8890,6 +8957,7 @@ img[data-align="right"] {
 
 }
 
+.form-item-aceite-termos-de-uso-aceito input,
 .custom-checkbox input {
 
   position: absolute;
@@ -8906,24 +8974,30 @@ img[data-align="right"] {
 
 }
 
+.form-item-aceite-termos-de-uso-aceito input:checked+label {
+  content: '✓';
+}
+
+.form-item-aceite-termos-de-uso-aceito input:checked+label,
 .custom-checkbox input:checked+label {
 
   background-color: var(--yellow);
 
-}
 
+}
+.form-item-aceite-termos-de-uso-aceito input:checked + label >*,
 .custom-checkbox input:checked+label>* {
 
   display: block;
 
 }
-
+.form-item-aceite-termos-de-uso-aceito label >*,
 .custom-checkbox label>* {
 
   display: none;
 
 }
-
+.form-item-aceite-termos-de-uso-aceito label,
 .custom-checkbox label {
 
   z-index: 1;
@@ -8933,6 +9007,10 @@ img[data-align="right"] {
   border-radius: 10px;
 
   color: white;
+
+  overflow: hidden;
+
+  text-indent: 200px;
 
 }
 
@@ -11000,6 +11078,7 @@ main section.destaques .itens2>.row:first-child {
 
 }
 
+footer .newsletter .webform-submission-form .form-submit,
 .webform-submission-fale-conosco-form [type="submit"],
 
 a[title="Load more items"],
@@ -11016,6 +11095,7 @@ header .topo .redes li a,
 
 }
 
+footer .newsletter .webform-submission-form .form-submit:hover,
 a[title="Load more items"]:hover,
 .webform-submission-fale-conosco-form [type="submit"]:hover,
 .btnAzul:hover {
@@ -11026,11 +11106,13 @@ a[title="Load more items"]:hover,
 
 }
 
+footer .newsletter .webform-submission-form .form-submit:hover,
 a[title="Load more items"]:hover,
 .webform-submission-fale-conosco-form [type="submit"]:hover {
   background-color: white;
 }
 
+footer .newsletter .webform-submission-form .form-submit:hover,
 a[title="Load more items"]:hover,
 .bloco-destaque form input[type="submit"]:hover,
 .webform-submission-fale-conosco-form [type="submit"]:hover {
@@ -11160,7 +11242,6 @@ legend {
   margin-top: 45px;
   /* width: 410px; */
 }
-
 
 /* #views-exposed-form-search-page-1 .js-form-item-search-api-fulltext input,
 #views-exposed-form-search-page-1 .js-form-item-sort-order select {
@@ -11296,6 +11377,8 @@ label[for="edit-search-api-fulltext"] {
 
 #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper {
   margin-top: 30px;
+  position: relative;
+  z-index: 50;
 }
 
 #views-exposed-form-search-page-1 ~ .views-infinite-scroll-content-wrapper ~ ul.js-pager__items.pager {
@@ -11405,13 +11488,14 @@ p.search-results b {
     width: 50%;
   }
   #views-exposed-form-search-page-1 .js-form-item-sort-order {
-    margin-top: -158px;
+    margin-top: -150px;
   }
-  #views-exposed-form-search-page-1 {
+  /* #views-exposed-form-search-page-1 {
     margin-bottom: -390px;
-  }
+  } */
   #views-exposed-form-search-page-1 .js-form-item-field-categoria select {
-    height: 400px;
+    height: -webkit-fill-available;
+    overflow: initial;
   }
   #views-exposed-form-search-page-1 .js-form-item-sort-order,
   #views-exposed-form-search-page-1 .js-form-item-field-categoria {
@@ -11426,4 +11510,48 @@ p.search-results b {
   #views-exposed-form-search-page-1 .js-form-item-field-categoria select option {
     flex-flow: row-reverse;
   }
+  #views-exposed-form-search-page-1 {
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  section.search {
+    padding-top: 215px;
+    position: relative;
+    z-index: 50;
+  }
+  section.search.no-results {
+    min-height: 600px;
+  }
+  .search .no-results {
+    margin-bottom: 138px;
+  }
+  /* section.search.no-results #views-exposed-form-search-page-1 {
+    position: relative;
+  }   */
+}
+
+section.search.no-results #views-exposed-form-search-page-1 .js-form-item-field-categoria select {
+  overflow: auto;
+  padding-right: 15px;
+  padding-bottom: 20px;    
+}
+
+footer .newsletter .webform-submission-form .form-submit {
+  color: #5D5D5D;
+  min-width: 200px;
+  text-transform: uppercase;  
+}
+
+footer .newsletter .webform-submission-form .form-submit:hover {
+  background-color: transparent;
+}
+
+.views-element-container {
+  position: relative
+}
+
+select[multiple]:focus option:checked {
+  background: white linear-gradient(0deg, white 0%, white 100%);
+  -webkit-text-fill-color: black; 
 }

@@ -363,7 +363,18 @@ display:
       cache:
         type: none
         options: {  }
-      empty: {  }
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: true
+          content: '<p class="d-block text-center mt-5 col-lg-6 no-results">Nenhum resultado encontrado</p>'
+          tokenize: false
       sorts:
         created:
           id: created
@@ -395,7 +406,7 @@ display:
           expose:
             operator_id: search_api_fulltext_op
             label: 'RESULTADO DA BUSCA'
-            description: ''
+            description: 'O que você está buscando?'
             use_operator: false
             operator: search_api_fulltext_op
             operator_limit_selection: false
@@ -514,7 +525,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
+          reduce_duplicates: true
           vid: categorias
           type: select
           hierarchy: false

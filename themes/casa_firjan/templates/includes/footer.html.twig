@@ -1,9 +1,10 @@
 <footer>
   <div id="newsletter" style="padding-bottom: 15px;"></div>
   
-  {{ drupal_region('footer') }}
-  
-  {#{% include '@casa_firjan/includes/newsletter.html.twig' %}#}
+  {% include '@casa_firjan/includes/newsletter.html.twig' with { 
+      title: 'DESEJA RECEBER INFORMAÇÕES DA CASA FIRJAN?',
+      text: 'Cadastre o seu e-mail e/ou seu celular e fique por dentro de todas as nossas novidades.'
+  } %}
 
   <section class="footer">
     <div class="container">

@@ -1666,7 +1666,7 @@ function casa_firjan_preprocess_block(&$variables)
                 ->field_headline->value;
         }
 
-        $variables['breadcrumb'] = [];
+        $variables['is_search'] = \Drupal::routeMatch()->getRouteName() == 'view.search.page_1' ? 1 : 0;
 
         if ($node instanceof \Drupal\node\NodeInterface)
         {
@@ -1769,6 +1769,11 @@ function casa_firjan_preprocess_block(&$variables)
                     ->value)) : null];
             }
         }
+        elseif ($variables['is_search']) {
+            $block = Block::load($variables['elements']['#id']);
+            $block = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $block->getPlugin()->getDerivativeId());
+            $variables['breadcrumb'][] = ["text" => "Resultados de Busca", "url" => "", "headline" => $block ? strip_tags($block->body->value) : ''];
+        }
     }
     elseif ($machine_name == 'tagcloud')
     {
@@ -1789,6 +1794,10 @@ function casa_firjan_preprocess_block(&$variables)
                 ->name->value];
         }
     }
+    elseif ($machine_name == 'bloconewsletter')
+    {   
+
+    }    
     elseif ($machine_name == 'bannerhome')
     {
         $nidsParaFiltrar = array();
@@ -2208,7 +2217,11 @@ function casa_firjan_preprocess_breadcrumb(&$variables)
 
 function casa_firjan_form_system_theme_settings_alter(&$form, FormStateInterface $form_state)
 {
-
+    // $form['Busca'] = array(
+    //     '#type' => 'textarea',
+    //     '#title' => t('Search Breadcrumb Headline'),
+    //     '#default_value' => theme_get_setting('search_headline')
+    // ); 
 }
 
 function casa_firjan_preprocess(&$variables)
@@ -2465,7 +2478,9 @@ function casa_firjan_preprocess_views_view_fullcalendar(&$variables)
 function casa_firjan_views_pre_render(ViewExecutable $view) {
     if($view->id() == 'search') {
         $results = $view->result;
+
         $searchFilter = array();
+
         foreach ($results as $node) {
             $tid = $node->_entity->get('field_categoria')[0]->target_id;
 
@@ -2473,13 +2488,30 @@ function casa_firjan_views_pre_render(ViewExecutable $view) {
                 $searchFilter[] = Term::load($tid);
             }
         }
+
         $_SESSION['searchFilter'] = $searchFilter;
+
+        if(empty($results)) {
+            $view->display_handler->setOption('css_class', 'no-results');
+        }
     }
 }
 
 function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) {
-    // unset($variables['form']['actions']['submit']);
-    // unset($variables['form']['sort_by']['#options']['search_api_relevance']);
+
+    $view = explode('.', \Drupal::routeMatch()->getRouteName());
+
+    $view = \Drupal::entityTypeManager()
+    ->getStorage('view')
+    ->load($view[1])
+    ->getExecutable();
+
+    $view->initDisplay();
+    $view->execute();
+    $result = $view->result;     
+
+    $variables['form']['search_api_fulltext']['#description'] = "<p class='search-results mt-3 mb-3 d-none d-lg-block'>Foram encontrados ".count($result)." resultados".(isset($_GET['search_api_fulltext']) && $_GET['search_api_fulltext'] !== '' ? ' para o termo "<b>'.$_GET['search_api_fulltext'].'</b>".' : '.')."<br/><br/><b>Confira:</b></p>";
+   
     $variables['form']['sort_order']['#title'] = "Ordenar por:";
 
     $variables['form']['search_api_fulltext']['#title'] = isset($_GET['search_api_fulltext']) && $_GET['search_api_fulltext'] !== '' ? '<b>Termo buscado:</b> '.$_GET['search_api_fulltext'] : 'Busca';
@@ -2489,8 +2521,6 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
 
     $variables['form']['sort_order']['#options']['ASC'] = 'Os mais antigos primeiro';
     $variables['form']['sort_order']['#options']['DESC'] = 'Os mais recentes primeiro';
-
-    // $variables['form']['sort_order']['#value'] = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'DESC';
 
     $variables['form']['search_api_fulltext']['#attributes'] = array('placeholder' => array(t('O que você está buscando?')));
 
@@ -2511,18 +2541,26 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
             ->condition('field_categoria', array($key), 'IN')
             ->condition('status', 1);
 
-        // if(isset($_GET['search_api_fulltext'])) {
-        //     $query->condition('title', $_GET['search_api_fulltext'], 'CONTAINS');
-        // }
+        if(isset($_GET['search_api_fulltext'])) {
+            $query->condition('title', $_GET['search_api_fulltext'], 'CONTAINS');
+        }
 
         $result = $query->execute();
         $storage = \Drupal::entityTypeManager()->getStorage('node');
         $nodes = $storage->loadMultiple($result);
 
-        if(count($nodes)) {
-            // $variables['form']['field_categoria']['#options'][$key] = $value.' ('.count($nodes).')';
-        } else {
-            unset($variables['form']['field_categoria']['#options'][$key]);
+        if(count($result)) {
+            if(count($nodes)) {
+                $variables['form']['field_categoria']['#options'][$key] = $value.' ('.count($nodes).')';
+            } else {
+                unset($variables['form']['field_categoria']['#options'][$key]);
+            }
         }
+    } 
+}
+
+function casa_firjan_form_alter(&$form, $form_state, $form_id) {
+    if($form_id == 'webform_submission_newsletter_node_6_add_form') {
+        // dump($form['elements']['aceite_termos_de_uso']);
     }
 }
