@@ -1,0 +1,17 @@
+_core:
+  default_config_hash: VZVKiNA2lYZLHUiU85F_p-Gt-PQf-xUXE3xCeWCFRDM
+details:
+  1:
+    size: 307200
+    rate: '75'
+  2:
+    size: 204800
+    rate: '75'
+  3:
+    size: 512000
+    rate: '75'
+  4:
+    size: 10485760
+    rate: '70'
+count: 4
+langcode: pt-br
