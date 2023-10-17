@@ -1,0 +1,9 @@
+azure_appinsights.azure_app_insights_admin_form:
+  path: '/admin/config/system/azure_appinsights'
+  defaults:
+    _form: '\Drupal\azure_appinsights\Form\AzureAppInsightsAdminForm'
+    _title: 'AzureAppInsightsAdminForm'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

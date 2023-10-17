@@ -1,0 +1,131 @@
+[13-Sep-2023 20:15:46 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[13-Sep-2023 20:15:52 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[13-Sep-2023 20:20:29 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[13-Sep-2023 20:20:29 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[13-Sep-2023 20:20:48 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[13-Sep-2023 20:21:11 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[13-Sep-2023 20:21:12 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[13-Sep-2023 20:21:51 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[13-Sep-2023 20:22:01 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[13-Sep-2023 20:22:01 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[13-Sep-2023 20:25:56 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[13-Sep-2023 20:25:57 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[13-Sep-2023 20:26:02 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[14-Sep-2023 06:32:22 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[14-Sep-2023 06:32:36 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[14-Sep-2023 06:32:43 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[14-Sep-2023 06:32:44 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[14-Sep-2023 07:01:41 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[14-Sep-2023 13:16:08 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[14-Sep-2023 13:16:25 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[14-Sep-2023 13:16:33 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[14-Sep-2023 13:16:34 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 03:24:25 UTC] PHP Parse error:  syntax error, unexpected token ")" in /home/casafirjancityco/public_html/vendor/symfony/finder/Finder.php on line 638
+[15-Sep-2023 03:24:33 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 03:25:02 UTC] PHP Parse error:  syntax error, unexpected token ")" in /home/casafirjancityco/public_html/vendor/symfony/finder/Finder.php on line 638
+[15-Sep-2023 03:26:49 UTC] PHP Parse error:  syntax error, unexpected token ")" in /home/casafirjancityco/public_html/vendor/symfony/finder/Finder.php on line 638
+[15-Sep-2023 03:26:51 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 03:28:59 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 03:29:37 UTC] PHP Parse error:  syntax error, unexpected token ")" in /home/casafirjancityco/public_html/vendor/symfony/finder/Finder.php on line 638
+[15-Sep-2023 03:29:59 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 03:30:14 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 03:33:06 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 04:04:15 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 04:08:19 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 04:10:06 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 04:24:39 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 04:24:43 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 04:24:51 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 04:24:53 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 04:44:09 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 04:44:19 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 04:44:26 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 04:44:28 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 09:54:31 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 10:57:52 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 10:58:04 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 10:58:10 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 10:58:11 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 12:03:21 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 14:55:57 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 14:56:07 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 18:05:01 UTC] PHP Parse error:  syntax error, unexpected token ")" in /home/casafirjancityco/public_html/vendor/symfony/finder/Finder.php on line 638
+[15-Sep-2023 18:05:09 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 18:05:16 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 18:05:20 UTC] PHP Parse error:  syntax error, unexpected token ")" in /home/casafirjancityco/public_html/vendor/symfony/finder/Finder.php on line 638
+[15-Sep-2023 18:06:52 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 18:07:02 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 18:07:04 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[15-Sep-2023 18:18:09 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:05:41 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[22-Sep-2023 18:05:41 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:06:18 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:06:25 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:06:26 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:06:52 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:07:13 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:07:20 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:07:21 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:26:38 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:26:45 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[22-Sep-2023 18:26:45 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:26:50 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:26:51 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[22-Sep-2023 18:50:32 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[26-Sep-2023 12:40:25 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[26-Sep-2023 12:40:25 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[26-Sep-2023 12:41:14 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[26-Sep-2023 12:54:18 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[26-Sep-2023 12:57:41 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[26-Sep-2023 13:03:08 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[26-Sep-2023 13:03:31 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[26-Sep-2023 13:04:13 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[26-Sep-2023 13:41:19 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[26-Sep-2023 13:43:11 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[26-Sep-2023 15:46:09 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[26-Sep-2023 15:46:18 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[26-Sep-2023 15:49:39 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[28-Sep-2023 14:07:14 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[28-Sep-2023 14:07:20 UTC] PHP Parse error:  syntax error, unexpected token ")" in /home/casafirjancityco/public_html/vendor/symfony/finder/Finder.php on line 638
+[28-Sep-2023 14:07:27 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[28-Sep-2023 14:07:27 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[28-Sep-2023 14:08:39 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[28-Sep-2023 14:08:39 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[28-Sep-2023 14:09:49 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[28-Sep-2023 14:09:49 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[28-Sep-2023 14:10:02 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[28-Sep-2023 14:10:11 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[28-Sep-2023 14:10:12 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 17:02:13 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[02-Oct-2023 17:02:13 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 14:02:20 America/Sao_Paulo] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes) in /home/casafirjancityco/public_html/core/modules/node/src/Controller/NodeController.php on line 129
+[02-Oct-2023 14:02:20 America/Sao_Paulo] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 40960 bytes) in /home/casafirjancityco/public_html/vendor/composer/ClassLoader.php on line 576
+[02-Oct-2023 17:02:23 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 17:02:52 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 17:02:54 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 17:04:04 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 17:05:24 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[02-Oct-2023 17:05:24 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 17:05:33 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 17:10:36 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 17:11:05 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 17:18:43 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[02-Oct-2023 17:18:43 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 17:18:50 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 17:58:52 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[02-Oct-2023 17:58:52 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 21:39:37 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[02-Oct-2023 21:39:37 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 21:39:46 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 21:55:11 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[02-Oct-2023 21:55:11 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 21:55:20 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[02-Oct-2023 22:01:48 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[03-Oct-2023 01:13:34 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[03-Oct-2023 13:39:12 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[03-Oct-2023 22:43:50 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[03-Oct-2023 22:43:50 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[03-Oct-2023 22:44:00 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[05-Oct-2023 19:25:17 UTC] PHP Warning:  Failed to set memory limit to 128 bytes (Current memory usage is 2097152 bytes) in Unknown on line 0
+[05-Oct-2023 19:25:17 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[05-Oct-2023 19:25:24 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0

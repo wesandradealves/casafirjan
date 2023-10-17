@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for block_content_suggestions_test module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function block_content_suggestions_test_theme() {
+  return [
+    'block_content__square' => [
+      'render element' => 'elements',
+    ],
+    'block_content__square__test' => [
+      'render element' => 'elements',
+    ],
+    'block_content__test' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
