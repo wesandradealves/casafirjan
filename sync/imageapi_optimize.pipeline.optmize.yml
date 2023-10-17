@@ -1,0 +1,19 @@
+uuid: 460fd303-ad61-44b6-9b96-5d64a069ec8e
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - kraken
+name: optmize
+label: optmize
+processors:
+  963463d4-c910-4515-b5d3-56abfdaca61f:
+    id: kraken
+    data:
+      api_key: 875280f3fa5d934911f006572aef6e4b
+      api_secret: 18d1b87ca371a12cdb534e4088b15fc2425d7f38
+      lossy: true
+      webp: true
+      logging: false
+    weight: 1
+    uuid: 963463d4-c910-4515-b5d3-56abfdaca61f
