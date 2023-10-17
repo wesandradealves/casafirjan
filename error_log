@@ -131,3 +131,6 @@
 [05-Oct-2023 19:25:24 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
 [17-Oct-2023 02:42:19 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
 [17-Oct-2023 02:44:04 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
+[17-Oct-2023 02:52:35 UTC] PHP Parse error:  syntax error, unexpected token ")" in /home/casafirjancityco/public_html/vendor/symfony/finder/Finder.php on line 638
+[17-Oct-2023 02:52:40 UTC] PHP Parse error:  syntax error, unexpected token ")" in /home/casafirjancityco/public_html/vendor/symfony/finder/Finder.php on line 638
+[17-Oct-2023 02:57:43 UTC] PHP Warning:  Module "sodium" is already loaded in Unknown on line 0
