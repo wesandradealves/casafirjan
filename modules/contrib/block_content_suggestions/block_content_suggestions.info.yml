@@ -1,0 +1,13 @@
+name: 'Block content suggestions'
+type: module
+description: 'Allows custom block entities to support template suggestions.'
+core_version_requirement: ^8 || ^9 || ^10
+package: 'Layout'
+
+dependencies:
+  - drupal:block_content
+
+# Information added by Drupal.org packaging script on 2022-12-27
+version: '1.0.0'
+project: 'block_content_suggestions'
+datestamp: 1672135947
