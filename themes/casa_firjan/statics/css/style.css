@@ -7133,6 +7133,15 @@ footer .newsletter .webform-submission-form .form-item.form-item-aceite-termos-d
   color: #858585;
 }
 
+footer .newsletter .webform-submission-form .form-item.form-item-aceite-termos-de-uso label a {
+  color: inherit;
+  font-weight: inherit;
+}
+
+footer .newsletter .webform-submission-form .form-item.form-item-aceite-termos-de-uso label a:hover {
+  color: var(--yellow);
+}
+
 .form-item-aceite-termos-de-uso-aceito input:checked+label::after {
   content: '✓';
   position: absolute;

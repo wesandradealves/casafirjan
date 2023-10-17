@@ -49,7 +49,12 @@ elements: |-
     '#description_display': invisible
     '#options':
       aceito: aceito
-    '#required': true
+    '#required_error': 'Campo obrigatório'
+    '#unique': true
+    '#states':
+      required:
+        ':input[name="aceite_termos_de_uso[aceito]"]':
+          unchecked: true
     '#wrapper_type': form_element
   actions:
     '#type': webform_actions
