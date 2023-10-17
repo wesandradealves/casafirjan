@@ -2559,8 +2559,6 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
     } 
 }
 
-function casa_firjan_form_alter(&$form, $form_state, $form_id) {
-    if($form_id == 'webform_submission_newsletter_node_6_add_form') {
-        // dump($form['elements']['aceite_termos_de_uso']);
-    }
+function casa_firjan_form_webform_submission_newsletter_form_alter(&$form) {  
+    $form['elements']['aceite_termos_de_uso']['#title'] = 'Li e concordo com os <a href="/termo-de-privacidade">termos de uso e privacidade</a>.';
 }
