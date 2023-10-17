@@ -794,9 +794,9 @@ $settings['entity_update_backup'] = TRUE;
 //     ),
 // );
 $databases['default']['default'] = [
-  'database' => 'casafirjancityco_casafirjanprod',
-  'username' => 'root',
-  'password' => '',
+  'database' => 'casafirjancityco_prod',
+  'username' => 'casafirjancityco_casafirjanprod',
+  'password' => 'casafirjancityco_casafirjanprod',
   'prefix' => '',
   'host' => 'localhost',
   'port' => '3306',
