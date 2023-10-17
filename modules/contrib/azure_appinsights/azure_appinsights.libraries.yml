@@ -1,0 +1,13 @@
+azure_appinsights:
+  version: 1.x
+  header: true
+  js:
+    dist/js/azai.min.js: { minified: true, preprocess: false }
+  dependencies:
+    - core/drupalSettings
+    - core/jquery
+    - azure_appinsights/microsoft_applicationinsights_web
+
+microsoft_applicationinsights_web:
+  js:
+    dist/lib/@microsoft/applicationinsights-web/browser/ai.2.4.4.min.js: { minified: true }
