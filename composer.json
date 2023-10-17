@@ -37,6 +37,7 @@
         "drupal/cshs": "^3.5",
         "drupal/csv_serialization": "^2.0",
         "drupal/ctools": "^3.7",
+        "drupal/db_maintenance": "2.0",
         "drupal/devel": "^4.1",
         "drupal/disable_messages": "2.x-dev@dev",
         "drupal/draggableviews": "^1.3",

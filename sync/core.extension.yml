@@ -29,8 +29,7 @@ module:
   cshs: 0
   csv_serialization: 0
   datetime: 0
-  devel: 0
-  devel_generate: 0
+  db_maintenance: 0
   draggableviews: 0
   ds_twig_extensions: 0
   dynamic_breadcrumb: 0
