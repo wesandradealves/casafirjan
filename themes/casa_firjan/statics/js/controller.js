@@ -508,6 +508,7 @@ var Controller = {
         }
     }); 
 
+    $("img").attr("loading", "lazy");
   },
   programa: function(){
   },
