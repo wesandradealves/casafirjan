@@ -1,6 +1,7 @@
 <?php return array(
     'root' => array(
         'name' => 'drupal/legacy-project',
+<<<<<<< HEAD
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
 <<<<<<< HEAD
@@ -8,6 +9,11 @@
 =======
         'reference' => 'ef1b01c0721b70cc538c5c20faded2ed7eb760da',
 >>>>>>> 629b03092 (sync)
+=======
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => NULL,
+>>>>>>> d95af7f84 (sync)
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -691,6 +697,7 @@
             'dev_requirement' => false,
         ),
         'drupal/legacy-project' => array(
+<<<<<<< HEAD
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
 <<<<<<< HEAD
@@ -698,6 +705,11 @@
 =======
             'reference' => 'ef1b01c0721b70cc538c5c20faded2ed7eb760da',
 >>>>>>> 629b03092 (sync)
+=======
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => NULL,
+>>>>>>> d95af7f84 (sync)
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
