@@ -18,911 +18,819 @@ use Drupal\Core\Menu\MenuLinkTreeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Cocur\Slugify\Slugify;
 
-function slugify($text, string $divider = '-')
-{
-    // replace non letter or digits by divider
-    $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
+function slugify($text, string $divider = '-') {
+  // replace non letter or digits by divider
+  $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
 
-    // transliterate
-    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+  // transliterate
+  $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
 
-    // remove unwanted characters
-    $text = preg_replace('~[^-\w]+~', '', $text);
+  // remove unwanted characters
+  $text = preg_replace('~[^-\w]+~', '', $text);
 
-    // trim
-    $text = trim($text, $divider);
+  // trim
+  $text = trim($text, $divider);
 
-    // remove duplicate divider
-    $text = preg_replace('~-+~', $divider, $text);
+  // remove duplicate divider
+  $text = preg_replace('~-+~', $divider, $text);
 
-    // lowercase
-    $text = strtolower($text);
+  // lowercase
+  $text = strtolower($text);
 
-    if (empty($text))
-    {
-        return 'n-a';
-    }
+  if (empty($text)) {
+    return 'n-a';
+  }
 
-    return $text;
+  return $text;
 }
 
-function casa_firjan_preprocess_html(&$variables)
-{
-    // systemPaths($variables);
-    $variables['customPage']['menuDireita'] = GM5Util::menuRender('menu-principal-direita', false);
-    $variables['customPage']['menuEsquerda'] = GM5Util::menuRender('menu-principal-esquerda', false);
+function casa_firjan_preprocess_html(&$variables) {
+  // systemPaths($variables);
+  $variables['customPage']['menuDireita'] = GM5Util::menuRender('menu-principal-direita', false);
+  $variables['customPage']['menuEsquerda'] = GM5Util::menuRender('menu-principal-esquerda', false);
 
-    $method = \Drupal::request()->getMethod();
-    $params = \Drupal::request()
-        ->request
-        ->all();
+  $method = \Drupal::request()->getMethod();
+  $params = \Drupal::request()
+    ->request
+    ->all();
 
-    $variables['customPage']['queryString'] = \Drupal::request()
-        ->query
-        ->all();
+  $variables['customPage']['queryString'] = \Drupal::request()
+    ->query
+    ->all();
 
-    $current_path = \Drupal::service('path.current')->getPath();
-    $result = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  $current_path = \Drupal::service('path.current')->getPath();
+  $result = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
 
-    $estutrutraContato = GM5Webform::getStucture('newsletter');
-    $variables['customPage']['newsletter']['form'] = $estutrutraContato;
-    $variables['customPage']['newsletter']['form']['action'] = $result . '#newsletter';
+  $estutrutraContato = GM5Webform::getStucture('newsletter');
+  $variables['customPage']['newsletter']['form'] = $estutrutraContato;
+  $variables['customPage']['newsletter']['form']['action'] = $result . '#newsletter';
 
-    if (!empty($params) && isset($params['form_name']) && $params['form_name'] == 'newsletter' && $method == 'POST')
-    {
-        $response = GM5Webform::processForm($params);
-        if (!empty($response['type']) && $response['type'] == 'error')
-        {
-            foreach ($response['message'] as $field => $message)
-            {
-                $variables['customPage']['newsletter']['form']['fields'][$field]['errorMessage'] = $message;
-            }
-        }
-        elseif (!empty($response['type']) && $response['type'] == 'sucess')
-        {
-            $response = new RedirectResponse($result . '?newsletter=sucess#newsletter');
-            $response->send();
-        }
+  if (!empty($params) && isset($params['form_name']) && $params['form_name'] == 'newsletter' && $method == 'POST') {
+    $response = GM5Webform::processForm($params);
+    if (!empty($response['type']) && $response['type'] == 'error') {
+      foreach ($response['message'] as $field => $message) {
+        $variables['customPage']['newsletter']['form']['fields'][$field]['errorMessage'] = $message;
+      }
+    }
+    elseif (!empty($response['type']) && $response['type'] == 'sucess') {
+      $response = new RedirectResponse($result . '?newsletter=sucess#newsletter');
+      $response->send();
+    }
+  }
+
+  $node = \Drupal::routeMatch()->getParameter('node');
+
+  if (isset($node) && !empty($node)) {
+    // Thumb padrão do conteúdo
+    if (isset($node->field_thumb)) {
+      $field_info = FieldConfig::loadByName('node', $node->bundle(), 'field_thumb');
+      $image_uuid = $field_info->getSetting('default_image')['uuid'];
+      $image = Drupal::service('entity.repository')->loadEntityByUuid('file', $image_uuid);
+      if ($image) {
+        $target_id = $image->id();
+        $thumb_padrao = GM5File::renderImage($target_id, '1200x628');
+      }
     }
 
-    $node = \Drupal::routeMatch()->getParameter('node');
-
-    if (isset($node) && !empty($node))
-    {
-        // Thumb padrão do conteúdo
-        if (isset($node->field_thumb))
-        {
-            $field_info = FieldConfig::loadByName('node', $node->bundle() , 'field_thumb');
-            $image_uuid = $field_info->getSetting('default_image')['uuid'];
-            $image = Drupal::service('entity.repository')->loadEntityByUuid('file', $image_uuid);
-            if ($image)
-            {
-                $target_id = $image->id();
-                $thumb_padrao = GM5File::renderImage($target_id, '1200x628');
-            }
-        }
-
-        if (isset($node->field_tipo_de_midia) && $node->get("field_tipo_de_midia")
-            ->getValue()[0]['value'] == 'video' && !empty($node->get("field_video")
-            ->getValue()))
-        {
-            // Se for do tipo tipo de mídia vídeo
-            $variables['metatags']['image'] = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($node->get("field_video")
-                ->getValue()[0]['value']));
-        }
-        else if (isset($node->field_tipo_de_midia) && $node->get("field_tipo_de_midia")
-            ->getValue()[0]['value'] == 'imagem' && !empty($node->get("field_imagem")
-            ->getValue()))
-        {
-            // Se for do tipo tipo de mídia imagem
-            $variables['metatags']['image'] = GM5File::renderImage($node->get("field_imagem")
-                ->getValue()[0]['target_id'], '1200x628');
-        }
-        else if (!isset($node->field_tipo_de_midia) && isset($node->field_imagem) && !empty($node->get("field_imagem")
-            ->getValue()))
-        {
-            // Se for imagem e não houver o campo de tipo de mídia
-            $variables['metatags']['image'] = GM5File::renderImage($node->get("field_imagem")
-                ->getValue()[0]['target_id'], '1200x628');
-        }
-        else if (isset($node->field_thumb) && !empty($node->get("field_thumb")
-            ->getValue()))
-        {
-            // Pega a thumb selecionada
-            $variables['metatags']['image'] = GM5File::renderImage($node->get("field_thumb")
-                ->getValue()[0]['target_id'], '1200x628');
-        }
-        else if (isset($thumb_padrao) && !empty($thumb_padrao))
-        {
-            // Pega a thumb padrão do conteúdo
-            $variables['metatags']['image'] = $thumb_padrao;
-        }
-        else
-        {
-            // Thumb de segurança para caso não tenha uma padrão no conteúdo
-            $variables['metatags']['image'] = \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
-        }
-
-        // Título da página
-        $request = \Drupal::request();
-        if ($route = $request
-            ->attributes
-            ->get(\Symfony\Cmf\Component\Routing\RouteObjectInterface::ROUTE_OBJECT))
-        {
-            $variables['metatags']['title'] = \Drupal::service('title_resolver')->getTitle($request, $route) == 'Home' ? 'Casa Firjan' : \Drupal::service('title_resolver')->getTitle($request, $route);;
-        }
-
-        // Seleciona Descrição
-        if (isset($node->field_chamada) && !empty($node->field_chamada))
-        {
-            $variables['metatags']['description'] = $node->get("field_chamada")
-                ->getValue()[0]['value'];
-        }
-        elseif (isset($node->field_descricao) && !empty($node->field_descricao))
-        {
-            $variables['metatags']['description'] = $node->get("field_descricao")
-                ->getValue()[0]['value'];
-        }
-        elseif (isset($node->field_texto) && !empty($node->field_texto))
-        {
-            $variables['metatags']['description'] = substr($node->get("field_texto")
-                ->getValue()[0]['value'], 0, 250);
-        }
-        else
-        {
-            $variables['metatags']['description'] = 'Inovação para os desafios da nova economia. Viva o futuro, hoje.';
-        }
+    if (isset($node->field_tipo_de_midia) && $node->get("field_tipo_de_midia")
+      ->getValue()[0]['value'] == 'video' && !empty($node->get("field_video")
+        ->getValue())) {
+      // Se for do tipo tipo de mídia vídeo
+      $variables['metatags']['image'] = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($node->get("field_video")
+        ->getValue()[0]['value']));
+    }
+    else if (isset($node->field_tipo_de_midia) && $node->get("field_tipo_de_midia")
+      ->getValue()[0]['value'] == 'imagem' && !empty($node->get("field_imagem")
+        ->getValue())) {
+      // Se for do tipo tipo de mídia imagem
+      $variables['metatags']['image'] = GM5File::renderImage($node->get("field_imagem")
+        ->getValue()[0]['target_id'], '1200x628');
+    }
+    else if (!isset($node->field_tipo_de_midia) && isset($node->field_imagem) && !empty($node->get("field_imagem")
+      ->getValue())) {
+      // Se for imagem e não houver o campo de tipo de mídia
+      $variables['metatags']['image'] = GM5File::renderImage($node->get("field_imagem")
+        ->getValue()[0]['target_id'], '1200x628');
+    }
+    else if (isset($node->field_thumb) && !empty($node->get("field_thumb")
+      ->getValue())) {
+      // Pega a thumb selecionada
+      $variables['metatags']['image'] = GM5File::renderImage($node->get("field_thumb")
+        ->getValue()[0]['target_id'], '1200x628');
+    }
+    else if (isset($thumb_padrao) && !empty($thumb_padrao)) {
+      // Pega a thumb padrão do conteúdo
+      $variables['metatags']['image'] = $thumb_padrao;
+    }
+    else {
+      // Thumb de segurança para caso não tenha uma padrão no conteúdo
+      $variables['metatags']['image'] = \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
     }
 
-    $termObj = \Drupal::request()
-        ->attributes
-        ->get('taxonomy_term');
-    if (isset($termObj) && !empty($termObj))
-    {
-        $term = $termObj->toArray();
-        // Meta Imagem
-        if (isset($term['field_thumb'][0]['target_id']) && !empty($term['field_thumb'][0]['target_id']))
-        {
-            $variables['metatags']['image'] = GM5File::renderImage($term['field_thumb'][0]['target_id'], '1200x628');
-        }
-        else if (isset($term['field_imagem'][0]['target_id']) && !empty($term['field_imagem'][0]['target_id']))
-        {
-            $variables['metatags']['image'] = GM5File::renderImage($term['field_imagem'][0]['target_id'], '1200x628');
-        }
-        else
-        {
-            $variables['metatags']['image'] = \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
-        }
-
-        //Meta Title
-        $variables['metatags']['title'] = $term['name'][0]['value'];
-
-        //Meta Description
-        if (isset($term['field_texto'][0]['value']) && !empty($term['field_texto'][0]['value']))
-        {
-            $variables['metatags']['description'] = $term['field_texto'][0]['value'];
-        }
-        else
-        {
-            $variables['metatags']['description'] = 'Inovação para os desafios da nova economia. Viva o futuro, hoje.';
-        }
+    // Título da página
+    $request = \Drupal::request();
+    if ($route = $request
+      ->attributes
+      ->get(\Symfony\Cmf\Component\Routing\RouteObjectInterface::ROUTE_OBJECT)) {
+      $variables['metatags']['title'] = \Drupal::service('title_resolver')->getTitle($request, $route) == 'Home' ? 'Casa Firjan' : \Drupal::service('title_resolver')->getTitle($request, $route);
+      ;
     }
+
+    // Seleciona Descrição
+    if (isset($node->field_chamada) && !empty($node->field_chamada)) {
+      $variables['metatags']['description'] = $node->get("field_chamada")
+        ->getValue()[0]['value'];
+    }
+    elseif (isset($node->field_descricao) && !empty($node->field_descricao)) {
+      $variables['metatags']['description'] = $node->get("field_descricao")
+        ->getValue()[0]['value'];
+    }
+    elseif (isset($node->field_texto) && !empty($node->field_texto)) {
+      $variables['metatags']['description'] = substr($node->get("field_texto")
+        ->getValue()[0]['value'], 0, 250);
+    }
+    else {
+      $variables['metatags']['description'] = 'Inovação para os desafios da nova economia. Viva o futuro, hoje.';
+    }
+  }
+
+  $termObj = \Drupal::request()
+    ->attributes
+    ->get('taxonomy_term');
+  if (isset($termObj) && !empty($termObj)) {
+    $term = $termObj->toArray();
+    // Meta Imagem
+    if (isset($term['field_thumb'][0]['target_id']) && !empty($term['field_thumb'][0]['target_id'])) {
+      $variables['metatags']['image'] = GM5File::renderImage($term['field_thumb'][0]['target_id'], '1200x628');
+    }
+    else if (isset($term['field_imagem'][0]['target_id']) && !empty($term['field_imagem'][0]['target_id'])) {
+      $variables['metatags']['image'] = GM5File::renderImage($term['field_imagem'][0]['target_id'], '1200x628');
+    }
+    else {
+      $variables['metatags']['image'] = \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
+    }
+
+    //Meta Title
+    $variables['metatags']['title'] = $term['name'][0]['value'];
+
+    //Meta Description
+    if (isset($term['field_texto'][0]['value']) && !empty($term['field_texto'][0]['value'])) {
+      $variables['metatags']['description'] = $term['field_texto'][0]['value'];
+    }
+    else {
+      $variables['metatags']['description'] = 'Inovação para os desafios da nova economia. Viva o futuro, hoje.';
+    }
+  }
 
 }
 
-function casa_firjan_preprocess_page(&$variables)
-{
-    systemPaths($variables);
+function casa_firjan_preprocess_page(&$variables) {
+  systemPaths($variables);
 
-    if (\Drupal::routeMatch()->getRouteName() == 'entity.taxonomy_term.canonical')
-    {
-        $variables['term_id'] = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
-    }
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.taxonomy_term.canonical') {
+    $variables['term_id'] = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
+  }
 
-    $node = \Drupal::routeMatch()->getParameter('node');
+  $node = \Drupal::routeMatch()->getParameter('node');
 
-    if ($node)
-    {
-        $variables['title'] = $node->getTitle();
-    }
+  if ($node) {
+    $variables['title'] = $node->getTitle();
+  }
 }
 
-function casa_firjan_theme_suggestions_page_alter(array & $suggestions, array $variables)
-{
-    //Temas para nodes
-    if ($node = \Drupal::request()
-        ->attributes
-        ->get('node'))
-    {
-        array_splice($suggestions, 1, 0, 'page__' . $node->getType() . '_detalhe');
-        array_splice($suggestions, 1, 0, 'page__' . $node->getType());
+function casa_firjan_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  //Temas para nodes
+  if ($node = \Drupal::request()
+    ->attributes
+    ->get('node')) {
+    array_splice($suggestions, 1, 0, 'page__' . $node->getType() . '_detalhe');
+    array_splice($suggestions, 1, 0, 'page__' . $node->getType());
 
-        array_splice($suggestions, 1, 0, 'page__' . str_replace('-', '_', GM5String::transliteration($node->getTitle())));
-        array_splice($suggestions, 1, 0, 'page__' . str_replace('/', '', str_replace('-', '_', GM5Util::getAlias('/node/' . $node->Id() , 'relative'))));
+    array_splice($suggestions, 1, 0, 'page__' . str_replace('-', '_', GM5String::transliteration($node->getTitle())));
+    array_splice($suggestions, 1, 0, 'page__' . str_replace('/', '', str_replace('-', '_', GM5Util::getAlias('/node/' . $node->Id(), 'relative'))));
+  }
+
+  //Temas para taxonomias
+  if (\Drupal::routeMatch()
+    ->getRouteName() == 'entity.taxonomy_term.canonical' && $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term')) {
+    $term = Term::load($tid);
+    $temObj = $term->toArray();
+    //print_r($temObj); die;
+    if (isset($temObj['parent'][0]['target_id']) && $temObj['parent'][0]['target_id'] > 0) {
+      if (isset($temObj['field_template'][0]['value']) && !empty($temObj['field_template'][0]['value'])) {
+        $treeLevel = '2' . '_' . $temObj['field_template'][0]['value'];
+      }
+      else {
+        $treeLevel = '2' . '_template1';
+      }
+
     }
-
-    //Temas para taxonomias
-    if (\Drupal::routeMatch()
-        ->getRouteName() == 'entity.taxonomy_term.canonical' && $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term'))
-    {
-        $term = Term::load($tid);
-        $temObj = $term->toArray();
-        //print_r($temObj); die;
-        if (isset($temObj['parent'][0]['target_id']) && $temObj['parent'][0]['target_id'] > 0)
-        {
-            if (isset($temObj['field_template'][0]['value']) && !empty($temObj['field_template'][0]['value']))
-            {
-                $treeLevel = '2' . '_' . $temObj['field_template'][0]['value'];
-            }
-            else
-            {
-                $treeLevel = '2' . '_template1';
-            }
-
-        }
-        else
-        {
-            if (isset($temObj['field_template'][0]['value']) && !empty($temObj['field_template'][0]['value'] && $temObj['field_template'][0]['value'] == 'template3'))
-            {
-                $treeLevel = '1' . '_' . $temObj['field_template'][0]['value'];
-            }
-            else if (isset($temObj['field_template'][0]['value']) && !empty($temObj['field_template'][0]['value'] && $temObj['field_template'][0]['value'] == 'template5'))
-            {
-                $treeLevel = '1' . '_' . $temObj['field_template'][0]['value'];
-            }
-            else
-            {
-                $treeLevel = 1;
-            }
-        }
-        array_splice($suggestions, 1, 0, 'page__taxonomy_level_' . $treeLevel);
+    else {
+      if (isset($temObj['field_template'][0]['value']) && !empty($temObj['field_template'][0]['value'] && $temObj['field_template'][0]['value'] == 'template3')) {
+        $treeLevel = '1' . '_' . $temObj['field_template'][0]['value'];
+      }
+      else if (isset($temObj['field_template'][0]['value']) && !empty($temObj['field_template'][0]['value'] && $temObj['field_template'][0]['value'] == 'template5')) {
+        $treeLevel = '1' . '_' . $temObj['field_template'][0]['value'];
+      }
+      else {
+        $treeLevel = 1;
+      }
     }
+    array_splice($suggestions, 1, 0, 'page__taxonomy_level_' . $treeLevel);
+  }
 }
 
-function casa_firjan_process_produtos(&$variables, $categorias = array() , $display)
-{
-    //Produtos
-    $options = new StdClass;
-    $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
+function casa_firjan_process_produtos(&$variables, $categorias = array(), $display) {
+  //Produtos
+  $options = new StdClass;
+  $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
 
-    $options->args = array(
-        $categorias
-    );
+  $options->args = array(
+    $categorias
+  );
 
-    $options->pager = array(
-        'autoPager' => true
-    );
-    $viewprodutos = GM5Views::getViewArg('produtos', $display, $options);
+  $options->pager = array(
+    'autoPager' => true
+  );
+  $viewprodutos = GM5Views::getViewArg('produtos', $display, $options);
 
-    $variables['customPage']['produtosLista'] = array();
+  $variables['customPage']['produtosLista'] = array();
 
-    foreach ($viewprodutos['items'] as $k => $produto)
-    {
-        $produtoObj = $produto->_entity;
-        $produto = $produto
-            ->_entity
-            ->toArray();
+  foreach ($viewprodutos['items'] as $k => $produto) {
+    $produtoObj = $produto->_entity;
+    $produto = $produto
+      ->_entity
+      ->toArray();
 
-        $nidsParaFiltrar[] = $produto['nid'][0]['value'];
+    $nidsParaFiltrar[] = $produto['nid'][0]['value'];
 
-        $produtoItem = array();
-        $produtoItem['titulo'] = str_replace('_', '_<br>', $produto['title']['0']['value']);
-        $produtoItem['imagem'] = GM5File::renderImage($produto['field_imagem'][0]['target_id'], '450x450');
+    $produtoItem = array();
+    $produtoItem['titulo'] = str_replace('_', '_<br>', $produto['title']['0']['value']);
+    $produtoItem['imagem'] = GM5File::renderImage($produto['field_imagem'][0]['target_id'], '450x450');
 
-        if (isset($produto['field_link'][0]['uri']))
-        {
-            if (strpos($produto['field_link'][0]['uri'], 'entity:node/') !== false)
-            {
-                $produtoItem['link']['url'] = GM5Util::getAlias('/node/' . str_replace('entity:node/', '', $produto['field_link'][0]['uri']) , 'relative');
-                $produtoItem['link']['target'] = '_self';
-            }
-            else
-            {
-                $produtoItem['link'] = GM5Util::uriToUrl($produto['field_link'][0]['uri']);
-            }
-        }
-
-        if ($display == '4itens')
-        {
-            $variables['customPage']['produtos']['grid'] = 'col-md-6 col-lg-3';
-            $variables['customPage']['produtos']['mainClass'] = 'itens';
-        }
-        else
-        {
-            $variables['customPage']['produtos']['grid'] = 'col-md-6 col-lg-4';
-            $variables['customPage']['produtos']['mainClass'] = 'itemLab';
-        }
-        $variables['customPage']['produtosLista'][] = $produtoItem;
-
+    if (isset($produto['field_link'][0]['uri'])) {
+      if (strpos($produto['field_link'][0]['uri'], 'entity:node/') !== false) {
+        $produtoItem['link']['url'] = GM5Util::getAlias('/node/' . str_replace('entity:node/', '', $produto['field_link'][0]['uri']), 'relative');
+        $produtoItem['link']['target'] = '_self';
+      }
+      else {
+        $produtoItem['link'] = GM5Util::uriToUrl($produto['field_link'][0]['uri']);
+      }
     }
+
+    if ($display == '4itens') {
+      $variables['customPage']['produtos']['grid'] = 'col-md-6 col-lg-3';
+      $variables['customPage']['produtos']['mainClass'] = 'itens';
+    }
+    else {
+      $variables['customPage']['produtos']['grid'] = 'col-md-6 col-lg-4';
+      $variables['customPage']['produtos']['mainClass'] = 'itemLab';
+    }
+    $variables['customPage']['produtosLista'][] = $produtoItem;
+
+  }
 }
 
-function casa_firjan_process_pagina_basica(&$variables, $nodeObj)
-{
-    $node = $nodeObj->toArray();
+function casa_firjan_process_pagina_basica(&$variables, $nodeObj) {
+  $node = $nodeObj->toArray();
 
-    $variables['customPage']['status'] = $node['status'][0]['value'];
-    $variables['customPage']['imagem'] = isset($node['field_imagem'][0]['target_id']) && !empty($node['field_imagem'][0]['target_id']) ? GM5File::renderImage($node['field_imagem'][0]['target_id'], '1920x400') : '';
-    $variables['customPage']['conteudo']['titulo'] = $node['title'][0]['value'];
-    $variables['customPage']['conteudo']['texto'] = isset($node['field_texto'][0]['value']) && !empty($node['field_texto'][0]['value']) ? $node['field_texto'][0]['value'] : '';
+  $variables['customPage']['status'] = $node['status'][0]['value'];
+  $variables['customPage']['imagem'] = isset($node['field_imagem'][0]['target_id']) && !empty($node['field_imagem'][0]['target_id']) ? GM5File::renderImage($node['field_imagem'][0]['target_id'], '1920x400') : '';
+  $variables['customPage']['conteudo']['titulo'] = $node['title'][0]['value'];
+  $variables['customPage']['conteudo']['texto'] = isset($node['field_texto'][0]['value']) && !empty($node['field_texto'][0]['value']) ? $node['field_texto'][0]['value'] : '';
 
-    if (isset($node['field_categoria'][0]['target_id']) && !empty($node['field_categoria'][0]['target_id']))
-    {
-        $categoria = $nodeObj
-            ->field_categoria
+  if (isset($node['field_categoria'][0]['target_id']) && !empty($node['field_categoria'][0]['target_id'])) {
+    $categoria = $nodeObj
+      ->field_categoria
+      ->entity
+      ->toArray();
+
+    $variables['customPage']['conteudo']['categoria']['label'] = $categoria['name'][0]['value'];
+    $variables['customPage']['conteudo']['categoria']['url'] = $categoria['path'][0]['alias'];
+  }
+
+  casa_firjan_process_produtos_pagina($variables, $node['nid'][0]['value']);
+}
+
+function casa_firjan_process_produtos_pagina(&$variables, $nid) {
+  //Produtos
+  $options = new StdClass;
+
+  $options->args = array(
+    $nid
+  );
+
+  $options->pager = array(
+    'autoPager' => true
+  );
+  $viewprodutos = GM5Views::getViewArg('produtos', 'pagina', $options);
+
+  $variables['customPage']['produtosLista'] = array();
+
+  foreach ($viewprodutos['items'] as $k => $produto) {
+    $produtoObj = $produto->_entity;
+    $produto = $produto
+      ->_entity
+      ->toArray();
+
+    $nidsParaFiltrar[] = $produto['nid'][0]['value'];
+
+    $produtoItem = array();
+    $produtoItem['titulo'] = str_replace('_', '_<br>', $produto['title']['0']['value']);
+    $produtoItem['imagem'] = GM5File::renderImage($produto['field_imagem'][0]['target_id'], '338x400');
+
+    if (isset($produto['field_link'][0]['uri'])) {
+      if (strpos($produto['field_link'][0]['uri'], 'entity:node/') !== false) {
+        $produtoItem['link']['url'] = GM5Util::getAlias('/node/' . str_replace('entity:node/', '', $produto['field_link'][0]['uri']), 'relative');
+        $produtoItem['link']['target'] = '_self';
+      }
+      else {
+        $produtoItem['link'] = GM5Util::uriToUrl($produto['field_link'][0]['uri']);
+      }
+    }
+
+    $variables['customPage']['produtosLista'][] = $produtoItem;
+  }
+}
+
+function casa_firjan_process_videos(&$variables, &$nidsParaFiltrar, $categorias = array()) {
+  //Vídeos
+  $options = new StdClass;
+  $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
+  $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
+
+  $options->args = array(
+    $nidsParaRemover,
+    $categorias
+  );
+
+  $options->pager = array(
+    'autoPager' => true
+  );
+  $viewvideos = GM5Views::getViewArg('destaques', 'videos_home', $options);
+
+  $variables['customPage']['videosRecentes'] = array();
+
+  foreach ($viewvideos['items'] as $k => $video) {
+    $videoObj = $video->_entity;
+    $video = $video
+      ->_entity
+      ->toArray();
+
+    $nidsParaFiltrar[] = $video['nid'][0]['value'];
+
+    $videoItem = array();
+    $videoItem['titulo'] = GM5String::textLimit($video['title']['0']['value'], 56);
+    $videoItem['videoUrl'] = $video['field_video']['0']['value'];
+    $videoItem['url'] = GM5Util::getAlias('/node/' . $video['nid'][0]['value']);
+    ;
+    $videoItem['imagem'] = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($video['field_video']['0']['value']));
+
+    //Categoria
+    if (isset($video['field_categoria'][0]['target_id']) && !empty($video['field_categoria'][0]['target_id'])) {
+      $categoria = $videoObj
+        ->field_categoria
+        ->entity
+        ->toArray();
+
+      $videoItem['categoria']['label'] = $categoria['name'][0]['value'];
+      $videoItem['categoria']['url'] = $categoria['path'][0]['alias'];
+
+    }
+
+    $variables['customPage']['videosRecentes'][] = $videoItem;
+  }
+}
+
+function casa_firjan_process_agenda(&$variables, $categoria = '', $programa = 'all') {
+  if (!empty($categoria)) {
+    $categoriaObj = $categoria;
+    $categoria = $categoria->toArray();
+
+    $grupo = array();
+    $grupo['tid'] = $categoria['tid'][0]['value'];
+    $grupo['name'] = $categoria['name'][0]['value'];
+    $grupo['alias'] = GM5String::transliteration($categoria['name'][0]['value']);
+    $grupo['itens'] = array();
+  }
+
+  //Eventos
+  $options = new StdClass;
+
+  if (!empty($categoria)) {
+    $options->filters = ['categoria' => [$grupo['tid']]];
+  }
+
+  $options->args = array(
+    $programa
+  );
+
+  $options->pager = array(
+    'autoPager' => true
+  );
+  $vieweventos = GM5Views::getViewArg('agenda', 'filtros_2', $options);
+
+  foreach ($vieweventos['items'] as $k => $evento) {
+    $eventoObj = $evento->_entity;
+    $evento = $evento
+      ->_entity
+      ->toArray();
+
+    $eventoItem = array();
+    $eventoItem['titulo'] = $evento['title'][0]['value'];
+    $eventoItem['texto'] = $evento['field_chamada'][0]['value'];
+    $eventoItem['duracao'] = $evento['field_duracao'][0]['value'];
+    $eventoItem['url'] = GM5Util::getAlias('/node/' . $evento['nid'][0]['value']);
+    $eventoItem['edit'] = GM5Util::getAlias('/node/' . $evento['nid'][0]['value'] . '/edit');
+    $eventoItem['categoria'] = $eventoObj
+      ->field_categoria_agenda
+      ->entity
+      ->toArray()['name'][0]['value'];
+
+    $data = new \DateTime($evento['field_hora_de_inicio'][0]['value']);
+    $la_time = new \DateTimeZone(date_default_timezone_get());
+    $data->setTimezone($la_time);
+
+    $eventoItem['data'] = $data->format('d') . ' de ' . GM5Util::mesBr($data->format('m')) . ' de ' . $data->format('Y');
+    $eventoItem['hora'] = $data->format('H');
+    $eventoItem['minutos'] = $data->format('i');
+
+    $eventoItem['data_raw'] = $data;
+
+    if (!empty($categoria)) {
+      $grupo['itens'][] = $eventoItem;
+    }
+    else {
+      $variables['customPage']['conteudo']['eventos']['itens'][] = $eventoItem;
+    }
+
+  }
+
+  if (isset($grupo)) {
+    $variables['customPage']['conteudo']['eventos'][] = $grupo;
+  }
+}
+
+function casa_firjan_process_breadcrumb(&$variables, $tid, $removeLast = true) {
+  $ancestors = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")
+    ->loadAllParents($tid);
+  $breadCrumb = [];
+  foreach ($ancestors as $termParent) {
+    $termParent = $termParent->toArray();
+
+    $breadTemp = array();
+    $breadTemp['label'] = $termParent['name'][0]['value'];
+    $breadTemp['url'] = $termParent['path'][0]['alias'];
+
+    $breadCrumb[] = $breadTemp;
+  }
+  $breadCrumb = array_reverse($breadCrumb);
+
+  if ($removeLast) {
+    array_pop($breadCrumb);
+  }
+
+  $variables['customPage']['conteudo']['breadcrumb'] = $breadCrumb;
+}
+
+function casa_firjan_process_leia_mais(&$variables, &$nidsParaFiltrar, $categorias = array()) {
+  //Eventos
+  $options = new StdClass;
+  $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
+
+  $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
+  $term_obj = Term::load($tid);
+  // $term_name = $term_obj->name->value;
+  $vid = $term_obj->toArray()['vid'][0]['target_id'];
+  $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
+  $options->args = array(
+    $nidsParaRemover,
+    $categorias
+  );
+  $options->pager = array(
+    'autoPager' => true
+  );
+
+  // $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
+  // $term_ids =  array($tid);
+  // $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
+  //   'field_tags' => $term_ids,
+  // ]);
+  if (\Drupal::routeMatch()
+    ->getRouteName() == 'entity.taxonomy_term.canonical') {
+    $vieweventos = GM5Views::getViewArg('destaques', $vid === 'tags_conteudo' ? 'leia_mais_tags' : 'leia_mais', $options);
+
+    foreach ($vieweventos['items'] as $k => $leiaMais) {
+      $leiaMaisObj = $leiaMais->_entity;
+      $leiaMais = $leiaMais
+        ->_entity
+        ->toArray();
+
+      $style = '190x190';
+
+      $nidsParaFiltrar[] = $leiaMais['nid'][0]['value'];
+
+      $leiaMaisItem = array();
+
+      $leiaMaisItem['titulo'] = $leiaMais['title'][0]['value'];
+      $leiaMaisItem['url'] = GM5Util::getAlias('/node/' . $leiaMais['nid'][0]['value'], 'relative');
+      $leiaMaisItem['chamada'] = strip_tags($leiaMais['field_chamada'][0]['value']);
+
+      //Imagem ou vídeo
+      $tipo = '';
+      $midia = '';
+      //   }
+      if (isset($leiaMais['field_tipo_de_midia']) && !empty($leiaMais['field_tipo_de_midia'])) {
+        if ($leiaMais['field_tipo_de_midia'][0]['value'] == 'video' && isset($leiaMais['field_video'][0]['value'])) {
+
+          $tipo = 'video';
+          $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($leiaMais['field_video'][0]['value']));
+
+          $leiaMaisItem['midia']['urlvideo'] = $leiaMais['field_video'][0]['value'];
+
+        }
+        else if ($leiaMais['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($leiaMais['field_imagem'][0]['target_id'])) {
+          $tipo = 'imagem';
+          $midia = GM5File::renderImage($leiaMais['field_imagem'][0]['target_id']);
+        }
+      }
+      else if (!isset($leiaMais['field_tipo_de_midia']) && isset($leiaMais['field_imagem']) && !empty($leiaMais['field_imagem'])) {
+        // Com imagem de destaque
+        $tipo = 'imagem';
+        $midia = GM5File::renderImage($leiaMais['field_imagem'][0]['target_id']);
+
+      }
+      else if (isset($leiaMais['field_thumb']) && !empty($leiaMais['field_thumb'])) {
+        //Com thumb
+        $tipo = 'imagem';
+        $midia = GM5File::renderImage($leiaMais['field_thumb'][0]['target_id']);
+
+      }
+
+      $leiaMaisItem['midia']['src'] = $midia;
+      $leiaMaisItem['midia']['tipo'] = $tipo;
+
+      //Autor e data
+      $autor_data = array();
+
+      if (isset($leiaMais['field_autor'][0]['target_id']) && !empty($leiaMais['field_autor'][0]['target_id'])) {
+        if (isset($leiaMaisObj
+          ->field_autor
+          ->entity)) {
+          $autor = $leiaMaisObj
+            ->field_autor
             ->entity
             ->toArray();
 
-        $variables['customPage']['conteudo']['categoria']['label'] = $categoria['name'][0]['value'];
-        $variables['customPage']['conteudo']['categoria']['url'] = $categoria['path'][0]['alias'];
-    }
-
-    casa_firjan_process_produtos_pagina($variables, $node['nid'][0]['value']);
-}
-
-function casa_firjan_process_produtos_pagina(&$variables, $nid)
-{
-    //Produtos
-    $options = new StdClass;
-
-    $options->args = array(
-        $nid
-    );
-
-    $options->pager = array(
-        'autoPager' => true
-    );
-    $viewprodutos = GM5Views::getViewArg('produtos', 'pagina', $options);
-
-    $variables['customPage']['produtosLista'] = array();
-
-    foreach ($viewprodutos['items'] as $k => $produto)
-    {
-        $produtoObj = $produto->_entity;
-        $produto = $produto
-            ->_entity
-            ->toArray();
-
-        $nidsParaFiltrar[] = $produto['nid'][0]['value'];
-
-        $produtoItem = array();
-        $produtoItem['titulo'] = str_replace('_', '_<br>', $produto['title']['0']['value']);
-        $produtoItem['imagem'] = GM5File::renderImage($produto['field_imagem'][0]['target_id'], '338x400');
-
-        if (isset($produto['field_link'][0]['uri']))
-        {
-            if (strpos($produto['field_link'][0]['uri'], 'entity:node/') !== false)
-            {
-                $produtoItem['link']['url'] = GM5Util::getAlias('/node/' . str_replace('entity:node/', '', $produto['field_link'][0]['uri']) , 'relative');
-                $produtoItem['link']['target'] = '_self';
-            }
-            else
-            {
-                $produtoItem['link'] = GM5Util::uriToUrl($produto['field_link'][0]['uri']);
-            }
+          $autor_data[] = 'Por ' . $autor['title'][0]['value'];
         }
+      }
 
-        $variables['customPage']['produtosLista'][] = $produtoItem;
+      $autor_data[] = ' em ' . date('d/m/Y', $leiaMais['created']['0']['value']);
+
+      $leiaMaisItem['autor_data'] = implode(' ', $autor_data);
+
+      if (isset($leiaMaisObj
+        ->field_categoria
+        ->entity)) {
+        $categoria = $leiaMaisObj
+          ->field_categoria
+          ->entity
+          ->toArray();
+
+        $leiaMaisItem['categoria']['label'] = $categoria['name'][0]['value'];
+        $leiaMaisItem['categoria']['url'] = $categoria['path'][0]['alias'];
+
+      }
+
+      //print_r($leiaMaisItem); die;
+      $variables['customPage']['leiaMais']['items'][] = $leiaMaisItem;
+
+      $current_path = \Drupal::service('path.current')->getPath();
+
+      $variables['customPage']['leiaMais']['url'] = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+
     }
+
+    $variables['customPage']['leiaMais']['paginacao'] = isset($vieweventos['pager']) && !empty($vieweventos['pager']) ? $vieweventos['pager'] : array();
+  }
 }
 
-function casa_firjan_process_videos(&$variables, &$nidsParaFiltrar, $categorias = array())
-{
-    //Vídeos
-    $options = new StdClass;
-    $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
-    $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
+function casa_firjan_process_destaque(&$variables, &$nidsParaFiltrar, $categorias = array()) {
 
-    $options->args = array(
-        $nidsParaRemover,
-        $categorias
-    );
+  //Vídeos
+  $options = new StdClass;
+  $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
+  $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
 
-    $options->pager = array(
-        'autoPager' => true
-    );
-    $viewvideos = GM5Views::getViewArg('destaques', 'videos_home', $options);
+  $options->args = array(
+    $nidsParaRemover,
+    $categorias
+  );
 
-    $variables['customPage']['videosRecentes'] = array();
+  $options->pager = array(
+    'autoPager' => true
+  );
+  $viewdestaques = GM5Views::getViewArg('destaques', 'destaques', $options);
 
-    foreach ($viewvideos['items'] as $k => $video)
-    {
-        $videoObj = $video->_entity;
-        $video = $video
-            ->_entity
-            ->toArray();
+  $variables['customPage']['destaquesRecentes'] = array();
 
-        $nidsParaFiltrar[] = $video['nid'][0]['value'];
+  $term = Term::load($categorias);
 
-        $videoItem = array();
-        $videoItem['titulo'] = GM5String::textLimit($video['title']['0']['value'], 56);
-        $videoItem['videoUrl'] = $video['field_video']['0']['value'];
-        $videoItem['url'] = GM5Util::getAlias('/node/' . $video['nid'][0]['value']);;
-        $videoItem['imagem'] = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($video['field_video']['0']['value']));
+  $destaques = $term && $term->hasField('field_destaques') && !empty($term->get('field_destaques')
+    ->getValue()) ? $term->get('field_destaques')
+      ->getValue() : '';
 
-        //Categoria
-        if (isset($video['field_categoria'][0]['target_id']) && !empty($video['field_categoria'][0]['target_id']))
-        {
-            $categoria = $videoObj
-                ->field_categoria
-                ->entity
-                ->toArray();
+  $countDestaques = (is_array($destaques) ? count($destaques) : 0);
 
-            $videoItem['categoria']['label'] = $categoria['name'][0]['value'];
-            $videoItem['categoria']['url'] = $categoria['path'][0]['alias'];
+  $nodes = [];
 
-        }
-
-        $variables['customPage']['videosRecentes'][] = $videoItem;
-    }
-}
-
-function casa_firjan_process_agenda(&$variables, $categoria = '', $programa = 'all')
-{
-    if (!empty($categoria))
-    {
-        $categoriaObj = $categoria;
-        $categoria = $categoria->toArray();
-
-        $grupo = array();
-        $grupo['tid'] = $categoria['tid'][0]['value'];
-        $grupo['name'] = $categoria['name'][0]['value'];
-        $grupo['alias'] = GM5String::transliteration($categoria['name'][0]['value']);
-        $grupo['itens'] = array();
-    }
-
-    //Eventos
-    $options = new StdClass;
-
-    if (!empty($categoria))
-    {
-        $options->filters = ['categoria' => [$grupo['tid']]];
-    }
-
-    $options->args = array(
-        $programa
-    );
-
-    $options->pager = array(
-        'autoPager' => true
-    );
-    $vieweventos = GM5Views::getViewArg('agenda', 'filtros_2', $options);
-
-    foreach ($vieweventos['items'] as $k => $evento)
-    {
-        $eventoObj = $evento->_entity;
-        $evento = $evento
-            ->_entity
-            ->toArray();
-
-        $eventoItem = array();
-        $eventoItem['titulo'] = $evento['title'][0]['value'];
-        $eventoItem['texto'] = $evento['field_chamada'][0]['value'];
-        $eventoItem['duracao'] = $evento['field_duracao'][0]['value'];
-        $eventoItem['url'] = GM5Util::getAlias('/node/' . $evento['nid'][0]['value']);
-        $eventoItem['edit'] = GM5Util::getAlias('/node/' . $evento['nid'][0]['value'] . '/edit');
-        $eventoItem['categoria'] = $eventoObj
-            ->field_categoria_agenda
-            ->entity
-            ->toArray()['name'][0]['value'];
-
-        $data = new \DateTime($evento['field_hora_de_inicio'][0]['value']);
-        $la_time = new \DateTimeZone(date_default_timezone_get());
-        $data->setTimezone($la_time);
-
-        $eventoItem['data'] = $data->format('d') . ' de ' . GM5Util::mesBr($data->format('m')) . ' de ' . $data->format('Y');
-        $eventoItem['hora'] = $data->format('H');
-        $eventoItem['minutos'] = $data->format('i');
-
-        $eventoItem['data_raw'] = $data;
-
-        if (!empty($categoria))
-        {
-            $grupo['itens'][] = $eventoItem;
-        }
-        else
-        {
-            $variables['customPage']['conteudo']['eventos']['itens'][] = $eventoItem;
-        }
-
-    }
-
-    if (isset($grupo))
-    {
-        $variables['customPage']['conteudo']['eventos'][] = $grupo;
-    }
-}
-
-function casa_firjan_process_breadcrumb(&$variables, $tid, $removeLast = true)
-{
-    $ancestors = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")
-        ->loadAllParents($tid);
-    $breadCrumb = [];
-    foreach ($ancestors as $termParent)
-    {
-        $termParent = $termParent->toArray();
-
-        $breadTemp = array();
-        $breadTemp['label'] = $termParent['name'][0]['value'];
-        $breadTemp['url'] = $termParent['path'][0]['alias'];
-
-        $breadCrumb[] = $breadTemp;
-    }
-    $breadCrumb = array_reverse($breadCrumb);
-
-    if ($removeLast)
-    {
-        array_pop($breadCrumb);
-    }
-
-    $variables['customPage']['conteudo']['breadcrumb'] = $breadCrumb;
-}
-
-function casa_firjan_process_leia_mais(&$variables, &$nidsParaFiltrar, $categorias = array())
-{
-    //Eventos
-    $options = new StdClass;
-    $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
-
-    $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
+  if (\Drupal::routeMatch()
+    ->getRouteName() == 'entity.taxonomy_term.canonical') {
+    $tid = end($options->args);
     $term_obj = Term::load($tid);
-    // $term_name = $term_obj->name->value;
-    $vid = $term_obj->toArray()['vid'][0]['target_id'];
-    $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
-    $options->args = array(
-        $nidsParaRemover,
-        $categorias
-    );
-    $options->pager = array(
-        'autoPager' => true
-    );
+    $bundle = \Drupal::routeMatch()->getParameters()
+      ->all()['taxonomy_term']
+      ->bundle();
+    $variables['bundle'] = $bundle;
 
-    // $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
-    // $term_ids =  array($tid);
-    // $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
-    //   'field_tags' => $term_ids,
-    // ]);
-    if (\Drupal::routeMatch()
-        ->getRouteName() == 'entity.taxonomy_term.canonical')
-    {
-        $vieweventos = GM5Views::getViewArg('destaques', $vid === 'tags_conteudo' ? 'leia_mais_tags' : 'leia_mais', $options);
-
-        foreach ($vieweventos['items'] as $k => $leiaMais)
-        {
-            $leiaMaisObj = $leiaMais->_entity;
-            $leiaMais = $leiaMais
-                ->_entity
-                ->toArray();
-
-            $style = '190x190';
-
-            $nidsParaFiltrar[] = $leiaMais['nid'][0]['value'];
-
-            $leiaMaisItem = array();
-
-            $leiaMaisItem['titulo'] = $leiaMais['title'][0]['value'];
-            $leiaMaisItem['url'] = GM5Util::getAlias('/node/' . $leiaMais['nid'][0]['value'], 'relative');
-            $leiaMaisItem['chamada'] = strip_tags($leiaMais['field_chamada'][0]['value']);
-
-            //Imagem ou vídeo
-            $tipo = '';
-            $midia = '';
-            //   }
-            if (isset($leiaMais['field_tipo_de_midia']) && !empty($leiaMais['field_tipo_de_midia']))
-            {
-                if ($leiaMais['field_tipo_de_midia'][0]['value'] == 'video' && isset($leiaMais['field_video'][0]['value']))
-                {
-
-                    $tipo = 'video';
-                    $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($leiaMais['field_video'][0]['value']));
-
-                    $leiaMaisItem['midia']['urlvideo'] = $leiaMais['field_video'][0]['value'];
-
-                }
-                else if ($leiaMais['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($leiaMais['field_imagem'][0]['target_id']))
-                {
-                    $tipo = 'imagem';
-                    $midia = GM5File::renderImage($leiaMais['field_imagem'][0]['target_id']);
-                }
-            }
-            else if (!isset($leiaMais['field_tipo_de_midia']) && isset($leiaMais['field_imagem']) && !empty($leiaMais['field_imagem']))
-            {
-                // Com imagem de destaque
-                $tipo = 'imagem';
-                $midia = GM5File::renderImage($leiaMais['field_imagem'][0]['target_id']);
-
-            }
-            else if (isset($leiaMais['field_thumb']) && !empty($leiaMais['field_thumb']))
-            {
-                //Com thumb
-                $tipo = 'imagem';
-                $midia = GM5File::renderImage($leiaMais['field_thumb'][0]['target_id']);
-
-            }
-
-            $leiaMaisItem['midia']['src'] = $midia;
-            $leiaMaisItem['midia']['tipo'] = $tipo;
-
-            //Autor e data
-            $autor_data = array();
-
-            if (isset($leiaMais['field_autor'][0]['target_id']) && !empty($leiaMais['field_autor'][0]['target_id']))
-            {
-                if (isset($leiaMaisObj
-                    ->field_autor
-                    ->entity))
-                {
-                    $autor = $leiaMaisObj
-                        ->field_autor
-                        ->entity
-                        ->toArray();
-
-                    $autor_data[] = 'Por ' . $autor['title'][0]['value'];
-                }
-            }
-
-            $autor_data[] = ' em ' . date('d/m/Y', $leiaMais['created']['0']['value']);
-
-            $leiaMaisItem['autor_data'] = implode(' ', $autor_data);
-
-            if (isset($leiaMaisObj
-                ->field_categoria
-                ->entity))
-            {
-                $categoria = $leiaMaisObj
-                    ->field_categoria
-                    ->entity
-                    ->toArray();
-
-                $leiaMaisItem['categoria']['label'] = $categoria['name'][0]['value'];
-                $leiaMaisItem['categoria']['url'] = $categoria['path'][0]['alias'];
-
-            }
-
-            //print_r($leiaMaisItem); die;
-            $variables['customPage']['leiaMais']['items'][] = $leiaMaisItem;
-
-            $current_path = \Drupal::service('path.current')->getPath();
-
-            $variables['customPage']['leiaMais']['url'] = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
-
-        }
-
-        $variables['customPage']['leiaMais']['paginacao'] = isset($vieweventos['pager']) && !empty($vieweventos['pager']) ? $vieweventos['pager'] : array();
-    }
-}
-
-function casa_firjan_process_destaque(&$variables, &$nidsParaFiltrar, $categorias = array())
-{
-
-    //Vídeos
-    $options = new StdClass;
-    $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
-    $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
-
-    $options->args = array(
-        $nidsParaRemover,
-        $categorias
-    );
-
-    $options->pager = array(
-        'autoPager' => true
-    );
-    $viewdestaques = GM5Views::getViewArg('destaques', 'destaques', $options);
-
-    $variables['customPage']['destaquesRecentes'] = array();
-
-    $term = Term::load($categorias);
-
-    $destaques = $term && $term->hasField('field_destaques') && !empty($term->get('field_destaques')
-        ->getValue()) ? $term->get('field_destaques')
-        ->getValue() : '';
-
-    $countDestaques = (is_array($destaques) ? count($destaques) : 0);
-
-    $nodes = [];
-
-    if (\Drupal::routeMatch()
-        ->getRouteName() == 'entity.taxonomy_term.canonical') {
-            $tid = end($options->args);
-            $term_obj = Term::load($tid);
-            $bundle = \Drupal::routeMatch()->getParameters()
-                ->all()['taxonomy_term']
-                ->bundle();
-            $variables['bundle'] = $bundle;
-        
-            $prop = $bundle === 'tags_conteudo' ? 'field_tags' : 'field_categoria';
-            $nodes = \Drupal::entityTypeManager()->getStorage('node')
-                ->loadByProperties([$prop => $tid]);
+    $prop = $bundle === 'tags_conteudo' ? 'field_tags' : 'field_categoria';
+    $nodes = \Drupal::entityTypeManager()->getStorage('node')
+      ->loadByProperties([$prop => $tid]);
 
 
-            $query = \Drupal::entityQuery('node')->condition('type', 'conteudo')
-            ->sort('created' , 'DESC')->condition('field_categoria', [$tid], 'IN')->condition('status', 1);
+    $query = \Drupal::entityQuery('node')->condition('type', 'conteudo')
+      ->sort('created', 'DESC')->condition('field_categoria', [$tid], 'IN')->condition('status', 1);
 
-            // $query->andConditionGroup()->condition('field_categoria', $tids, 'IN');
-            $result = $query->execute();
-            $storage = \Drupal::entityTypeManager()->getStorage('node');
-            $nds = $storage->loadMultiple($result);
+    // $query->andConditionGroup()->condition('field_categoria', $tids, 'IN');
+    $result = $query->execute();
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    $nds = $storage->loadMultiple($result);
 
-            // $query->condition('type', 'conteudo')
-            // ->sort('field', 'DESC');
-            // $nids = $query->execute();
+    // $query->condition('type', 'conteudo')
+    // ->sort('field', 'DESC');
+    // $nids = $query->execute();
 
-        }
+  }
 
 
-    if($nds && count($nds)) {
-        $i = 0;
-      foreach ($nds as $idx => $destaque)
-      {
-            $i++;
+  if ($nds && count($nds)) {
+    $i = 0;
+    foreach ($nds as $idx => $destaque) {
+      $i++;
 
-          if ($idx == 0)
-          {
-              $style = '651x333';
-          }
-          else
-          {
-              $style = '';
-          }
-  
-          $nd = Node::load($destaque->id());
-
-          if ($i <= 3) {
-            $nidsParaFiltrar[] = $nd->id();
-          }
-
-          $destaqueItem = array();
-  
-          $destaqueItem['titulo'] = $nd->getTitle();
-          $destaqueItem['url'] = GM5Util::getAlias('/node/' . $nd->id() , 'relative');
-          $destaqueItem['chamada'] = $nd->hasField("field_chamada") ? $nd->get("field_chamada")
-              ->getValue()[0]['value'] : null;
-  
-          //Imagem ou vídeo
-          $tipo = '';
-          $midia = '';
-          if ($nd->hasField("field_tipo_de_midia") ||
-          $nd->hasField("field_video") ||
-          $nd->hasField("field_video"))
-          {
-  
-              if ($nd->get("field_tipo_de_midia")
-                  ->getValue()[0]['value'] == 'video' && isset($nd->get("field_video")
-                  ->getValue()[0]['value']))
-              {
-                  $tipo = 'video';
-                  $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd->get("field_video")
-                      ->getValue()[0]['value']));
-                  $destaqueItem['midia']['url'] = $nd->get("field_video")
-                      ->getValue()[0]['value'];
-              }
-              else if ($nd->get("field_tipo_de_midia")
-                  ->getValue()[0]['value'] == 'imagem' && isset($nd->get("field_imagem")
-                  ->getValue()[0]['target_id']))
-              {
-                  $tipo = 'imagem';
-                  $midia = GM5File::renderImage($nd->get("field_imagem")
-                      ->getValue()[0]['target_id'], $style);
-              }
-          }
-          else if ($nd->hasField("field_tipo_de_midia") ||
-          $nd->hasField("field_imagem"))
-          {
-              // Com imagem de destaque
-              $tipo = 'imagem';
-              $midia = GM5File::renderImage($nd->get("field_imagem")
-                  ->getValue()[0]['target_id'], $style);
-  
-          }
-          else if (isset($nd->get("field_thumb")
-              ->getValue()[0]['target_id']) && !empty($nd->get("field_thumb")
-              ->getValue()[0]['target_id']))
-          {
-              //Com thumb
-              $tipo = 'imagem';
-              $midia = GM5File::renderImage($nd->get("field_thumb")
-                  ->getValue()[0]['target_id'], $style);
-          }
-          $destaqueItem['midia']['src'] = $midia;
-          $destaqueItem['midia']['tipo'] = $tipo;
-          //Autor e data
-          $autor_data = array();
-          // if (isset($nd->get("field_autor")->getValue()[0]['target_id']) && !empty($nd->get("field_autor")->getValue()[0]['target_id'])) {
-          //   $autor = \Drupal::entityManager()->getStorage('node')->load($nd->get("field_autor")->getValue()[0]['target_id']);
-          //   $autor_data[] = 'Por ' . $autor->getTitle();
-          // }
-          $autor_data[] = ' em ' . date('d/m/Y', $nd->getCreatedTime());
-  
-          $destaqueItem['autor_data'] = implode(' ', $autor_data);
-  
-          $variables['customPage']['destaques'][] = $destaqueItem;
+      if ($idx == 0) {
+        $style = '651x333';
       }
-    } else {
-      foreach ($destaques as $idx => $destaque)
-      {
-          if ($idx == 0)
-          {
-              $style = '651x333';
-          }
-          else
-          {
-              $style = '190x190';
-          }
-  
-          $nd = Node::load($destaque['target_id']);
-  
-          $nidsParaFiltrar[] = $nd->id();
-  
-          $destaqueItem = array();
-  
-          $destaqueItem['titulo'] = $nd->getTitle();
-          $destaqueItem['url'] = GM5Util::getAlias('/node/' . $nd->id() , 'relative');
-          $destaqueItem['chamada'] = $nd->get("field_chamada")
-              ->getValue()[0]['value'];
-  
-          //Imagem ou vídeo
-          $tipo = '';
-          $midia = '';
-          if (isset($nd->get("field_tipo_de_midia")
-              ->getValue()[0]['value']) && !empty($nd->get("field_tipo_de_midia")
-              ->getValue()[0]['value']))
-          {
-  
-              if ($nd->get("field_tipo_de_midia")
-                  ->getValue()[0]['value'] == 'video' && isset($nd->get("field_video")
-                  ->getValue()[0]['value']))
-              {
-                  $tipo = 'video';
-                  $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd->get("field_video")
-                      ->getValue()[0]['value']));
-                  $destaqueItem['midia']['url'] = $nd->get("field_video")
-                      ->getValue()[0]['value'];
-              }
-              else if ($nd->get("field_tipo_de_midia")
-                  ->getValue()[0]['value'] == 'imagem' && isset($nd->get("field_imagem")
-                  ->getValue()[0]['target_id']))
-              {
-                  $tipo = 'imagem';
-                  $midia = GM5File::renderImage($nd->get("field_imagem")
-                      ->getValue()[0]['target_id'], $style);
-              }
-          }
-          else if (!isset($nd->get("field_tipo_de_midia")
-              ->getValue()[0]['value']) && isset($nd->get("field_imagem")
-              ->getValue()[0]['target_id']) && !empty($nd->get("field_imagem")
-              ->getValue()[0]['target_id']))
-          {
-              // Com imagem de destaque
-              $tipo = 'imagem';
-              $midia = GM5File::renderImage($nd->get("field_imagem")
-                  ->getValue()[0]['target_id'], $style);
-  
-          }
-          else if (isset($nd->get("field_thumb")
-              ->getValue()[0]['target_id']) && !empty($nd->get("field_thumb")
-              ->getValue()[0]['target_id']))
-          {
-              //Com thumb
-              $tipo = 'imagem';
-              $midia = GM5File::renderImage($nd->get("field_thumb")
-                  ->getValue()[0]['target_id'], $style);
-          }
-          $destaqueItem['midia']['src'] = $midia;
-          $destaqueItem['midia']['tipo'] = $tipo;
-          //Autor e data
-          $autor_data = array();
-          // if (isset($nd->get("field_autor")->getValue()[0]['target_id']) && !empty($nd->get("field_autor")->getValue()[0]['target_id'])) {
-          //   $autor = \Drupal::entityManager()->getStorage('node')->load($nd->get("field_autor")->getValue()[0]['target_id']);
-          //   $autor_data[] = 'Por ' . $autor->getTitle();
-          // }
-          $autor_data[] = ' em ' . date('d/m/Y', $nd->getCreatedTime());
-  
-          $destaqueItem['autor_data'] = implode(' ', $autor_data);
-  
-          $variables['customPage']['destaques'][] = $destaqueItem;
+      else {
+        $style = '';
       }
+
+      $nd = Node::load($destaque->id());
+
+      if ($i <= 3) {
+        $nidsParaFiltrar[] = $nd->id();
+      }
+
+      $destaqueItem = array();
+
+      $destaqueItem['titulo'] = $nd->getTitle();
+      $destaqueItem['url'] = GM5Util::getAlias('/node/' . $nd->id(), 'relative');
+      $destaqueItem['chamada'] = $nd->hasField("field_chamada") ? $nd->get("field_chamada")
+        ->getValue()[0]['value'] : null;
+
+      //Imagem ou vídeo
+      $tipo = '';
+      $midia = '';
+      if ($nd->hasField("field_tipo_de_midia") ||
+        $nd->hasField("field_video") ||
+        $nd->hasField("field_video")) {
+
+        if ($nd->get("field_tipo_de_midia")
+          ->getValue()[0]['value'] == 'video' && isset($nd->get("field_video")
+            ->getValue()[0]['value'])) {
+          $tipo = 'video';
+          $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd->get("field_video")
+            ->getValue()[0]['value']));
+          $destaqueItem['midia']['url'] = $nd->get("field_video")
+            ->getValue()[0]['value'];
+        }
+        else if ($nd->get("field_tipo_de_midia")
+          ->getValue()[0]['value'] == 'imagem' && isset($nd->get("field_imagem")
+            ->getValue()[0]['target_id'])) {
+          $tipo = 'imagem';
+          $midia = GM5File::renderImage($nd->get("field_imagem")
+            ->getValue()[0]['target_id'], $style);
+        }
+      }
+      else if ($nd->hasField("field_tipo_de_midia") ||
+        $nd->hasField("field_imagem")) {
+        // Com imagem de destaque
+        $tipo = 'imagem';
+        $midia = GM5File::renderImage($nd->get("field_imagem")
+          ->getValue()[0]['target_id'], $style);
+
+      }
+      else if (isset($nd->get("field_thumb")
+        ->getValue()[0]['target_id']) && !empty($nd->get("field_thumb")
+          ->getValue()[0]['target_id'])) {
+        //Com thumb
+        $tipo = 'imagem';
+        $midia = GM5File::renderImage($nd->get("field_thumb")
+          ->getValue()[0]['target_id'], $style);
+      }
+      $destaqueItem['midia']['src'] = $midia;
+      $destaqueItem['midia']['tipo'] = $tipo;
+      //Autor e data
+      $autor_data = array();
+      // if (isset($nd->get("field_autor")->getValue()[0]['target_id']) && !empty($nd->get("field_autor")->getValue()[0]['target_id'])) {
+      //   $autor = \Drupal::entityManager()->getStorage('node')->load($nd->get("field_autor")->getValue()[0]['target_id']);
+      //   $autor_data[] = 'Por ' . $autor->getTitle();
+      // }
+      $autor_data[] = ' em ' . date('d/m/Y', $nd->getCreatedTime());
+
+      $destaqueItem['autor_data'] = implode(' ', $autor_data);
+
+      $variables['customPage']['destaques'][] = $destaqueItem;
     }
+  }
+  else {
+    foreach ($destaques as $idx => $destaque) {
+      if ($idx == 0) {
+        $style = '651x333';
+      }
+      else {
+        $style = '190x190';
+      }
+
+      $nd = Node::load($destaque['target_id']);
+
+      $nidsParaFiltrar[] = $nd->id();
+
+      $destaqueItem = array();
+
+      $destaqueItem['titulo'] = $nd->getTitle();
+      $destaqueItem['url'] = GM5Util::getAlias('/node/' . $nd->id(), 'relative');
+      $destaqueItem['chamada'] = $nd->get("field_chamada")
+        ->getValue()[0]['value'];
+
+      //Imagem ou vídeo
+      $tipo = '';
+      $midia = '';
+      if (isset($nd->get("field_tipo_de_midia")
+        ->getValue()[0]['value']) && !empty($nd->get("field_tipo_de_midia")
+          ->getValue()[0]['value'])) {
+
+        if ($nd->get("field_tipo_de_midia")
+          ->getValue()[0]['value'] == 'video' && isset($nd->get("field_video")
+            ->getValue()[0]['value'])) {
+          $tipo = 'video';
+          $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd->get("field_video")
+            ->getValue()[0]['value']));
+          $destaqueItem['midia']['url'] = $nd->get("field_video")
+            ->getValue()[0]['value'];
+        }
+        else if ($nd->get("field_tipo_de_midia")
+          ->getValue()[0]['value'] == 'imagem' && isset($nd->get("field_imagem")
+            ->getValue()[0]['target_id'])) {
+          $tipo = 'imagem';
+          $midia = GM5File::renderImage($nd->get("field_imagem")
+            ->getValue()[0]['target_id'], $style);
+        }
+      }
+      else if (!isset($nd->get("field_tipo_de_midia")
+        ->getValue()[0]['value']) && isset($nd->get("field_imagem")
+          ->getValue()[0]['target_id']) && !empty($nd->get("field_imagem")
+          ->getValue()[0]['target_id'])) {
+        // Com imagem de destaque
+        $tipo = 'imagem';
+        $midia = GM5File::renderImage($nd->get("field_imagem")
+          ->getValue()[0]['target_id'], $style);
+
+      }
+      else if (isset($nd->get("field_thumb")
+        ->getValue()[0]['target_id']) && !empty($nd->get("field_thumb")
+          ->getValue()[0]['target_id'])) {
+        //Com thumb
+        $tipo = 'imagem';
+        $midia = GM5File::renderImage($nd->get("field_thumb")
+          ->getValue()[0]['target_id'], $style);
+      }
+      $destaqueItem['midia']['src'] = $midia;
+      $destaqueItem['midia']['tipo'] = $tipo;
+      //Autor e data
+      $autor_data = array();
+      // if (isset($nd->get("field_autor")->getValue()[0]['target_id']) && !empty($nd->get("field_autor")->getValue()[0]['target_id'])) {
+      //   $autor = \Drupal::entityManager()->getStorage('node')->load($nd->get("field_autor")->getValue()[0]['target_id']);
+      //   $autor_data[] = 'Por ' . $autor->getTitle();
+      // }
+      $autor_data[] = ' em ' . date('d/m/Y', $nd->getCreatedTime());
+
+      $destaqueItem['autor_data'] = implode(' ', $autor_data);
+
+      $variables['customPage']['destaques'][] = $destaqueItem;
+    }
+  }
 }
 
 // function casa_firjan_process_leia_mais_tags(&$variables, &$nidsParaFiltrar, $categorias = array())
@@ -1005,235 +913,212 @@ function casa_firjan_process_destaque(&$variables, &$nidsParaFiltrar, $categoria
 //     //print_r($variables['customPage']); die;
 //     $variables['customPage']['leiaMais']['paginacao'] = isset($vieweventos['pager']) && !empty($vieweventos['pager']) ? $vieweventos['pager'] : array();
 // }
-function casa_firjan_process_destaque_tags(&$variables, &$nidsParaFiltrar, $categorias = array())
-{
-    //Vídeos
-    $options = new StdClass;
-    $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
-    $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
+function casa_firjan_process_destaque_tags(&$variables, &$nidsParaFiltrar, $categorias = array()) {
+  //Vídeos
+  $options = new StdClass;
+  $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
+  $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
 
-    $options->args = array(
-        $nidsParaRemover,
-        $categorias
-    );
+  $options->args = array(
+    $nidsParaRemover,
+    $categorias
+  );
 
-    $options->pager = array(
-        'autoPager' => true
-    );
-    $viewdestaques = GM5Views::getViewArg('destaques', 'destaque_tags', $options);
+  $options->pager = array(
+    'autoPager' => true
+  );
+  $viewdestaques = GM5Views::getViewArg('destaques', 'destaque_tags', $options);
 
-    $variables['customPage']['destaquesRecentes'] = array();
+  $variables['customPage']['destaquesRecentes'] = array();
 
-    foreach ($viewdestaques['items'] as $idx => $destaque)
-    {
-        if ($idx == 0)
-        {
-            $style = '651x333';
-        }
-        else
-        {
-            $style = '190x190';
-        }
-
-        $ndObj = $destaque->_entity;
-        $nd = $destaque
-            ->_entity
-            ->toArray();
-        $nd['nid'][0]['value'];
-
-        $nidsParaFiltrar[] = $nd['nid'][0]['value'];
-
-        $destaqueItem = array();
-
-        $destaqueItem['titulo'] = $nd['title'][0]['value'];
-        $destaqueItem['url'] = GM5Util::getAlias('/node/' . $nd['nid'][0]['value'], 'relative');
-        $destaqueItem['chamada'] = isset($nd['field_chamada'][0]['value']) ? $nd['field_chamada'][0]['value'] : '';
-
-        //Imagem ou vídeo
-        $tipo = '';
-        $midia = '';
-
-        if (isset($nd['field_tipo_de_midia']) && !empty($nd['field_tipo_de_midia']))
-        {
-            if ($nd['field_tipo_de_midia'][0]['value'] == 'video' && isset($nd['field_video'][0]['value']))
-            {
-                $tipo = 'video';
-                $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd['field_video'][0]['value']));
-                $destaqueItem['midia']['url'] = $nd['field_video'][0]['value'];
-            }
-            else if ($nd['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($nd['field_imagem'][0]['target_id']))
-            {
-                $tipo = 'imagem';
-                $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
-            }
-        }
-        else if (!isset($nd['field_tipo_de_midia']) && isset($nd['field_imagem']) && !empty($nd['field_imagem']))
-        {
-            // Com imagem de destaque
-            $tipo = 'imagem';
-            $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
-
-        }
-        else if (isset($nd['field_thumb']) && !empty($nd['field_thumb']))
-        {
-            //Com thumb
-            $tipo = 'imagem';
-            $midia = GM5File::renderImage($nd['field_thumb'][0]['target_id'], $style);
-        }
-
-        $destaqueItem['midia']['src'] = $midia;
-        $destaqueItem['midia']['tipo'] = $tipo;
-
-        //Autor e data
-        $autor_data = array();
-        if (isset($nd['field_autor'][0]['target_id']) && !empty($nd['field_autor'][0]['target_id']))
-        {
-            $autor = $ndObj
-                ->field_autor
-                ->entity
-                ->toArray();
-
-            $autor_data[] = 'Por ' . $autor['title'][0]['value'];
-        }
-        $autor_data[] = ' em ' . date('d/m/Y', $nd['created']['0']['value']);
-
-        $destaqueItem['autor_data'] = implode(' ', $autor_data);
-
-        if (isset($ndObj
-            ->field_categoria
-            ->entity))
-        {
-            $categoria = $ndObj
-                ->field_categoria
-                ->entity
-                ->toArray();
-
-            $destaqueItem['categoria']['label'] = $categoria['name'][0]['value'];
-            $destaqueItem['categoria']['url'] = $categoria['path'][0]['alias'];
-        }
-
-        if ($nd['type'][0]['target_id'] == 'noticia')
-        {
-            $destaqueItem['categoria']['label'] = 'Notícias';
-            $destaqueItem['categoria']['url'] = '/noticias';
-        }
-        elseif ($nd['type'][0]['target_id'] == 'agenda')
-        {
-            $destaqueItem['categoria']['label'] = 'Agenda';
-            $destaqueItem['categoria']['url'] = '/agenda';
-        }
-
-        $variables['customPage']['destaques'][] = $destaqueItem;
+  foreach ($viewdestaques['items'] as $idx => $destaque) {
+    if ($idx == 0) {
+      $style = '651x333';
     }
+    else {
+      $style = '190x190';
+    }
+
+    $ndObj = $destaque->_entity;
+    $nd = $destaque
+      ->_entity
+      ->toArray();
+    $nd['nid'][0]['value'];
+
+    $nidsParaFiltrar[] = $nd['nid'][0]['value'];
+
+    $destaqueItem = array();
+
+    $destaqueItem['titulo'] = $nd['title'][0]['value'];
+    $destaqueItem['url'] = GM5Util::getAlias('/node/' . $nd['nid'][0]['value'], 'relative');
+    $destaqueItem['chamada'] = isset($nd['field_chamada'][0]['value']) ? $nd['field_chamada'][0]['value'] : '';
+
+    //Imagem ou vídeo
+    $tipo = '';
+    $midia = '';
+
+    if (isset($nd['field_tipo_de_midia']) && !empty($nd['field_tipo_de_midia'])) {
+      if ($nd['field_tipo_de_midia'][0]['value'] == 'video' && isset($nd['field_video'][0]['value'])) {
+        $tipo = 'video';
+        $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd['field_video'][0]['value']));
+        $destaqueItem['midia']['url'] = $nd['field_video'][0]['value'];
+      }
+      else if ($nd['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($nd['field_imagem'][0]['target_id'])) {
+        $tipo = 'imagem';
+        $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
+      }
+    }
+    else if (!isset($nd['field_tipo_de_midia']) && isset($nd['field_imagem']) && !empty($nd['field_imagem'])) {
+      // Com imagem de destaque
+      $tipo = 'imagem';
+      $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
+
+    }
+    else if (isset($nd['field_thumb']) && !empty($nd['field_thumb'])) {
+      //Com thumb
+      $tipo = 'imagem';
+      $midia = GM5File::renderImage($nd['field_thumb'][0]['target_id'], $style);
+    }
+
+    $destaqueItem['midia']['src'] = $midia;
+    $destaqueItem['midia']['tipo'] = $tipo;
+
+    //Autor e data
+    $autor_data = array();
+    if (isset($nd['field_autor'][0]['target_id']) && !empty($nd['field_autor'][0]['target_id'])) {
+      $autor = $ndObj
+        ->field_autor
+        ->entity
+        ->toArray();
+
+      $autor_data[] = 'Por ' . $autor['title'][0]['value'];
+    }
+    $autor_data[] = ' em ' . date('d/m/Y', $nd['created']['0']['value']);
+
+    $destaqueItem['autor_data'] = implode(' ', $autor_data);
+
+    if (isset($ndObj
+      ->field_categoria
+      ->entity)) {
+      $categoria = $ndObj
+        ->field_categoria
+        ->entity
+        ->toArray();
+
+      $destaqueItem['categoria']['label'] = $categoria['name'][0]['value'];
+      $destaqueItem['categoria']['url'] = $categoria['path'][0]['alias'];
+    }
+
+    if ($nd['type'][0]['target_id'] == 'noticia') {
+      $destaqueItem['categoria']['label'] = 'Notícias';
+      $destaqueItem['categoria']['url'] = '/noticias';
+    }
+    elseif ($nd['type'][0]['target_id'] == 'agenda') {
+      $destaqueItem['categoria']['label'] = 'Agenda';
+      $destaqueItem['categoria']['url'] = '/agenda';
+    }
+
+    $variables['customPage']['destaques'][] = $destaqueItem;
+  }
 }
 
-function casa_firjan_process_destaque_mini(&$variables, &$nidsParaFiltrar, $categorias = array())
-{
-    //Destaques
-    $options = new StdClass;
-    $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
-    $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
+function casa_firjan_process_destaque_mini(&$variables, &$nidsParaFiltrar, $categorias = array()) {
+  //Destaques
+  $options = new StdClass;
+  $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
+  $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
 
-    $options->args = array(
-        $nidsParaRemover,
-        $categorias
-    );
+  $options->args = array(
+    $nidsParaRemover,
+    $categorias
+  );
 
-    $options->pager = array(
-        'autoPager' => true
-    );
-    $viewdestaques = GM5Views::getViewArg('destaques', 'mini', $options);
+  $options->pager = array(
+    'autoPager' => true
+  );
+  $viewdestaques = GM5Views::getViewArg('destaques', 'mini', $options);
 
-    foreach ($viewdestaques['items'] as $idx => $destaque)
-    {
-        $style = '190x190';
+  foreach ($viewdestaques['items'] as $idx => $destaque) {
+    $style = '190x190';
 
-        $ndObj = $destaque->_entity;
-        $nd = $destaque
-            ->_entity
-            ->toArray();
+    $ndObj = $destaque->_entity;
+    $nd = $destaque
+      ->_entity
+      ->toArray();
 
-        $nidsParaFiltrar[] = $nd['nid'][0]['value'];
+    $nidsParaFiltrar[] = $nd['nid'][0]['value'];
 
-        $destaqueItem = array();
+    $destaqueItem = array();
 
-        $destaqueItem['titulo'] = $nd['title'][0]['value'];
-        $destaqueItem['url'] = GM5Util::getAlias('/node/' . $nd['nid'][0]['value'], 'relative');
-        $destaqueItem['chamada'] = $nd['field_chamada'][0]['value'];
+    $destaqueItem['titulo'] = $nd['title'][0]['value'];
+    $destaqueItem['url'] = GM5Util::getAlias('/node/' . $nd['nid'][0]['value'], 'relative');
+    $destaqueItem['chamada'] = $nd['field_chamada'][0]['value'];
 
-        //Imagem ou vídeo
-        $tipo = '';
-        $midia = '';
+    //Imagem ou vídeo
+    $tipo = '';
+    $midia = '';
 
-        if (isset($nd['field_tipo_de_midia']) && !empty($nd['field_tipo_de_midia']))
-        {
-            if ($nd['field_tipo_de_midia'][0]['value'] == 'video' && isset($nd['field_video'][0]['value']))
-            {
-                $tipo = 'video';
-                $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd['field_video'][0]['value']));
-                $destaqueItem['midia']['url'] = $nd['field_video'][0]['value'];
-            }
-            else if ($nd['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($nd['field_imagem'][0]['target_id']))
-            {
-                $tipo = 'imagem';
-                $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
-            }
-        }
-        else if (!isset($nd['field_tipo_de_midia']) && isset($nd['field_imagem']) && !empty($nd['field_imagem']))
-        {
-            // Com imagem de destaque
-            $tipo = 'imagem';
-            $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
-
-        }
-        else if (isset($nd['field_thumb']) && !empty($nd['field_thumb']))
-        {
-            //Com thumb
-            $tipo = 'imagem';
-            $midia = GM5File::renderImage($nd['field_thumb'][0]['target_id'], $style);
-        }
-
-        $destaqueItem['midia']['src'] = $midia;
-        $destaqueItem['midia']['tipo'] = $tipo;
-
-        //Autor e data
-        $autor_data = array();
-
-        if (isset($nd['field_autor'][0]['target_id']) && !empty($nd['field_autor'][0]['target_id']))
-        {
-            if (isset($ndObj
-                ->field_autor
-                ->entity))
-            {
-                $autor = $ndObj
-                    ->field_autor
-                    ->entity
-                    ->toArray();
-
-                $autor_data[] = 'Por ' . $autor['title'][0]['value'];
-            }
-
-        }
-        $autor_data[] = ' em ' . date('d/m/Y', $nd['created']['0']['value']);
-
-        $destaqueItem['autor_data'] = implode(' ', $autor_data);
-
-        if (isset($ndObj
-            ->field_categoria
-            ->entity))
-        {
-            $categoria = $ndObj
-                ->field_categoria
-                ->entity
-                ->toArray();
-
-            $destaqueItem['categoria']['label'] = $categoria['name'][0]['value'];
-            $destaqueItem['categoria']['url'] = $categoria['path'][0]['alias'];
-
-        }
-
-        $variables['customPage']['destaquesMini'][] = $destaqueItem;
+    if (isset($nd['field_tipo_de_midia']) && !empty($nd['field_tipo_de_midia'])) {
+      if ($nd['field_tipo_de_midia'][0]['value'] == 'video' && isset($nd['field_video'][0]['value'])) {
+        $tipo = 'video';
+        $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd['field_video'][0]['value']));
+        $destaqueItem['midia']['url'] = $nd['field_video'][0]['value'];
+      }
+      else if ($nd['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($nd['field_imagem'][0]['target_id'])) {
+        $tipo = 'imagem';
+        $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
+      }
     }
+    else if (!isset($nd['field_tipo_de_midia']) && isset($nd['field_imagem']) && !empty($nd['field_imagem'])) {
+      // Com imagem de destaque
+      $tipo = 'imagem';
+      $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
+
+    }
+    else if (isset($nd['field_thumb']) && !empty($nd['field_thumb'])) {
+      //Com thumb
+      $tipo = 'imagem';
+      $midia = GM5File::renderImage($nd['field_thumb'][0]['target_id'], $style);
+    }
+
+    $destaqueItem['midia']['src'] = $midia;
+    $destaqueItem['midia']['tipo'] = $tipo;
+
+    //Autor e data
+    $autor_data = array();
+
+    if (isset($nd['field_autor'][0]['target_id']) && !empty($nd['field_autor'][0]['target_id'])) {
+      if (isset($ndObj
+        ->field_autor
+        ->entity)) {
+        $autor = $ndObj
+          ->field_autor
+          ->entity
+          ->toArray();
+
+        $autor_data[] = 'Por ' . $autor['title'][0]['value'];
+      }
+
+    }
+    $autor_data[] = ' em ' . date('d/m/Y', $nd['created']['0']['value']);
+
+    $destaqueItem['autor_data'] = implode(' ', $autor_data);
+
+    if (isset($ndObj
+      ->field_categoria
+      ->entity)) {
+      $categoria = $ndObj
+        ->field_categoria
+        ->entity
+        ->toArray();
+
+      $destaqueItem['categoria']['label'] = $categoria['name'][0]['value'];
+      $destaqueItem['categoria']['url'] = $categoria['path'][0]['alias'];
+
+    }
+
+    $variables['customPage']['destaquesMini'][] = $destaqueItem;
+  }
 }
 
 // require_once 'process/taxonomy-level-1.inc';
@@ -1258,1198 +1143,795 @@ require_once 'process/agenda-detalhe.inc';
 require_once 'process/termos-de-uso.inc';
 require_once 'process/politica-de-privacidade.inc';
 
-function casa_firjan_preprocess_block_content(&$variables)
-{
-    $blockType = $variables['elements']['#block_content']->bundle();
-    $entity = $variables['elements']['#block_content'];
-    $bid = $entity
-        ->id
-        ->getValue()[0]['value'];
-    $variables['layout'] = $entity->toArray()['field_layout'][0]['value'];
-    $variables['horizontal'] = $entity->toArray()['field_horizontal'][0]['value'];
+function casa_firjan_preprocess_block_content(&$variables) {
+  $blockType = $variables['elements']['#block_content']->bundle();
+  $entity = $variables['elements']['#block_content'];
+  $bid = $entity
+    ->id
+    ->getValue()[0]['value'];
+  $variables['layout'] = $entity->toArray()['field_layout'][0]['value'];
+  $variables['horizontal'] = $entity->toArray()['field_horizontal'][0]['value'];
 
-    if ($entity->hasField('field_background'))
-    {
-        $file = \Drupal\file\Entity\File::load($entity->get('field_background')
-            ->getValue()[0]['target_id']);
-        if ($file)
-        {
-            $variables['bg'] = file_create_url($file->getFileUri());
-        }
+  if ($entity->hasField('field_background')) {
+    $file = \Drupal\file\Entity\File::load($entity->get('field_background')
+      ->getValue()[0]['target_id']);
+    if ($file) {
+      $variables['bg'] = file_create_url($file->getFileUri());
     }
+  }
 
-    $variables['title'] = $entity
-        ->info->value;
+  $variables['title'] = $entity
+    ->info->value;
 
-    if ($blockType == 'formularios')
-    {
-        $tid = $entity->get('field_formulario')
-            ->first()
-            ->getValue()['target_id'];
-        $variables['tid'] = $tid;
-    }
-    elseif ($blockType == 'basic')
-    {
-        switch ($bid)
-        {
-            case 1:
-                $vocabulary_name = 'tags';
-                $query = \Drupal::entityQuery('taxonomy_term');
-                $query->condition('vid', $vocabulary_name);
-                $tids = $query->execute();
-                $terms = Term::loadMultiple($tids);
-                $variables['taxonomies'] = array();
-
-                foreach ($terms as $term)
-                {
-                    $tid = $term->id();
-
-                    $term_obj = Term::load($tid);;
-
-                    $variables['taxonomies'][] = ['tid' => $tid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid) , 'name' => $term_obj
-                        ->name->value];
-                }
-            break;
-            default:
-                # code...
-                
-            break;
-        }
-    }
-    elseif ($blockType == 'bloco_destaque')
-    {
-        $variables['nodes'] = [];
-        $variables['taxonomies'] = [];
-        $variables['nodes'] = [];
-        $term_obj = Term::load($tid);
-        $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
-            ->loadParents($tid);
-
-        if ($parent)
-        {
-            $parent = reset($parent);
-            $ptid = $parent->id();
-            $pterm_obj = Term::load($ptid);
-        }
-
-        if ($tid && !empty($term_obj))
-        {
-            return ['tid' => $tid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid) , 'slug' => str_replace('/', '', \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid)) , 'name' => $term_obj
-                ->name->value, 'parent' => $parent ? ['tid' => $ptid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $ptid) , 'name' => $pterm_obj->get('name')->value, 'description' => strip_tags($pterm_obj->get('description')
-                ->value) ,
-            // 'field_taxonomy_image' => $pterm_obj->get('field_taxonomy_image')->entity && $pterm_obj->get('field_taxonomy_image')->entity->uri ? file_create_url($pterm_obj->get('field_taxonomy_image')->entity->uri->value) : '',
-            // 'field_taxonomy_theme' => $pterm_obj->get('field_taxonomy_theme')->getValue()[0]['color']
-            ] : null, 'description' => strip_tags($term_obj->get('description')
-                ->value) , 'type' => slugify($parent ? $pterm_obj->get('name')->value : $term_obj
-                ->name->value, '_') ,
-            // 'field_taxonomy_image' => $term_obj->get('field_taxonomy_image')->entity && $term_obj->get('field_taxonomy_image')->entity->uri ? file_create_url($term_obj->get('field_taxonomy_image')->entity->uri->value) : '',
-            // 'field_taxonomy_theme' => $term_obj->get('field_taxonomy_theme')->getValue()[0]['color'],
-            // 'field_cargo_especialista' => $term_obj->hasField('field_cargo_especialista') && $term_obj->get('field_cargo_especialista')->getValue() ? $term_obj->get('field_cargo_especialista')->getValue()[0]['value'] : '',
-            // 'field_documento_especialista' => $term_obj->hasField('field_documento_especialista') && $term_obj->get('field_documento_especialista')->getValue() ? $term_obj->get('field_documento_especialista')->getValue()[0]['value'] : ''
-            ];
-        }
-
-        $term_obj = Term::load($tid);
-        $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
-            ->loadParents($tid);
-
-        if ($parent)
-        {
-            $parent = reset($parent);
-            $ptid = $parent->id();
-            $pterm_obj = Term::load($ptid);
-        }
-
-        if ($tid && !empty($term_obj))
-        {
-            return ['tid' => $tid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid) , 'slug' => str_replace('/', '', \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid)) , 'name' => $term_obj
-                ->name->value, 'parent' => $parent ? ['tid' => $ptid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $ptid) , 'name' => $pterm_obj->get('name')->value, 'description' => strip_tags($pterm_obj->get('description')
-                ->value) ,
-            // 'field_taxonomy_image' => $pterm_obj->get('field_taxonomy_image')->entity && $pterm_obj->get('field_taxonomy_image')->entity->uri ? file_create_url($pterm_obj->get('field_taxonomy_image')->entity->uri->value) : '',
-            // 'field_taxonomy_theme' => $pterm_obj->get('field_taxonomy_theme')->getValue()[0]['color']
-            ] : null, 'description' => strip_tags($term_obj->get('description')
-                ->value) , 'type' => slugify($parent ? $pterm_obj->get('name')->value : $term_obj
-                ->name->value, '_') ,
-            // 'field_taxonomy_image' => $term_obj->get('field_taxonomy_image')->entity && $term_obj->get('field_taxonomy_image')->entity->uri ? file_create_url($term_obj->get('field_taxonomy_image')->entity->uri->value) : '',
-            // 'field_taxonomy_theme' => $term_obj->get('field_taxonomy_theme')->getValue()[0]['color'],
-            // 'field_cargo_especialista' => $term_obj->hasField('field_cargo_especialista') && $term_obj->get('field_cargo_especialista')->getValue() ? $term_obj->get('field_cargo_especialista')->getValue()[0]['value'] : '',
-            // 'field_documento_especialista' => $term_obj->hasField('field_documento_especialista') && $term_obj->get('field_documento_especialista')->getValue() ? $term_obj->get('field_documento_especialista')->getValue()[0]['value'] : ''
-            ];
-        }
-
-        if ($entity->get('field_da_categoria') && $entity->get('field_da_categoria')
-            ->referencedEntities())
-        {
-            $tids = [];
-
-            foreach ($entity->get('field_da_categoria')
-                ->referencedEntities() as $term)
-            {
-                $tids[] = $term
-                    ->tid->value;
-            }
-
-            $query = \Drupal::entityQuery('node')
-                ->sort('created' , 'DESC')
-                ->condition('type', 'conteudo')
-                ->condition('field_categoria', $tids, 'IN')->condition('status', 1);
-
-            $query->range(0, 3);
-
-            // $query->andConditionGroup()->condition('field_categoria', $tids, 'IN');
-            $result = $query->execute();
-            $storage = \Drupal::entityTypeManager()->getStorage('node');
-            $nodes = $storage->loadMultiple($result);
-
-            foreach ($nodes as $node)
-            {
-                // $term = $node && $node->field_tags ? $node->field_tags->referencedEntities() : null;
-                $terms = $node->field_tags ? $node
-                    ->field_tags
-                    ->referencedEntities() : null;
-
-                $field_categoria = $node && $node->field_categoria ? $node
-                    ->field_categoria
-                    ->referencedEntities() : null;
-
-                $field_tipo_de_associacao = $node ? slugify(strip_tags($node
-                    ->field_tipo_de_associacao
-                    ->value)) : null;
-
-                $tags = [];
-
-                if ($terms)
-                {
-                    foreach ($terms as $term)
-                    {
-                        $term_obj = Term::load($term
-                            ->tid
-                            ->value);
-                        $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
-                            ->loadParents($term
-                            ->tid
-                            ->value);
-                        if ($parent)
-                        {
-                            $parent = reset($parent);
-                            $ptid = $parent->id();
-                            $pterm_obj = Term::load($ptid);
-                        }
-
-                        $tags[] = ['tid' => $term
-                            ->tid->value, 'url' => \Drupal::service('path_alias.manager')
-                            ->getAliasByPath('/taxonomy/term/' . $term
-                            ->tid
-                            ->value) , 'slug' => str_replace('/', '', \Drupal::service('path_alias.manager')
-                            ->getAliasByPath('/taxonomy/term/' . $term
-                            ->tid
-                            ->value)) , 'name' => $term_obj
-                            ->name->value, 'parent' => $parent ? ['tid' => $ptid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $ptid) , 'name' => $pterm_obj->get('name')->value, 'description' => strip_tags($pterm_obj->get('description')
-                            ->value) , ] : null, 'description' => strip_tags($term_obj->get('description')
-                            ->value) , 'type' => slugify($parent ? $pterm_obj->get('name')->value : $term_obj
-                            ->name->value, '_') , ];
-                    }
-                }
-
-                $variables['nodes'][] = ['title' => $node
-                    ->title->value, 
-                    'youtubeId' => $node->hasField("field_video") ? GM5Util::getYoutubeId($node->get("field_video")
-                    ->getValue()[0]['value']) : null,
-                    'text' => strip_tags($field_tipo_de_associacao == 'programa-subprograma' ? $node
-                    ->field_descricao->value : $node
-                    ->field_chamada
-                    ->value) , 'tipo_de_associacao' => $field_tipo_de_associacao, 'categoria' => $field_categoria[0]->id() , 'tag' => $tags, 'nid' => $node->id() , 'field_link_para_compra' => $node && isset($node->field_link_para_compra) ? $node
-                    ->field_link_para_compra->value : null, 'field_link' => $node && $node->hasField('field_link') ? $node->get('field_link')
-                    ->getValue()['uri'] : null, 'field_link_externo' => $node && $node->hasField('field_link_externo') ? $node->get('field_link_externo')
-                    ->getValue()['uri'] : null, 'url' => $node ? \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id()) : null, 'image' => $node && isset($node
-                    ->field_thumb
-                    ->entity) ? file_create_url($node
-                    ->field_thumb
-                    ->entity
-                    ->getFileUri()) : NULL, 'media_image' => $node && isset($node
-                    ->field_imagem
-                    ->entity) ? file_create_url($node
-                    ->field_imagem
-                    ->entity
-                    ->getFileUri()) : NULL, 'media_video' => $node ? $node
-                    ->field_video->value : null, 'type' => $node ? $node->bundle() : null];
-            }
-        }
-
-        if ($entity->get('field_taxonomies') && $entity->get('field_taxonomies')
-            ->referencedEntities())
-        {
-            foreach ($entity->get('field_taxonomies')
-                ->referencedEntities() as $paragraph)
-            {
-
-                $tid = $paragraph->toArray()['tid'][0]['value'];
-
-                $term_obj = Term::load($tid);
-                $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
-                    ->loadParents($tid);
-
-                if ($parent)
-                {
-                    $parent = reset($parent);
-                    $ptid = $parent->id();
-                    $pterm_obj = Term::load($ptid);
-                }
-
-                // dump([
-                //   'nid' => $tid,
-                //   'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid),
-                //   'slug' => str_replace('/','',\Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid)),
-                //   'title' => $term_obj->name->value,
-                //   'name' => $term_obj->name->value,
-                //   'field_texto' => $term_obj->get('field_texto') ? $term_obj->get('field_texto')->value : $term_obj->get('field_resumo')->value,
-                //   'field_sub_texto' => $term_obj->get('field_subtexto') ? $term_obj->get('field_subtexto')->processed : null,
-                //   'field_resumo' => $term_obj->get('field_resumo') ? $term_obj->get('field_resumo')->value : null,
-                //   'field_imagem' => $term_obj->get('field_imagem')->entity && $term_obj->get('field_imagem')->entity->uri ? file_create_url($term_obj->get('field_imagem')->entity->uri->value) : '',
-                //   'field_thumb' => $term_obj->get('field_thumb')->entity && $term_obj->get('field_thumb')->entity->uri ? file_create_url($term_obj->get('field_thumb')->entity->uri->value) : '',
-                // ]);
-                $variables['taxonomies'][] = ['nid' => $tid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid) , 'slug' => str_replace('/', '', \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid)) , 'title' => $term_obj
-                    ->name->value, 'name' => $term_obj
-                    ->name->value, 'field_texto' => $term_obj->get('field_texto') ? $term_obj->get('field_texto')->value : $term_obj->get('field_resumo')->value, 'field_sub_texto' => $term_obj->get('field_subtexto') ? $term_obj->get('field_subtexto')->processed : null, 'field_resumo' => $term_obj->get('field_resumo') ? $term_obj->get('field_resumo')->value : null, 'field_imagem' => $term_obj->get('field_imagem')->entity && $term_obj->get('field_imagem')
-                    ->entity->uri ? file_create_url($term_obj->get('field_imagem')
-                    ->entity
-                    ->uri
-                    ->value) : '', 'field_thumb' => $term_obj->get('field_thumb')->entity && $term_obj->get('field_thumb')
-                    ->entity->uri ? file_create_url($term_obj->get('field_thumb')
-                    ->entity
-                    ->uri
-                    ->value) : '', ];
-            }
-        }
-
-        if ($entity->get('field_node') && $entity->get('field_node')
-            ->referencedEntities())
-        {
-            foreach ($entity->get('field_node')
-                ->referencedEntities() as $paragraph)
-            {
-                $node = $paragraph
-                    ->field_paragraph_node_content
-                    ->referencedEntities();
-
-                $node = $node[0];
-
-                $terms = $node->field_tags ? $node
-                    ->field_tags
-                    ->referencedEntities() : null;
-
-                $field_categoria = $node->field_categoria ? $node
-                    ->field_categoria
-                    ->referencedEntities() : null;
-                $field_categoria_curso = $node->field_categoria_curso ? $node
-                    ->field_categoria_curso
-                    ->referencedEntities() : null;
-
-                $field_tipo_de_associacao = $node ? slugify(strip_tags($node
-                    ->field_tipo_de_associacao
-                    ->value)) : null;
-
-                $tags = [];
-
-                if ($terms)
-                {
-                    foreach ($terms as $term)
-                    {
-                        $term_obj = Term::load($term
-                            ->tid
-                            ->value);
-                        $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
-                            ->loadParents($term
-                            ->tid
-                            ->value);
-                        if ($parent)
-                        {
-                            $parent = reset($parent);
-                            $ptid = $parent->id();
-                            $pterm_obj = Term::load($ptid);
-                        }
-
-                        $tags[] = ['tid' => $term
-                            ->tid->value, 'url' => \Drupal::service('path_alias.manager')
-                            ->getAliasByPath('/taxonomy/term/' . $term
-                            ->tid
-                            ->value) , 'slug' => str_replace('/', '', \Drupal::service('path_alias.manager')
-                            ->getAliasByPath('/taxonomy/term/' . $term
-                            ->tid
-                            ->value)) , 'name' => $term_obj
-                            ->name->value, 'parent' => $parent ? ['tid' => $ptid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $ptid) , 'name' => $pterm_obj->get('name')->value, 'description' => strip_tags($pterm_obj->get('description')
-                            ->value) , ] : null, 'description' => strip_tags($term_obj->get('description')
-                            ->value) , 'type' => slugify($parent ? $pterm_obj->get('name')->value : $term_obj
-                            ->name->value, '_') , ];
-                    }
-                }
-
-                $variables['nodes'][] = ['title' => $node
-                    ->title->value,                     'youtubeId' => $node->hasField("field_video") ? GM5Util::getYoutubeId($node->get("field_video")
-                    ->getValue()[0]['value']) : null, 'text' => strip_tags($field_tipo_de_associacao == 'programa-subprograma' ? $node
-                    ->field_descricao->value : ($node->field_chamada_html ? $node->get('field_chamada_html')->processed : $node
-                    ->field_chamada
-                    ->value)) , 'tipo_de_associacao' => $field_tipo_de_associacao, 'categoria' => $field_categoria_curso[0]
-                    ->tid->value ? $field_categoria_curso[0]
-                    ->tid->value : $field_categoria[0]
-                    ->tid->value, 'tag' => $tags, 'nid' => $node
-                    ->nid->value, 'field_link_para_compra' => isset($node->field_link_para_compra) ? $node
-                    ->field_link_para_compra->value : null, 'field_link' => $node->field_link ? $node->get('field_link')
-                    ->getValue()['uri'] : null, 'field_link_externo' => $node->field_link_externo ? $node->get('field_link_externo')
-                    ->getValue()['uri'] : null, 'field_headline' => $node->field_headline ? $node
-                    ->field_headline->value : null, 'url' => $node ? \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id()) : null, 'image' => isset($node
-                    ->field_thumb
-                    ->entity) ? file_create_url($node
-                    ->field_thumb
-                    ->entity
-                    ->getFileUri()) : NULL, 'media_image' => isset($node
-                    ->field_imagem
-                    ->entity) ? file_create_url($node
-                    ->field_imagem
-                    ->entity
-                    ->getFileUri()) : NULL, 'media_video' => $node ? $node
-                    ->field_video->value : null, 'type' => $node ? $node->bundle() : null];
-            }
-        }
-
-        if ($entity->get('field_cards') && $entity->get('field_cards')
-            ->referencedEntities())
-        {
-            foreach ($entity->get('field_cards') as $paragraph)
-            {
-                $node = $paragraph->entity; 
-                $field_link = null;
-
-                if($node->field_link) {
-                    $field_link = $node->get('field_link')->getValue()[0];
-                    $field_link['uri'] = str_replace(['internal:', 'entity:'], '', $field_link['uri']);
-
-                    if(str_contains($field_link['uri'], 'node/')) {
-                        $field_link['uri'] = \Drupal::service('path_alias.manager')->getAliasByPath('/'.$field_link['uri']);
-                    }
-                }
-
-                $variables['nodes'][] = ['title' => $node
-                    ->field_titulo->value, 
-                    'type' => 'card',
-                    'field_link' => $field_link, 
-                    'text' => $node->get('field_texto')->processed, 'image' => isset($node
-                    ->field_imagem
-                    ->entity) ? file_create_url($node
-                    ->field_imagem
-                    ->entity
-                    ->getFileUri()) : NULL, ];
-
-            
-            }
-        }
-    }
-}
-
-function casa_firjan_preprocess_block(&$variables)
-{
-    $nodeObj = \Drupal::request()
-        ->attributes
-        ->get('node');
-    $variables['field_headline'] = null;
-    $machine_name = $variables['elements']['#id'];
-
-    if ($machine_name == 'new_breadcrumb')
-    {
-        $entity = $variables['elements']['content']['#block_content'];
-
-        $node = \Drupal::routeMatch()->getParameter('node');
-
-        if ($node->field_headline)
-        {
-            $variables['field_headline'] = $node
-                ->field_headline->value;
-        }
-
-        $variables['is_search'] = \Drupal::routeMatch()->getRouteName() == 'view.search.page_1' ? 1 : 0;
-
-        if ($node instanceof \Drupal\node\NodeInterface)
-        {
-            $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
-
-            $menu_link = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array(
-                'node' => $node->id()
-            ));
-        
-            if (is_array($menu_link) && count($menu_link))
-            {
-                $menu_link = reset($menu_link);
-                if ($menu_link->getParent())
-                {
-                    $parents = $menu_link_manager->getParentIds($menu_link->getParent());
-                    foreach (array_reverse($parents) as $parent) {
-                        $variables['breadcrumb'][] = ["text" => $menu_link_manager->createInstance($parent)->getTitle(), "url" => ""];
-                    }
-                }
-            }
-            $variables['breadcrumb'][] = ["text" => $node->getTitle(), "url" => ""];
-        }
-        elseif (\Drupal::routeMatch()
-            ->getRouteName() == 'entity.taxonomy_term.canonical')
-        {
-            $slugify = new Slugify();
-
-            $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
-            $term_obj = Term::load($tid);
-            $term_name = $term_obj
-                ->name->value;
-            $vid = $term_obj->toArray()['vid'][0]['target_id'];
-
-            $url = \Drupal\Core\Url::fromRoute('<current>');
-            $current_path = \Drupal::service('path.current')->getPath();
-            $aliasManager = \Drupal::service('path_alias.manager');
-            $alias = $aliasManager->getAliasByPath($current_path);
-
-            $tree = \Drupal::menuTree()->load('menu-principal', new \Drupal\Core\Menu\MenuTreeParameters());
-
-            if ($vid === 'categorias')
-            {
-                foreach ($tree as $item)
-                {
-                  
-                    $url = $slugify->slugify($item
-                        ->link
-                        ->getPluginDefinition()['title']);
-                    $base_link = explode('/', $alias)[1];
-
-                    $uuid = $item
-                        ->link
-                        ->getDerivativeId();
-                    $entity = \Drupal::service('entity.repository')->loadEntityByUuid('menu_link_content', $uuid);
-                    $variables['field_headline'] = $entity
-                        ->field_headline->value;
-
-
-                    // - Tirar depois
-                    if ($base_link === 'eventos')
-                    {
-                        $base_link = 'agenda';
-                    }
-
-                    if ($base_link === $url)
-                    {
-                        $variables['breadcrumb'][] = ["text" => $item
-                            ->link
-                            ->getPluginDefinition()['title'], "url" => ''];
-
-                        if (\Drupal::routeMatch()
-                            ->getRouteName() == 'entity.taxonomy_term.canonical')
-                        {
-                            // $parent = null;
-
-                            // $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
-                            // $term_obj = Term::load($tid);
-
-
-                            $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
-                            $term_obj = Term::load($tid);
-
-                            $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($tid); 
-
-                            if($parent) {
-                                $parent = reset($parent)->getName();
-                                $variables['breadcrumb'][] = ["text" => $parent, "url" => ''];                                
-                            }
-
-                            $variables['breadcrumb'][] = ["text" => $term_obj
-                                ->name->value, "url" => '', "headline" => $term_obj->hasField('field_resumo') ? htmlspecialchars_decode(strip_tags($term_obj->get('field_resumo')
-                                ->value)) : null];
-                        }
-                    }
-                }
-            }
-            elseif ($vid === 'tags_conteudo')
-            {
-                $variables['breadcrumb'][] = ["text" => $term_name, "url" => '', "headline" => $term_obj->hasField('field_resumo') ? htmlspecialchars_decode(strip_tags($term_obj->get('field_resumo')
-                    ->value)) : null];
-            }
-        }
-        elseif ($variables['is_search']) {
-            $block = Block::load($variables['elements']['#id']);
-            $block = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $block->getPlugin()->getDerivativeId());
-            $variables['breadcrumb'][] = ["text" => "Resultados de Busca", "url" => "", "headline" => $block ? strip_tags($block->body->value) : ''];
-        }
-    }
-    elseif ($machine_name == 'tagcloud')
-    {
-        $vocabulary_name = 'tags_conteudo';
+  if ($blockType == 'formularios') {
+    $tid = $entity->get('field_formulario')
+      ->first()
+      ->getValue()['target_id'];
+    $variables['tid'] = $tid;
+  }
+  elseif ($blockType == 'basic') {
+    switch ($bid) {
+      case 1:
+        $vocabulary_name = 'tags';
         $query = \Drupal::entityQuery('taxonomy_term');
         $query->condition('vid', $vocabulary_name);
         $tids = $query->execute();
         $terms = Term::loadMultiple($tids);
         $variables['taxonomies'] = array();
 
-        foreach ($terms as $term)
-        {
-            $tid = $term->id();
+        foreach ($terms as $term) {
+          $tid = $term->id();
 
-            $term_obj = Term::load($tid);
+          $term_obj = Term::load($tid);
+          ;
 
-            $variables['taxonomies'][] = ['tid' => $tid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid) , 'name' => $term_obj
-                ->name->value];
+          $variables['taxonomies'][] = ['tid' => $tid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid), 'name' => $term_obj
+            ->name->value];
         }
+        break;
+      default:
+        # code...
+
+        break;
     }
-    elseif ($machine_name == 'bloconewsletter')
-    {   
+  }
+  elseif ($blockType == 'bloco_destaque') {
+    $variables['nodes'] = [];
+    $variables['taxonomies'] = [];
+    $variables['nodes'] = [];
+    $term_obj = Term::load($tid);
+    $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
+      ->loadParents($tid);
 
-    }    
-    elseif ($machine_name == 'bannerhome')
-    {
-        $nidsParaFiltrar = array();
-
-        //banners
-        $options = new StdClass;
-        $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
-        $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
-
-        $options->args = array(
-            $nidsParaRemover,
-            $categorias
-        );
-
-        $options->pager = array(
-            'autoPager' => true
-        );
-        $viewbanners = GM5Views::getViewArg('banner_home', 'lista', $options);
-
-        foreach ($viewbanners['items'] as $idx => $banner)
-        {
-            $style = '1920x400';
-
-            $ndObj = $banner->_entity;
-            $nd = $banner
-                ->_entity
-                ->toArray();
-
-            $bannerItem = array();
-            $bannerItem['label'] = $nd['field_link'][0]['title'];
-            $bannerItem['field_link_background'] = $nd['field_link_background'][0]['color'];
-            $bannerItem['titulo'] = $nd['title'][0]['value'];
-            $bannerItem['target'] = $nd['field_target'][0]['value'];
-            $bannerItem['texto'] = isset($nd['field_chamada'][0]['value']) && !empty($nd['field_chamada'][0]['value']) ? $nd['field_chamada'][0]['value'] : '';
-            if(str_contains($nd['field_link'][0]['uri'], 'internal')) {
-                $url = str_replace('internal:/', '', $nd['field_link'][0]['uri']);
-                $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/'.$url);
-            }
-            $bannerItem['url'] = str_contains($nd['field_link'][0]['uri'], 'internal') ? $alias : $nd['field_link'][0]['uri'];
-            $bannerItem['midia']['src'] = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
-            /*$bannerItem['link'] = $nd['field_link'] && $nd['field_link'][0]['uri'] ? GM5Util::uriToUrl($nd['field_link'][0]['uri']) : '';
-            $bannerItem['link']['label'] = $nd['field_link'][0]['title'];
-            $bannerItem['link']['target'] = $bannerItem['link']['type'] == 'internal' ? '_self' : '_blank';*/
-
-            $variables['customPage']['bannersHome'][] = $bannerItem;
-        }
+    if ($parent) {
+      $parent = reset($parent);
+      $ptid = $parent->id();
+      $pterm_obj = Term::load($ptid);
     }
 
-    if (isset($variables['elements']['content']['#block_content']))
-    {
-        $variables['title'] = $variables['elements']['content']['#block_content']
-            ->info->value;
+    if ($tid && !empty($term_obj)) {
+      return ['tid' => $tid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid), 'slug' => str_replace('/', '', \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid)), 'name' => $term_obj
+        ->name->value, 'parent' => $parent ? ['tid' => $ptid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $ptid), 'name' => $pterm_obj->get('name')->value, 'description' => strip_tags($pterm_obj->get('description')
+          ->value),
+          // 'field_taxonomy_image' => $pterm_obj->get('field_taxonomy_image')->entity && $pterm_obj->get('field_taxonomy_image')->entity->uri ? file_create_url($pterm_obj->get('field_taxonomy_image')->entity->uri->value) : '',
+          // 'field_taxonomy_theme' => $pterm_obj->get('field_taxonomy_theme')->getValue()[0]['color']
+        ] : null, 'description' => strip_tags($term_obj->get('description')
+              ->value), 'type' => slugify($parent ? $pterm_obj->get('name')->value : $term_obj
+              ->name->value, '_'),
+        // 'field_taxonomy_image' => $term_obj->get('field_taxonomy_image')->entity && $term_obj->get('field_taxonomy_image')->entity->uri ? file_create_url($term_obj->get('field_taxonomy_image')->entity->uri->value) : '',
+        // 'field_taxonomy_theme' => $term_obj->get('field_taxonomy_theme')->getValue()[0]['color'],
+        // 'field_cargo_especialista' => $term_obj->hasField('field_cargo_especialista') && $term_obj->get('field_cargo_especialista')->getValue() ? $term_obj->get('field_cargo_especialista')->getValue()[0]['value'] : '',
+        // 'field_documento_especialista' => $term_obj->hasField('field_documento_especialista') && $term_obj->get('field_documento_especialista')->getValue() ? $term_obj->get('field_documento_especialista')->getValue()[0]['value'] : ''
+      ];
     }
 
-    if (isset($nodeObj) && $nodeObj
-        ->title->value == 'Home')
-    {
-        if ($nodeObj)
-        {
-            $node = $nodeObj->toArray();
+    $term_obj = Term::load($tid);
+    $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
+      ->loadParents($tid);
 
-            $variables['customPage']['destaques'] = array();
-            foreach ($nodeObj->field_destaques as $idx => $destaque)
-            {
+    if ($parent) {
+      $parent = reset($parent);
+      $ptid = $parent->id();
+      $pterm_obj = Term::load($ptid);
+    }
 
-                if ($idx == 0)
-                {
-                    $style = '651x333';
-                }
-                else
-                {
-                    $style = '190x190';
-                }
+    if ($tid && !empty($term_obj)) {
+      return ['tid' => $tid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid), 'slug' => str_replace('/', '', \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid)), 'name' => $term_obj
+        ->name->value, 'parent' => $parent ? ['tid' => $ptid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $ptid), 'name' => $pterm_obj->get('name')->value, 'description' => strip_tags($pterm_obj->get('description')
+          ->value),
+          // 'field_taxonomy_image' => $pterm_obj->get('field_taxonomy_image')->entity && $pterm_obj->get('field_taxonomy_image')->entity->uri ? file_create_url($pterm_obj->get('field_taxonomy_image')->entity->uri->value) : '',
+          // 'field_taxonomy_theme' => $pterm_obj->get('field_taxonomy_theme')->getValue()[0]['color']
+        ] : null, 'description' => strip_tags($term_obj->get('description')
+              ->value), 'type' => slugify($parent ? $pterm_obj->get('name')->value : $term_obj
+              ->name->value, '_'),
+        // 'field_taxonomy_image' => $term_obj->get('field_taxonomy_image')->entity && $term_obj->get('field_taxonomy_image')->entity->uri ? file_create_url($term_obj->get('field_taxonomy_image')->entity->uri->value) : '',
+        // 'field_taxonomy_theme' => $term_obj->get('field_taxonomy_theme')->getValue()[0]['color'],
+        // 'field_cargo_especialista' => $term_obj->hasField('field_cargo_especialista') && $term_obj->get('field_cargo_especialista')->getValue() ? $term_obj->get('field_cargo_especialista')->getValue()[0]['value'] : '',
+        // 'field_documento_especialista' => $term_obj->hasField('field_documento_especialista') && $term_obj->get('field_documento_especialista')->getValue() ? $term_obj->get('field_documento_especialista')->getValue()[0]['value'] : ''
+      ];
+    }
 
-                $ndObj = $destaque->entity;
-                if ($destaque->entity)
-                {
+    if ($entity->get('field_da_categoria') && $entity->get('field_da_categoria')
+      ->referencedEntities()) {
+      $tids = [];
 
-                    $nd = $destaque
-                        ->entity
-                        ->toArray();
+      foreach ($entity->get('field_da_categoria')->referencedEntities() as $term) {
+        $tids[] = $term
+          ->tid->value;
+      }
 
-                    $nidsParaFiltrar[] = $nd['nid'][0]['value'];
+      $query = \Drupal::entityQuery('node')
+        ->sort('created', 'DESC')
+        ->condition('type', 'conteudo')
+        ->condition('field_categoria', $tids, 'IN')->condition('status', 1);
 
-                    $destaqueItem = array();
+      $query->range(0, 3);
 
-                    $destaqueItem['titulo'] = $nd['title'][0]['value'];
-                    $destaqueItem['url'] = GM5Util::getAlias('/node/' . $nd['nid'][0]['value'], 'relative');
-                    $destaqueItem['chamada'] = isset($nd['field_chamada']) ? $nd['field_chamada'][0]['value'] : '';
+      // $query->andConditionGroup()->condition('field_categoria', $tids, 'IN');
+      $result = $query->execute();
+      $storage = \Drupal::entityTypeManager()->getStorage('node');
+      $nodes = $storage->loadMultiple($result);
 
-                    //Imagem ou vídeo
-                    $tipo = '';
-                    $midia = '';
-                    if (isset($nd['field_tipo_de_midia']) && !empty($nd['field_tipo_de_midia']))
-                    {
-                        if ($nd['field_tipo_de_midia'][0]['value'] == 'video' && isset($nd['field_video'][0]['value']))
-                        {
-                            $tipo = 'video';
-                            $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd['field_video'][0]['value']));
-                            $destaqueItem['midia']['url'] = $nd['field_video'][0]['value'];
-                        }
-                        else if ($nd['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($nd['field_imagem'][0]['target_id']))
-                        {
-                            $tipo = 'imagem';
-                            $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
-                        }
-                    }
-                    else if (!isset($nd['field_tipo_de_midia']) && isset($nd['field_imagem']) && !empty($nd['field_imagem']))
-                    {
-                        // Com imagem de destaque
-                        $tipo = 'imagem';
-                        $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
+      foreach ($nodes as $node) {
+        // $term = $node && $node->field_tags ? $node->field_tags->referencedEntities() : null;
+        $terms = $node->field_tags ? $node
+          ->field_tags
+          ->referencedEntities() : null;
 
-                    }
-                    else if (isset($nd['field_thumb']) && !empty($nd['field_thumb']))
-                    {
-                        //Com thumb
-                        $tipo = 'imagem';
-                        $midia = GM5File::renderImage($nd['field_thumb'][0]['target_id'], $style);
-                    }
+        $field_categoria = $node && $node->field_categoria ? $node
+          ->field_categoria
+          ->referencedEntities() : null;
 
-                    //Autor e data
-                    $autor_data = array();
-                    if (isset($ndObj
-                        ->field_autor
-                        ->entity))
-                    {
-                        $autor = $ndObj
-                            ->field_autor
-                            ->entity
-                            ->toArray();
+        $field_tipo_de_associacao = $node ? slugify(strip_tags($node
+          ->field_tipo_de_associacao
+          ->value)) : null;
 
-                        $autor_data[] = 'Por ' . $autor['title'][0]['value'];
-                    }
-                    $autor_data[] = ' em ' . date('d/m/Y', $nd['created']['0']['value']);
-                    $destaqueItem['autor_data'] = implode(' ', $autor_data);
-                    if (isset($ndObj
-                        ->field_categoria
-                        ->entity))
-                    {
-                        //Categoria
-                        $categoria = $ndObj
-                            ->field_categoria
-                            ->entity
-                            ->toArray();
-                        $destaqueItem['categoria']['label'] = $categoria['name'][0]['value'];
-                        $destaqueItem['categoria']['url'] = $categoria['path'][0]['alias'];
+        $tags = [];
 
-                        //Mídia
-                        $destaqueItem['midia']['src'] = $midia;
-                        $destaqueItem['midia']['tipo'] = $tipo;
-
-                        $variables['customPage']['destaques'][] = $destaqueItem;
-                    }
-                    else if ($nd['type'][0]['target_id'] == 'noticia')
-                    {
-                        //Categoria
-                        $destaqueItem['categoria']['label'] = 'Notícia';
-                        $destaqueItem['categoria']['url'] = '/noticias';
-
-                        //Mídia
-                        if (isset($nd['field_thumb'][0]['target_id']))
-                        {
-                            $midia = GM5File::renderImage($nd['field_thumb'][0]['target_id'], $style);
-                        }
-                        else if (!empty($nd['field_imagem']))
-                        {
-                            $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
-                        }
-                        else
-                        {
-                            $field_info = FieldConfig::loadByName('node', 'noticia', 'field_thumb');
-                            $image_uuid = $field_info->getSetting('default_image')['uuid'];
-                            $image = Drupal::service('entity.repository')->loadEntityByUuid('file', $image_uuid);
-                            $target_id = $image->id();
-                            $midia = GM5File::renderImage($target_id, $style);
-                        }
-
-                        $destaqueItem['midia']['src'] = $midia;
-                        $destaqueItem['midia']['tipo'] = 'imagem';
-
-                        $variables['customPage']['destaques'][] = $destaqueItem;
-                    }
-                    else if ($nd['type'][0]['target_id'] == 'agenda')
-                    {
-                        //Categoria
-                        $destaqueItem['categoria']['label'] = 'Evento';
-                        $destaqueItem['categoria']['url'] = '/agenda';
-
-                        //Mídia
-                        $destaqueItem['midia']['src'] = !empty($nd['field_imagem']) ? GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style) : \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
-                        $destaqueItem['midia']['tipo'] = 'imagem';
-
-                        $variables['customPage']['destaques'][] = $destaqueItem;
-                    }
-                    else if ($nd['type'][0]['target_id'] == 'curso')
-                    {
-                        //Categoria
-                        $destaqueItem['categoria']['label'] = 'Cursos';
-                        $destaqueItem['categoria']['url'] = '/lab-educacao/cursos';
-
-                        //Mídia
-                        $destaqueItem['midia']['src'] = !empty($nd['field_imagem']) ? GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style) : \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
-                        $destaqueItem['midia']['tipo'] = 'imagem';
-
-                        $variables['customPage']['destaques'][] = $destaqueItem;
-                    }
-                    else
-                    {
-                        $destaqueItem['midia']['src'] = !empty($nd['field_imagem']) ? GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style) : \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
-                        $destaqueItem['midia']['tipo'] = 'imagem';
-                        $variables['customPage']['destaques'][] = $destaqueItem;
-                    }
-
-                }
+        if ($terms) {
+          foreach ($terms as $term) {
+            $term_obj = Term::load($term
+              ->tid
+              ->value);
+            $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
+              ->loadParents($term
+                ->tid
+                ->value);
+            if ($parent) {
+              $parent = reset($parent);
+              $ptid = $parent->id();
+              $pterm_obj = Term::load($ptid);
             }
 
-            //var_dump($variables['customPage']['destaques']);die;
-            //Bloco vídeos
-            casa_firjan_process_videos($variables, $nidsParaFiltrar);
-            casa_firjan_process_destaque_mini($variables, $nidsParaFiltrar);
+            $tags[] = ['tid' => $term
+              ->tid->value, 'url' => \Drupal::service('path_alias.manager')
+                ->getAliasByPath('/taxonomy/term/' . $term
+                  ->tid
+                  ->value), 'slug' => str_replace('/', '', \Drupal::service('path_alias.manager')
+                    ->getAliasByPath('/taxonomy/term/' . $term
+                      ->tid
+                      ->value)), 'name' => $term_obj
+                ->name->value, 'parent' => $parent ? ['tid' => $ptid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $ptid), 'name' => $pterm_obj->get('name')->value, 'description' => strip_tags($pterm_obj->get('description')
+                ->value),] : null, 'description' => strip_tags($term_obj->get('description')
+                    ->value), 'type' => slugify($parent ? $pterm_obj->get('name')->value : $term_obj
+                    ->name->value, '_'),];
+          }
+        }
 
-            //Agenda
-            //Filtros options
-            // $options = new StdClass;
-            // $filtrosOptions = GM5Views::getViewArg('taxonomia', 'filtro_agenda', $options);
-            // foreach($filtrosOptions['items'] as $termOption){
-            //   casa_firjan_process_agenda($variables,$termOption->_entity);
-            // }
-            //Eventos
-            // $options = new StdClass;
-            // $options->args = array('all');
-            // $options->pager = array('autoPager' => TRUE);
-            // $vieweventos = GM5Views::getViewArg('agenda','filtros',$options);
-            // $groups = array();
-            // foreach($vieweventos['items'] as $k => $evento){
-            //   $eventoObj = $evento->_entity;
-            //   $evento = $evento->_entity->toArray();
-            //   $eventoItem = array();
-            //   $eventoItem['type'] = $evento['type'][0]['target_id'];
-            //   $eventoItem['titulo'] = $evento['title'][0]['value'];
-            //   $eventoItem['texto'] = isset($evento['field_chamada'][0]['value']) && !empty($evento['field_chamada'][0]['value']) ? $evento['field_chamada'][0]['value'] : substr(strip_tags($evento['field_texto'][0]['value']), 0, 200).'...';
-            //   $eventoItem['duracao'] = isset($evento['field_duracao'][0]['value']) && !empty($evento['field_duracao'][0]['value']) ? $evento['field_duracao'][0]['value'] : '';
-            //   $eventoItem['carga'] = isset($evento['field_carga_horaria'][0]['value']) && !empty($evento['field_carga_horaria'][0]['value']) ? $evento['field_carga_horaria'][0]['value'] : '';
-            //   $eventoItem['url'] = isset($evento['field_link_externo'][0]['uri']) && !empty($evento['field_link_externo'][0]['uri']) ? $evento['field_link_externo'][0]['uri'] : GM5Util::getAlias('/node/'.$evento['nid'][0]['value']);
-            //   $eventoItem['target'] = isset($evento['field_link_externo'][0]['uri']) && !empty($evento['field_link_externo'][0]['uri']) ? 'target="_blank"' : '';
-            //   $eventoItem['categoria'] = isset($eventoObj->field_categoria_agenda->entity) && !empty($eventoObj->field_categoria_agenda->entity) ? $eventoObj->field_categoria_agenda->entity->toArray()['name'][0]['value'] : 'Curso';
-            //   $eventoItem['categoriaAlias'] = GM5String::transliteration($eventoItem['categoria']);
-            //   if($eventoObj->field_ciclo_tematico->entity){
-            //     $eventoItem['cicloLabel'] = $eventoObj->field_ciclo_tematico->entity->toArray()['name'][0]['value'];
-            //     $eventoItem['cicloColor'] = $eventoObj->field_ciclo_tematico->entity->toArray()['field_cor_do_ciclo'][0]['color'];
-            //   }
-            //   $groups[$eventoItem['categoriaAlias']] = $eventoItem['categoria'];
-            //   $data = new \DateTime($evento['field_hora_de_inicio'][0]['value'],new DateTimeZone("UTC"));
-            //   $la_time = new \DateTimeZone(date_default_timezone_get());
-            //   $data->setTimezone($la_time);
-            //   $map = [
-            //       "Sun" => "Domingo",
-            //       "Mon" => "Segunda",
-            //       "Tue" => "Terça",
-            //       "Wed" => "Quarta",
-            //       "Thu" => "Quinta",
-            //       "Fri" => "Sexta",
-            //       "Sat" => "Sábado",
-            //   ];
-            //   $eventoItem['Dia'] = $map[$data->format('D')];
-            //   $eventoItem['Data'] = $data->format('d').' de '.GM5Util::mesBr($data->format('m')).' de '.$data->format('Y');
-            //   $eventoItem['hora'] = $data->format('H');
-            //   $eventoItem['minutos'] = $data->format('i');
-            //   $variables['customPage']['conteudo']['eventos']['itens'][$eventoItem['Data']][] = $eventoItem;
-            // }
-            // //print_r($variables['customPage']['conteudo']['eventos']['itens']); die;
-            // $variables['customPage']['conteudo']['eventos']['grupos'] = $groups;
-            // $variables['customPage']['conteudo']['eventos']['paginacao'] = isset($vieweventos['pager']) && !empty($vieweventos['pager']) ? $vieweventos['pager'] : array();
-            // //print_r($variables['customPage']['conteudo']['eventos']); die;
-            // //print_r($variables['customPage']['destaquesMini']); die;
-            $nids = \Drupal::entityQuery('node')->condition('type', 'agenda')
-                ->execute();
-            $eventos = array_reverse(\Drupal\node\Entity\Node::loadMultiple($nids));
-            $groups = array();
+        $variables['nodes'][] = ['title' => $node
+          ->title->value,
+          'youtubeId' => $node->hasField("field_video") ? GM5Util::getYoutubeId($node->get("field_video")
+            ->getValue()[0]['value']) : null,
+          'text' => strip_tags($field_tipo_de_associacao == 'programa-subprograma' ? $node
+            ->field_descricao->value : $node
+              ->field_chamada
+              ->value), 'tipo_de_associacao' => $field_tipo_de_associacao, 'categoria' => $field_categoria[0]->id(), 'tag' => $tags, 'nid' => $node->id(), 'field_link_para_compra' => $node && isset($node->field_link_para_compra) ? $node
+            ->field_link_para_compra->value : null, 'field_link' => $node && $node->hasField('field_link') ? $node->get('field_link')
+            ->getValue()['uri'] : null, 'field_link_externo' => $node && $node->hasField('field_link_externo') ? $node->get('field_link_externo')
+            ->getValue()['uri'] : null, 'url' => $node ? \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id()) : null, 'image' => $node && isset($node
+            ->field_thumb
+            ->entity) ? file_create_url($node
+              ->field_thumb
+              ->entity
+              ->getFileUri()) : NULL, 'media_image' => $node && isset($node
+            ->field_imagem
+            ->entity) ? file_create_url($node
+              ->field_imagem
+              ->entity
+              ->getFileUri()) : NULL, 'media_video' => $node ? $node
+            ->field_video->value : null, 'type' => $node ? $node->bundle() : null];
+      }
+    }
 
-            $variables['new_group'] = [];
+    if ($entity->get('field_taxonomies') && $entity->get('field_taxonomies')
+      ->referencedEntities()) {
+      foreach ($entity->get('field_taxonomies')->referencedEntities() as $paragraph) {
 
-            foreach ($eventos as $k => $evento)
-            {
-                $eventoItem = array();
+        $tid = $paragraph->toArray()['tid'][0]['value'];
 
-                if ($evento->get('field_ciclo_tematico')
-                    ->entity)
-                {
-                    $eventoItem['cicloLabel'] = $evento->get('field_ciclo_tematico')
-                        ->entity
-                        ->toArray()['name'][0]['value'];
-                    $eventoItem['cicloColor'] = $evento->get('field_ciclo_tematico')
-                        ->entity
-                        ->toArray()['field_cor_do_ciclo'][0]['color'];
-                }
+        $term_obj = Term::load($tid);
+        $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
+          ->loadParents($tid);
 
-                $la_time = new \DateTimeZone(date_default_timezone_get());
-                $timestamp = strtotime($evento->get('field_hora_de_inicio')
-                    ->value);
-                $data = new DateTime();
-                $data->setTimestamp($timestamp);
-                $data->setTimezone($la_time);
-                $today = new DateTime();
-                $today->setTimezone($la_time);
+        if ($parent) {
+          $parent = reset($parent);
+          $ptid = $parent->id();
+          $pterm_obj = Term::load($ptid);
+        }
 
-                $evento = $evento->toArray();
+        // dump([
+        //   'nid' => $tid,
+        //   'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid),
+        //   'slug' => str_replace('/','',\Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid)),
+        //   'title' => $term_obj->name->value,
+        //   'name' => $term_obj->name->value,
+        //   'field_texto' => $term_obj->get('field_texto') ? $term_obj->get('field_texto')->value : $term_obj->get('field_resumo')->value,
+        //   'field_sub_texto' => $term_obj->get('field_subtexto') ? $term_obj->get('field_subtexto')->processed : null,
+        //   'field_resumo' => $term_obj->get('field_resumo') ? $term_obj->get('field_resumo')->value : null,
+        //   'field_imagem' => $term_obj->get('field_imagem')->entity && $term_obj->get('field_imagem')->entity->uri ? file_create_url($term_obj->get('field_imagem')->entity->uri->value) : '',
+        //   'field_thumb' => $term_obj->get('field_thumb')->entity && $term_obj->get('field_thumb')->entity->uri ? file_create_url($term_obj->get('field_thumb')->entity->uri->value) : '',
+        // ]);
+        $variables['taxonomies'][] = ['nid' => $tid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid), 'slug' => str_replace('/', '', \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid)), 'title' => $term_obj
+          ->name->value, 'name' => $term_obj
+            ->name->value, 'field_texto' => $term_obj->get('field_texto') ? $term_obj->get('field_texto')->value : $term_obj->get('field_resumo')->value, 'field_sub_texto' => $term_obj->get('field_subtexto') ? $term_obj->get('field_subtexto')->processed : null, 'field_resumo' => $term_obj->get('field_resumo') ? $term_obj->get('field_resumo')->value : null, 'field_imagem' => $term_obj->get('field_imagem')->entity && $term_obj->get('field_imagem')
+            ->entity->uri ? file_create_url($term_obj->get('field_imagem')
+              ->entity
+              ->uri
+              ->value) : '', 'field_thumb' => $term_obj->get('field_thumb')->entity && $term_obj->get('field_thumb')
+            ->entity->uri ? file_create_url($term_obj->get('field_thumb')
+              ->entity
+              ->uri
+              ->value) : '',];
+      }
+    }
 
-                $eventoItem['type'] = $evento['type'][0]['target_id'];
-                $eventoItem['isActive'] = $today < $data;
-                $eventoItem['titulo'] = $evento['title'][0]['value'];
-                $eventoItem['texto'] = isset($evento['field_chamada'][0]['value']) && !empty($evento['field_chamada'][0]['value']) ? $evento['field_chamada'][0]['value'] : substr(strip_tags($evento['field_texto'][0]['value']) , 0, 200) . '...';
-                $eventoItem['duracao'] = isset($evento['field_duracao'][0]['value']) && !empty($evento['field_duracao'][0]['value']) ? $evento['field_duracao'][0]['value'] : '';
-                $eventoItem['carga'] = isset($evento['field_carga_horaria'][0]['value']) && !empty($evento['field_carga_horaria'][0]['value']) ? $evento['field_carga_horaria'][0]['value'] : '';
-                $eventoItem['url'] = isset($evento['field_link_externo'][0]['uri']) && !empty($evento['field_link_externo'][0]['uri']) ? $evento['field_link_externo'][0]['uri'] : GM5Util::getAlias('/node/' . $evento['nid'][0]['value']);
-                $eventoItem['target'] = isset($evento['field_link_externo'][0]['uri']) && !empty($evento['field_link_externo'][0]['uri']) ? 'target="_blank"' : '';
-                $eventoItem['categoria'] = isset($eventoObj
-                    ->field_categoria_agenda
-                    ->entity) && !empty($eventoObj
-                    ->field_categoria_agenda
-                    ->entity) ? $eventoObj
-                    ->field_categoria_agenda
-                    ->entity
-                    ->toArray()['name'][0]['value'] : 'Curso';
-                $eventoItem['categoriaAlias'] = GM5String::transliteration($eventoItem['categoria']);
+    if ($entity->get('field_node') && $entity->get('field_node')
+      ->referencedEntities()) {
+      foreach ($entity->get('field_node')->referencedEntities() as $paragraph) {
+        $node = $paragraph
+          ->field_paragraph_node_content
+          ->referencedEntities();
 
-                $groups[$eventoItem['categoriaAlias']] = $evento['categoria'];
+        $node = $node[0];
 
-                $map = ["Sun" => "Domingo", "Mon" => "Segunda", "Tue" => "Terça", "Wed" => "Quarta", "Thu" => "Quinta", "Fri" => "Sexta", "Sat" => "Sábado", ];
+        $terms = $node->field_tags ? $node
+          ->field_tags
+          ->referencedEntities() : null;
 
-                $eventoItem['Dia'] = $map[$data->format('D') ];
-                $eventoItem['Data'] = $data->format('d') . ' de ' . GM5Util::mesBr($data->format('m')) . ' de ' . $data->format('Y');
-                $eventoItem['hora'] = $data->format('H');
-                $eventoItem['minutos'] = $data->format('i');
+        $field_categoria = $node->field_categoria ? $node
+          ->field_categoria
+          ->referencedEntities() : null;
+        $field_categoria_curso = $node->field_categoria_curso ? $node
+          ->field_categoria_curso
+          ->referencedEntities() : null;
 
+        $field_tipo_de_associacao = $node ? slugify(strip_tags($node
+          ->field_tipo_de_associacao
+          ->value)) : null;
 
-                $date = new DateTime($evento['field_hora_de_inicio'][0]['value']);
+        $tags = [];
 
-                // dump(date('Y-m-d H:i:s', strtotime($evento['field_hora_de_inicio'][0]['value']. ' - 3 hours')));
-
-                $eventoItem['field_hora_de_inicio'] = date('H:i', strtotime($evento['field_hora_de_inicio'][0]['value']. ' - 3 hours'));
-
-                ksort($variables['new_group']);
-
-                if ($today <= $data)
-                {
-                    if (!array_key_exists($data->format('Y-m-d') , $variables['new_group']))
-                    {
-                        $variables['new_group'][$data->format('Y-m-d') ] = [];
-                    }
-                    $variables['customPage']['conteudo']['eventos']['itens'][$eventoItem['Data']][] = $eventoItem;
-                    $variables['new_group'][$data->format('Y-m-d') ][] = $eventoItem;
-                }
+        if ($terms) {
+          foreach ($terms as $term) {
+            $term_obj = Term::load($term
+              ->tid
+              ->value);
+            $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
+              ->loadParents($term
+                ->tid
+                ->value);
+            if ($parent) {
+              $parent = reset($parent);
+              $ptid = $parent->id();
+              $pterm_obj = Term::load($ptid);
             }
 
-            $variables['eventos'] = $variables['customPage']['conteudo']['eventos']['itens'];
-
-            $variables['customPage']['conteudo']['eventos']['grupos'] = $groups;
+            $tags[] = ['tid' => $term
+              ->tid->value, 'url' => \Drupal::service('path_alias.manager')
+                ->getAliasByPath('/taxonomy/term/' . $term
+                  ->tid
+                  ->value), 'slug' => str_replace('/', '', \Drupal::service('path_alias.manager')
+                    ->getAliasByPath('/taxonomy/term/' . $term
+                      ->tid
+                      ->value)), 'name' => $term_obj
+                ->name->value, 'parent' => $parent ? ['tid' => $ptid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $ptid), 'name' => $pterm_obj->get('name')->value, 'description' => strip_tags($pterm_obj->get('description')
+                ->value),] : null, 'description' => strip_tags($term_obj->get('description')
+                    ->value), 'type' => slugify($parent ? $pterm_obj->get('name')->value : $term_obj
+                    ->name->value, '_'),];
+          }
         }
+
+        $variables['nodes'][] = ['title' => $node
+          ->title->value, 'youtubeId' => $node->hasField("field_video") ? GM5Util::getYoutubeId($node->get("field_video")
+            ->getValue()[0]['value']) : null, 'text' => strip_tags($field_tipo_de_associacao == 'programa-subprograma' ? $node
+                ->field_descricao->value : ($node->field_chamada_html ? $node->get('field_chamada_html')->processed : $node
+                ->field_chamada
+                ->value)), 'tipo_de_associacao' => $field_tipo_de_associacao, 'categoria' => $field_categoria_curso[0]
+            ->tid->value ? $field_categoria_curso[0]
+              ->tid->value : $field_categoria[0]
+              ->tid->value, 'tag' => $tags, 'nid' => $node
+            ->nid->value, 'field_link_para_compra' => isset($node->field_link_para_compra) ? $node
+            ->field_link_para_compra->value : null, 'field_link' => $node->field_link ? $node->get('field_link')
+            ->getValue()['uri'] : null, 'field_link_externo' => $node->field_link_externo ? $node->get('field_link_externo')
+            ->getValue()['uri'] : null, 'field_headline' => $node->field_headline ? $node
+            ->field_headline->value : null, 'url' => $node ? \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id()) : null, 'image' => isset($node
+            ->field_thumb
+            ->entity) ? file_create_url($node
+              ->field_thumb
+              ->entity
+              ->getFileUri()) : NULL, 'media_image' => isset($node
+            ->field_imagem
+            ->entity) ? file_create_url($node
+              ->field_imagem
+              ->entity
+              ->getFileUri()) : NULL, 'media_video' => $node ? $node
+            ->field_video->value : null, 'type' => $node ? $node->bundle() : null];
+      }
     }
+
+    if ($entity->get('field_cards') && $entity->get('field_cards')
+      ->referencedEntities()) {
+      foreach ($entity->get('field_cards') as $paragraph) {
+        $node = $paragraph->entity;
+        $field_link = null;
+
+        if ($node->field_link) {
+          $field_link = $node->get('field_link')->getValue()[0];
+          $field_link['uri'] = str_replace(['internal:', 'entity:'], '', $field_link['uri']);
+
+          if (str_contains($field_link['uri'], 'node/')) {
+            $field_link['uri'] = \Drupal::service('path_alias.manager')->getAliasByPath('/' . $field_link['uri']);
+          }
+        }
+
+        $variables['nodes'][] = ['title' => $node
+          ->field_titulo->value,
+          'type' => 'card',
+          'field_link' => $field_link,
+          'text' => $node->get('field_texto')->processed, 'image' => isset($node
+            ->field_imagem
+            ->entity) ? file_create_url($node
+              ->field_imagem
+              ->entity
+              ->getFileUri()) : NULL,];
+
+
+      }
+    }
+  }
 }
 
-function casa_firjan_get_parent_menu_title()
-{
-    $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+function casa_firjan_preprocess_block(&$variables) {
+  $nodeObj = \Drupal::request()
+    ->attributes
+    ->get('node');
+  $variables['field_headline'] = null;
+  $machine_name = $variables['elements']['#id'];
 
-    $node_id = \Drupal::routeMatch()->getRawParameter('node');
+  if ($machine_name == 'new_breadcrumb') {
+    $entity = $variables['elements']['content']['#block_content'];
 
-    if ($node_id)
-    {
-        $menu_link = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array(
-            'node' => $node_id
-        ));
-    }
-    else
-    {
-        return '';
-    }
-
-    if (is_array($menu_link) && count($menu_link))
-    {
-        $menu_link = reset($menu_link);
-        if ($menu_link->getParent())
-        {
-            $parents = $menu_link_manager->getParentIds($menu_link->getParent());
-            $parent = reset(array_reverse($parents));
-            $title = $menu_link_manager->createInstance($parent)->getTitle();
-
-            return $title;
-        }
-    }
-
-    return '';
-}
-
-function casa_firjan_preprocess_breadcrumb(&$variables)
-{
     $node = \Drupal::routeMatch()->getParameter('node');
-    if ($node->field_headline)
-    {
-        $variables['field_headline'] = $node
-            ->field_headline->value;
-    }
-    $variables['breadcrumb'] = [];
 
-    if ($node instanceof \Drupal\node\NodeInterface)
-    {
-        if (casa_firjan_get_parent_menu_title())
-        {
-            $variables['breadcrumb'][] = ["text" => casa_firjan_get_parent_menu_title() , "url" => ""];
+    if ($node->field_headline) {
+      $variables['field_headline'] = $node
+        ->field_headline->value;
+    }
+
+    $variables['is_search'] = \Drupal::routeMatch()->getRouteName() == 'view.search.page_1' ? 1 : 0;
+
+    if ($node instanceof \Drupal\node\NodeInterface) {
+      $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+
+      $menu_link = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array(
+        'node' => $node->id()
+      ));
+
+      if (is_array($menu_link) && count($menu_link)) {
+        $menu_link = reset($menu_link);
+        if ($menu_link->getParent()) {
+          $parents = $menu_link_manager->getParentIds($menu_link->getParent());
+          foreach (array_reverse($parents) as $parent) {
+            $variables['breadcrumb'][] = ["text" => $menu_link_manager->createInstance($parent)->getTitle(), "url" => ""];
+          }
         }
-
-        $variables['breadcrumb'][] = ["text" => $node->getTitle() , "url" => ''];
+      }
+      $variables['breadcrumb'][] = ["text" => $node->getTitle(), "url" => ""];
     }
-}
+    elseif (\Drupal::routeMatch()
+      ->getRouteName() == 'entity.taxonomy_term.canonical') {
+      $slugify = new Slugify();
 
-function casa_firjan_form_system_theme_settings_alter(&$form, FormStateInterface $form_state)
-{
-    // $form['Busca'] = array(
-    //     '#type' => 'textarea',
-    //     '#title' => t('Search Breadcrumb Headline'),
-    //     '#default_value' => theme_get_setting('search_headline')
-    // ); 
-}
+      $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
+      $term_obj = Term::load($tid);
+      $term_name = $term_obj
+        ->name->value;
+      $vid = $term_obj->toArray()['vid'][0]['target_id'];
 
-function casa_firjan_preprocess(&$variables)
-{
-    $handler = \Drupal::service('theme_handler');
-    $variables['directory'] = $handler->getTheme('casa_firjan')
-        ->getPath();
-}
+      $url = \Drupal\Core\Url::fromRoute('<current>');
+      $current_path = \Drupal::service('path.current')->getPath();
+      $aliasManager = \Drupal::service('path_alias.manager');
+      $alias = $aliasManager->getAliasByPath($current_path);
 
-function casa_firjan_preprocess_menu(&$variables, $hook)
-{
-    if ($hook == 'menu__menu_principal')
-    {
-        $current_path = \Drupal::request()->getRequestUri();
-        foreach ($variables['items'] as & $item)
-        {
-            foreach ($item['below'] as & $below)
-            {
-                $below['current_path'] = \Drupal::request()->getRequestUri();
-                $below['raw_url'] = $below['url']->toString();
-                //$below['in_active_trail'] = strpos($below['raw_url'], $below['current_path']) ? true : false;
-                
-            }
-        }
-    }
-}
+      $tree = \Drupal::menuTree()->load('menu-principal', new \Drupal\Core\Menu\MenuTreeParameters());
 
-function casa_firjan_preprocess_status_messages(&$variables)
-{
-    if (isset($variables['message_list']['error']) && count($variables['message_list']['error']) > 0)
-    {
-        $variables['message_list']['error'] = NULL;
-    }
-}
+      if ($vid === 'categorias') {
+        foreach ($tree as $item) {
 
-function casa_firjan_preprocess_page__taxonomy(&$variables, &$nidsParaFiltrar, $categorias = array())
-{
-    $term = \Drupal::request()
-        ->attributes
-        ->get('taxonomy_term');
-
-    $variables['customPage'] = array();
-
-    $slugify = new Slugify();
-
-    $url = \Drupal\Core\Url::fromRoute('<current>');
-    $current_path = \Drupal::service('path.current')->getPath();
-
-    $aliasManager = \Drupal::service('path_alias.manager');
-    $alias = $aliasManager->getAliasByPath($current_path);
-
-    $tree = \Drupal::menuTree()->load('menu-principal', new \Drupal\Core\Menu\MenuTreeParameters());
-
-    foreach ($tree as $item)
-    {
-        $parent_slug = $slugify->slugify($item
+          $url = $slugify->slugify($item
             ->link
             ->getPluginDefinition()['title']);
-        $base_category = explode('/', $alias)[1];
-        if ($base_category === $parent_slug)
-        {
-            $variables['base_taxonomy'] = $item
-                ->link
-                ->getPluginDefinition()['title'];
-        }
-    }
+          $base_link = explode('/', $alias)[1];
 
-    $term = \Drupal::request()
-        ->attributes
-        ->get('taxonomy_term');
+          $uuid = $item
+            ->link
+            ->getDerivativeId();
+          $entity = \Drupal::service('entity.repository')->loadEntityByUuid('menu_link_content', $uuid);
+          $variables['field_headline'] = $entity
+            ->field_headline->value;
 
-    if ($term)
-    {
-        $bundle = $term->bundle();
-        $term = $term->toArray();
-        $categoriasNids[] = $term['tid'][0]['value'];
 
-        $childrens = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
-            ->loadTree($term['vid'][0]['target_id'], $term['tid'][0]['value'], 1, true);
+          // - Tirar depois
+          if ($base_link === 'eventos') {
+            $base_link = 'agenda';
+          }
 
-        if ($childrens)
-        {
-            $variables['customPage']['subprogramas'] = array();
+          if ($base_link === $url) {
+            $variables['breadcrumb'][] = ["text" => $item
+              ->link
+              ->getPluginDefinition()['title'], "url" => ''];
 
-            foreach ($childrens as $child)
-            {
-                $child = $child->toArray();
-                $categoriasNids[] = $child['tid'][0]['value'];
-                //print_r($child); die;
-                $subprogramaTemp = array();
+            if (\Drupal::routeMatch()
+              ->getRouteName() == 'entity.taxonomy_term.canonical') {
+              // $parent = null;
 
-                $subprogramaTemp['titulo'] = $child['name'][0]['value'];
-                $subprogramaTemp['texto'] = isset($child['field_texto'][0]['value']) && !empty($child['field_texto'][0]['value']) ? nl2br($child['field_texto'][0]['value']) : '';
-                $subprogramaTemp['url'] = isset($child['field_link_externo'][0]['uri']) && !empty($child['field_link_externo'][0]['uri']) ? $child['field_link_externo'][0]['uri'] : $child['path'][0]['alias'];
-                $subprogramaTemp['target'] = isset($child['field_link_externo'][0]['uri']) && !empty($child['field_link_externo'][0]['uri']) ? 'target="_blank"' : '';
+              // $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
+              // $term_obj = Term::load($tid);
 
-                if (isset($child['field_imagem'][0]['target_id']) && !empty($child['field_imagem'][0]['target_id']))
-                {
-                    $imagem = GM5File::renderImage($child['field_imagem'][0]['target_id'], '640x450');
-                }
-                else
-                {
-                    $imagem = $variables['customPage']['system']['staticPath'] . 'img/def_640x450.jpg';
-                }
-                $subprogramaTemp['imagem'] = $imagem;
 
-                $variables['customPage']['subprogramas'][] = $subprogramaTemp;
+              $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
+              $term_obj = Term::load($tid);
+
+              $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($tid);
+
+              if ($parent) {
+                $parent = reset($parent)->getName();
+                $variables['breadcrumb'][] = ["text" => $parent, "url" => ''];
+              }
+
+              $variables['breadcrumb'][] = ["text" => $term_obj
+                ->name->value, "url" => '', "headline" => $term_obj->hasField('field_resumo') ? htmlspecialchars_decode(strip_tags($term_obj->get('field_resumo')
+                  ->value)) : null];
             }
+          }
+        }
+      }
+      elseif ($vid === 'tags_conteudo') {
+        $variables['breadcrumb'][] = ["text" => $term_name, "url" => '', "headline" => $term_obj->hasField('field_resumo') ? htmlspecialchars_decode(strip_tags($term_obj->get('field_resumo')
+          ->value)) : null];
+      }
+    }
+    elseif ($variables['is_search']) {
+      $block = Block::load($variables['elements']['#id']);
+      $block = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $block->getPlugin()->getDerivativeId());
+      $variables['breadcrumb'][] = ["text" => "Resultados de Busca", "url" => "", "headline" => $block ? strip_tags($block->body->value) : ''];
+    }
+  }
+  elseif ($machine_name == 'tagcloud') {
+    $vocabulary_name = 'tags_conteudo';
+    $query = \Drupal::entityQuery('taxonomy_term');
+    $query->condition('vid', $vocabulary_name);
+    $tids = $query->execute();
+    $terms = Term::loadMultiple($tids);
+    $variables['taxonomies'] = array();
+
+    foreach ($terms as $term) {
+      $tid = $term->id();
+
+      $term_obj = Term::load($tid);
+
+      $variables['taxonomies'][] = ['tid' => $tid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid), 'name' => $term_obj
+        ->name->value];
+    }
+  }
+  elseif ($machine_name == 'bloconewsletter') {
+
+  }
+  elseif ($machine_name == 'bannerhome') {
+    $nidsParaFiltrar = array();
+
+    //banners
+    $options = new StdClass;
+    $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
+    $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
+
+    $options->args = array(
+      $nidsParaRemover,
+      $categorias
+    );
+
+    $options->pager = array(
+      'autoPager' => true
+    );
+    $viewbanners = GM5Views::getViewArg('banner_home', 'lista', $options);
+
+    foreach ($viewbanners['items'] as $idx => $banner) {
+      $style = '1920x400';
+
+      $ndObj = $banner->_entity;
+      $nd = $banner
+        ->_entity
+        ->toArray();
+
+      $bannerItem = array();
+      $bannerItem['label'] = $nd['field_link'][0]['title'];
+      $bannerItem['field_link_background'] = $nd['field_link_background'][0]['color'];
+      $bannerItem['titulo'] = $nd['title'][0]['value'];
+      $bannerItem['target'] = $nd['field_target'][0]['value'];
+      $bannerItem['texto'] = isset($nd['field_chamada'][0]['value']) && !empty($nd['field_chamada'][0]['value']) ? $nd['field_chamada'][0]['value'] : '';
+      if (str_contains($nd['field_link'][0]['uri'], 'internal')) {
+        $url = str_replace('internal:/', '', $nd['field_link'][0]['uri']);
+        $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/' . $url);
+      }
+      $bannerItem['url'] = str_contains($nd['field_link'][0]['uri'], 'internal') ? $alias : $nd['field_link'][0]['uri'];
+      $bannerItem['midia']['src'] = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
+      /*$bannerItem['link'] = $nd['field_link'] && $nd['field_link'][0]['uri'] ? GM5Util::uriToUrl($nd['field_link'][0]['uri']) : '';
+      $bannerItem['link']['label'] = $nd['field_link'][0]['title'];
+      $bannerItem['link']['target'] = $bannerItem['link']['type'] == 'internal' ? '_self' : '_blank';*/
+
+      $variables['customPage']['bannersHome'][] = $bannerItem;
+    }
+  }
+
+  if (isset($variables['elements']['content']['#block_content'])) {
+    $variables['title'] = $variables['elements']['content']['#block_content']
+      ->info->value;
+  }
+
+  if (isset($nodeObj) && $nodeObj
+    ->title->value == 'Home') {
+    if ($nodeObj) {
+      $node = $nodeObj->toArray();
+
+      $variables['customPage']['destaques'] = array();
+      foreach ($nodeObj->field_destaques as $idx => $destaque) {
+
+        if ($idx == 0) {
+          $style = '651x333';
+        }
+        else {
+          $style = '190x190';
         }
 
-        $variables['customPage']['term']['bundle'] = $bundle;
-        $variables['customPage']['term']['titulo'] = $term['name'][0]['value'];
-        $variables['customPage']['term']['tid'] = $term['tid'][0]['value'];
-        $variables['customPage']['term']['descricao'] = isset($term['field_resumo'][0]['value']) && !empty($term['field_resumo'][0]['value']) ? trim(strip_tags(nl2br($term['field_resumo'][0]['value']))) : '';
+        $ndObj = $destaque->entity;
+        if ($destaque->entity) {
 
-        $nidsParaFiltrar = array();
+          $nd = $destaque
+            ->entity
+            ->toArray();
 
-        if ($bundle == 'landing_page')
-        {
-            casa_firjan_process_destaque_tags($variables, $nidsParaFiltrar, $categoriasNids);
-            casa_firjan_process_leia_mais_tags($variables, $nidsParaFiltrar, $categoriasNids);
-        }
-        else
-        {
-            casa_firjan_process_destaque($variables, $nidsParaFiltrar, $categoriasNids);
-            casa_firjan_process_leia_mais($variables, $nidsParaFiltrar, $categoriasNids);
-        }
+          $nidsParaFiltrar[] = $nd['nid'][0]['value'];
 
-        //
-        //Vídeos
-        $options = new StdClass;
-        $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
-        $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
+          $destaqueItem = array();
 
-        $options->args = array(
-            $nidsParaRemover,
-            $categorias
-        );
+          $destaqueItem['titulo'] = $nd['title'][0]['value'];
+          $destaqueItem['url'] = GM5Util::getAlias('/node/' . $nd['nid'][0]['value'], 'relative');
+          $destaqueItem['chamada'] = isset($nd['field_chamada']) ? $nd['field_chamada'][0]['value'] : '';
 
-        $options->pager = array(
-            'autoPager' => true
-        );
-        $viewvideos = GM5Views::getViewArg('destaques', 'videos_home', $options);
+          //Imagem ou vídeo
+          $tipo = '';
+          $midia = '';
+          if (isset($nd['field_tipo_de_midia']) && !empty($nd['field_tipo_de_midia'])) {
+            if ($nd['field_tipo_de_midia'][0]['value'] == 'video' && isset($nd['field_video'][0]['value'])) {
+              $tipo = 'video';
+              $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd['field_video'][0]['value']));
+              $destaqueItem['midia']['url'] = $nd['field_video'][0]['value'];
+            }
+            else if ($nd['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($nd['field_imagem'][0]['target_id'])) {
+              $tipo = 'imagem';
+              $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
+            }
+          }
+          else if (!isset($nd['field_tipo_de_midia']) && isset($nd['field_imagem']) && !empty($nd['field_imagem'])) {
+            // Com imagem de destaque
+            $tipo = 'imagem';
+            $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
 
-        $variables['customPage']['videosRecentes'] = array();
+          }
+          else if (isset($nd['field_thumb']) && !empty($nd['field_thumb'])) {
+            //Com thumb
+            $tipo = 'imagem';
+            $midia = GM5File::renderImage($nd['field_thumb'][0]['target_id'], $style);
+          }
 
-        foreach ($viewvideos['items'] as $k => $video)
-        {
-            $videoObj = $video->_entity;
-            $video = $video
-                ->_entity
-                ->toArray();
+          //Autor e data
+          $autor_data = array();
+          if (isset($ndObj
+            ->field_autor
+            ->entity)) {
+            $autor = $ndObj
+              ->field_autor
+              ->entity
+              ->toArray();
 
-            $nidsParaFiltrar[] = $video['nid'][0]['value'];
-
-            $videoItem = array();
-            $videoItem['titulo'] = GM5String::textLimit($video['title']['0']['value'], 56);
-            $videoItem['videoUrl'] = $video['field_video']['0']['value'];
-            $videoItem['url'] = GM5Util::getAlias('/node/' . $video['nid'][0]['value']);;
-            $videoItem['imagem'] = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($video['field_video']['0']['value']));
-
+            $autor_data[] = 'Por ' . $autor['title'][0]['value'];
+          }
+          $autor_data[] = ' em ' . date('d/m/Y', $nd['created']['0']['value']);
+          $destaqueItem['autor_data'] = implode(' ', $autor_data);
+          if (isset($ndObj
+            ->field_categoria
+            ->entity)) {
             //Categoria
-            if (isset($video['field_categoria'][0]['target_id']) && !empty($video['field_categoria'][0]['target_id']))
-            {
-                $categoria = $videoObj
-                    ->field_categoria
-                    ->entity
-                    ->toArray();
+            $categoria = $ndObj
+              ->field_categoria
+              ->entity
+              ->toArray();
+            $destaqueItem['categoria']['label'] = $categoria['name'][0]['value'];
+            $destaqueItem['categoria']['url'] = $categoria['path'][0]['alias'];
 
-                $videoItem['categoria']['label'] = $categoria['name'][0]['value'];
-                $videoItem['categoria']['url'] = $categoria['path'][0]['alias'];
+            //Mídia
+            $destaqueItem['midia']['src'] = $midia;
+            $destaqueItem['midia']['tipo'] = $tipo;
 
+            $variables['customPage']['destaques'][] = $destaqueItem;
+          }
+          else if ($nd['type'][0]['target_id'] == 'noticia') {
+            //Categoria
+            $destaqueItem['categoria']['label'] = 'Notícia';
+            $destaqueItem['categoria']['url'] = '/noticias';
+
+            //Mídia
+            if (isset($nd['field_thumb'][0]['target_id'])) {
+              $midia = GM5File::renderImage($nd['field_thumb'][0]['target_id'], $style);
+            }
+            else if (!empty($nd['field_imagem'])) {
+              $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
+            }
+            else {
+              $field_info = FieldConfig::loadByName('node', 'noticia', 'field_thumb');
+              $image_uuid = $field_info->getSetting('default_image')['uuid'];
+              $image = Drupal::service('entity.repository')->loadEntityByUuid('file', $image_uuid);
+              $target_id = $image->id();
+              $midia = GM5File::renderImage($target_id, $style);
             }
 
-            $variables['customPage']['videosRecentes'][] = $videoItem;
+            $destaqueItem['midia']['src'] = $midia;
+            $destaqueItem['midia']['tipo'] = 'imagem';
+
+            $variables['customPage']['destaques'][] = $destaqueItem;
+          }
+          else if ($nd['type'][0]['target_id'] == 'agenda') {
+            //Categoria
+            $destaqueItem['categoria']['label'] = 'Evento';
+            $destaqueItem['categoria']['url'] = '/agenda';
+
+            //Mídia
+            $destaqueItem['midia']['src'] = !empty($nd['field_imagem']) ? GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style) : \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
+            $destaqueItem['midia']['tipo'] = 'imagem';
+
+            $variables['customPage']['destaques'][] = $destaqueItem;
+          }
+          else if ($nd['type'][0]['target_id'] == 'curso') {
+            //Categoria
+            $destaqueItem['categoria']['label'] = 'Cursos';
+            $destaqueItem['categoria']['url'] = '/lab-educacao/cursos';
+
+            //Mídia
+            $destaqueItem['midia']['src'] = !empty($nd['field_imagem']) ? GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style) : \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
+            $destaqueItem['midia']['tipo'] = 'imagem';
+
+            $variables['customPage']['destaques'][] = $destaqueItem;
+          }
+          else {
+            $destaqueItem['midia']['src'] = !empty($nd['field_imagem']) ? GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style) : \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
+            $destaqueItem['midia']['tipo'] = 'imagem';
+            $variables['customPage']['destaques'][] = $destaqueItem;
+          }
+
         }
-    }
-}
+      }
 
-// function casa_firjan_preprocess_page__agenda(&$variables) {
-//   dump($variables);
-// }
-function casa_firjan_preprocess_views_view_fullcalendar(&$variables)
-{
-    $nids = \Drupal::entityQuery('node')->condition('type', 'agenda')
+      //var_dump($variables['customPage']['destaques']);die;
+      //Bloco vídeos
+      casa_firjan_process_videos($variables, $nidsParaFiltrar);
+      casa_firjan_process_destaque_mini($variables, $nidsParaFiltrar);
+
+      //Agenda
+      //Filtros options
+      // $options = new StdClass;
+      // $filtrosOptions = GM5Views::getViewArg('taxonomia', 'filtro_agenda', $options);
+      // foreach($filtrosOptions['items'] as $termOption){
+      //   casa_firjan_process_agenda($variables,$termOption->_entity);
+      // }
+      //Eventos
+      // $options = new StdClass;
+      // $options->args = array('all');
+      // $options->pager = array('autoPager' => TRUE);
+      // $vieweventos = GM5Views::getViewArg('agenda','filtros',$options);
+      // $groups = array();
+      // foreach($vieweventos['items'] as $k => $evento){
+      //   $eventoObj = $evento->_entity;
+      //   $evento = $evento->_entity->toArray();
+      //   $eventoItem = array();
+      //   $eventoItem['type'] = $evento['type'][0]['target_id'];
+      //   $eventoItem['titulo'] = $evento['title'][0]['value'];
+      //   $eventoItem['texto'] = isset($evento['field_chamada'][0]['value']) && !empty($evento['field_chamada'][0]['value']) ? $evento['field_chamada'][0]['value'] : substr(strip_tags($evento['field_texto'][0]['value']), 0, 200).'...';
+      //   $eventoItem['duracao'] = isset($evento['field_duracao'][0]['value']) && !empty($evento['field_duracao'][0]['value']) ? $evento['field_duracao'][0]['value'] : '';
+      //   $eventoItem['carga'] = isset($evento['field_carga_horaria'][0]['value']) && !empty($evento['field_carga_horaria'][0]['value']) ? $evento['field_carga_horaria'][0]['value'] : '';
+      //   $eventoItem['url'] = isset($evento['field_link_externo'][0]['uri']) && !empty($evento['field_link_externo'][0]['uri']) ? $evento['field_link_externo'][0]['uri'] : GM5Util::getAlias('/node/'.$evento['nid'][0]['value']);
+      //   $eventoItem['target'] = isset($evento['field_link_externo'][0]['uri']) && !empty($evento['field_link_externo'][0]['uri']) ? 'target="_blank"' : '';
+      //   $eventoItem['categoria'] = isset($eventoObj->field_categoria_agenda->entity) && !empty($eventoObj->field_categoria_agenda->entity) ? $eventoObj->field_categoria_agenda->entity->toArray()['name'][0]['value'] : 'Curso';
+      //   $eventoItem['categoriaAlias'] = GM5String::transliteration($eventoItem['categoria']);
+      //   if($eventoObj->field_ciclo_tematico->entity){
+      //     $eventoItem['cicloLabel'] = $eventoObj->field_ciclo_tematico->entity->toArray()['name'][0]['value'];
+      //     $eventoItem['cicloColor'] = $eventoObj->field_ciclo_tematico->entity->toArray()['field_cor_do_ciclo'][0]['color'];
+      //   }
+      //   $groups[$eventoItem['categoriaAlias']] = $eventoItem['categoria'];
+      //   $data = new \DateTime($evento['field_hora_de_inicio'][0]['value'],new DateTimeZone("UTC"));
+      //   $la_time = new \DateTimeZone(date_default_timezone_get());
+      //   $data->setTimezone($la_time);
+      //   $map = [
+      //       "Sun" => "Domingo",
+      //       "Mon" => "Segunda",
+      //       "Tue" => "Terça",
+      //       "Wed" => "Quarta",
+      //       "Thu" => "Quinta",
+      //       "Fri" => "Sexta",
+      //       "Sat" => "Sábado",
+      //   ];
+      //   $eventoItem['Dia'] = $map[$data->format('D')];
+      //   $eventoItem['Data'] = $data->format('d').' de '.GM5Util::mesBr($data->format('m')).' de '.$data->format('Y');
+      //   $eventoItem['hora'] = $data->format('H');
+      //   $eventoItem['minutos'] = $data->format('i');
+      //   $variables['customPage']['conteudo']['eventos']['itens'][$eventoItem['Data']][] = $eventoItem;
+      // }
+      // //print_r($variables['customPage']['conteudo']['eventos']['itens']); die;
+      // $variables['customPage']['conteudo']['eventos']['grupos'] = $groups;
+      // $variables['customPage']['conteudo']['eventos']['paginacao'] = isset($vieweventos['pager']) && !empty($vieweventos['pager']) ? $vieweventos['pager'] : array();
+      // //print_r($variables['customPage']['conteudo']['eventos']); die;
+      // //print_r($variables['customPage']['destaquesMini']); die;
+      $nids = \Drupal::entityQuery('node')->condition('type', 'agenda')
         ->execute();
-    $eventos = array_reverse(\Drupal\node\Entity\Node::loadMultiple($nids));
+      $eventos = array_reverse(\Drupal\node\Entity\Node::loadMultiple($nids));
+      $groups = array();
 
-    $variables['eventos'] = [];
+      $variables['new_group'] = [];
 
-    foreach ($eventos as $k => $evento)
-    {
+      foreach ($eventos as $k => $evento) {
         $eventoItem = array();
 
         if ($evento->get('field_ciclo_tematico')
-            ->entity)
-        {
-            $eventoItem['cicloLabel'] = $evento->get('field_ciclo_tematico')
-                ->entity
-                ->toArray()['name'][0]['value'];
-            $eventoItem['cicloColor'] = $evento->get('field_ciclo_tematico')
-                ->entity
-                ->toArray()['field_cor_do_ciclo'][0]['color'];
+          ->entity) {
+          $eventoItem['cicloLabel'] = $evento->get('field_ciclo_tematico')
+            ->entity
+            ->toArray()['name'][0]['value'];
+          $eventoItem['cicloColor'] = $evento->get('field_ciclo_tematico')
+            ->entity
+            ->toArray()['field_cor_do_ciclo'][0]['color'];
         }
 
         $la_time = new \DateTimeZone(date_default_timezone_get());
         $timestamp = strtotime($evento->get('field_hora_de_inicio')
-            ->value);
+          ->value);
         $data = new DateTime();
         $data->setTimestamp($timestamp);
         $data->setTimezone($la_time);
         $today = new DateTime();
         $today->setTimezone($la_time);
-        $datetime = $evento->get('field_hora_de_inicio')->value;
 
         $evento = $evento->toArray();
 
         $eventoItem['type'] = $evento['type'][0]['target_id'];
         $eventoItem['isActive'] = $today < $data;
         $eventoItem['titulo'] = $evento['title'][0]['value'];
-        $eventoItem['texto'] = isset($evento['field_chamada'][0]['value']) && !empty($evento['field_chamada'][0]['value']) ? $evento['field_chamada'][0]['value'] : substr(strip_tags($evento['field_texto'][0]['value']) , 0, 200) . '...';
+        $eventoItem['texto'] = isset($evento['field_chamada'][0]['value']) && !empty($evento['field_chamada'][0]['value']) ? $evento['field_chamada'][0]['value'] : substr(strip_tags($evento['field_texto'][0]['value']), 0, 200) . '...';
         $eventoItem['duracao'] = isset($evento['field_duracao'][0]['value']) && !empty($evento['field_duracao'][0]['value']) ? $evento['field_duracao'][0]['value'] : '';
         $eventoItem['carga'] = isset($evento['field_carga_horaria'][0]['value']) && !empty($evento['field_carga_horaria'][0]['value']) ? $evento['field_carga_horaria'][0]['value'] : '';
         $eventoItem['url'] = isset($evento['field_link_externo'][0]['uri']) && !empty($evento['field_link_externo'][0]['uri']) ? $evento['field_link_externo'][0]['uri'] : GM5Util::getAlias('/node/' . $evento['nid'][0]['value']);
         $eventoItem['target'] = isset($evento['field_link_externo'][0]['uri']) && !empty($evento['field_link_externo'][0]['uri']) ? 'target="_blank"' : '';
         $eventoItem['categoria'] = isset($eventoObj
-            ->field_categoria_agenda
-            ->entity) && !empty($eventoObj
+          ->field_categoria_agenda
+          ->entity) && !empty($eventoObj
             ->field_categoria_agenda
             ->entity) ? $eventoObj
             ->field_categoria_agenda
@@ -2457,110 +1939,405 @@ function casa_firjan_preprocess_views_view_fullcalendar(&$variables)
             ->toArray()['name'][0]['value'] : 'Curso';
         $eventoItem['categoriaAlias'] = GM5String::transliteration($eventoItem['categoria']);
 
-        $map = ["Sun" => "Domingo", "Mon" => "Segunda", "Tue" => "Terça", "Wed" => "Quarta", "Thu" => "Quinta", "Fri" => "Sexta", "Sat" => "Sábado", ];
+        $groups[$eventoItem['categoriaAlias']] = $evento['categoria'];
 
-        $eventoItem['Dia'] = $map[$data->format('D') ];
+        $map = ["Sun" => "Domingo", "Mon" => "Segunda", "Tue" => "Terça", "Wed" => "Quarta", "Thu" => "Quinta", "Fri" => "Sexta", "Sat" => "Sábado",];
+
+        $eventoItem['Dia'] = $map[$data->format('D')];
         $eventoItem['Data'] = $data->format('d') . ' de ' . GM5Util::mesBr($data->format('m')) . ' de ' . $data->format('Y');
         $eventoItem['hora'] = $data->format('H');
         $eventoItem['minutos'] = $data->format('i');
-        $eventoItem['dateTime'] = $datetime;
 
-        ksort($variables['eventos']);
 
-        if ($today <= $data)
-        {
-            $variables['eventos'][] = $eventoItem;
+        $date = new DateTime($evento['field_hora_de_inicio'][0]['value']);
+
+        // dump(date('Y-m-d H:i:s', strtotime($evento['field_hora_de_inicio'][0]['value']. ' - 3 hours')));
+
+        $eventoItem['field_hora_de_inicio'] = date('H:i', strtotime($evento['field_hora_de_inicio'][0]['value'] . ' - 3 hours'));
+
+        ksort($variables['new_group']);
+
+        if ($today <= $data) {
+          if (!array_key_exists($data->format('Y-m-d'), $variables['new_group'])) {
+            $variables['new_group'][$data->format('Y-m-d')] = [];
+          }
+          $variables['customPage']['conteudo']['eventos']['itens'][$eventoItem['Data']][] = $eventoItem;
+          $variables['new_group'][$data->format('Y-m-d')][] = $eventoItem;
         }
+      }
+
+      $variables['eventos'] = $variables['customPage']['conteudo']['eventos']['itens'];
+
+      $variables['customPage']['conteudo']['eventos']['grupos'] = $groups;
     }
+  }
 }
 
+function casa_firjan_get_parent_menu_title() {
+  $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+
+  $node_id = \Drupal::routeMatch()->getRawParameter('node');
+
+  if ($node_id) {
+    $menu_link = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array(
+      'node' => $node_id
+    ));
+  }
+  else {
+    return '';
+  }
+
+  if (is_array($menu_link) && count($menu_link)) {
+    $menu_link = reset($menu_link);
+    if ($menu_link->getParent()) {
+      $parents = $menu_link_manager->getParentIds($menu_link->getParent());
+      $parent = reset(array_reverse($parents));
+      $title = $menu_link_manager->createInstance($parent)->getTitle();
+
+      return $title;
+    }
+  }
+
+  return '';
+}
+
+function casa_firjan_preprocess_breadcrumb(&$variables) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node->field_headline) {
+    $variables['field_headline'] = $node
+      ->field_headline->value;
+  }
+  $variables['breadcrumb'] = [];
+
+  if ($node instanceof \Drupal\node\NodeInterface) {
+    if (casa_firjan_get_parent_menu_title()) {
+      $variables['breadcrumb'][] = ["text" => casa_firjan_get_parent_menu_title(), "url" => ""];
+    }
+
+    $variables['breadcrumb'][] = ["text" => $node->getTitle(), "url" => ''];
+  }
+}
+
+function casa_firjan_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  // $form['Busca'] = array(
+  //     '#type' => 'textarea',
+  //     '#title' => t('Search Breadcrumb Headline'),
+  //     '#default_value' => theme_get_setting('search_headline')
+  // );
+}
+
+function casa_firjan_preprocess(&$variables) {
+  $handler = \Drupal::service('theme_handler');
+  $variables['directory'] = $handler->getTheme('casa_firjan')
+    ->getPath();
+}
+
+function casa_firjan_preprocess_menu(&$variables, $hook) {
+  if ($hook == 'menu__menu_principal') {
+    $current_path = \Drupal::request()->getRequestUri();
+    foreach ($variables['items'] as &$item) {
+      foreach ($item['below'] as &$below) {
+        $below['current_path'] = \Drupal::request()->getRequestUri();
+        $below['raw_url'] = $below['url']->toString();
+        //$below['in_active_trail'] = strpos($below['raw_url'], $below['current_path']) ? true : false;
+
+      }
+    }
+  }
+}
+
+function casa_firjan_preprocess_status_messages(&$variables) {
+  if (isset($variables['message_list']['error']) && count($variables['message_list']['error']) > 0) {
+    $variables['message_list']['error'] = NULL;
+  }
+}
+
+function casa_firjan_preprocess_page__taxonomy(&$variables, &$nidsParaFiltrar, $categorias = array()) {
+  $term = \Drupal::request()
+    ->attributes
+    ->get('taxonomy_term');
+
+  $variables['customPage'] = array();
+
+  $slugify = new Slugify();
+
+  $url = \Drupal\Core\Url::fromRoute('<current>');
+  $current_path = \Drupal::service('path.current')->getPath();
+
+  $aliasManager = \Drupal::service('path_alias.manager');
+  $alias = $aliasManager->getAliasByPath($current_path);
+
+  $tree = \Drupal::menuTree()->load('menu-principal', new \Drupal\Core\Menu\MenuTreeParameters());
+
+  foreach ($tree as $item) {
+    $parent_slug = $slugify->slugify($item
+      ->link
+      ->getPluginDefinition()['title']);
+    $base_category = explode('/', $alias)[1];
+    if ($base_category === $parent_slug) {
+      $variables['base_taxonomy'] = $item
+        ->link
+        ->getPluginDefinition()['title'];
+    }
+  }
+
+  $term = \Drupal::request()
+    ->attributes
+    ->get('taxonomy_term');
+
+  if ($term) {
+    $bundle = $term->bundle();
+    $term = $term->toArray();
+    $categoriasNids[] = $term['tid'][0]['value'];
+
+    $childrens = \Drupal::entityTypeManager()->getStorage('taxonomy_term')
+      ->loadTree($term['vid'][0]['target_id'], $term['tid'][0]['value'], 1, true);
+
+    if ($childrens) {
+      $variables['customPage']['subprogramas'] = array();
+
+      foreach ($childrens as $child) {
+        $child = $child->toArray();
+        $categoriasNids[] = $child['tid'][0]['value'];
+        //print_r($child); die;
+        $subprogramaTemp = array();
+
+        $subprogramaTemp['titulo'] = $child['name'][0]['value'];
+        $subprogramaTemp['texto'] = isset($child['field_texto'][0]['value']) && !empty($child['field_texto'][0]['value']) ? nl2br($child['field_texto'][0]['value']) : '';
+        $subprogramaTemp['url'] = isset($child['field_link_externo'][0]['uri']) && !empty($child['field_link_externo'][0]['uri']) ? $child['field_link_externo'][0]['uri'] : $child['path'][0]['alias'];
+        $subprogramaTemp['target'] = isset($child['field_link_externo'][0]['uri']) && !empty($child['field_link_externo'][0]['uri']) ? 'target="_blank"' : '';
+
+        if (isset($child['field_imagem'][0]['target_id']) && !empty($child['field_imagem'][0]['target_id'])) {
+          $imagem = GM5File::renderImage($child['field_imagem'][0]['target_id'], '640x450');
+        }
+        else {
+          $imagem = $variables['customPage']['system']['staticPath'] . 'img/def_640x450.jpg';
+        }
+        $subprogramaTemp['imagem'] = $imagem;
+
+        $variables['customPage']['subprogramas'][] = $subprogramaTemp;
+      }
+    }
+
+    $variables['customPage']['term']['bundle'] = $bundle;
+    $variables['customPage']['term']['titulo'] = $term['name'][0]['value'];
+    $variables['customPage']['term']['tid'] = $term['tid'][0]['value'];
+    $variables['customPage']['term']['descricao'] = isset($term['field_resumo'][0]['value']) && !empty($term['field_resumo'][0]['value']) ? trim(strip_tags(nl2br($term['field_resumo'][0]['value']))) : '';
+
+    $nidsParaFiltrar = array();
+
+    if ($bundle == 'landing_page') {
+      casa_firjan_process_destaque_tags($variables, $nidsParaFiltrar, $categoriasNids);
+      casa_firjan_process_leia_mais_tags($variables, $nidsParaFiltrar, $categoriasNids);
+    }
+    else {
+      casa_firjan_process_destaque($variables, $nidsParaFiltrar, $categoriasNids);
+      casa_firjan_process_leia_mais($variables, $nidsParaFiltrar, $categoriasNids);
+    }
+
+    //
+    //Vídeos
+    $options = new StdClass;
+    $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
+    $nidsParaRemover = !empty($nidsParaFiltrar) ? implode('+', $nidsParaFiltrar) : 'all';
+
+    $options->args = array(
+      $nidsParaRemover,
+      $categorias
+    );
+
+    $options->pager = array(
+      'autoPager' => true
+    );
+    $viewvideos = GM5Views::getViewArg('destaques', 'videos_home', $options);
+
+    $variables['customPage']['videosRecentes'] = array();
+
+    foreach ($viewvideos['items'] as $k => $video) {
+      $videoObj = $video->_entity;
+      $video = $video
+        ->_entity
+        ->toArray();
+
+      $nidsParaFiltrar[] = $video['nid'][0]['value'];
+
+      $videoItem = array();
+      $videoItem['titulo'] = GM5String::textLimit($video['title']['0']['value'], 56);
+      $videoItem['videoUrl'] = $video['field_video']['0']['value'];
+      $videoItem['url'] = GM5Util::getAlias('/node/' . $video['nid'][0]['value']);
+      ;
+      $videoItem['imagem'] = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($video['field_video']['0']['value']));
+
+      //Categoria
+      if (isset($video['field_categoria'][0]['target_id']) && !empty($video['field_categoria'][0]['target_id'])) {
+        $categoria = $videoObj
+          ->field_categoria
+          ->entity
+          ->toArray();
+
+        $videoItem['categoria']['label'] = $categoria['name'][0]['value'];
+        $videoItem['categoria']['url'] = $categoria['path'][0]['alias'];
+
+      }
+
+      $variables['customPage']['videosRecentes'][] = $videoItem;
+    }
+  }
+}
+
+// function casa_firjan_preprocess_page__agenda(&$variables) {
+//   dump($variables);
+// }
+function casa_firjan_preprocess_views_view_fullcalendar(&$variables) {
+  $nids = \Drupal::entityQuery('node')->condition('type', 'agenda')
+    ->execute();
+  $eventos = array_reverse(\Drupal\node\Entity\Node::loadMultiple($nids));
+
+  $variables['eventos'] = [];
+
+  foreach ($eventos as $k => $evento) {
+    $eventoItem = array();
+
+    if ($evento->get('field_ciclo_tematico')
+      ->entity) {
+      $eventoItem['cicloLabel'] = $evento->get('field_ciclo_tematico')
+        ->entity
+        ->toArray()['name'][0]['value'];
+      $eventoItem['cicloColor'] = $evento->get('field_ciclo_tematico')
+        ->entity
+        ->toArray()['field_cor_do_ciclo'][0]['color'];
+    }
+
+    $la_time = new \DateTimeZone(date_default_timezone_get());
+    $timestamp = strtotime($evento->get('field_hora_de_inicio')
+      ->value);
+    $data = new DateTime();
+    $data->setTimestamp($timestamp);
+    $data->setTimezone($la_time);
+    $today = new DateTime();
+    $today->setTimezone($la_time);
+    $datetime = $evento->get('field_hora_de_inicio')->value;
+
+    $evento = $evento->toArray();
+
+    $eventoItem['type'] = $evento['type'][0]['target_id'];
+    $eventoItem['isActive'] = $today < $data;
+    $eventoItem['titulo'] = $evento['title'][0]['value'];
+    $eventoItem['texto'] = isset($evento['field_chamada'][0]['value']) && !empty($evento['field_chamada'][0]['value']) ? $evento['field_chamada'][0]['value'] : substr(strip_tags($evento['field_texto'][0]['value']), 0, 200) . '...';
+    $eventoItem['duracao'] = isset($evento['field_duracao'][0]['value']) && !empty($evento['field_duracao'][0]['value']) ? $evento['field_duracao'][0]['value'] : '';
+    $eventoItem['carga'] = isset($evento['field_carga_horaria'][0]['value']) && !empty($evento['field_carga_horaria'][0]['value']) ? $evento['field_carga_horaria'][0]['value'] : '';
+    $eventoItem['url'] = isset($evento['field_link_externo'][0]['uri']) && !empty($evento['field_link_externo'][0]['uri']) ? $evento['field_link_externo'][0]['uri'] : GM5Util::getAlias('/node/' . $evento['nid'][0]['value']);
+    $eventoItem['target'] = isset($evento['field_link_externo'][0]['uri']) && !empty($evento['field_link_externo'][0]['uri']) ? 'target="_blank"' : '';
+    $eventoItem['categoria'] = isset($eventoObj
+      ->field_categoria_agenda
+      ->entity) && !empty($eventoObj
+        ->field_categoria_agenda
+        ->entity) ? $eventoObj
+        ->field_categoria_agenda
+        ->entity
+        ->toArray()['name'][0]['value'] : 'Curso';
+    $eventoItem['categoriaAlias'] = GM5String::transliteration($eventoItem['categoria']);
+
+    $map = ["Sun" => "Domingo", "Mon" => "Segunda", "Tue" => "Terça", "Wed" => "Quarta", "Thu" => "Quinta", "Fri" => "Sexta", "Sat" => "Sábado",];
+
+    $eventoItem['Dia'] = $map[$data->format('D')];
+    $eventoItem['Data'] = $data->format('d') . ' de ' . GM5Util::mesBr($data->format('m')) . ' de ' . $data->format('Y');
+    $eventoItem['hora'] = $data->format('H');
+    $eventoItem['minutos'] = $data->format('i');
+    $eventoItem['dateTime'] = $datetime;
+
+    ksort($variables['eventos']);
+
+    if ($today <= $data) {
+      $variables['eventos'][] = $eventoItem;
+    }
+  }
+}
 
 function casa_firjan_views_pre_render(ViewExecutable $view) {
-    if($view->id() == 'search') {
-        $results = $view->result;
+  if ($view->id() == 'search') {
+    $results = $view->result;
 
-        $searchFilter = array();
-
-        foreach ($results as $node) {
-            $tid = $node->_entity->get('field_categoria')[0]->target_id;
-
-            if(!array_key_exists($tid, $searchFilter)) {
-                $searchFilter[] = Term::load($tid);
-            }
-        }
-
-        $_SESSION['searchFilter'] = $searchFilter;
-
-        if(empty($results)) {
-            $view->display_handler->setOption('css_class', 'no-results');
-        }
+    $searchFilter = [];
+    foreach ($results as $node) {
+      $term = $node?->field_categoria?->entity;
+      if ($term && !array_key_exists($term->target_id, $searchFilter)) {
+        $searchFilter[$term->target_id] = $term;
+      }
     }
+    $_SESSION['searchFilter'] = $searchFilter;
+
+    if (empty($results)) {
+      $view->display_handler->setOption('css_class', 'no-results');
+    }
+  }
 }
 
 function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) {
 
-    $view = explode('.', \Drupal::routeMatch()->getRouteName());
+  $view = explode('.', \Drupal::routeMatch()->getRouteName());
 
-    $view = \Drupal::entityTypeManager()
+  $view = \Drupal::entityTypeManager()
     ->getStorage('view')
     ->load($view[1])
     ->getExecutable();
 
-    $view->initDisplay();
-    $view->execute();
-    $result = $view->result;     
+  $view->initDisplay();
+  $view->execute();
+  $result = $view->result;
 
-    $variables['form']['search_api_fulltext']['#description'] = "<p class='search-results mt-3 mb-3 d-none d-lg-block'>Foram encontrados ".count($result)." resultados".(isset($_GET['search_api_fulltext']) && $_GET['search_api_fulltext'] !== '' ? ' para o termo "<b>'.$_GET['search_api_fulltext'].'</b>".' : '.')."<br/><br/><b>Confira:</b></p>";
-   
-    $variables['form']['sort_order']['#title'] = "Ordenar por:";
+  $variables['form']['search_api_fulltext']['#description'] = "<p class='search-results mt-3 mb-3 d-none d-lg-block'>Foram encontrados " . count($result) . " resultados" . (isset($_GET['search_api_fulltext']) && $_GET['search_api_fulltext'] !== '' ? ' para o termo "<b>' . $_GET['search_api_fulltext'] . '</b>".' : '.') . "<br/><br/><b>Confira:</b></p>";
 
-    $variables['form']['search_api_fulltext']['#title'] = isset($_GET['search_api_fulltext']) && $_GET['search_api_fulltext'] !== '' ? '<b>Termo buscado:</b> '.$_GET['search_api_fulltext'] : 'Busca';
+  $variables['form']['sort_order']['#title'] = "Ordenar por:";
 
-    $variables['form']['sort_by']['#attributes']['class'] = array('d-none');
-    unset($variables['form']['sort_by']['#title']);
+  $variables['form']['search_api_fulltext']['#title'] = isset($_GET['search_api_fulltext']) && $_GET['search_api_fulltext'] !== '' ? '<b>Termo buscado:</b> ' . $_GET['search_api_fulltext'] : 'Busca';
 
-    $variables['form']['sort_order']['#options']['ASC'] = 'Os mais antigos primeiro';
-    $variables['form']['sort_order']['#options']['DESC'] = 'Os mais recentes primeiro';
+  $variables['form']['sort_by']['#attributes']['class'] = array('d-none');
+  unset($variables['form']['sort_by']['#title']);
 
-    $variables['form']['search_api_fulltext']['#attributes'] = array('placeholder' => array(t('O que você está buscando?')));
+  $variables['form']['sort_order']['#options']['ASC'] = 'Os mais antigos primeiro';
+  $variables['form']['sort_order']['#options']['DESC'] = 'Os mais recentes primeiro';
 
-    if($_SESSION['searchFilter']) {
-        $variables['form']['field_categoria']['#options'] = [];
+  $variables['form']['search_api_fulltext']['#attributes'] = array('placeholder' => array(t('O que você está buscando?')));
 
-        foreach ($_SESSION['searchFilter'] as $term) {
-            if($term) {
-                $variables['form']['field_categoria']['#options'][$term->id()] = $term->name->value;
-            }
-        }
+  if ($_SESSION['searchFilter']) {
+    $variables['form']['field_categoria']['#options'] = [];
+
+    foreach ($_SESSION['searchFilter'] as $term) {
+      if ($term) {
+        $variables['form']['field_categoria']['#options'][$term->id()] = $term->name->value;
+      }
+    }
+  }
+
+  foreach ($variables['form']['field_categoria']['#options'] as $key => $value) {
+    $query = \Drupal::entityQuery('node')
+      ->sort('created', 'DESC')
+      ->condition('type', 'conteudo')
+      ->condition('field_categoria', array($key), 'IN')
+      ->condition('status', 1);
+
+    if (isset($_GET['search_api_fulltext'])) {
+      $query->condition('title', $_GET['search_api_fulltext'], 'CONTAINS');
     }
 
-    foreach ($variables['form']['field_categoria']['#options'] as $key => $value) {
-        $query = \Drupal::entityQuery('node')
-            ->sort('created' , 'DESC')
-            ->condition('type', 'conteudo')
-            ->condition('field_categoria', array($key), 'IN')
-            ->condition('status', 1);
+    $result = $query->execute();
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    $nodes = $storage->loadMultiple($result);
 
-        if(isset($_GET['search_api_fulltext'])) {
-            $query->condition('title', $_GET['search_api_fulltext'], 'CONTAINS');
-        }
-
-        $result = $query->execute();
-        $storage = \Drupal::entityTypeManager()->getStorage('node');
-        $nodes = $storage->loadMultiple($result);
-
-        if(count($result)) {
-            if(count($nodes)) {
-                $variables['form']['field_categoria']['#options'][$key] = $value.' ('.count($nodes).')';
-            } else {
-                unset($variables['form']['field_categoria']['#options'][$key]);
-            }
-        }
-    } 
+    if (count($result)) {
+      if (count($nodes)) {
+        $variables['form']['field_categoria']['#options'][$key] = $value . ' (' . count($nodes) . ')';
+      }
+      else {
+        unset($variables['form']['field_categoria']['#options'][$key]);
+      }
+    }
+  }
 }
 
 function casa_firjan_form_alter(&$form, $form_state, $form_id) {
-    if($form_id == 'webform_submission_newsletter_node_6_add_form') {
-        // dump($form['elements']['aceite_termos_de_uso']);
-    }
+  if ($form_id == 'webform_submission_newsletter_node_6_add_form') {
+    // dump($form['elements']['aceite_termos_de_uso']);
+  }
 }

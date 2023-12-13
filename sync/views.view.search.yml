@@ -449,7 +449,9 @@ display:
           plugin_id: search_api_options
           operator: or
           value:
+            agenda: agenda
             conteudo: conteudo
+            noticia: noticia
           group: 1
           exposed: false
           expose:
