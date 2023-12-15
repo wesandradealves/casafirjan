@@ -44,6 +44,7 @@ function slugify($text, string $divider = '-') {
   return $text;
 }
 
+<<<<<<< HEAD
 function casa_firjan_preprocess_html(&$variables) {
   // systemPaths($variables);
   $variables['customPage']['menuDireita'] = GM5Util::menuRender('menu-principal-direita', false);
@@ -53,6 +54,28 @@ function casa_firjan_preprocess_html(&$variables) {
   $params = \Drupal::request()
     ->request
     ->all();
+=======
+function casa_firjan_preprocess_html(&$variables)
+{
+    // systemPaths($variables);
+    $variables['customPage']['menuDireita'] = GM5Util::menuRender('menu-principal-direita', false);
+    $variables['customPage']['menuEsquerda'] = GM5Util::menuRender('menu-principal-esquerda', false);
+    
+    if(theme_get_setting('ogg_image')) {
+        $fid = theme_get_setting('ogg_image')[0];
+        if($fid) {
+          $file = \Drupal\file\Entity\File::load($fid);
+          if($file) {
+            $variables['ogg_image'] = file_create_url($file->getFileUri());
+          }
+        }
+    }
+    
+    $method = \Drupal::request()->getMethod();
+    $params = \Drupal::request()
+        ->request
+        ->all();
+>>>>>>> 009c5af6f ([Site Casa Firjan] Melhoria -Thumb ao compartilhar link www.casafirjan.com.br)
 
   $variables['customPage']['queryString'] = \Drupal::request()
     ->query
@@ -1542,11 +1565,53 @@ function casa_firjan_preprocess_block(&$variables) {
       ->getRouteName() == 'entity.taxonomy_term.canonical') {
       $slugify = new Slugify();
 
+<<<<<<< HEAD
       $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
       $term_obj = Term::load($tid);
       $term_name = $term_obj
         ->name->value;
       $vid = $term_obj->toArray()['vid'][0]['target_id'];
+=======
+function casa_firjan_form_system_theme_settings_alter(&$form, FormStateInterface $form_state)
+{
+    $form['ogg_image'] = array(
+        '#type' => 'managed_file',
+        '#upload_location' => 'public://',
+        '#title' => t('Social Thumbnail'),
+        '#default_value' => theme_get_setting('ogg_image'),
+    );  
+}
+
+function casa_firjan_form_system_theme_settings_validate(&$form, FormStateInterface $form_state) { 
+
+    $form_state->getValues();
+
+    $ogg_image = file_save_upload('ogg_image');
+
+    if (isset($ogg_image)) {
+      if ($ogg_image) {
+        $values['ogg_image_upload'] = $ogg_image;
+      }
+      else {
+        form_set_error('ogg_image', t('The file cannot be uploaded.'));
+      }
+    }   
+}
+
+function casa_firjan_form_system_theme_settings_submit(&$form, FormStateInterface $form_state) {
+    $termos = reset($form_state->getValue('termos'));
+    $termos = \Drupal\file\Entity\File::load($termos);
+
+    $ogg_image = reset($form_state->getValue('ogg_image'));
+    $ogg_image = \Drupal\file\Entity\File::load($ogg_image);
+    
+    if($ogg_image) {
+        $ogg_image->setPermanent();
+        $ogg_image->status = FILE_STATUS_PERMANENT;
+        $ogg_image->save();      
+    }   
+}
+>>>>>>> 009c5af6f ([Site Casa Firjan] Melhoria -Thumb ao compartilhar link www.casafirjan.com.br)
 
       $url = \Drupal\Core\Url::fromRoute('<current>');
       $current_path = \Drupal::service('path.current')->getPath();
