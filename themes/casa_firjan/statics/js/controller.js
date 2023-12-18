@@ -84,9 +84,9 @@ var Controller = {
     })
 
     //
-    // Mascara celular Newsletter
+    // Newsletter
     //
-    $('.newsletter .celular').mask('(00) 00000-0000');
+    document.getElementById("edit-aceite-termos-de-uso-aceito--2").required = true;
 
 
     //
@@ -484,41 +484,44 @@ var Controller = {
             'url': '/dossies/88deg-dossie-blockchain-e-tokenizacao-de-ativos-nos-negocios'
         }
     ];
-    
+
     $('.btnAzul').on('click', function(e){
+        const url = ['report-macrotendencias','toolkits','dossies','mapeamento-da-industria-criativa','outras-publicacoes'].filter((slice) => window.location.pathname.indexOf(slice) > -1);
+
         if(events.find(item => window.location.pathname === item.url)) {
-            // e.preventDefault(); 
-            
             let event = events.find(item => window.location.pathname === item.url);
-            
+
             window.dataLayer.push({
                 'event': event.event,
                 'event_action': event.event_action,
                 'event_category': event.event_category,
                 'event_label': event.event_label,
             }); 
+        } else if(url) {
+            window.dataLayer.push({
+              'event': 'custom_event',
+              'event_action': 'clique',
+              'event_category': 'download',
+              'event_label': `btn-${url}-${slugify(window.location.pathname)}`,
+              'url': window.location.pathname
+            }); 
         }
-        
-        // $(this).unbind('click').click();
     }); 
 
   },
   programa: function(){
   },
   home: function () {
-
     $(".bannerHome").owlCarousel({
-      items: 1,
       autoplay: true,
-      autoplayTimeout: 10000,
+      autoplayTimeout: 10000,      
+      items: 1,
+      autoHeight : true,
       lazyLoad: true,
       loop: true,
-      margin: 0,
-      center: true,
       nav: true,
-      video: false,
       dots: true
-    })
+    })    
 
     //
     // Bloco Agenda
