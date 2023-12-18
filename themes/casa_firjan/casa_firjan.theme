@@ -1915,7 +1915,7 @@ function casa_firjan_preprocess_block(&$variables) {
       // $variables['customPage']['conteudo']['eventos']['paginacao'] = isset($vieweventos['pager']) && !empty($vieweventos['pager']) ? $vieweventos['pager'] : array();
       // //print_r($variables['customPage']['conteudo']['eventos']); die;
       // //print_r($variables['customPage']['destaquesMini']); die;
-      $nids = \Drupal::entityQuery('node')->condition('type', 'agenda')
+      $nids = \Drupal::entityQuery('node')->condition('type', 'agenda')->condition('status', 1)
         ->execute();
       $eventos = array_reverse(\Drupal\node\Entity\Node::loadMultiple($nids));
       $groups = array();

@@ -1,4 +1,3 @@
-{% if customPage.conteudo.eventos is defined and customPage.conteudo.eventos is not empty %}
 <div class="agenda">
     <div class="container pt-5 pb-5">
         <div class="d-flex flex-wrap align-items-stretch">
@@ -38,31 +37,61 @@
                         {{dump(eventos)}}
                     {% endfor %}                     #}
                     {# {{dump(new_group|slice(1, 5))}} #}
-                    {% for data, eventos in new_group|slice(0, 5) %}
-                        <div class="eventos" data-date="{{data}}">
-                            {% for evento in eventos %}
-                                <div class="d-block evento" onclick="window.location = '{{evento.url}}'">
-                                    <h3 class="evento--header p-4 pt-3 pb-3 d-flex align-items-center justify-content-between">
-                                        <span>{{evento.Data}}</span>    
-                                        <span>{{evento.Dia}}</span>    
-                                    </h3>
-                                    <div class="evento--info d-block p-2 p-md-4 pt-3 pb-3">
-                                        <span class="d-flex align-items-center">
-                                            <span class="title title p-2 ps-3 pe-3" title="{{evento.titulo}}">Saiba mais</span>
-                                            <span class="info ps-2 ps-md-4">
-                                                <strong>Horário:</strong> {{evento.field_hora_de_inicio|split(':')|join('h')}} 
-                                                | <strong>Duração:</strong> {{evento.duracao}}
-                                            </span>
-                                        </span>       
-                                        <h2 class="mb-2 mt-2 evento--title">{{evento.titulo}}</h2>
-                                        <p class="description d-block mt-2 pb-0">
-                                            {{ evento.texto|raw }}
-                                        </p>       
-                                    </div>                      
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
+                    {#{% for data, eventos in new_group|slice(0, 5) %}#}
+                    {#    <div class="eventos" data-date="{{data}}">#}
+                    {#        {% for evento in eventos %}#}
+                    {#            <div class="d-block evento" onclick="window.location = '{{evento.url}}'">#}
+                    {#                <h3 class="evento--header p-4 pt-3 pb-3 d-flex align-items-center justify-content-between">#}
+                    {#                    <span>{{evento.Data}}</span>    #}
+                    {#                    <span>{{evento.Dia}}</span>    #}
+                    {#                </h3>#}
+                    {#                <div class="evento--info d-block p-2 p-md-4 pt-3 pb-3">#}
+                    {#                    <span class="d-flex align-items-center">#}
+                    {#                        <span class="title title p-2 ps-3 pe-3" title="{{evento.titulo}}">Saiba mais</span>#}
+                    {#                        <span class="info ps-2 ps-md-4">#}
+                    {#                            <strong>Horário:</strong> {{evento.field_hora_de_inicio|split(':')|join('h')}} #}
+                    {#                            | <strong>Duração:</strong> {{evento.duracao}}#}
+                    {#                        </span>#}
+                    {#                    </span>       #}
+                    {#                    <h2 class="mb-2 mt-2 evento--title">{{evento.titulo}}</h2>#}
+                    {#                    <p class="description d-block mt-2 pb-0">#}
+                    {#                        {{ evento.texto|raw }}#}
+                    {#                    </p>       #}
+                    {#                </div>                      #}
+                    {#            </div>#}
+                    {#        {% endfor %}#}
+                    {#    </div>#}
+                    {#{% endfor %}#}
+                    
+                    {% if new_group|length == 0 %}
+                        <p class="d-block text-center">Nenhum resultado encontrado.</p>
+                    {% else %}
+                        {% for data, eventos in new_group|slice(0, 5) %}
+                            <div class="eventos" data-date="{{data}}">
+                                {% for evento in eventos %}
+                                    <div class="d-block evento" onclick="window.location = '{{evento.url}}'">
+                                        <h3 class="evento--header p-4 pt-3 pb-3 d-flex align-items-center justify-content-between">
+                                            <span>{{evento.Data}}</span>    
+                                            <span>{{evento.Dia}}</span>    
+                                        </h3>
+                                        <div class="evento--info d-block p-2 p-md-4 pt-3 pb-3">
+                                            <span class="d-flex align-items-center">
+                                                <span class="title title p-2 ps-3 pe-3" title="{{evento.titulo}}">Saiba mais</span>
+                                                <span class="info ps-2 ps-md-4">
+                                                    <strong>Horário:</strong> {{evento.field_hora_de_inicio|split(':')|join('h')}} 
+                                                    | <strong>Duração:</strong> {{evento.duracao}}
+                                                </span>
+                                            </span>       
+                                            <h2 class="mb-2 mt-2 evento--title">{{evento.titulo}}</h2>
+                                            <p class="description d-block mt-2 pb-0">
+                                                {{ evento.texto|raw }}
+                                            </p>       
+                                        </div>                      
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}                    
+                    {% endif %}
 
                     {# </div> #}
                         {# </div>
@@ -83,4 +112,3 @@
         </div>
     </div>
 </div>
-{% endif %}  
