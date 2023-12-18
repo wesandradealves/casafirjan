@@ -1,0 +1,23 @@
+uuid: 6c4b7abd-e375-4db6-8ef3-c9792a39a4a6
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ao_vivo
+    - node.type.curso
+id: node.curso.field_ao_vivo
+field_name: field_ao_vivo
+entity_type: node
+bundle: curso
+label: 'Ao Vivo'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Habilitado
+  off_label: Desligado
+field_type: boolean

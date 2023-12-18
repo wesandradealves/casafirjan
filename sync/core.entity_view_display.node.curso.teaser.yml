@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.curso.field_ao_vivo
     - field.field.node.curso.field_carga_horaria
     - field.field.node.curso.field_categoria
     - field.field.node.curso.field_categoria_agenda
@@ -16,6 +17,7 @@ dependencies:
     - field.field.node.curso.field_id_shopify
     - field.field.node.curso.field_link_para_compra
     - field.field.node.curso.field_loja
+    - field.field.node.curso.field_online
     - field.field.node.curso.field_preco
     - field.field.node.curso.field_programa_subprograma
     - field.field.node.curso.field_status
@@ -37,6 +39,7 @@ content:
     weight: 100
     region: content
 hidden:
+  field_ao_vivo: true
   field_carga_horaria: true
   field_categoria: true
   field_categoria_agenda: true
@@ -49,6 +52,7 @@ hidden:
   field_id_shopify: true
   field_link_para_compra: true
   field_loja: true
+  field_online: true
   field_preco: true
   field_programa_subprograma: true
   field_status: true

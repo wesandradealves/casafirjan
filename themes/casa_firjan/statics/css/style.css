@@ -9331,6 +9331,32 @@ main.home .galeriaInstagram .title:before {
 
 } */
 
+.bloco-destaque .bloco-destaque--grid .thumbnail-inner .tags {
+    text-transform: uppercase;
+    color: white;
+    font-size: .8rem;
+    padding: 10px 15px;
+}
+
+.bloco-destaque .bloco-destaque--grid .thumbnail-inner .tags * {
+    text-align: center;
+}
+
+.bloco-destaque .bloco-destaque--grid .thumbnail-inner .tags .heading {
+    background-color: #393230;
+    padding: 2px 10px;
+}
+
+.bloco-destaque .bloco-destaque--grid .thumbnail-inner .tags .heading + * {
+    background-color: #263B59;
+    font-size: .6rem;
+    padding: 2px 10px;
+}
+
+.bloco-destaque .bloco-destaque--grid .thumbnail-inner .tags > *:last-child .heading + * {
+    font-size: 1.4rem;
+}
+
 .bloco-destaque .bloco-destaque--grid .thumbnail-inner {
 
   position: absolute;

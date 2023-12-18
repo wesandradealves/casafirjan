@@ -3,6 +3,7 @@ langcode: pt-br
 status: true
 dependencies:
   config:
+    - field.field.node.curso.field_ao_vivo
     - field.field.node.curso.field_carga_horaria
     - field.field.node.curso.field_categoria
     - field.field.node.curso.field_categoria_agenda
@@ -15,6 +16,7 @@ dependencies:
     - field.field.node.curso.field_id_shopify
     - field.field.node.curso.field_link_para_compra
     - field.field.node.curso.field_loja
+    - field.field.node.curso.field_online
     - field.field.node.curso.field_preco
     - field.field.node.curso.field_programa_subprograma
     - field.field.node.curso.field_status
@@ -194,6 +196,8 @@ content:
     weight: 0
     region: content
 hidden:
+  field_ao_vivo: true
+  field_online: true
   field_programa_subprograma: true
   langcode: true
   search_api_excerpt: true

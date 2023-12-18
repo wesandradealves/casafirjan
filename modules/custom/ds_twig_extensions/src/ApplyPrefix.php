@@ -62,6 +62,7 @@ class ApplyPrefix extends AbstractExtension {
         return [
           new TwigFunction('getSearchResultsHeading', [$this, '_getSearchResultsHeading']),
           new TwigFunction('slugify', [$this, '_slugify']),
+          new TwigFunction('months', [$this, '_months']),
           new TwigFunction('get_term', [$this, '_get_term']),
           new TwigFunction('get_image_from_id', [$this, '_get_image_from_id']),
           new TwigFunction('is_int', [$this, '_is_int']),
@@ -100,7 +101,50 @@ class ApplyPrefix extends AbstractExtension {
         }
 
         return false;
-    }  
+    } 
+    
+    public function _months($text){
+        switch($text) {
+            case "01":
+                return "Janeiro";
+            break;
+            case "02":
+                return "Fevereiro";
+            break;
+            case "03":
+                return "Março";
+            break;
+            case "04":
+                return "Abril";
+            break;
+            case "05":
+                return "Maio";
+            break;
+            case "06":
+                return "Junho";
+            break;
+            case "07":
+                return "Julho";
+            break;
+            case "08":
+                return "Agosto";
+            break;
+            case "09":
+                return "Setembro";
+            break;
+            case "10":
+                return "Outubro";
+            break;
+            case "11":
+                return "Novembro";
+            break;
+            case "12":
+                return "Dezembro";
+            break;    
+        }
+
+        return false;
+    } 
 
     public function _getTermAlias($str) {
         $aliasManager = \Drupal::service('path_alias.manager');

@@ -3,6 +3,7 @@
 {% set mostrar_botao_conheca_mais = content.field_mostrar_botao_conheca_mais['#items'].value %}
 {% set botao_label = content.field_botao_label.0['#context'].value %}
 {% set enable_filter = content.field_enable_filter['#items'].value %}
+
 <section style="background-image: url({{bg}})" class="bloco-destaque {% if horizontal %} horizontal {% endif %} {{content.field_classes.0['#context'].value}}" data-layout="{{layout}}">
     <div class="container">
 
@@ -25,11 +26,12 @@
             </div>
             {% endif %}
 
-            {% if enable_filter %}
+            {% if enable_filter and nodes|length or taxonomies|length %}
                 {% include directory ~ '/templates/includes/filter.html.twig' with {data: nodes} %}
             {% endif %}
-
-            <div class="row flex-fill bloco-destaque--grid {% if layout == 'video' %} mt-5 mt-lg-0 {% endif %}">
+            
+            {% if nodes|length or taxonomies|length %}
+                <div class="row flex-fill bloco-destaque--grid {% if layout == 'video' %} mt-5 mt-lg-0 {% endif %}">
                 {% if layout == 'video' %}
                     {% for index, node in nodes if index <= 2 %}
                     <div class="post--grid{{index}}" {% if node.media_video == '' %} onclick="window.location = '{{node.url}}'" {% endif %}>
@@ -49,7 +51,11 @@
                 {% else %}
                     {% for index, node in nodes if nodes|length %}
                         {% set url = null %}
-
+                        
+                        {% set field_data_da_aula = node.field_data_da_aula|date("Y-m-d", option_timezone_convert) %}
+                        
+                        {% set now = "now"|date("Y-m-d", option_timezone_convert) %}
+                        
                         {% if node.field_link_para_compra %}
                             {% set url = node.field_link_para_compra %}
                         {% elseif node.field_link %}
@@ -70,14 +76,47 @@
                             {% set image = node.image ? node.image : node.media_image ? node.media_image : '//i3.ytimg.com/vi/'~ node.youtubeId ~'/hqdefault.jpg' %}
                             
                             <div {% if horizontal %} horizontal {% endif %} class="post-grid--inner flex-fill {% if horizontal %} d-flex flex-row flex-wrap align-items-start {% else %} flex-column {% endif %}">
-                                <a  title="{{node.title}}" {% if node.media_video %} data-fancybox href="{{node.media_video}}" {% else %} href="{{url}}" {% endif %} class="thumbnail mb-4 {% if horizontal %} mb-lg-0 col-12 col-lg-4 {% endif %}" style="background-image: url({{image}}); {% if node.media_video == '' %} cursor: pointer; {% endif %}" >
+                                <a  title="{{node.title}}" {% if node.media_video %} data-fancybox href="{{node.media_video}}" {% else %} href="{{url}}" {% endif %} class="thumbnail mb-4 {% if horizontal %} mb-lg-0 col-12 col-lg-4 {% endif %}" style="
+                                
+                                    {% if node.field_online == '' and node.field_ao_vivo == '' %}
+                                    background-image: url({{image}}); 
+                                    {% endif %}
+                                
+                                {% if node.media_video == '' %} cursor: pointer; {% endif %}" >
                                     <span class="thumbnail-inner">
                                         {% if node.media_video != '' %}
                                             <i class="fa-solid fa-play"></i>
                                         {% endif %}
+                                        
                                         {% if layout == 'yellow_box' %}
                                             <span class="p-2 ps-4 pe-4 m-3">{{node.title}}</span>
-                                        {% endif %} 
+                                        {% endif %}
+                                        
+                                        {% if node.field_online and node.field_ao_vivo and node.field_data_da_aula %}
+                                        
+                                        <span class="tags ms-auto h-100 col-4 d-flex flex-column justify-content-between align-items-end">
+                                            <span>
+                                                <span class="d-block heading">{{node.type}}</span>
+                                                <span class="d-block">
+                                                    {% if node.field_online %} 
+                                                        Online {% if node.field_ao_vivo %} | Ao Vivo {% endif %}
+                                                    {% else %} 
+                                                        Presencial 
+                                                    {% endif %}
+                                                </span>
+                                            </span>
+                                            <span>
+                                                <span class="d-block heading">Início</span>
+                                                <span class="d-block">
+                                                    {% set data = node.field_data_da_aula|split("-")|reverse| filter((v, k) => k != 2) %}
+                                                    {{ data[0] }}/{{ months(data[1])|slice(0, 3) }}
+                                                </span>
+                                            </span> 
+                                        </span>
+                                        
+                                        {% endif %}
+                                        
+                                        
                                     </span>
                                 </a>
                                 <div {# {% if url %} onclick="window.location = '{{url}}'" style="cursor: pointer" {% endif %} #} class="info {% if horizontal %} flex-fill ps-lg-5 {% endif %} {% if layout == 'yellow_box' %} p-5 pt-0 {% endif %}">
@@ -114,7 +153,7 @@
                             </div>                        
                         </div>
                     {% endfor %}     
-                    
+ 
                     {% for index, term in taxonomies if taxonomies|length %}
                         <div onclick="window.location = '{{term.url}}'" class="mb-5 post--grid{{index}} d-flex flex-column {% if layout == '2_columns' or layout == 'yellow_box' %} col-lg-6 {% elseif layout == '1_columns' %} col-12 {% else %} col-lg-4 {% endif %}">
                             <div {% if horizontal %} horizontal {% endif %} class="post-grid--inner flex-fill {% if horizontal %} flex-row flex-wrap align-items-stretch {% else %} flex-column {% endif %}">
@@ -143,6 +182,9 @@
                     {% endfor %}   
                 {% endif %}
             </div>
+            {% else %}
+                <p class="col-12 text-center">Nenhum resultado encontrado.</p>
+            {% endif %}
         </div>        
     </div>
 </section>

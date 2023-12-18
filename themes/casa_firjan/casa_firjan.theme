@@ -1450,8 +1450,8 @@ function casa_firjan_preprocess_block_content(&$variables) {
                     ->name->value, '_'),];
           }
         }
-
-        $variables['nodes'][] = ['title' => $node
+        
+        $data = array('title' => $node
           ->title->value, 'youtubeId' => $node->hasField("field_video") ? GM5Util::getYoutubeId($node->get("field_video")
             ->getValue()[0]['value']) : null, 'text' => strip_tags($field_tipo_de_associacao == 'programa-subprograma' ? $node
                 ->field_descricao->value : ($node->field_chamada_html ? $node->get('field_chamada_html')->processed : $node
@@ -1475,7 +1475,22 @@ function casa_firjan_preprocess_block_content(&$variables) {
               ->field_imagem
               ->entity
               ->getFileUri()) : NULL, 'media_video' => $node ? $node
-            ->field_video->value : null, 'type' => $node ? $node->bundle() : null];
+            ->field_video->value : null, 'type' => $node ? $node->bundle() : null);
+            
+        if($node->bundle() == 'curso') {
+            $data['field_ao_vivo'] = $node->field_ao_vivo->value ? $node->field_ao_vivo->value : null;
+            $data['field_online'] = $node->field_online->value ? $node->field_online->value : null;
+            $data['field_data_da_aula'] = $node->field_data_da_aula->value ? $node->field_data_da_aula->value : null;
+            
+            $field_data_da_aula = date($node->field_data_da_aula->value);
+            $now = date('Y-m-d');
+            
+            if($now <= $field_data_da_aula) {
+                $variables['nodes'][] = $data;
+            }
+        } else {
+            $variables['nodes'][] = $data;
+        }
       }
     }
 
