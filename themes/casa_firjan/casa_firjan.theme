@@ -2352,49 +2352,40 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables)
 
   $variables['form']['search_api_fulltext']['#attributes'] = array('placeholder' => array(t('O que você está buscando?')));
 
-  if ($_SESSION['searchFilter']) {
-    $variables['form']['field_categoria']['#options'] = [];
+  $arr = [];
 
-    foreach ($_SESSION['searchFilter'] as $term) {
-      if ($term) {
-        $variables['form']['field_categoria']['#options'][$term->id()] = $term->name->value;
+  foreach ($result as $key => $row) {
+    if($row->_entity->hasField("field_categoria") && $row->_entity->hasField("field_categoria")) {
+      if($row->_entity->get('field_categoria')->referencedEntities()) {
+        foreach ($row->_entity->get('field_categoria')->referencedEntities() as $key => $term) {
+          array_push($arr, $term);
+        }
       }
     }
   }
 
-  foreach ($variables['form']['field_categoria']['#options'] as $key => $value) {
-    $query = \Drupal::entityQuery('node')
-      ->sort('created', 'DESC')
-      ->condition('type', 'conteudo')
-      ->condition('field_categoria', array($key), 'IN')
-      ->condition('status', 1);
+  $options = [];
 
-    if (isset($_GET['search_api_fulltext'])) {
-      $query->condition('title', $_GET['search_api_fulltext'], 'CONTAINS');
+  $arr = array_unique(array_map(function ($item) {
+    return $item->id();
+  }, $arr));
+
+  $arr = array_map(function ($id) {
+    $term = Term::load($id);
+    return $term;
+  }, $arr);
+
+  if (count($result)) {
+    foreach ($arr as $key => $term) {
+      $options[$term->id()] = $term->name->value;
     }
-
-    $result = $query->execute();
-    $storage = \Drupal::entityTypeManager()->getStorage('node');
-    $nodes = $storage->loadMultiple($result);
-
-    if (count($result)) {
-      if (count($nodes)) {
-        $variables['form']['field_categoria']['#options'][$key] = $value . ' (' . count($nodes) . ')';
-      } else {
-        unset($variables['form']['field_categoria']['#options'][$key]);
-      }
-    }
-  }
+    $variables['form']['field_categoria']['#options'] = $options;
+  } else {
+    unset($variables['form']['field_categoria']);
+    unset($variables['form']['sort_order']);
+    unset($variables['form']['field_categoria']['#options']);
+  }  
 }
-
-function casa_firjan_form_alter(&$form, $form_state, $form_id)
-{
-  if ($form_id == 'webform_submission_newsletter_node_6_add_form') {
-    // dump($form['elements']['aceite_termos_de_uso']);
-  }
-}
-
-
 
 function casa_firjan_form_system_theme_settings_alter(&$form, FormStateInterface $form_state)
 {
