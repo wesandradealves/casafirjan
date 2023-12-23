@@ -5,10 +5,20 @@ dependencies:
   content:
     - 'block_content:bloco_destaque:1fbf0ca7-d502-4968-ab64-1736bb2f1bda'
   module:
+    - blocache
     - block_content
     - system
   theme:
     - casa_firjan
+third_party_settings:
+  blocache:
+    overridden: true
+    metadata:
+      max-age: 1
+      contexts:
+        - 'languages:language_interface'
+      tags:
+        - 'config:block.block.cursoseoficinas'
 id: cursoseoficinas
 theme: casa_firjan
 region: content

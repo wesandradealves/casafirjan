@@ -1,66 +1,78 @@
-uuid: c84c0e22-768f-4d20-9c31-dc8f57ee0846
+uuid: 77caba18-fbae-4433-838e-bcfddaa027d9
 langcode: pt-br
 status: true
 dependencies:
   config:
     - filter.format.full_html
   module:
-    - ckeditor
+    - ckeditor5
 format: full_html
-editor: ckeditor
+editor: ckeditor5
 settings:
   toolbar:
-    rows:
-      -
-        -
-          name: Formatação
-          items:
-            - Bold
-            - Italic
-            - Strike
-            - RemoveFormat
-        -
-          name: Alinhamento
-          items:
-            - JustifyLeft
-            - JustifyCenter
-            - JustifyRight
-            - JustifyBlock
-        -
-          name: Links
-          items:
-            - DrupalLink
-            - DrupalUnlink
-        -
-          name: Listas
-          items:
-            - BulletedList
-            - NumberedList
-        -
-          name: Mídia
-          items:
-            - Blockquote
-            - DrupalImage
-            - Table
-            - HorizontalRule
-        -
-          name: Estilos
-          items:
-            - Styles
-            - Format
-        -
-          name: Ferramentas
-          items:
-            - ShowBlocks
-            - Source
+    items:
+      - underline
+      - bold
+      - italic
+      - strikethrough
+      - removeFormat
+      - alignment
+      - indent
+      - outdent
+      - link
+      - bulletedList
+      - numberedList
+      - fontColor
+      - fontBackgroundColor
+      - blockQuote
+      - drupalInsertImage
+      - insertTable
+      - horizontalLine
+      - '|'
+      - style
+      - heading
+      - codeBlock
+      - '|'
+      - sourceEditing
   plugins:
-    stylescombo:
-      styles: "a.btnAzul|Botão Azul\r\na.btnPreto|Botão Preto\r\na.btnCinza|Botão Cinza"
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_style:
+      styles:
+        -
+          label: 'Botão Azul'
+          element: '<a class="btnAzul">'
+        -
+          label: 'Botão Preto'
+          element: '<a class="btnPreto">'
+        -
+          label: 'Botão Cinza'
+          element: '<a class="btnCinza">'
+    ckeditor5_sourceEditing:
+      allowed_tags: {  }
+    ckeditor5_list:
+      reversed: true
+      startIndex: true
+    ckeditor5_alignment:
+      enabled_alignments:
+        - left
+        - center
+        - right
+        - justify
+    ckeditor5_imageResize:
+      allow_resize: true
+    ckeditor5_font_colors:
+      colors: '[]'
 image_upload:
   status: true
   scheme: public
   directory: inline-images
   max_size: ''
   max_dimensions:
-    width: null
-    height: null
+    width: 0
+    height: 0

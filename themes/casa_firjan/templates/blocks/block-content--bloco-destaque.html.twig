@@ -78,9 +78,7 @@
                             <div {% if horizontal %} horizontal {% endif %} class="post-grid--inner flex-fill {% if horizontal %} d-flex flex-row flex-wrap align-items-start {% else %} flex-column {% endif %}">
                                 <a  title="{{node.title}}" {% if node.media_video %} data-fancybox href="{{node.media_video}}" {% else %} href="{{url}}" {% endif %} class="thumbnail mb-4 {% if horizontal %} mb-lg-0 col-12 col-lg-4 {% endif %}" style="
                                 
-                                    {% if node.field_online == '' and node.field_ao_vivo == '' %}
                                     background-image: url({{image}}); 
-                                    {% endif %}
                                 
                                 {% if node.media_video == '' %} cursor: pointer; {% endif %}" >
                                     <span class="thumbnail-inner">
@@ -92,31 +90,26 @@
                                             <span class="p-2 ps-4 pe-4 m-3">{{node.title}}</span>
                                         {% endif %}
                                         
-                                        {% if node.field_online and node.field_ao_vivo and node.field_data_da_aula %}
-                                        
-                                        <span class="tags ms-auto h-100 col-4 d-flex flex-column justify-content-between align-items-end">
-                                            <span>
-                                                <span class="d-block heading">{{node.type}}</span>
-                                                <span class="d-block">
-                                                    {% if node.field_online %} 
-                                                        Online {% if node.field_ao_vivo %} | Ao Vivo {% endif %}
-                                                    {% else %} 
-                                                        Presencial 
-                                                    {% endif %}
+                                            {% if node.type == 'curso' %}
+                                            <span class="tags ms-auto h-100 col-4 d-flex flex-column justify-content-between align-items-end">
+                                                <span>
+                                                    <span class="d-block heading">{{node.type}}</span>
+                                                    {% if node.modalidade %}
+                                                        <span class="d-block">
+                                                            {% set modalidade = get_term(node.modalidade) %}
+                                                            {{modalidade.name}}
+                                                        </span>
+                                                    {% endif %} 
                                                 </span>
+                                                <span>
+                                                    <span class="d-block heading">Início</span>
+                                                    <span class="d-block">
+                                                        {% set data = node.field_data_da_aula|split("-")|reverse| filter((v, k) => k != 2) %}
+                                                        {{ data[0] }}/{{ months(data[1])|slice(0, 3) }}
+                                                    </span>
+                                                </span> 
                                             </span>
-                                            <span>
-                                                <span class="d-block heading">Início</span>
-                                                <span class="d-block">
-                                                    {% set data = node.field_data_da_aula|split("-")|reverse| filter((v, k) => k != 2) %}
-                                                    {{ data[0] }}/{{ months(data[1])|slice(0, 3) }}
-                                                </span>
-                                            </span> 
-                                        </span>
-                                        
                                         {% endif %}
-                                        
-                                        
                                     </span>
                                 </a>
                                 <div {# {% if url %} onclick="window.location = '{{url}}'" style="cursor: pointer" {% endif %} #} class="info {% if horizontal %} flex-fill ps-lg-5 {% endif %} {% if layout == 'yellow_box' %} p-5 pt-0 {% endif %}">

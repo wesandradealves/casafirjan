@@ -1,0 +1,11 @@
+uuid: 807fa4fd-2fcc-4703-857f-5fc8bcc5322e
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.filtro_de_pesquisa
+id: taxonomy_term.filtro_de_pesquisa
+target_entity_type_id: taxonomy_term
+target_bundle: filtro_de_pesquisa
+default_langcode: site_default
+language_alterable: false

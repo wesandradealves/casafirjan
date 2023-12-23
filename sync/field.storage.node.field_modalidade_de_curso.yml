@@ -1,0 +1,20 @@
+uuid: bff718d8-d4e2-4d49-9650-960db6771244
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_modalidade_de_curso
+field_name: field_modalidade_de_curso
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

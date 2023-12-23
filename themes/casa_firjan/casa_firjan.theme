@@ -18,7 +18,8 @@ use Drupal\Core\Menu\MenuLinkTreeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Cocur\Slugify\Slugify;
 
-function slugify($text, string $divider = '-') {
+function slugify($text, string $divider = '-')
+{
   // replace non letter or digits by divider
   $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
 
@@ -44,20 +45,21 @@ function slugify($text, string $divider = '-') {
   return $text;
 }
 
-function casa_firjan_preprocess_html(&$variables) {
+function casa_firjan_preprocess_html(&$variables)
+{
   // systemPaths($variables);
   $variables['customPage']['menuDireita'] = GM5Util::menuRender('menu-principal-direita', false);
   $variables['customPage']['menuEsquerda'] = GM5Util::menuRender('menu-principal-esquerda', false);
-  
-    if(theme_get_setting('ogg_image')) {
-        $fid = theme_get_setting('ogg_image')[0];
-        if($fid) {
-          $file = \Drupal\file\Entity\File::load($fid);
-          if($file) {
-            $variables['ogg_image'] = file_create_url($file->getFileUri());
-          }
-        }
+
+  if (theme_get_setting('ogg_image')) {
+    $fid = theme_get_setting('ogg_image')[0];
+    if ($fid) {
+      $file = \Drupal\file\Entity\File::load($fid);
+      if ($file) {
+        $variables['ogg_image'] = file_create_url($file->getFileUri());
+      }
     }
+  }
 
   $method = \Drupal::request()->getMethod();
   $params = \Drupal::request()
@@ -81,8 +83,7 @@ function casa_firjan_preprocess_html(&$variables) {
       foreach ($response['message'] as $field => $message) {
         $variables['customPage']['newsletter']['form']['fields'][$field]['errorMessage'] = $message;
       }
-    }
-    elseif (!empty($response['type']) && $response['type'] == 'sucess') {
+    } elseif (!empty($response['type']) && $response['type'] == 'sucess') {
       $response = new RedirectResponse($result . '?newsletter=sucess#newsletter');
       $response->send();
     }
@@ -102,46 +103,51 @@ function casa_firjan_preprocess_html(&$variables) {
       }
     }
 
-    if (isset($node->field_tipo_de_midia) && $node->get("field_tipo_de_midia")
-      ->getValue()[0]['value'] == 'video' && !empty($node->get("field_video")
-        ->getValue())) {
+    if (
+      isset($node->field_tipo_de_midia) && $node->get("field_tipo_de_midia")
+        ->getValue()[0]['value'] == 'video' && !empty($node->get("field_video")
+        ->getValue())
+    ) {
       // Se for do tipo tipo de mídia vídeo
       $variables['metatags']['image'] = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($node->get("field_video")
         ->getValue()[0]['value']));
-    }
-    else if (isset($node->field_tipo_de_midia) && $node->get("field_tipo_de_midia")
-      ->getValue()[0]['value'] == 'imagem' && !empty($node->get("field_imagem")
-        ->getValue())) {
+    } else if (
+      isset($node->field_tipo_de_midia) && $node->get("field_tipo_de_midia")
+        ->getValue()[0]['value'] == 'imagem' && !empty($node->get("field_imagem")
+        ->getValue())
+    ) {
       // Se for do tipo tipo de mídia imagem
       $variables['metatags']['image'] = GM5File::renderImage($node->get("field_imagem")
         ->getValue()[0]['target_id'], '1200x628');
-    }
-    else if (!isset($node->field_tipo_de_midia) && isset($node->field_imagem) && !empty($node->get("field_imagem")
-      ->getValue())) {
+    } else if (
+      !isset($node->field_tipo_de_midia) && isset($node->field_imagem) && !empty($node->get("field_imagem")
+        ->getValue())
+    ) {
       // Se for imagem e não houver o campo de tipo de mídia
       $variables['metatags']['image'] = GM5File::renderImage($node->get("field_imagem")
         ->getValue()[0]['target_id'], '1200x628');
-    }
-    else if (isset($node->field_thumb) && !empty($node->get("field_thumb")
-      ->getValue())) {
+    } else if (
+      isset($node->field_thumb) && !empty($node->get("field_thumb")
+        ->getValue())
+    ) {
       // Pega a thumb selecionada
       $variables['metatags']['image'] = GM5File::renderImage($node->get("field_thumb")
         ->getValue()[0]['target_id'], '1200x628');
-    }
-    else if (isset($thumb_padrao) && !empty($thumb_padrao)) {
+    } else if (isset($thumb_padrao) && !empty($thumb_padrao)) {
       // Pega a thumb padrão do conteúdo
       $variables['metatags']['image'] = $thumb_padrao;
-    }
-    else {
+    } else {
       // Thumb de segurança para caso não tenha uma padrão no conteúdo
       $variables['metatags']['image'] = \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
     }
 
     // Título da página
     $request = \Drupal::request();
-    if ($route = $request
-      ->attributes
-      ->get(\Symfony\Cmf\Component\Routing\RouteObjectInterface::ROUTE_OBJECT)) {
+    if (
+      $route = $request
+        ->attributes
+        ->get(\Symfony\Cmf\Component\Routing\RouteObjectInterface::ROUTE_OBJECT)
+    ) {
       $variables['metatags']['title'] = \Drupal::service('title_resolver')->getTitle($request, $route) == 'Home' ? 'Casa Firjan' : \Drupal::service('title_resolver')->getTitle($request, $route);
       ;
     }
@@ -150,16 +156,13 @@ function casa_firjan_preprocess_html(&$variables) {
     if (isset($node->field_chamada) && !empty($node->field_chamada)) {
       $variables['metatags']['description'] = $node->get("field_chamada")
         ->getValue()[0]['value'];
-    }
-    elseif (isset($node->field_descricao) && !empty($node->field_descricao)) {
+    } elseif (isset($node->field_descricao) && !empty($node->field_descricao)) {
       $variables['metatags']['description'] = $node->get("field_descricao")
         ->getValue()[0]['value'];
-    }
-    elseif (isset($node->field_texto) && !empty($node->field_texto)) {
+    } elseif (isset($node->field_texto) && !empty($node->field_texto)) {
       $variables['metatags']['description'] = substr($node->get("field_texto")
         ->getValue()[0]['value'], 0, 250);
-    }
-    else {
+    } else {
       $variables['metatags']['description'] = 'Inovação para os desafios da nova economia. Viva o futuro, hoje.';
     }
   }
@@ -172,11 +175,9 @@ function casa_firjan_preprocess_html(&$variables) {
     // Meta Imagem
     if (isset($term['field_thumb'][0]['target_id']) && !empty($term['field_thumb'][0]['target_id'])) {
       $variables['metatags']['image'] = GM5File::renderImage($term['field_thumb'][0]['target_id'], '1200x628');
-    }
-    else if (isset($term['field_imagem'][0]['target_id']) && !empty($term['field_imagem'][0]['target_id'])) {
+    } else if (isset($term['field_imagem'][0]['target_id']) && !empty($term['field_imagem'][0]['target_id'])) {
       $variables['metatags']['image'] = GM5File::renderImage($term['field_imagem'][0]['target_id'], '1200x628');
-    }
-    else {
+    } else {
       $variables['metatags']['image'] = \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
     }
 
@@ -186,15 +187,15 @@ function casa_firjan_preprocess_html(&$variables) {
     //Meta Description
     if (isset($term['field_texto'][0]['value']) && !empty($term['field_texto'][0]['value'])) {
       $variables['metatags']['description'] = $term['field_texto'][0]['value'];
-    }
-    else {
+    } else {
       $variables['metatags']['description'] = 'Inovação para os desafios da nova economia. Viva o futuro, hoje.';
     }
   }
 
 }
 
-function casa_firjan_preprocess_page(&$variables) {
+function casa_firjan_preprocess_page(&$variables)
+{
   systemPaths($variables);
 
   if (\Drupal::routeMatch()->getRouteName() == 'entity.taxonomy_term.canonical') {
@@ -208,11 +209,14 @@ function casa_firjan_preprocess_page(&$variables) {
   }
 }
 
-function casa_firjan_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+function casa_firjan_theme_suggestions_page_alter(array &$suggestions, array $variables)
+{
   //Temas para nodes
-  if ($node = \Drupal::request()
-    ->attributes
-    ->get('node')) {
+  if (
+    $node = \Drupal::request()
+      ->attributes
+      ->get('node')
+  ) {
     array_splice($suggestions, 1, 0, 'page__' . $node->getType() . '_detalhe');
     array_splice($suggestions, 1, 0, 'page__' . $node->getType());
 
@@ -221,28 +225,26 @@ function casa_firjan_theme_suggestions_page_alter(array &$suggestions, array $va
   }
 
   //Temas para taxonomias
-  if (\Drupal::routeMatch()
-    ->getRouteName() == 'entity.taxonomy_term.canonical' && $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term')) {
+  if (
+    \Drupal::routeMatch()
+      ->getRouteName() == 'entity.taxonomy_term.canonical' && $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term')
+  ) {
     $term = Term::load($tid);
     $temObj = $term->toArray();
     //print_r($temObj); die;
     if (isset($temObj['parent'][0]['target_id']) && $temObj['parent'][0]['target_id'] > 0) {
       if (isset($temObj['field_template'][0]['value']) && !empty($temObj['field_template'][0]['value'])) {
         $treeLevel = '2' . '_' . $temObj['field_template'][0]['value'];
-      }
-      else {
+      } else {
         $treeLevel = '2' . '_template1';
       }
 
-    }
-    else {
+    } else {
       if (isset($temObj['field_template'][0]['value']) && !empty($temObj['field_template'][0]['value'] && $temObj['field_template'][0]['value'] == 'template3')) {
         $treeLevel = '1' . '_' . $temObj['field_template'][0]['value'];
-      }
-      else if (isset($temObj['field_template'][0]['value']) && !empty($temObj['field_template'][0]['value'] && $temObj['field_template'][0]['value'] == 'template5')) {
+      } else if (isset($temObj['field_template'][0]['value']) && !empty($temObj['field_template'][0]['value'] && $temObj['field_template'][0]['value'] == 'template5')) {
         $treeLevel = '1' . '_' . $temObj['field_template'][0]['value'];
-      }
-      else {
+      } else {
         $treeLevel = 1;
       }
     }
@@ -250,7 +252,8 @@ function casa_firjan_theme_suggestions_page_alter(array &$suggestions, array $va
   }
 }
 
-function casa_firjan_process_produtos(&$variables, $categorias = array(), $display) {
+function casa_firjan_process_produtos(&$variables, $categorias = array(), $display)
+{
   //Produtos
   $options = new StdClass;
   $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
@@ -282,8 +285,7 @@ function casa_firjan_process_produtos(&$variables, $categorias = array(), $displ
       if (strpos($produto['field_link'][0]['uri'], 'entity:node/') !== false) {
         $produtoItem['link']['url'] = GM5Util::getAlias('/node/' . str_replace('entity:node/', '', $produto['field_link'][0]['uri']), 'relative');
         $produtoItem['link']['target'] = '_self';
-      }
-      else {
+      } else {
         $produtoItem['link'] = GM5Util::uriToUrl($produto['field_link'][0]['uri']);
       }
     }
@@ -291,8 +293,7 @@ function casa_firjan_process_produtos(&$variables, $categorias = array(), $displ
     if ($display == '4itens') {
       $variables['customPage']['produtos']['grid'] = 'col-md-6 col-lg-3';
       $variables['customPage']['produtos']['mainClass'] = 'itens';
-    }
-    else {
+    } else {
       $variables['customPage']['produtos']['grid'] = 'col-md-6 col-lg-4';
       $variables['customPage']['produtos']['mainClass'] = 'itemLab';
     }
@@ -301,7 +302,8 @@ function casa_firjan_process_produtos(&$variables, $categorias = array(), $displ
   }
 }
 
-function casa_firjan_process_pagina_basica(&$variables, $nodeObj) {
+function casa_firjan_process_pagina_basica(&$variables, $nodeObj)
+{
   $node = $nodeObj->toArray();
 
   $variables['customPage']['status'] = $node['status'][0]['value'];
@@ -322,7 +324,8 @@ function casa_firjan_process_pagina_basica(&$variables, $nodeObj) {
   casa_firjan_process_produtos_pagina($variables, $node['nid'][0]['value']);
 }
 
-function casa_firjan_process_produtos_pagina(&$variables, $nid) {
+function casa_firjan_process_produtos_pagina(&$variables, $nid)
+{
   //Produtos
   $options = new StdClass;
 
@@ -353,8 +356,7 @@ function casa_firjan_process_produtos_pagina(&$variables, $nid) {
       if (strpos($produto['field_link'][0]['uri'], 'entity:node/') !== false) {
         $produtoItem['link']['url'] = GM5Util::getAlias('/node/' . str_replace('entity:node/', '', $produto['field_link'][0]['uri']), 'relative');
         $produtoItem['link']['target'] = '_self';
-      }
-      else {
+      } else {
         $produtoItem['link'] = GM5Util::uriToUrl($produto['field_link'][0]['uri']);
       }
     }
@@ -363,7 +365,8 @@ function casa_firjan_process_produtos_pagina(&$variables, $nid) {
   }
 }
 
-function casa_firjan_process_videos(&$variables, &$nidsParaFiltrar, $categorias = array()) {
+function casa_firjan_process_videos(&$variables, &$nidsParaFiltrar, $categorias = array())
+{
   //Vídeos
   $options = new StdClass;
   $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
@@ -412,7 +415,8 @@ function casa_firjan_process_videos(&$variables, &$nidsParaFiltrar, $categorias 
   }
 }
 
-function casa_firjan_process_agenda(&$variables, $categoria = '', $programa = 'all') {
+function casa_firjan_process_agenda(&$variables, $categoria = '', $programa = 'all')
+{
   if (!empty($categoria)) {
     $categoriaObj = $categoria;
     $categoria = $categoria->toArray();
@@ -469,8 +473,7 @@ function casa_firjan_process_agenda(&$variables, $categoria = '', $programa = 'a
 
     if (!empty($categoria)) {
       $grupo['itens'][] = $eventoItem;
-    }
-    else {
+    } else {
       $variables['customPage']['conteudo']['eventos']['itens'][] = $eventoItem;
     }
 
@@ -481,7 +484,8 @@ function casa_firjan_process_agenda(&$variables, $categoria = '', $programa = 'a
   }
 }
 
-function casa_firjan_process_breadcrumb(&$variables, $tid, $removeLast = true) {
+function casa_firjan_process_breadcrumb(&$variables, $tid, $removeLast = true)
+{
   $ancestors = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")
     ->loadAllParents($tid);
   $breadCrumb = [];
@@ -503,7 +507,8 @@ function casa_firjan_process_breadcrumb(&$variables, $tid, $removeLast = true) {
   $variables['customPage']['conteudo']['breadcrumb'] = $breadCrumb;
 }
 
-function casa_firjan_process_leia_mais(&$variables, &$nidsParaFiltrar, $categorias = array()) {
+function casa_firjan_process_leia_mais(&$variables, &$nidsParaFiltrar, $categorias = array())
+{
   //Eventos
   $options = new StdClass;
   $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
@@ -526,8 +531,10 @@ function casa_firjan_process_leia_mais(&$variables, &$nidsParaFiltrar, $categori
   // $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
   //   'field_tags' => $term_ids,
   // ]);
-  if (\Drupal::routeMatch()
-    ->getRouteName() == 'entity.taxonomy_term.canonical') {
+  if (
+    \Drupal::routeMatch()
+      ->getRouteName() == 'entity.taxonomy_term.canonical'
+  ) {
     $vieweventos = GM5Views::getViewArg('destaques', $vid === 'tags_conteudo' ? 'leia_mais_tags' : 'leia_mais', $options);
 
     foreach ($vieweventos['items'] as $k => $leiaMais) {
@@ -558,19 +565,16 @@ function casa_firjan_process_leia_mais(&$variables, &$nidsParaFiltrar, $categori
 
           $leiaMaisItem['midia']['urlvideo'] = $leiaMais['field_video'][0]['value'];
 
-        }
-        else if ($leiaMais['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($leiaMais['field_imagem'][0]['target_id'])) {
+        } else if ($leiaMais['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($leiaMais['field_imagem'][0]['target_id'])) {
           $tipo = 'imagem';
           $midia = GM5File::renderImage($leiaMais['field_imagem'][0]['target_id']);
         }
-      }
-      else if (!isset($leiaMais['field_tipo_de_midia']) && isset($leiaMais['field_imagem']) && !empty($leiaMais['field_imagem'])) {
+      } else if (!isset($leiaMais['field_tipo_de_midia']) && isset($leiaMais['field_imagem']) && !empty($leiaMais['field_imagem'])) {
         // Com imagem de destaque
         $tipo = 'imagem';
         $midia = GM5File::renderImage($leiaMais['field_imagem'][0]['target_id']);
 
-      }
-      else if (isset($leiaMais['field_thumb']) && !empty($leiaMais['field_thumb'])) {
+      } else if (isset($leiaMais['field_thumb']) && !empty($leiaMais['field_thumb'])) {
         //Com thumb
         $tipo = 'imagem';
         $midia = GM5File::renderImage($leiaMais['field_thumb'][0]['target_id']);
@@ -584,9 +588,11 @@ function casa_firjan_process_leia_mais(&$variables, &$nidsParaFiltrar, $categori
       $autor_data = array();
 
       if (isset($leiaMais['field_autor'][0]['target_id']) && !empty($leiaMais['field_autor'][0]['target_id'])) {
-        if (isset($leiaMaisObj
-          ->field_autor
-          ->entity)) {
+        if (
+          isset($leiaMaisObj
+            ->field_autor
+            ->entity)
+        ) {
           $autor = $leiaMaisObj
             ->field_autor
             ->entity
@@ -600,9 +606,11 @@ function casa_firjan_process_leia_mais(&$variables, &$nidsParaFiltrar, $categori
 
       $leiaMaisItem['autor_data'] = implode(' ', $autor_data);
 
-      if (isset($leiaMaisObj
-        ->field_categoria
-        ->entity)) {
+      if (
+        isset($leiaMaisObj
+          ->field_categoria
+          ->entity)
+      ) {
         $categoria = $leiaMaisObj
           ->field_categoria
           ->entity
@@ -626,7 +634,8 @@ function casa_firjan_process_leia_mais(&$variables, &$nidsParaFiltrar, $categori
   }
 }
 
-function casa_firjan_process_destaque(&$variables, &$nidsParaFiltrar, $categorias = array()) {
+function casa_firjan_process_destaque(&$variables, &$nidsParaFiltrar, $categorias = array())
+{
 
   //Vídeos
   $options = new StdClass;
@@ -655,8 +664,10 @@ function casa_firjan_process_destaque(&$variables, &$nidsParaFiltrar, $categoria
 
   $nodes = [];
 
-  if (\Drupal::routeMatch()
-    ->getRouteName() == 'entity.taxonomy_term.canonical') {
+  if (
+    \Drupal::routeMatch()
+      ->getRouteName() == 'entity.taxonomy_term.canonical'
+  ) {
     $tid = end($options->args);
     $term_obj = Term::load($tid);
     $bundle = \Drupal::routeMatch()->getParameters()
@@ -691,8 +702,7 @@ function casa_firjan_process_destaque(&$variables, &$nidsParaFiltrar, $categoria
 
       if ($idx == 0) {
         $style = '651x333';
-      }
-      else {
+      } else {
         $style = '';
       }
 
@@ -712,38 +722,45 @@ function casa_firjan_process_destaque(&$variables, &$nidsParaFiltrar, $categoria
       //Imagem ou vídeo
       $tipo = '';
       $midia = '';
-      if ($nd->hasField("field_tipo_de_midia") ||
+      if (
+        $nd->hasField("field_tipo_de_midia") ||
         $nd->hasField("field_video") ||
-        $nd->hasField("field_video")) {
+        $nd->hasField("field_video")
+      ) {
 
-        if ($nd->get("field_tipo_de_midia")
-          ->getValue()[0]['value'] == 'video' && isset($nd->get("field_video")
-            ->getValue()[0]['value'])) {
+        if (
+          $nd->get("field_tipo_de_midia")
+            ->getValue()[0]['value'] == 'video' && isset($nd->get("field_video")
+            ->getValue()[0]['value'])
+        ) {
           $tipo = 'video';
           $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd->get("field_video")
             ->getValue()[0]['value']));
           $destaqueItem['midia']['url'] = $nd->get("field_video")
             ->getValue()[0]['value'];
-        }
-        else if ($nd->get("field_tipo_de_midia")
-          ->getValue()[0]['value'] == 'imagem' && isset($nd->get("field_imagem")
-            ->getValue()[0]['target_id'])) {
+        } else if (
+          $nd->get("field_tipo_de_midia")
+            ->getValue()[0]['value'] == 'imagem' && isset($nd->get("field_imagem")
+            ->getValue()[0]['target_id'])
+        ) {
           $tipo = 'imagem';
           $midia = GM5File::renderImage($nd->get("field_imagem")
             ->getValue()[0]['target_id'], $style);
         }
-      }
-      else if ($nd->hasField("field_tipo_de_midia") ||
-        $nd->hasField("field_imagem")) {
+      } else if (
+        $nd->hasField("field_tipo_de_midia") ||
+        $nd->hasField("field_imagem")
+      ) {
         // Com imagem de destaque
         $tipo = 'imagem';
         $midia = GM5File::renderImage($nd->get("field_imagem")
           ->getValue()[0]['target_id'], $style);
 
-      }
-      else if (isset($nd->get("field_thumb")
-        ->getValue()[0]['target_id']) && !empty($nd->get("field_thumb")
-          ->getValue()[0]['target_id'])) {
+      } else if (
+        isset($nd->get("field_thumb")
+          ->getValue()[0]['target_id']) && !empty($nd->get("field_thumb")
+          ->getValue()[0]['target_id'])
+      ) {
         //Com thumb
         $tipo = 'imagem';
         $midia = GM5File::renderImage($nd->get("field_thumb")
@@ -763,13 +780,11 @@ function casa_firjan_process_destaque(&$variables, &$nidsParaFiltrar, $categoria
 
       $variables['customPage']['destaques'][] = $destaqueItem;
     }
-  }
-  else {
+  } else {
     foreach ($destaques as $idx => $destaque) {
       if ($idx == 0) {
         $style = '651x333';
-      }
-      else {
+      } else {
         $style = '190x190';
       }
 
@@ -787,40 +802,47 @@ function casa_firjan_process_destaque(&$variables, &$nidsParaFiltrar, $categoria
       //Imagem ou vídeo
       $tipo = '';
       $midia = '';
-      if (isset($nd->get("field_tipo_de_midia")
-        ->getValue()[0]['value']) && !empty($nd->get("field_tipo_de_midia")
-          ->getValue()[0]['value'])) {
+      if (
+        isset($nd->get("field_tipo_de_midia")
+          ->getValue()[0]['value']) && !empty($nd->get("field_tipo_de_midia")
+          ->getValue()[0]['value'])
+      ) {
 
-        if ($nd->get("field_tipo_de_midia")
-          ->getValue()[0]['value'] == 'video' && isset($nd->get("field_video")
-            ->getValue()[0]['value'])) {
+        if (
+          $nd->get("field_tipo_de_midia")
+            ->getValue()[0]['value'] == 'video' && isset($nd->get("field_video")
+            ->getValue()[0]['value'])
+        ) {
           $tipo = 'video';
           $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd->get("field_video")
             ->getValue()[0]['value']));
           $destaqueItem['midia']['url'] = $nd->get("field_video")
             ->getValue()[0]['value'];
-        }
-        else if ($nd->get("field_tipo_de_midia")
-          ->getValue()[0]['value'] == 'imagem' && isset($nd->get("field_imagem")
-            ->getValue()[0]['target_id'])) {
+        } else if (
+          $nd->get("field_tipo_de_midia")
+            ->getValue()[0]['value'] == 'imagem' && isset($nd->get("field_imagem")
+            ->getValue()[0]['target_id'])
+        ) {
           $tipo = 'imagem';
           $midia = GM5File::renderImage($nd->get("field_imagem")
             ->getValue()[0]['target_id'], $style);
         }
-      }
-      else if (!isset($nd->get("field_tipo_de_midia")
-        ->getValue()[0]['value']) && isset($nd->get("field_imagem")
+      } else if (
+        !isset($nd->get("field_tipo_de_midia")
+          ->getValue()[0]['value']) && isset($nd->get("field_imagem")
           ->getValue()[0]['target_id']) && !empty($nd->get("field_imagem")
-          ->getValue()[0]['target_id'])) {
+          ->getValue()[0]['target_id'])
+      ) {
         // Com imagem de destaque
         $tipo = 'imagem';
         $midia = GM5File::renderImage($nd->get("field_imagem")
           ->getValue()[0]['target_id'], $style);
 
-      }
-      else if (isset($nd->get("field_thumb")
-        ->getValue()[0]['target_id']) && !empty($nd->get("field_thumb")
-          ->getValue()[0]['target_id'])) {
+      } else if (
+        isset($nd->get("field_thumb")
+          ->getValue()[0]['target_id']) && !empty($nd->get("field_thumb")
+          ->getValue()[0]['target_id'])
+      ) {
         //Com thumb
         $tipo = 'imagem';
         $midia = GM5File::renderImage($nd->get("field_thumb")
@@ -923,7 +945,8 @@ function casa_firjan_process_destaque(&$variables, &$nidsParaFiltrar, $categoria
 //     //print_r($variables['customPage']); die;
 //     $variables['customPage']['leiaMais']['paginacao'] = isset($vieweventos['pager']) && !empty($vieweventos['pager']) ? $vieweventos['pager'] : array();
 // }
-function casa_firjan_process_destaque_tags(&$variables, &$nidsParaFiltrar, $categorias = array()) {
+function casa_firjan_process_destaque_tags(&$variables, &$nidsParaFiltrar, $categorias = array())
+{
   //Vídeos
   $options = new StdClass;
   $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
@@ -944,8 +967,7 @@ function casa_firjan_process_destaque_tags(&$variables, &$nidsParaFiltrar, $cate
   foreach ($viewdestaques['items'] as $idx => $destaque) {
     if ($idx == 0) {
       $style = '651x333';
-    }
-    else {
+    } else {
       $style = '190x190';
     }
 
@@ -972,19 +994,16 @@ function casa_firjan_process_destaque_tags(&$variables, &$nidsParaFiltrar, $cate
         $tipo = 'video';
         $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd['field_video'][0]['value']));
         $destaqueItem['midia']['url'] = $nd['field_video'][0]['value'];
-      }
-      else if ($nd['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($nd['field_imagem'][0]['target_id'])) {
+      } else if ($nd['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($nd['field_imagem'][0]['target_id'])) {
         $tipo = 'imagem';
         $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
       }
-    }
-    else if (!isset($nd['field_tipo_de_midia']) && isset($nd['field_imagem']) && !empty($nd['field_imagem'])) {
+    } else if (!isset($nd['field_tipo_de_midia']) && isset($nd['field_imagem']) && !empty($nd['field_imagem'])) {
       // Com imagem de destaque
       $tipo = 'imagem';
       $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
 
-    }
-    else if (isset($nd['field_thumb']) && !empty($nd['field_thumb'])) {
+    } else if (isset($nd['field_thumb']) && !empty($nd['field_thumb'])) {
       //Com thumb
       $tipo = 'imagem';
       $midia = GM5File::renderImage($nd['field_thumb'][0]['target_id'], $style);
@@ -1007,9 +1026,11 @@ function casa_firjan_process_destaque_tags(&$variables, &$nidsParaFiltrar, $cate
 
     $destaqueItem['autor_data'] = implode(' ', $autor_data);
 
-    if (isset($ndObj
-      ->field_categoria
-      ->entity)) {
+    if (
+      isset($ndObj
+        ->field_categoria
+        ->entity)
+    ) {
       $categoria = $ndObj
         ->field_categoria
         ->entity
@@ -1022,8 +1043,7 @@ function casa_firjan_process_destaque_tags(&$variables, &$nidsParaFiltrar, $cate
     if ($nd['type'][0]['target_id'] == 'noticia') {
       $destaqueItem['categoria']['label'] = 'Notícias';
       $destaqueItem['categoria']['url'] = '/noticias';
-    }
-    elseif ($nd['type'][0]['target_id'] == 'agenda') {
+    } elseif ($nd['type'][0]['target_id'] == 'agenda') {
       $destaqueItem['categoria']['label'] = 'Agenda';
       $destaqueItem['categoria']['url'] = '/agenda';
     }
@@ -1032,7 +1052,8 @@ function casa_firjan_process_destaque_tags(&$variables, &$nidsParaFiltrar, $cate
   }
 }
 
-function casa_firjan_process_destaque_mini(&$variables, &$nidsParaFiltrar, $categorias = array()) {
+function casa_firjan_process_destaque_mini(&$variables, &$nidsParaFiltrar, $categorias = array())
+{
   //Destaques
   $options = new StdClass;
   $categorias = !empty($categorias) ? implode('+', $categorias) : 'all';
@@ -1073,19 +1094,16 @@ function casa_firjan_process_destaque_mini(&$variables, &$nidsParaFiltrar, $cate
         $tipo = 'video';
         $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd['field_video'][0]['value']));
         $destaqueItem['midia']['url'] = $nd['field_video'][0]['value'];
-      }
-      else if ($nd['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($nd['field_imagem'][0]['target_id'])) {
+      } else if ($nd['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($nd['field_imagem'][0]['target_id'])) {
         $tipo = 'imagem';
         $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
       }
-    }
-    else if (!isset($nd['field_tipo_de_midia']) && isset($nd['field_imagem']) && !empty($nd['field_imagem'])) {
+    } else if (!isset($nd['field_tipo_de_midia']) && isset($nd['field_imagem']) && !empty($nd['field_imagem'])) {
       // Com imagem de destaque
       $tipo = 'imagem';
       $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
 
-    }
-    else if (isset($nd['field_thumb']) && !empty($nd['field_thumb'])) {
+    } else if (isset($nd['field_thumb']) && !empty($nd['field_thumb'])) {
       //Com thumb
       $tipo = 'imagem';
       $midia = GM5File::renderImage($nd['field_thumb'][0]['target_id'], $style);
@@ -1098,9 +1116,11 @@ function casa_firjan_process_destaque_mini(&$variables, &$nidsParaFiltrar, $cate
     $autor_data = array();
 
     if (isset($nd['field_autor'][0]['target_id']) && !empty($nd['field_autor'][0]['target_id'])) {
-      if (isset($ndObj
-        ->field_autor
-        ->entity)) {
+      if (
+        isset($ndObj
+          ->field_autor
+          ->entity)
+      ) {
         $autor = $ndObj
           ->field_autor
           ->entity
@@ -1114,9 +1134,11 @@ function casa_firjan_process_destaque_mini(&$variables, &$nidsParaFiltrar, $cate
 
     $destaqueItem['autor_data'] = implode(' ', $autor_data);
 
-    if (isset($ndObj
-      ->field_categoria
-      ->entity)) {
+    if (
+      isset($ndObj
+        ->field_categoria
+        ->entity)
+    ) {
       $categoria = $ndObj
         ->field_categoria
         ->entity
@@ -1153,7 +1175,8 @@ require_once 'process/agenda-detalhe.inc';
 require_once 'process/termos-de-uso.inc';
 require_once 'process/politica-de-privacidade.inc';
 
-function casa_firjan_preprocess_block_content(&$variables) {
+function casa_firjan_preprocess_block_content(&$variables)
+{
   $blockType = $variables['elements']['#block_content']->bundle();
   $entity = $variables['elements']['#block_content'];
   $bid = $entity
@@ -1178,8 +1201,7 @@ function casa_firjan_preprocess_block_content(&$variables) {
       ->first()
       ->getValue()['target_id'];
     $variables['tid'] = $tid;
-  }
-  elseif ($blockType == 'basic') {
+  } elseif ($blockType == 'basic') {
     switch ($bid) {
       case 1:
         $vocabulary_name = 'tags';
@@ -1204,8 +1226,7 @@ function casa_firjan_preprocess_block_content(&$variables) {
 
         break;
     }
-  }
-  elseif ($blockType == 'bloco_destaque') {
+  } elseif ($blockType == 'bloco_destaque') {
     $variables['nodes'] = [];
     $variables['taxonomies'] = [];
     $variables['nodes'] = [];
@@ -1261,8 +1282,10 @@ function casa_firjan_preprocess_block_content(&$variables) {
       ];
     }
 
-    if ($entity->get('field_da_categoria') && $entity->get('field_da_categoria')
-      ->referencedEntities()) {
+    if (
+      $entity->get('field_da_categoria') && $entity->get('field_da_categoria')
+        ->referencedEntities()
+    ) {
       $tids = [];
 
       foreach ($entity->get('field_da_categoria')->referencedEntities() as $term) {
@@ -1353,8 +1376,10 @@ function casa_firjan_preprocess_block_content(&$variables) {
       }
     }
 
-    if ($entity->get('field_taxonomies') && $entity->get('field_taxonomies')
-      ->referencedEntities()) {
+    if (
+      $entity->get('field_taxonomies') && $entity->get('field_taxonomies')
+        ->referencedEntities()
+    ) {
       foreach ($entity->get('field_taxonomies')->referencedEntities() as $paragraph) {
 
         $tid = $paragraph->toArray()['tid'][0]['value'];
@@ -1395,8 +1420,10 @@ function casa_firjan_preprocess_block_content(&$variables) {
       }
     }
 
-    if ($entity->get('field_node') && $entity->get('field_node')
-      ->referencedEntities()) {
+    if (
+      $entity->get('field_node') && $entity->get('field_node')
+        ->referencedEntities()
+    ) {
       foreach ($entity->get('field_node')->referencedEntities() as $paragraph) {
         $node = $paragraph
           ->field_paragraph_node_content
@@ -1450,7 +1477,7 @@ function casa_firjan_preprocess_block_content(&$variables) {
                     ->name->value, '_'),];
           }
         }
-        
+
         $data = array('title' => $node
           ->title->value, 'youtubeId' => $node->hasField("field_video") ? GM5Util::getYoutubeId($node->get("field_video")
             ->getValue()[0]['value']) : null, 'text' => strip_tags($field_tipo_de_associacao == 'programa-subprograma' ? $node
@@ -1476,26 +1503,29 @@ function casa_firjan_preprocess_block_content(&$variables) {
               ->entity
               ->getFileUri()) : NULL, 'media_video' => $node ? $node
             ->field_video->value : null, 'type' => $node ? $node->bundle() : null);
-            
-        if($node->bundle() == 'curso') {
-            $data['field_ao_vivo'] = $node->field_ao_vivo->value ? $node->field_ao_vivo->value : null;
-            $data['field_online'] = $node->field_online->value ? $node->field_online->value : null;
-            $data['field_data_da_aula'] = $node->field_data_da_aula->value ? $node->field_data_da_aula->value : null;
-            
-            $field_data_da_aula = date($node->field_data_da_aula->value);
-            $now = date('Y-m-d');
-            
-            if($now <= $field_data_da_aula) {
-                $variables['nodes'][] = $data;
-            }
-        } else {
+
+        if ($node->bundle() == 'curso') {
+          // $data['field_ao_vivo'] = $node->field_ao_vivo->value ? $node->field_ao_vivo->value : null;
+          // $data['field_online'] = $node->field_online->value ? $node->field_online->value : null;
+          $data['modalidade'] = $node->field_modalidade_de_curso ? $node->field_modalidade_de_curso->entity->tid->value : null;
+          $data['field_data_da_aula'] = $node->field_data_da_aula->value ? $node->field_data_da_aula->value : null;
+
+          $field_data_da_aula = date($node->field_data_da_aula->value);
+          $now = date('Y-m-d');
+
+          if ($now <= $field_data_da_aula) {
             $variables['nodes'][] = $data;
+          }
+        } else {
+          $variables['nodes'][] = $data;
         }
       }
     }
 
-    if ($entity->get('field_cards') && $entity->get('field_cards')
-      ->referencedEntities()) {
+    if (
+      $entity->get('field_cards') && $entity->get('field_cards')
+        ->referencedEntities()
+    ) {
       foreach ($entity->get('field_cards') as $paragraph) {
         $node = $paragraph->entity;
         $field_link = null;
@@ -1526,7 +1556,8 @@ function casa_firjan_preprocess_block_content(&$variables) {
   }
 }
 
-function casa_firjan_preprocess_block(&$variables) {
+function casa_firjan_preprocess_block(&$variables)
+{
   $nodeObj = \Drupal::request()
     ->attributes
     ->get('node');
@@ -1562,9 +1593,10 @@ function casa_firjan_preprocess_block(&$variables) {
         }
       }
       $variables['breadcrumb'][] = ["text" => $node->getTitle(), "url" => ""];
-    }
-    elseif (\Drupal::routeMatch()
-      ->getRouteName() == 'entity.taxonomy_term.canonical') {
+    } elseif (
+      \Drupal::routeMatch()
+        ->getRouteName() == 'entity.taxonomy_term.canonical'
+    ) {
       $slugify = new Slugify();
 
       $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
@@ -1606,8 +1638,10 @@ function casa_firjan_preprocess_block(&$variables) {
               ->link
               ->getPluginDefinition()['title'], "url" => ''];
 
-            if (\Drupal::routeMatch()
-              ->getRouteName() == 'entity.taxonomy_term.canonical') {
+            if (
+              \Drupal::routeMatch()
+                ->getRouteName() == 'entity.taxonomy_term.canonical'
+            ) {
               // $parent = null;
 
               // $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
@@ -1630,19 +1664,16 @@ function casa_firjan_preprocess_block(&$variables) {
             }
           }
         }
-      }
-      elseif ($vid === 'tags_conteudo') {
+      } elseif ($vid === 'tags_conteudo') {
         $variables['breadcrumb'][] = ["text" => $term_name, "url" => '', "headline" => $term_obj->hasField('field_resumo') ? htmlspecialchars_decode(strip_tags($term_obj->get('field_resumo')
           ->value)) : null];
       }
-    }
-    elseif ($variables['is_search']) {
+    } elseif ($variables['is_search']) {
       $block = Block::load($variables['elements']['#id']);
       $block = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $block->getPlugin()->getDerivativeId());
       $variables['breadcrumb'][] = ["text" => "Resultados de Busca", "url" => "", "headline" => $block ? strip_tags($block->body->value) : ''];
     }
-  }
-  elseif ($machine_name == 'tagcloud') {
+  } elseif ($machine_name == 'tagcloud') {
     $vocabulary_name = 'tags_conteudo';
     $query = \Drupal::entityQuery('taxonomy_term');
     $query->condition('vid', $vocabulary_name);
@@ -1658,11 +1689,9 @@ function casa_firjan_preprocess_block(&$variables) {
       $variables['taxonomies'][] = ['tid' => $tid, 'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $tid), 'name' => $term_obj
         ->name->value];
     }
-  }
-  elseif ($machine_name == 'bloconewsletter') {
+  } elseif ($machine_name == 'bloconewsletter') {
 
-  }
-  elseif ($machine_name == 'bannerhome') {
+  } elseif ($machine_name == 'bannerhome') {
     $nidsParaFiltrar = array();
 
     //banners
@@ -1713,8 +1742,10 @@ function casa_firjan_preprocess_block(&$variables) {
       ->info->value;
   }
 
-  if (isset($nodeObj) && $nodeObj
-    ->title->value == 'Home') {
+  if (
+    isset($nodeObj) && $nodeObj
+      ->title->value == 'Home'
+  ) {
     if ($nodeObj) {
       $node = $nodeObj->toArray();
 
@@ -1723,8 +1754,7 @@ function casa_firjan_preprocess_block(&$variables) {
 
         if ($idx == 0) {
           $style = '651x333';
-        }
-        else {
+        } else {
           $style = '190x190';
         }
 
@@ -1751,19 +1781,16 @@ function casa_firjan_preprocess_block(&$variables) {
               $tipo = 'video';
               $midia = GM5Util::getYoutubeImage(GM5Util::getYoutubeId($nd['field_video'][0]['value']));
               $destaqueItem['midia']['url'] = $nd['field_video'][0]['value'];
-            }
-            else if ($nd['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($nd['field_imagem'][0]['target_id'])) {
+            } else if ($nd['field_tipo_de_midia'][0]['value'] == 'imagem' && isset($nd['field_imagem'][0]['target_id'])) {
               $tipo = 'imagem';
               $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
             }
-          }
-          else if (!isset($nd['field_tipo_de_midia']) && isset($nd['field_imagem']) && !empty($nd['field_imagem'])) {
+          } else if (!isset($nd['field_tipo_de_midia']) && isset($nd['field_imagem']) && !empty($nd['field_imagem'])) {
             // Com imagem de destaque
             $tipo = 'imagem';
             $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
 
-          }
-          else if (isset($nd['field_thumb']) && !empty($nd['field_thumb'])) {
+          } else if (isset($nd['field_thumb']) && !empty($nd['field_thumb'])) {
             //Com thumb
             $tipo = 'imagem';
             $midia = GM5File::renderImage($nd['field_thumb'][0]['target_id'], $style);
@@ -1771,9 +1798,11 @@ function casa_firjan_preprocess_block(&$variables) {
 
           //Autor e data
           $autor_data = array();
-          if (isset($ndObj
-            ->field_autor
-            ->entity)) {
+          if (
+            isset($ndObj
+              ->field_autor
+              ->entity)
+          ) {
             $autor = $ndObj
               ->field_autor
               ->entity
@@ -1783,9 +1812,11 @@ function casa_firjan_preprocess_block(&$variables) {
           }
           $autor_data[] = ' em ' . date('d/m/Y', $nd['created']['0']['value']);
           $destaqueItem['autor_data'] = implode(' ', $autor_data);
-          if (isset($ndObj
-            ->field_categoria
-            ->entity)) {
+          if (
+            isset($ndObj
+              ->field_categoria
+              ->entity)
+          ) {
             //Categoria
             $categoria = $ndObj
               ->field_categoria
@@ -1799,8 +1830,7 @@ function casa_firjan_preprocess_block(&$variables) {
             $destaqueItem['midia']['tipo'] = $tipo;
 
             $variables['customPage']['destaques'][] = $destaqueItem;
-          }
-          else if ($nd['type'][0]['target_id'] == 'noticia') {
+          } else if ($nd['type'][0]['target_id'] == 'noticia') {
             //Categoria
             $destaqueItem['categoria']['label'] = 'Notícia';
             $destaqueItem['categoria']['url'] = '/noticias';
@@ -1808,11 +1838,9 @@ function casa_firjan_preprocess_block(&$variables) {
             //Mídia
             if (isset($nd['field_thumb'][0]['target_id'])) {
               $midia = GM5File::renderImage($nd['field_thumb'][0]['target_id'], $style);
-            }
-            else if (!empty($nd['field_imagem'])) {
+            } else if (!empty($nd['field_imagem'])) {
               $midia = GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style);
-            }
-            else {
+            } else {
               $field_info = FieldConfig::loadByName('node', 'noticia', 'field_thumb');
               $image_uuid = $field_info->getSetting('default_image')['uuid'];
               $image = Drupal::service('entity.repository')->loadEntityByUuid('file', $image_uuid);
@@ -1824,8 +1852,7 @@ function casa_firjan_preprocess_block(&$variables) {
             $destaqueItem['midia']['tipo'] = 'imagem';
 
             $variables['customPage']['destaques'][] = $destaqueItem;
-          }
-          else if ($nd['type'][0]['target_id'] == 'agenda') {
+          } else if ($nd['type'][0]['target_id'] == 'agenda') {
             //Categoria
             $destaqueItem['categoria']['label'] = 'Evento';
             $destaqueItem['categoria']['url'] = '/agenda';
@@ -1835,8 +1862,7 @@ function casa_firjan_preprocess_block(&$variables) {
             $destaqueItem['midia']['tipo'] = 'imagem';
 
             $variables['customPage']['destaques'][] = $destaqueItem;
-          }
-          else if ($nd['type'][0]['target_id'] == 'curso') {
+          } else if ($nd['type'][0]['target_id'] == 'curso') {
             //Categoria
             $destaqueItem['categoria']['label'] = 'Cursos';
             $destaqueItem['categoria']['url'] = '/lab-educacao/cursos';
@@ -1846,8 +1872,7 @@ function casa_firjan_preprocess_block(&$variables) {
             $destaqueItem['midia']['tipo'] = 'imagem';
 
             $variables['customPage']['destaques'][] = $destaqueItem;
-          }
-          else {
+          } else {
             $destaqueItem['midia']['src'] = !empty($nd['field_imagem']) ? GM5File::renderImage($nd['field_imagem'][0]['target_id'], $style) : \Drupal::request()->getSchemeAndHttpHost() . '/themes/casa_firjan/statics/img/thumb-padrao.jpg';
             $destaqueItem['midia']['tipo'] = 'imagem';
             $variables['customPage']['destaques'][] = $destaqueItem;
@@ -1925,8 +1950,10 @@ function casa_firjan_preprocess_block(&$variables) {
       foreach ($eventos as $k => $evento) {
         $eventoItem = array();
 
-        if ($evento->get('field_ciclo_tematico')
-          ->entity) {
+        if (
+          $evento->get('field_ciclo_tematico')
+            ->entity
+        ) {
           $eventoItem['cicloLabel'] = $evento->get('field_ciclo_tematico')
             ->entity
             ->toArray()['name'][0]['value'];
@@ -1998,7 +2025,8 @@ function casa_firjan_preprocess_block(&$variables) {
   }
 }
 
-function casa_firjan_get_parent_menu_title() {
+function casa_firjan_get_parent_menu_title()
+{
   $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
 
   $node_id = \Drupal::routeMatch()->getRawParameter('node');
@@ -2007,8 +2035,7 @@ function casa_firjan_get_parent_menu_title() {
     $menu_link = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array(
       'node' => $node_id
     ));
-  }
-  else {
+  } else {
     return '';
   }
 
@@ -2026,7 +2053,8 @@ function casa_firjan_get_parent_menu_title() {
   return '';
 }
 
-function casa_firjan_preprocess_breadcrumb(&$variables) {
+function casa_firjan_preprocess_breadcrumb(&$variables)
+{
   $node = \Drupal::routeMatch()->getParameter('node');
   if ($node->field_headline) {
     $variables['field_headline'] = $node
@@ -2043,13 +2071,15 @@ function casa_firjan_preprocess_breadcrumb(&$variables) {
   }
 }
 
-function casa_firjan_preprocess(&$variables) {
+function casa_firjan_preprocess(&$variables)
+{
   $handler = \Drupal::service('theme_handler');
   $variables['directory'] = $handler->getTheme('casa_firjan')
     ->getPath();
 }
 
-function casa_firjan_preprocess_menu(&$variables, $hook) {
+function casa_firjan_preprocess_menu(&$variables, $hook)
+{
   if ($hook == 'menu__menu_principal') {
     $current_path = \Drupal::request()->getRequestUri();
     foreach ($variables['items'] as &$item) {
@@ -2063,13 +2093,15 @@ function casa_firjan_preprocess_menu(&$variables, $hook) {
   }
 }
 
-function casa_firjan_preprocess_status_messages(&$variables) {
+function casa_firjan_preprocess_status_messages(&$variables)
+{
   if (isset($variables['message_list']['error']) && count($variables['message_list']['error']) > 0) {
     $variables['message_list']['error'] = NULL;
   }
 }
 
-function casa_firjan_preprocess_page__taxonomy(&$variables, &$nidsParaFiltrar, $categorias = array()) {
+function casa_firjan_preprocess_page__taxonomy(&$variables, &$nidsParaFiltrar, $categorias = array())
+{
   $term = \Drupal::request()
     ->attributes
     ->get('taxonomy_term');
@@ -2126,8 +2158,7 @@ function casa_firjan_preprocess_page__taxonomy(&$variables, &$nidsParaFiltrar, $
 
         if (isset($child['field_imagem'][0]['target_id']) && !empty($child['field_imagem'][0]['target_id'])) {
           $imagem = GM5File::renderImage($child['field_imagem'][0]['target_id'], '640x450');
-        }
-        else {
+        } else {
           $imagem = $variables['customPage']['system']['staticPath'] . 'img/def_640x450.jpg';
         }
         $subprogramaTemp['imagem'] = $imagem;
@@ -2146,8 +2177,7 @@ function casa_firjan_preprocess_page__taxonomy(&$variables, &$nidsParaFiltrar, $
     if ($bundle == 'landing_page') {
       casa_firjan_process_destaque_tags($variables, $nidsParaFiltrar, $categoriasNids);
       casa_firjan_process_leia_mais_tags($variables, $nidsParaFiltrar, $categoriasNids);
-    }
-    else {
+    } else {
       casa_firjan_process_destaque($variables, $nidsParaFiltrar, $categoriasNids);
       casa_firjan_process_leia_mais($variables, $nidsParaFiltrar, $categoriasNids);
     }
@@ -2205,7 +2235,8 @@ function casa_firjan_preprocess_page__taxonomy(&$variables, &$nidsParaFiltrar, $
 // function casa_firjan_preprocess_page__agenda(&$variables) {
 //   dump($variables);
 // }
-function casa_firjan_preprocess_views_view_fullcalendar(&$variables) {
+function casa_firjan_preprocess_views_view_fullcalendar(&$variables)
+{
   $nids = \Drupal::entityQuery('node')->condition('type', 'agenda')
     ->execute();
   $eventos = array_reverse(\Drupal\node\Entity\Node::loadMultiple($nids));
@@ -2215,8 +2246,10 @@ function casa_firjan_preprocess_views_view_fullcalendar(&$variables) {
   foreach ($eventos as $k => $evento) {
     $eventoItem = array();
 
-    if ($evento->get('field_ciclo_tematico')
-      ->entity) {
+    if (
+      $evento->get('field_ciclo_tematico')
+        ->entity
+    ) {
       $eventoItem['cicloLabel'] = $evento->get('field_ciclo_tematico')
         ->entity
         ->toArray()['name'][0]['value'];
@@ -2271,7 +2304,8 @@ function casa_firjan_preprocess_views_view_fullcalendar(&$variables) {
   }
 }
 
-function casa_firjan_views_pre_render(ViewExecutable $view) {
+function casa_firjan_views_pre_render(ViewExecutable $view)
+{
   if ($view->id() == 'search') {
     $results = $view->result;
 
@@ -2290,7 +2324,8 @@ function casa_firjan_views_pre_render(ViewExecutable $view) {
   }
 }
 
-function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) {
+function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables)
+{
 
   $view = explode('.', \Drupal::routeMatch()->getRouteName());
 
@@ -2345,15 +2380,15 @@ function casa_firjan_preprocess_views_exposed_form__search__page_1(&$variables) 
     if (count($result)) {
       if (count($nodes)) {
         $variables['form']['field_categoria']['#options'][$key] = $value . ' (' . count($nodes) . ')';
-      }
-      else {
+      } else {
         unset($variables['form']['field_categoria']['#options'][$key]);
       }
     }
   }
 }
 
-function casa_firjan_form_alter(&$form, $form_state, $form_id) {
+function casa_firjan_form_alter(&$form, $form_state, $form_id)
+{
   if ($form_id == 'webform_submission_newsletter_node_6_add_form') {
     // dump($form['elements']['aceite_termos_de_uso']);
   }
@@ -2363,40 +2398,41 @@ function casa_firjan_form_alter(&$form, $form_state, $form_id) {
 
 function casa_firjan_form_system_theme_settings_alter(&$form, FormStateInterface $form_state)
 {
-    $form['ogg_image'] = array(
-        '#type' => 'managed_file',
-        '#upload_location' => 'public://',
-        '#title' => t('Social Thumbnail'),
-        '#default_value' => theme_get_setting('ogg_image'),
-    );  
+  $form['ogg_image'] = array(
+    '#type' => 'managed_file',
+    '#upload_location' => 'public://',
+    '#title' => t('Social Thumbnail'),
+    '#default_value' => theme_get_setting('ogg_image'),
+  );
 }
 
-function casa_firjan_form_system_theme_settings_validate(&$form, FormStateInterface $form_state) { 
+function casa_firjan_form_system_theme_settings_validate(&$form, FormStateInterface $form_state)
+{
 
-    $form_state->getValues();
+  $form_state->getValues();
 
-    $ogg_image = file_save_upload('ogg_image');
+  $ogg_image = file_save_upload('ogg_image');
 
-    if (isset($ogg_image)) {
-      if ($ogg_image) {
-        $values['ogg_image_upload'] = $ogg_image;
-      }
-      else {
-        form_set_error('ogg_image', t('The file cannot be uploaded.'));
-      }
-    }   
+  if (isset($ogg_image)) {
+    if ($ogg_image) {
+      $values['ogg_image_upload'] = $ogg_image;
+    } else {
+      form_set_error('ogg_image', t('The file cannot be uploaded.'));
+    }
+  }
 }
 
-function casa_firjan_form_system_theme_settings_submit(&$form, FormStateInterface $form_state) {
-    $termos = reset($form_state->getValue('termos'));
-    $termos = \Drupal\file\Entity\File::load($termos);
+function casa_firjan_form_system_theme_settings_submit(&$form, FormStateInterface $form_state)
+{
+  $termos = reset($form_state->getValue('termos'));
+  $termos = \Drupal\file\Entity\File::load($termos);
 
-    $ogg_image = reset($form_state->getValue('ogg_image'));
-    $ogg_image = \Drupal\file\Entity\File::load($ogg_image);
-    
-    if($ogg_image) {
-        $ogg_image->setPermanent();
-        $ogg_image->status = FILE_STATUS_PERMANENT;
-        $ogg_image->save();      
-    }   
+  $ogg_image = reset($form_state->getValue('ogg_image'));
+  $ogg_image = \Drupal\file\Entity\File::load($ogg_image);
+
+  if ($ogg_image) {
+    $ogg_image->setPermanent();
+    $ogg_image->status = FILE_STATUS_PERMANENT;
+    $ogg_image->save();
+  }
 }

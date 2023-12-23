@@ -1,0 +1,29 @@
+uuid: 3dc2a2f3-31fa-4fa7-b25f-91e50e8a6a42
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_modalidade_de_curso
+    - node.type.curso
+    - taxonomy.vocabulary.modalidade_de_curso
+id: node.curso.field_modalidade_de_curso
+field_name: field_modalidade_de_curso
+entity_type: node
+bundle: curso
+label: 'Modalidade de Curso'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      modalidade_de_curso: modalidade_de_curso
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

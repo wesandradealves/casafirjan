@@ -28,7 +28,10 @@
         "drupal/block_content_suggestions": "^1.0",
         "drupal/bulkdelete": "1.x-dev@dev",
         "drupal/calendar": "^1.0@alpha",
+        "drupal/ckeditor": "^1.0",
+        "drupal/ckeditor5_font": "^1.1@beta",
         "drupal/color_field": "3.0",
+        "drupal/colorbutton": "^1.5",
         "drupal/conditional_fields": "^4.0@alpha",
         "drupal/core-composer-scaffold": "^9",
         "drupal/core-project-message": "^9",
@@ -181,6 +184,9 @@
         },
         "enable-patching": "true",
         "patches": {
+            "drupal/ckeditor5_font": {
+              "https://www.drupal.org/project/ckeditor5_font/issues/3350333": "https://www.drupal.org/files/issues/2023-04-21/3350333-5.patch"
+            },
             "drupal/conditional_fields_tab_route_does_not_exist_anymore": {
                 "Working for 8.4?": "https://www.drupal.org/files/issues/2020-06-30/conditional_fields-conditional_fields_tab_route_does_not_exist_anymore-3155890-d8-2.patch"
             },            

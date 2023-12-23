@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.curso.field_id_shopify
     - field.field.node.curso.field_link_para_compra
     - field.field.node.curso.field_loja
+    - field.field.node.curso.field_modalidade_de_curso
     - field.field.node.curso.field_online
     - field.field.node.curso.field_preco
     - field.field.node.curso.field_programa_subprograma
@@ -134,6 +135,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 16
+    region: content
+  field_modalidade_de_curso:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 19
     region: content
   field_preco:
     type: number_decimal

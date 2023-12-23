@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.curso.field_id_shopify
     - field.field.node.curso.field_link_para_compra
     - field.field.node.curso.field_loja
+    - field.field.node.curso.field_modalidade_de_curso
     - field.field.node.curso.field_online
     - field.field.node.curso.field_preco
     - field.field.node.curso.field_programa_subprograma
@@ -52,6 +53,7 @@ hidden:
   field_id_shopify: true
   field_link_para_compra: true
   field_loja: true
+  field_modalidade_de_curso: true
   field_online: true
   field_preco: true
   field_programa_subprograma: true
